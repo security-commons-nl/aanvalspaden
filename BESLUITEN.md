@@ -29,3 +29,28 @@ Append-only. Datum, besluit, één zin onderbouwing.
   iets anders, dan is dat een hernoeming van de repo en van de titels; `paden.json` blijft ongewijzigd.
 - **Maintainer-rol** voor de inbrenger van de zelfcheck op deze repo (handeling in GitHub, door een
   org-owner).
+
+## 28-08-2026 — De bron dekt alle vragen van de zelfcheck
+
+Een doorloop van de gecompileerde zelfcheck met echte antwoorden (alle 44 vragen, gemengd patroon) legde
+twee gaten bloot in de omzetting naar `paden.json`:
+
+1. Achttien velden hielden een niet-gedecodeerde escape over uit de JavaScript-bundel, waardoor woorden als
+   "één" en "beïnvloeden" verminkt in de bron stonden. Opgelost in `tools/uit_zelfcheck.py`; een test
+   bewaakt nu dat er geen escape meer in de bron staat.
+2. Er waren 43 vragen gevonden waar de app er 44 stelt. De ontbrekende vraag (24/7 opvolging van kritieke
+   meldingen) hoort bij geen enkel pad: hij weegt over de hele beoordeling mee. Daarom heeft de bron nu een
+   `randvoorwaarden`-lijst naast de bladeren, met `werking` als uitleg waarom hij apart staat. `alle_vragen()`
+   geeft precies 44.
+
+**Waarom dit telt:** de bron is alleen bruikbaar als hij de app volledig dekt. Een vraag die stil wegvalt,
+valt ook weg uit de risicoanalyse en de meting.
+
+## 28-08-2026 — Diepte 2 landt op dezelfde chokepoints
+
+De 37 checklist-items van `security-posture-tool` dragen nu een `pad` en een `chokepoint` uit `paden.json`
+(tabel in `paden_map.py`). Drie items blijven bewust ongekoppeld, met reden vastgelegd: verantwoording aan
+het bestuur, normconformiteit en AI-egressbeleid zijn geen barriere in een aanvalspad.
+
+**Waarom dit telt:** hiermee is de keten rond. Een meting daar is het bewijs voor een cel hier, in plaats
+van een tweede lijst die zijn eigen leven leidt.
