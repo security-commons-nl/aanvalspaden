@@ -68,6 +68,11 @@ paden.chokepoint("AP01-1")
 | `tools/` | Schema, helpers, en het script waarmee de bron uit de zelfcheck is gehaald |
 | `tests/` | Validatie van de bron en van de repo-structuur |
 
+Diepte 2 (de meting) woont voorlopig in
+[security-posture-tool](https://github.com/security-commons-nl/security-posture-tool). Daar draagt elk
+checklist-item een `pad` en een `chokepoint` uit deze bron, zodat een meting daar het bewijs is voor een cel
+hier. De repo houdt een kopie van `paden.json` met een hash die bewaakt dat hij niet achterloopt.
+
 ## De methode, leesbaar
 
 De vier stappen met de lijn erbij, het papieren sjabloon en een ingevuld voorbeeld staan in de kennisbank:
