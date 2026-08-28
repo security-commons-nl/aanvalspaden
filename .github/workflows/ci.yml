@@ -1,0 +1,50 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  # De bron en de repo-structuur, via de herbruikbare org-workflow.
+  paden:
+    uses: security-commons-nl/.github/.github/workflows/python-ci.yml@main
+    with:
+      python-version: "3.12"
+      test-command: "python -m pytest tests/ -v"
+      install-extras: "pytest jsonschema"
+
+  # De app (diepte 0 en 1). Draait pas zodra check/ een package.json heeft; zolang de
+  # broncode van de zelfcheck ontbreekt, slaat deze job zichzelf over in plaats van rood
+  # te staan om iets dat er nog niet is.
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Is er al een app?
+        id: bestaat
+        run: |
+          if [ -f check/package.json ]; then
+            echo "ja=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "ja=false" >> "$GITHUB_OUTPUT"
+            echo "check/ is nog leeg; zie BESLUITEN.md (broncode zelfcheck)." >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+      - uses: actions/setup-node@v6
+        if: steps.bestaat.outputs.ja == 'true'
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: check/package-lock.json
+
+      - name: Tests en build
+        if: steps.bestaat.outputs.ja == 'true'
+        working-directory: check
+        run: |
+          npm ci
+          npx vitest run
+          npm run build
+          test -s dist/index.html

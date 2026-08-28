@@ -1,0 +1,1304 @@
+{
+  "versie": "2026-08",
+  "toelichting": "Eén bron voor de aanvalspaden van de publieke sector. Vijf clusters voor het overzicht, achttien bladeren voor het detail. Zelfcheck, risicoanalyse en meting lezen dit bestand; wijzig hier, niet in de code.",
+  "clusters": [
+    {
+      "id": "C1",
+      "titel": "Gecompromitteerd account",
+      "kern": "Phishing, adversary-in-the-middle, gestolen inloggegevens, misbruikte toestemming: de aanvaller logt in als de gebruiker.",
+      "bladeren": [
+        "AP01",
+        "AP02",
+        "AP03",
+        "AP04",
+        "AP06",
+        "AP07"
+      ]
+    },
+    {
+      "id": "C2",
+      "titel": "Werkplek via de gebruiker",
+      "kern": "De gebruiker voert zelf iets uit, of malware doet dat namens hem: van besmette werkplek naar verdere toegang.",
+      "bladeren": [
+        "AP08",
+        "AP09",
+        "AP10",
+        "AP11"
+      ]
+    },
+    {
+      "id": "C3",
+      "titel": "Kwetsbare internetgerichte dienst",
+      "kern": "Een dienst die vanaf internet bereikbaar is, wordt misbruikt of platgelegd: kwetsbaarheid, onbekende exposure, applicatiefout of overbelasting.",
+      "bladeren": [
+        "AP12",
+        "AP13",
+        "AP14",
+        "AP15",
+        "AP16"
+      ]
+    },
+    {
+      "id": "C4",
+      "titel": "Leverancier en keten",
+      "kern": "Een incident bij een leverancier of ketenpartner raakt de eigen dienstverlening.",
+      "bladeren": [
+        "AP18"
+      ]
+    },
+    {
+      "id": "C5",
+      "titel": "Misbruik van beheerrechten",
+      "kern": "Eenmaal binnen: van een gewoon account naar verhoogde rechten en beheerdomeinen.",
+      "bladeren": [
+        "AP05"
+      ]
+    }
+  ],
+  "bladeren": [
+    {
+      "id": "AP01",
+      "titel": "Phishing → accountovername",
+      "type": "pad",
+      "scenario": "Een aanvaller onderschept een login via een nagemaakte tussenpagina (AiTM).",
+      "chokepoints": [
+        {
+          "id": "AP01-1",
+          "titel": "Dwing phishingbestendige authenticatie af",
+          "vraag": {
+            "claim": "Wordt inloggen met passkeys of een gelijkwaardig sterke methode afgedwongen?",
+            "toelichting": "Bijvoorbeeld Entra Authentication Strength met FIDO2/passkeys of Windows Hello for Business. Controleer alle relevante apps, gebruikers en uitzonderingen.",
+            "telt_niet": "Beschikbaar stellen is niet genoeg. Zwakkere methoden mogen de eis niet kunnen omzeilen.",
+            "actie": "Dwing phishingbestendige authenticatie af."
+          },
+          "drp": [
+            "P"
+          ],
+          "bewijs": "Export of configuratie waaruit blijkt dat de maatregel technisch is afgedwongen, met de dekking en de uitzonderingen erbij."
+        },
+        {
+          "id": "AP01-2",
+          "titel": "Verwijder zwakke fallback- en herstelroutes",
+          "vraag": {
+            "claim": "Kunnen medewerkers nog via een zwakkere methode inloggen?",
+            "toelichting": "Denk aan push-MFA, number matching, sms of een eenmalige code. Ook herstelroutes en uitzonderingen tellen mee.",
+            "telt_niet": "Controleer fallback, registratie en accountherstel. Number matching voorkomt niet alle AiTM-phishing.",
+            "actie": "Verwijder zwakke fallback- en herstelroutes."
+          },
+          "drp": [
+            "P"
+          ],
+          "bewijs": "Export of configuratie waaruit blijkt dat de maatregel technisch is afgedwongen, met de dekking en de uitzonderingen erbij."
+        },
+        {
+          "id": "AP01-3",
+          "titel": "Test response op identity- en app-compromise",
+          "vraag": {
+            "claim": "Is er een werkende aanpak voor verdachte accounts en apps?",
+            "toelichting": "Verdachte toegang moet snel worden onderzocht en ingetrokken.",
+            "verificatie": "Identity-compromise-playbook; enterprise-app/consentmonitoring; sessies intrekken, accounts blokkeren en schadelijke apps verwijderen.",
+            "actie": "Test response op identity- en app-compromise."
+          },
+          "drp": [
+            "R"
+          ],
+          "bewijs": "Het playbook plus een oefen- of incidentverslag waaruit blijkt dat er binnen de afgesproken tijd is gehandeld."
+        }
+      ],
+      "bronnen": [],
+      "nuance": "Passkeys/FIDO2 zijn aan de echte website gebonden. Een zwakke fallback houdt de phishingroute open; sessiediefstal op een endpoint blijft apart beoordeeld."
+    },
+    {
+      "id": "AP02",
+      "titel": "Gestolen inloggegevens → accountovername",
+      "type": "pad",
+      "scenario": "Een aanvaller probeert buitgemaakte wachtwoorden te gebruiken.",
+      "chokepoints": [
+        {
+          "id": "AP02-1",
+          "titel": "Dwing phishingbestendige authenticatie af",
+          "vraag": {
+            "claim": "Wordt inloggen met passkeys of een gelijkwaardig sterke methode afgedwongen?",
+            "toelichting": "Bijvoorbeeld Entra Authentication Strength met FIDO2/passkeys of Windows Hello for Business. Controleer alle relevante apps, gebruikers en uitzonderingen.",
+            "telt_niet": "Beschikbaar stellen is niet genoeg. Zwakkere methoden mogen de eis niet kunnen omzeilen.",
+            "actie": "Dwing phishingbestendige authenticatie af."
+          },
+          "drp": [
+            "P"
+          ],
+          "bewijs": "Export of configuratie waaruit blijkt dat de maatregel technisch is afgedwongen, met de dekking en de uitzonderingen erbij."
+        },
+        {
+          "id": "AP02-2",
+          "titel": "Verwijder zwakke fallback- en herstelroutes",
+          "vraag": {
+            "claim": "Kunnen medewerkers nog via een zwakkere methode inloggen?",
+            "toelichting": "Denk aan push-MFA, number matching, sms of een eenmalige code. Ook herstelroutes en uitzonderingen tellen mee.",
+            "telt_niet": "Controleer fallback, registratie en accountherstel. Number matching voorkomt niet alle AiTM-phishing.",
+            "actie": "Verwijder zwakke fallback- en herstelroutes."
+          },
+          "drp": [
+            "P"
+          ],
+          "bewijs": "Export of configuratie waaruit blijkt dat de maatregel technisch is afgedwongen, met de dekking en de uitzonderingen erbij."
+        },
+        {
+          "id": "AP02-3",
+          "titel": "Blokkeer legacy authentication",
+          "vraag": {
+            "claim": "Zijn verouderde inlogmethoden technisch geblokkeerd?",
+            "toelichting": "Blokkeer legacy/basic authentication en onnodige protocollen, ook bij uitzonderingsaccounts.",
+            "telt_niet": "Dat niemand ze gebruikt, is niet voldoende: ze moeten uit staan.",
+            "actie": "Blokkeer legacy authentication."
+          },
+          "drp": [
+            "P"
+          ],
+          "bewijs": "Export of configuratie waaruit blijkt dat de maatregel technisch is afgedwongen, met de dekking en de uitzonderingen erbij."
+        },
+        {
+          "id": "AP02-4",
+          "titel": "Test response op identity- en app-compromise",
+          "vraag": {
+            "claim": "Is er een werkende aanpak voor verdachte accounts en apps?",
+            "toelichting": "Verdachte toegang moet snel worden onderzocht en ingetrokken.",
+            "verificatie": "Identity-compromise-playbook; enterprise-app/consentmonitoring; sessies intrekken, accounts blokkeren en schadelijke apps verwijderen.",
+            "actie": "Test response op identity- en app-compromise."
+          },
+          "drp": [
+            "R"
+          ],
+          "bewijs": "Het playbook plus een oefen- of incidentverslag waaruit blijkt dat er binnen de afgesproken tijd is gehandeld."
+        }
+      ],
+      "bronnen": [],
+      "nuance": "Blokkeer ook legacyprotocollen. Een onbekende of zwakke uitzondering kan de technische eis ondermijnen."
+    },
+    {
+      "id": "AP03",
+      "titel": "Apparaatcode-phishing → accounttoegang",
+      "type": "pad",
+      "scenario": "Een medewerker voert een code van een aanvaller in op een echte loginpagina.",
+      "chokepoints": [
+        {
+          "id": "AP03-1",
+          "titel": "Blokkeer Device Code Flow, behalve beheerde uitzonderingen",
+          "vraag": {
+            "claim": "Is inloggen via een apparaatcode standaard geblokkeerd?",
+            "toelichting": "Een aanvaller kan iemand verleiden een code in te voeren op een echte inlogpagina.",
+            "verificatie": "Blokkeer Device Code Flow standaard. Beperk noodzakelijke uitzonderingen expliciet tot het vereiste gebruik.",
+            "actie": "Blokkeer Device Code Flow, behalve beheerde uitzonderingen."
+          },
+          "drp": [
+            "P"
+          ],
+          "bewijs": "Export of configuratie waaruit blijkt dat de maatregel technisch is afgedwongen, met de dekking en de uitzonderingen erbij."
+        },
+        {
+          "id": "AP03-2",
+          "titel": "Test response op identity- en app-compromise",
+          "vraag": {
+            "claim": "Is er een werkende aanpak voor verdachte accounts en apps?",
+            "toelichting": "Verdachte toegang moet snel worden onderzocht en ingetrokken.",
+            "verificatie": "Identity-compromise-playbook; enterprise-app/consentmonitoring; sessies intrekken, accounts blokkeren en schadelijke apps verwijderen.",
+            "actie": "Test response op identity- en app-compromise."
+          },
+          "drp": [
+            "R"
+          ],
+          "bewijs": "Het playbook plus een oefen- of incidentverslag waaruit blijkt dat er binnen de afgesproken tijd is gehandeld."
+        }
+      ],
+      "bronnen": [],
+      "nuance": "Device Code Flow moet standaard geblokkeerd zijn. Alleen phishingbestendige MFA afdwingen sluit dit scenario niet af."
+    },
+    {
+      "id": "AP04",
+      "titel": "App-toestemming → ongewenste toegang",
+      "type": "pad",
+      "scenario": "Een app krijgt toegang tot gegevens en kan die toegang blijven gebruiken.",
+      "chokepoints": [
+        {
+          "id": "AP04-1",
+          "titel": "Beperk app-toestemming en richt gecontroleerde admin consent in",
+          "vraag": {
+            "claim": "Is toestemming geven aan apps beperkt en gecontroleerd?",
+            "toelichting": "Medewerkers mogen niet zomaar apps toegang geven tot gegevens van de organisatie.",
+            "verificatie": "Beperk user consent en risicovolle scopes; gebruik een beheerst admin-consentproces met eigenaar en periodieke review.",
+            "actie": "Beperk app-toestemming en richt gecontroleerde admin consent in."
+          },
+          "drp": [
+            "P"
+          ],
+          "bewijs": "Export of configuratie waaruit blijkt dat de maatregel technisch is afgedwongen, met de dekking en de uitzonderingen erbij."
+        },
+        {
+          "id": "AP04-2",
+          "titel": "Test response op identity- en app-compromise",
+          "vraag": {
+            "claim": "Is er een werkende aanpak voor verdachte accounts en apps?",
+            "toelichting": "Verdachte toegang moet snel worden onderzocht en ingetrokken.",
+            "verificatie": "Identity-compromise-playbook; enterprise-app/consentmonitoring; sessies intrekken, accounts blokkeren en schadelijke apps verwijderen.",
+            "actie": "Test response op identity- en app-compromise."
+          },
+          "drp": [
+            "R"
+          ],
+          "bewijs": "Het playbook plus een oefen- of incidentverslag waaruit blijkt dat er binnen de afgesproken tijd is gehandeld."
+        }
+      ],
+      "bronnen": [],
+      "nuance": "Beperk user consent en beoordeel admin consent. Monitor nieuwe enterprise applications en risicovolle scopes."
+    },
+    {
+      "id": "AP05",
+      "titel": "Gewone toegang → beheerrechten",
+      "type": "pad",
+      "scenario": "Een aanvaller probeert vanuit een normale sessie verhoogde rechten te verkrijgen.",
+      "chokepoints": [
+        {
+          "id": "AP05-1",
+          "titel": "Scheid privileged access technisch van dagelijks gebruik",
+          "vraag": {
+            "claim": "Hoe zijn beheerrechten afgeschermd van dagelijks gebruik?",
+            "toelichting": "Kies de inrichting die werkelijk wordt afgedwongen, niet alleen wat op papier staat.",
+            "verificatie": "Een apart beheeraccount op hetzelfde normale device biedt op zichzelf onvoldoende scheiding. Model A heeft de sterkste werkplekscheiding; model B blijft afhankelijk van de veiligheid van het dagelijkse device.",
+            "actie": "Scheid privileged access technisch van dagelijks gebruik."
+          },
+          "drp": [
+            "P"
+          ],
+          "bewijs": "Export of configuratie waaruit blijkt dat de maatregel technisch is afgedwongen, met de dekking en de uitzonderingen erbij."
+        },
+        {
+          "id": "AP05-2",
+          "titel": "Hard de beheerwerkplek en dwing de toegestane toegang af",
+          "vraag": {
+            "claim": "Voldoet de beheerwerkplek aan alle vereiste beveiliging?",
+            "toelichting": "Model A: apart gehard beheerdevice \\xE9n aparte beheeridentity, zonder dagelijks mailen of browsen. Model B: centraal beheerd en compliant, zwaar gehard, geen lokale admin, EDR en ASR actief.",
+            "telt_niet": "Ook toegang technisch beperken tot die werkplek. Een verklaring dat het apparaat “veilig” is, is geen bewijs van configuratie of dekking.",
+            "actie": "Hard de beheerwerkplek en dwing de toegestane toegang af."
+          },
+          "drp": [
+            "P"
+          ],
+          "bewijs": "Export of configuratie waaruit blijkt dat de maatregel technisch is afgedwongen, met de dekking en de uitzonderingen erbij."
+        },
+        {
+          "id": "AP05-3",
+          "titel": "Verwijder permanente rollen en gebruik PIM/JIT",
+          "vraag": {
+            "claim": "Zijn beheerrechten standaard uit en alleen tijdelijk te activeren?",
+            "toelichting": "Geen permanente beheerdersrollen; activering is tijdelijk en doelgebonden.",
+            "verificatie": "Bijvoorbeeld PIM/JIT of gelijkwaardig. Beheers noodaccounts afzonderlijk en monitor ieder gebruik.",
+            "actie": "Verwijder permanente rollen en gebruik PIM/JIT."
+          },
+          "drp": [
+            "P"
+          ],
+          "bewijs": "Export of configuratie waaruit blijkt dat de maatregel technisch is afgedwongen, met de dekking en de uitzonderingen erbij."
+        },
+        {
+          "id": "AP05-4",
+          "titel": "Dwing herauthenticatie af bij privileged elevation",
+          "vraag": {
+            "claim": "Vereist activering opnieuw phishingbestendige authenticatie?",
+            "toelichting": "Gebruik een passende authentication context/sterkte voor elevation. Controleer in een test dat een bestaande reguliere sessie de eis niet stilzwijgend vervult.",
+            "telt_niet": "De normale gebruikerssessie mag niet automatisch voldoende zijn om beheerrechten te activeren.",
+            "actie": "Dwing herauthenticatie af bij privileged elevation."
+          },
+          "drp": [
+            "P"
+          ],
+          "bewijs": "Export of configuratie waaruit blijkt dat de maatregel technisch is afgedwongen, met de dekking en de uitzonderingen erbij."
+        },
+        {
+          "id": "AP05-5",
+          "titel": "Vereis een aparte fysieke FIDO2-key voor elevation",
+          "vraag": {
+            "claim": "Is een aparte fysieke FIDO2-key verplicht voor beheeractivering?",
+            "toelichting": "Niet alleen dezelfde passkey waarmee de gewone werkdag wordt gestart.",
+            "verificatie": "Dwing de aparte hardwarefactor technisch af voor kritieke beheerders; beperk registratie en herstel. Alleen bezit van een extra key is onvoldoende.",
+            "actie": "Vereis een aparte fysieke FIDO2-key voor elevation."
+          },
+          "drp": [
+            "P"
+          ],
+          "bewijs": "Export of configuratie waaruit blijkt dat de maatregel technisch is afgedwongen, met de dekking en de uitzonderingen erbij."
+        },
+        {
+          "id": "AP05-6",
+          "titel": "Monitor privileged activiteiten en rolwijzigingen",
+          "vraag": {
+            "claim": "Worden activering en gebruik van beheerrechten actief bewaakt?",
+            "toelichting": "Verdachte beheerdersacties worden onderzocht en zo nodig gestopt.",
+            "verificatie": "Log PIM-activering, rolwijzigingen en privileged activiteiten; test alerting en escalatie.",
+            "actie": "Monitor privileged activiteiten en rolwijzigingen."
+          },
+          "drp": [
+            "D"
+          ],
+          "bewijs": "De actieve detectieregel of het dashboard, plus een verslag van een test waaruit blijkt dat het signaal ook echt binnenkomt."
+        }
+      ],
+      "bronnen": [],
+      "nuance": "Model A en volledig model B kunnen sterk beheerst zijn. Malware op een beheerdevice kan een actieve beheersessie misbruiken; AP09–AP11 en AP07 blijven afzonderlijke risico’s. PIM en een aparte key sluiten dat niet uit."
+    },
+    {
+      "id": "AP06",
+      "titel": "Gestolen identity → onbeheerde laptop",
+      "type": "pad",
+      "scenario": "Een aanvaller probeert vanaf een eigen apparaat gegevens te benaderen.",
+      "chokepoints": [
+        {
+          "id": "AP06-1",
+          "titel": "Dwing toegang vanaf beheerde, compliant laptops af",
+          "vraag": {
+            "claim": "Kan informatie van de organisatie vanaf een willekeurige onbeheerde laptop worden benaderd?",
+            "toelichting": "Bijvoorbeeld Conditional Access met compliant-device-eis. Beoordeel alle toegangsroutes; mobiele MAM-toegang vraagt een eigen passende inrichting.",
+            "telt_niet": "Een wachtwoord of passkey alleen zegt niets over de veiligheid van de laptop.",
+            "actie": "Dwing toegang vanaf beheerde, compliant laptops af."
+          },
+          "drp": [
+            "P"
+          ],
+          "bewijs": "Export of configuratie waaruit blijkt dat de maatregel technisch is afgedwongen, met de dekking en de uitzonderingen erbij."
+        },
+        {
+          "id": "AP06-2",
+          "titel": "Test response op identity- en app-compromise",
+          "vraag": {
+            "claim": "Is er een werkende aanpak voor verdachte accounts en apps?",
+            "toelichting": "Verdachte toegang moet snel worden onderzocht en ingetrokken.",
+            "verificatie": "Identity-compromise-playbook; enterprise-app/consentmonitoring; sessies intrekken, accounts blokkeren en schadelijke apps verwijderen.",
+            "actie": "Test response op identity- en app-compromise."
+          },
+          "drp": [
+            "R"
+          ],
+          "bewijs": "Het playbook plus een oefen- of incidentverslag waaruit blijkt dat er binnen de afgesproken tijd is gehandeld."
+        }
+      ],
+      "bronnen": [],
+      "nuance": "Dwing apparaatvoorwaarden technisch af op alle relevante toegangsroutes. Een passkey alleen geeft geen apparaatvertrouwen."
+    },
+    {
+      "id": "AP07",
+      "titel": "Gestolen sessie → misbruik",
+      "type": "pad",
+      "scenario": "Een aanvaller gebruikt een al ingelogde sessie of een token.",
+      "chokepoints": [
+        {
+          "id": "AP07-1",
+          "titel": "Beperk tokenmisbruik met apparaatbinding en sessiebeleid",
+          "vraag": {
+            "claim": "Wordt misbruik van gestolen sessies technisch beperkt?",
+            "toelichting": "Ook na een sterke login kan malware een actieve sessie of token stelen.",
+            "verificatie": "Pas waar ondersteund token protection/device binding, beperkte sessieduur en herbeoordeling van toegang toe. Beoordeel dekking \\xE9n uitzonderingen; passkeys alleen beschermen niet tegen token theft.",
+            "actie": "Beperk tokenmisbruik met apparaatbinding en sessiebeleid."
+          },
+          "drp": [
+            "P"
+          ],
+          "bewijs": "Export of configuratie waaruit blijkt dat de maatregel technisch is afgedwongen, met de dekking en de uitzonderingen erbij."
+        },
+        {
+          "id": "AP07-2",
+          "titel": "Beperk software- en scriptuitvoering met application control en ASR",
+          "vraag": {
+            "claim": "Wordt het uitvoeren van onbekende software en scripts beperkt?",
+            "toelichting": "Stel dat iemand t\\xF3ch een kwaadaardig commando plakt: wat kan er dan draaien?",
+            "telt_niet": "Application control, relevante ASR-regels, beperking van PowerShell/scriptmisbruik. Alleen logging of detectiemodus telt niet als blokkeren.",
+            "actie": "Beperk software- en scriptuitvoering met application control en ASR."
+          },
+          "drp": [
+            "P"
+          ],
+          "bewijs": "Export of configuratie waaruit blijkt dat de maatregel technisch is afgedwongen, met de dekking en de uitzonderingen erbij."
+        },
+        {
+          "id": "AP07-3",
+          "titel": "Hard browsers en beperk extensies en gegevensdragers",
+          "vraag": {
+            "claim": "Zijn browser en gegevensdragers centraal beperkt?",
+            "toelichting": "Ongewenste extensies en risicovol gebruik van USB of andere media worden tegengehouden.",
+            "verificatie": "Centrale browserhardening, extensie-allowlist en risicogestuurd removable-media-beleid.",
+            "actie": "Hard browsers en beperk extensies en gegevensdragers."
+          },
+          "drp": [
+            "P"
+          ],
+          "bewijs": "Export of configuratie waaruit blijkt dat de maatregel technisch is afgedwongen, met de dekking en de uitzonderingen erbij."
+        },
+        {
+          "id": "AP07-4",
+          "titel": "Test response op identity- en app-compromise",
+          "vraag": {
+            "claim": "Is er een werkende aanpak voor verdachte accounts en apps?",
+            "toelichting": "Verdachte toegang moet snel worden onderzocht en ingetrokken.",
+            "verificatie": "Identity-compromise-playbook; enterprise-app/consentmonitoring; sessies intrekken, accounts blokkeren en schadelijke apps verwijderen.",
+            "actie": "Test response op identity- en app-compromise."
+          },
+          "drp": [
+            "R"
+          ],
+          "bewijs": "Het playbook plus een oefen- of incidentverslag waaruit blijkt dat er binnen de afgesproken tijd is gehandeld."
+        },
+        {
+          "id": "AP07-5",
+          "titel": "Borg EDR, tamper protection en snelle endpointisolatie",
+          "vraag": {
+            "claim": "Zijn endpoints bewaakt en kunnen ze snel worden ge\\xEFsoleerd?",
+            "toelichting": "Endpointbeveiliging is actief en medewerkers kunnen deze niet zelf uitschakelen.",
+            "verificatie": "EDR op alle beheerde endpoints, tamper protection, bewaakte dekking, geteste isolatie en een malware/infostealer/ClickFix-playbook.",
+            "actie": "Borg EDR, tamper protection en snelle endpointisolatie."
+          },
+          "drp": [
+            "R"
+          ],
+          "bewijs": "Het playbook plus een oefen- of incidentverslag waaruit blijkt dat er binnen de afgesproken tijd is gehandeld."
+        }
+      ],
+      "bronnen": [],
+      "nuance": "Tokenbinding en sessiebeleid beperken misbruik waar ondersteund. Niet alle apps/tokens ondersteunen dit; misbruik op hetzelfde apparaat blijft mogelijk. Daarom maximaal beperkt risico in deze zelfcheck."
+    },
+    {
+      "id": "AP08",
+      "titel": "Phishing / BEC → fraude of datalek",
+      "type": "pad",
+      "scenario": "Misleidende e-mail leidt tot betaling, gegevensdeling of accountmisbruik.",
+      "chokepoints": [
+        {
+          "id": "AP08-1",
+          "titel": "Dwing een sterke e-mailbaseline af met link-, bijlage- en impersonatiebescherming",
+          "vraag": {
+            "claim": "Is e-mailbeveiliging actief en aantoonbaar goed ingesteld?",
+            "toelichting": "Defender for Office 365 Standard/Strict of gelijkwaardig; Safe Links/time-of-click, Safe Attachments, anti-phishing en impersonation protection.",
+            "telt_niet": "Een licentie alleen telt niet. Links, bijlagen en imitatie van personen moeten worden gecontroleerd.",
+            "actie": "Dwing een sterke e-mailbaseline af met link-, bijlage- en impersonatiebescherming."
+          },
+          "drp": [
+            "P"
+          ],
+          "bewijs": "Export of configuratie waaruit blijkt dat de maatregel technisch is afgedwongen, met de dekking en de uitzonderingen erbij."
+        },
+        {
+          "id": "AP08-2",
+          "titel": "Richt SPF, DKIM en DMARC-handhaving volledig in",
+          "vraag": {
+            "claim": "Zijn SPF, DKIM en DMARC met handhaving ingericht?",
+            "toelichting": "Mail die de controles niet haalt, wordt in quarantaine gezet of geweigerd.",
+            "verificatie": "SPF en DKIM alignment; DMARC p=quarantine/reject met passende dekking. Dit stopt niet alle BEC, lookalike-domeinen of misbruik van echte accounts.",
+            "actie": "Richt SPF, DKIM en DMARC-handhaving volledig in."
+          },
+          "drp": [
+            "P"
+          ],
+          "bewijs": "Export of configuratie waaruit blijkt dat de maatregel technisch is afgedwongen, met de dekking en de uitzonderingen erbij."
+        },
+        {
+          "id": "AP08-3",
+          "titel": "Dwing phishingbestendige authenticatie af",
+          "vraag": {
+            "claim": "Wordt inloggen met passkeys of een gelijkwaardig sterke methode afgedwongen?",
+            "toelichting": "Bijvoorbeeld Entra Authentication Strength met FIDO2/passkeys of Windows Hello for Business. Controleer alle relevante apps, gebruikers en uitzonderingen.",
+            "telt_niet": "Beschikbaar stellen is niet genoeg. Zwakkere methoden mogen de eis niet kunnen omzeilen.",
+            "actie": "Dwing phishingbestendige authenticatie af."
+          },
+          "drp": [
+            "P"
+          ],
+          "bewijs": "Export of configuratie waaruit blijkt dat de maatregel technisch is afgedwongen, met de dekking en de uitzonderingen erbij."
+        },
+        {
+          "id": "AP08-4",
+          "titel": "Verwijder zwakke fallback- en herstelroutes",
+          "vraag": {
+            "claim": "Kunnen medewerkers nog via een zwakkere methode inloggen?",
+            "toelichting": "Denk aan push-MFA, number matching, sms of een eenmalige code. Ook herstelroutes en uitzonderingen tellen mee.",
+            "telt_niet": "Controleer fallback, registratie en accountherstel. Number matching voorkomt niet alle AiTM-phishing.",
+            "actie": "Verwijder zwakke fallback- en herstelroutes."
+          },
+          "drp": [
+            "P"
+          ],
+          "bewijs": "Export of configuratie waaruit blijkt dat de maatregel technisch is afgedwongen, met de dekking en de uitzonderingen erbij."
+        },
+        {
+          "id": "AP08-5",
+          "titel": "Test mail-remediation en het phishing/BEC-playbook",
+          "vraag": {
+            "claim": "Kunnen kwaadaardige mails achteraf worden verwijderd en fraude worden gestopt?",
+            "toelichting": "Er is een werkende aanpak voor phishing en misbruik van zakelijke e-mail.",
+            "verificatie": "Automatische remediation van afgeleverde berichten, phishing/BEC-playbook en verificatie van betaal- of rekeningwijzigingen via een onafhankelijk kanaal.",
+            "actie": "Test mail-remediation en het phishing/BEC-playbook."
+          },
+          "drp": [
+            "R"
+          ],
+          "bewijs": "Het playbook plus een oefen- of incidentverslag waaruit blijkt dat er binnen de afgesproken tijd is gehandeld."
+        }
+      ],
+      "bronnen": [],
+      "nuance": "E-mailfilters en domeinauthenticatie beperken de kans, maar stoppen geen misbruik van ieder echt account of menselijke misleiding. Daarom maximaal beperkt risico."
+    },
+    {
+      "id": "AP09",
+      "titel": "ClickFix → besmette werkplek",
+      "type": "pad",
+      "scenario": "Een medewerker wordt overgehaald een kwaadaardig commando uit te voeren.",
+      "chokepoints": [
+        {
+          "id": "AP09-1",
+          "titel": "Beperk software- en scriptuitvoering met application control en ASR",
+          "vraag": {
+            "claim": "Wordt het uitvoeren van onbekende software en scripts beperkt?",
+            "toelichting": "Stel dat iemand t\\xF3ch een kwaadaardig commando plakt: wat kan er dan draaien?",
+            "telt_niet": "Application control, relevante ASR-regels, beperking van PowerShell/scriptmisbruik. Alleen logging of detectiemodus telt niet als blokkeren.",
+            "actie": "Beperk software- en scriptuitvoering met application control en ASR."
+          },
+          "drp": [
+            "P"
+          ],
+          "bewijs": "Export of configuratie waaruit blijkt dat de maatregel technisch is afgedwongen, met de dekking en de uitzonderingen erbij."
+        },
+        {
+          "id": "AP09-2",
+          "titel": "Hard browsers en beperk extensies en gegevensdragers",
+          "vraag": {
+            "claim": "Zijn browser en gegevensdragers centraal beperkt?",
+            "toelichting": "Ongewenste extensies en risicovol gebruik van USB of andere media worden tegengehouden.",
+            "verificatie": "Centrale browserhardening, extensie-allowlist en risicogestuurd removable-media-beleid.",
+            "actie": "Hard browsers en beperk extensies en gegevensdragers."
+          },
+          "drp": [
+            "P"
+          ],
+          "bewijs": "Export of configuratie waaruit blijkt dat de maatregel technisch is afgedwongen, met de dekking en de uitzonderingen erbij."
+        },
+        {
+          "id": "AP09-3",
+          "titel": "Verwijder lokale administratorrechten",
+          "vraag": {
+            "claim": "Werken gewone gebruikers zonder lokale administratorrechten?",
+            "toelichting": "Een medewerker kan niet zomaar software of systeeminstellingen met beheerrechten aanpassen.",
+            "verificatie": "Controleer lokale administrators en uitzonderingen. Malware kan ook zonder adminrechten schade doen.",
+            "actie": "Verwijder lokale administratorrechten."
+          },
+          "drp": [
+            "P"
+          ],
+          "bewijs": "Export of configuratie waaruit blijkt dat de maatregel technisch is afgedwongen, met de dekking en de uitzonderingen erbij."
+        },
+        {
+          "id": "AP09-4",
+          "titel": "Borg EDR, tamper protection en snelle endpointisolatie",
+          "vraag": {
+            "claim": "Zijn endpoints bewaakt en kunnen ze snel worden ge\\xEFsoleerd?",
+            "toelichting": "Endpointbeveiliging is actief en medewerkers kunnen deze niet zelf uitschakelen.",
+            "verificatie": "EDR op alle beheerde endpoints, tamper protection, bewaakte dekking, geteste isolatie en een malware/infostealer/ClickFix-playbook.",
+            "actie": "Borg EDR, tamper protection en snelle endpointisolatie."
+          },
+          "drp": [
+            "R"
+          ],
+          "bewijs": "Het playbook plus een oefen- of incidentverslag waaruit blijkt dat er binnen de afgesproken tijd is gehandeld."
+        }
+      ],
+      "bronnen": [],
+      "nuance": "Application/script control en ASR beperken uitvoering. Geen lokale admin alleen voorkomt niet dat malware onder gebruikersrechten draait."
+    },
+    {
+      "id": "AP10",
+      "titel": "Infostealer → tokens of gegevens gestolen",
+      "type": "pad",
+      "scenario": "Malware steelt gegevens uit de browser of gebruikerssessie.",
+      "chokepoints": [
+        {
+          "id": "AP10-1",
+          "titel": "Beperk software- en scriptuitvoering met application control en ASR",
+          "vraag": {
+            "claim": "Wordt het uitvoeren van onbekende software en scripts beperkt?",
+            "toelichting": "Stel dat iemand t\\xF3ch een kwaadaardig commando plakt: wat kan er dan draaien?",
+            "telt_niet": "Application control, relevante ASR-regels, beperking van PowerShell/scriptmisbruik. Alleen logging of detectiemodus telt niet als blokkeren.",
+            "actie": "Beperk software- en scriptuitvoering met application control en ASR."
+          },
+          "drp": [
+            "P"
+          ],
+          "bewijs": "Export of configuratie waaruit blijkt dat de maatregel technisch is afgedwongen, met de dekking en de uitzonderingen erbij."
+        },
+        {
+          "id": "AP10-2",
+          "titel": "Hard browsers en beperk extensies en gegevensdragers",
+          "vraag": {
+            "claim": "Zijn browser en gegevensdragers centraal beperkt?",
+            "toelichting": "Ongewenste extensies en risicovol gebruik van USB of andere media worden tegengehouden.",
+            "verificatie": "Centrale browserhardening, extensie-allowlist en risicogestuurd removable-media-beleid.",
+            "actie": "Hard browsers en beperk extensies en gegevensdragers."
+          },
+          "drp": [
+            "P"
+          ],
+          "bewijs": "Export of configuratie waaruit blijkt dat de maatregel technisch is afgedwongen, met de dekking en de uitzonderingen erbij."
+        },
+        {
+          "id": "AP10-3",
+          "titel": "Borg OS- en third-party-patching met controle op dekking",
+          "vraag": {
+            "claim": "Worden besturingssysteem \\xE9n overige software tijdig bijgewerkt?",
+            "toelichting": "Ook browsers, PDF-lezers en andere leverancierssoftware tellen mee.",
+            "verificatie": "Risicogestuurde termijnen, versnelde uitrol bij actief misbruik en controle op apparaten die updates missen.",
+            "actie": "Borg OS- en third-party-patching met controle op dekking."
+          },
+          "drp": [
+            "P"
+          ],
+          "bewijs": "Export of configuratie waaruit blijkt dat de maatregel technisch is afgedwongen, met de dekking en de uitzonderingen erbij."
+        },
+        {
+          "id": "AP10-4",
+          "titel": "Borg EDR, tamper protection en snelle endpointisolatie",
+          "vraag": {
+            "claim": "Zijn endpoints bewaakt en kunnen ze snel worden ge\\xEFsoleerd?",
+            "toelichting": "Endpointbeveiliging is actief en medewerkers kunnen deze niet zelf uitschakelen.",
+            "verificatie": "EDR op alle beheerde endpoints, tamper protection, bewaakte dekking, geteste isolatie en een malware/infostealer/ClickFix-playbook.",
+            "actie": "Borg EDR, tamper protection en snelle endpointisolatie."
+          },
+          "drp": [
+            "R"
+          ],
+          "bewijs": "Het playbook plus een oefen- of incidentverslag waaruit blijkt dat er binnen de afgesproken tijd is gehandeld."
+        }
+      ],
+      "bronnen": [],
+      "nuance": "EDR is vooral detectie/response; preventieve uitvoeringbeperking en hardening zijn afzonderlijk nodig."
+    },
+    {
+      "id": "AP11",
+      "titel": "Besmette werkplek → verdere toegang",
+      "type": "pad",
+      "scenario": "Een aanvaller breidt rechten uit en beweegt door naar andere systemen.",
+      "chokepoints": [
+        {
+          "id": "AP11-1",
+          "titel": "Verwijder lokale administratorrechten",
+          "vraag": {
+            "claim": "Werken gewone gebruikers zonder lokale administratorrechten?",
+            "toelichting": "Een medewerker kan niet zomaar software of systeeminstellingen met beheerrechten aanpassen.",
+            "verificatie": "Controleer lokale administrators en uitzonderingen. Malware kan ook zonder adminrechten schade doen.",
+            "actie": "Verwijder lokale administratorrechten."
+          },
+          "drp": [
+            "P"
+          ],
+          "bewijs": "Export of configuratie waaruit blijkt dat de maatregel technisch is afgedwongen, met de dekking en de uitzonderingen erbij."
+        },
+        {
+          "id": "AP11-2",
+          "titel": "Borg OS- en third-party-patching met controle op dekking",
+          "vraag": {
+            "claim": "Worden besturingssysteem \\xE9n overige software tijdig bijgewerkt?",
+            "toelichting": "Ook browsers, PDF-lezers en andere leverancierssoftware tellen mee.",
+            "verificatie": "Risicogestuurde termijnen, versnelde uitrol bij actief misbruik en controle op apparaten die updates missen.",
+            "actie": "Borg OS- en third-party-patching met controle op dekking."
+          },
+          "drp": [
+            "P"
+          ],
+          "bewijs": "Export of configuratie waaruit blijkt dat de maatregel technisch is afgedwongen, met de dekking en de uitzonderingen erbij."
+        },
+        {
+          "id": "AP11-3",
+          "titel": "Beperk lateral movement met segmentatie en minimale rechten",
+          "vraag": {
+            "claim": "Kan een aanvaller niet eenvoudig door naar andere systemen?",
+            "toelichting": "Een besmette werkplek mag niet meteen toegang geven tot kritieke servers en beheer.",
+            "verificatie": "Netwerksegmentatie, beperkte laterale protocollen en privileges, getoetste toegangsgrenzen.",
+            "actie": "Beperk lateral movement met segmentatie en minimale rechten."
+          },
+          "drp": [
+            "P"
+          ],
+          "bewijs": "Export of configuratie waaruit blijkt dat de maatregel technisch is afgedwongen, met de dekking en de uitzonderingen erbij."
+        },
+        {
+          "id": "AP11-4",
+          "titel": "Borg EDR, tamper protection en snelle endpointisolatie",
+          "vraag": {
+            "claim": "Zijn endpoints bewaakt en kunnen ze snel worden ge\\xEFsoleerd?",
+            "toelichting": "Endpointbeveiliging is actief en medewerkers kunnen deze niet zelf uitschakelen.",
+            "verificatie": "EDR op alle beheerde endpoints, tamper protection, bewaakte dekking, geteste isolatie en een malware/infostealer/ClickFix-playbook.",
+            "actie": "Borg EDR, tamper protection en snelle endpointisolatie."
+          },
+          "drp": [
+            "R"
+          ],
+          "bewijs": "Het playbook plus een oefen- of incidentverslag waaruit blijkt dat er binnen de afgesproken tijd is gehandeld."
+        }
+      ],
+      "bronnen": [],
+      "nuance": "Segmentatie en minimale privileges beperken de impact. Ook lokale privilege-escalatiekwetsbaarheden blijven relevant."
+    },
+    {
+      "id": "AP12",
+      "titel": "Externe kwetsbaarheid → binnendringen",
+      "type": "pad",
+      "scenario": "Een internetdienst wordt aangevallen via een softwarefout.",
+      "chokepoints": [
+        {
+          "id": "AP12-1",
+          "titel": "Borg continu kwetsbaarhedenbeheer en spoedpatching",
+          "vraag": {
+            "claim": "Worden externe kwetsbaarheden continu opgespoord en snel opgelost?",
+            "toelichting": "Actief misbruikte en kritieke kwetsbaarheden krijgen voorrang.",
+            "verificatie": "Vulnerability scanning, exploitmonitoring en versneld patchproces met eigenaar, termijn en verificatie. Een jaarlijkse pentest vervangt dit niet.",
+            "actie": "Borg continu kwetsbaarhedenbeheer en spoedpatching."
+          },
+          "drp": [
+            "P"
+          ],
+          "bewijs": "Export of configuratie waaruit blijkt dat de maatregel technisch is afgedwongen, met de dekking en de uitzonderingen erbij."
+        },
+        {
+          "id": "AP12-2",
+          "titel": "Scherm publieke beheerinterfaces af",
+          "vraag": {
+            "claim": "Zijn beheerinterfaces afgeschermd van het publieke internet?",
+            "toelichting": "Beheer loopt via gecontroleerde toegang met sterke authenticatie.",
+            "verificatie": "Geen direct publieke beheerinterfaces; bescherm remote beheer met phishingbestendige authenticatie en toegangsbeperking.",
+            "actie": "Scherm publieke beheerinterfaces af."
+          },
+          "drp": [
+            "P"
+          ],
+          "bewijs": "Export of configuratie waaruit blijkt dat de maatregel technisch is afgedwongen, met de dekking en de uitzonderingen erbij."
+        },
+        {
+          "id": "AP12-3",
+          "titel": "Laat extern pentesten en verifieer herstel van bevindingen",
+          "vraag": {
+            "claim": "Worden externe applicaties getest en bevindingen opnieuw gecontroleerd?",
+            "toelichting": "Kritieke applicaties periodiek; het bredere externe oppervlak minimaal jaarlijks.",
+            "verificatie": "Risicogestuurde pentest, herstel van relevante bevindingen en hertest. Een test zonder opvolging levert onvoldoende bescherming.",
+            "actie": "Laat extern pentesten en verifieer herstel van bevindingen."
+          },
+          "drp": [
+            "P"
+          ],
+          "bewijs": "Export of configuratie waaruit blijkt dat de maatregel technisch is afgedwongen, met de dekking en de uitzonderingen erbij."
+        },
+        {
+          "id": "AP12-4",
+          "titel": "Test detectie en response op externe exploits",
+          "vraag": {
+            "claim": "Kan snel worden ingegrepen bij aanvallen op externe systemen?",
+            "toelichting": "Provider of SOC herkent misbruik en kan diensten isoleren of toegang blokkeren.",
+            "verificatie": "Getest exploit-responseproces, relevante logbronnen, verantwoordelijkheden en escalatie.",
+            "actie": "Test detectie en response op externe exploits."
+          },
+          "drp": [
+            "R"
+          ],
+          "bewijs": "Het playbook plus een oefen- of incidentverslag waaruit blijkt dat er binnen de afgesproken tijd is gehandeld."
+        }
+      ],
+      "bronnen": [],
+      "nuance": "Continue scanning, spoedpatching en herstelcontrole zijn nodig. Pentesten zijn een momentopname; zero-days blijven een restrisico."
+    },
+    {
+      "id": "AP13",
+      "titel": "Onbekende internetdienst → binnendringen",
+      "type": "pad",
+      "scenario": "Een vergeten of nieuw systeem is bereikbaar zonder passende bescherming.",
+      "chokepoints": [
+        {
+          "id": "AP13-1",
+          "titel": "Ontdek en bewaak het externe aanvalsoppervlak",
+          "vraag": {
+            "claim": "Ontdek je doorlopend wat vanaf internet bereikbaar is?",
+            "toelichting": "Actueel overzicht \\xE9n automatische ontdekking van subdomeinen, externe IP’s, cloud-assets en open poorten/services; alerting op nieuwe exposure.",
+            "telt_niet": "Een CMDB alleen is niet genoeg. Ook nieuwe of vergeten diensten moeten worden gevonden.",
+            "actie": "Ontdek en bewaak het externe aanvalsoppervlak."
+          },
+          "drp": [
+            "D"
+          ],
+          "bewijs": "De actieve detectieregel of het dashboard, plus een verslag van een test waaruit blijkt dat het signaal ook echt binnenkomt."
+        },
+        {
+          "id": "AP13-2",
+          "titel": "Borg continu kwetsbaarhedenbeheer en spoedpatching",
+          "vraag": {
+            "claim": "Worden externe kwetsbaarheden continu opgespoord en snel opgelost?",
+            "toelichting": "Actief misbruikte en kritieke kwetsbaarheden krijgen voorrang.",
+            "verificatie": "Vulnerability scanning, exploitmonitoring en versneld patchproces met eigenaar, termijn en verificatie. Een jaarlijkse pentest vervangt dit niet.",
+            "actie": "Borg continu kwetsbaarhedenbeheer en spoedpatching."
+          },
+          "drp": [
+            "P"
+          ],
+          "bewijs": "Export of configuratie waaruit blijkt dat de maatregel technisch is afgedwongen, met de dekking en de uitzonderingen erbij."
+        },
+        {
+          "id": "AP13-3",
+          "titel": "Scherm publieke beheerinterfaces af",
+          "vraag": {
+            "claim": "Zijn beheerinterfaces afgeschermd van het publieke internet?",
+            "toelichting": "Beheer loopt via gecontroleerde toegang met sterke authenticatie.",
+            "verificatie": "Geen direct publieke beheerinterfaces; bescherm remote beheer met phishingbestendige authenticatie en toegangsbeperking.",
+            "actie": "Scherm publieke beheerinterfaces af."
+          },
+          "drp": [
+            "P"
+          ],
+          "bewijs": "Export of configuratie waaruit blijkt dat de maatregel technisch is afgedwongen, met de dekking en de uitzonderingen erbij."
+        },
+        {
+          "id": "AP13-4",
+          "titel": "Test detectie en response op externe exploits",
+          "vraag": {
+            "claim": "Kan snel worden ingegrepen bij aanvallen op externe systemen?",
+            "toelichting": "Provider of SOC herkent misbruik en kan diensten isoleren of toegang blokkeren.",
+            "verificatie": "Getest exploit-responseproces, relevante logbronnen, verantwoordelijkheden en escalatie.",
+            "actie": "Test detectie en response op externe exploits."
+          },
+          "drp": [
+            "R"
+          ],
+          "bewijs": "Het playbook plus een oefen- of incidentverslag waaruit blijkt dat er binnen de afgesproken tijd is gehandeld."
+        }
+      ],
+      "bronnen": [],
+      "nuance": "Asset discovery is detectief en krijgt pas betekenis samen met herstel en afscherming. Een CMDB alleen levert geen actueel extern beeld."
+    },
+    {
+      "id": "AP14",
+      "titel": "Website / API → overname of datalek",
+      "type": "pad",
+      "scenario": "Een aanvaller misbruikt fouten in een website of API.",
+      "chokepoints": [
+        {
+          "id": "AP14-1",
+          "titel": "Test web/API-beveiliging en herstel kwetsbaarheden",
+          "vraag": {
+            "claim": "Worden website en API op kwetsbaarheden getest en gerepareerd?",
+            "toelichting": "Web/API-scanning, pentesten van kritieke apps, autorisatiecontroles, veilige ontwikkelpraktijken en hertesten van bevindingen.",
+            "telt_niet": "Een WAF vervangt geen veilige software of het oplossen van fouten.",
+            "actie": "Test web/API-beveiliging en herstel kwetsbaarheden."
+          },
+          "drp": [
+            "P"
+          ],
+          "bewijs": "Export of configuratie waaruit blijkt dat de maatregel technisch is afgedwongen, met de dekking en de uitzonderingen erbij."
+        },
+        {
+          "id": "AP14-2",
+          "titel": "Richt WAF, rate limiting en Layer-7-bescherming in",
+          "vraag": {
+            "claim": "Zijn website en API beschermd tegen misbruik van de applicatie?",
+            "toelichting": "Ook veel schijnbaar normale verzoeken kunnen een dienst platleggen.",
+            "verificatie": "WAF, reverse proxy/CDN, rate limiting, application-aware DDoS en passende bot/abuse-bescherming; dekking van API’s.",
+            "actie": "Richt WAF, rate limiting en Layer-7-bescherming in."
+          },
+          "drp": [
+            "P"
+          ],
+          "bewijs": "Export of configuratie waaruit blijkt dat de maatregel technisch is afgedwongen, met de dekking en de uitzonderingen erbij."
+        },
+        {
+          "id": "AP14-3",
+          "titel": "Sluit rechtstreekse toegang tot de origin af",
+          "vraag": {
+            "claim": "Is de achterliggende server rechtstreeks bereikbaar buiten de bescherming om?",
+            "toelichting": "Een aanvaller mag de WAF of het CDN niet kunnen overslaan.",
+            "verificatie": "Beperk origin-toegang tot de beschermingslaag, bijvoorbeeld met netwerkrestricties en geauthenticeerde originverbindingen.",
+            "actie": "Sluit rechtstreekse toegang tot de origin af."
+          },
+          "drp": [
+            "P"
+          ],
+          "bewijs": "Export of configuratie waaruit blijkt dat de maatregel technisch is afgedwongen, met de dekking en de uitzonderingen erbij."
+        },
+        {
+          "id": "AP14-4",
+          "titel": "Test detectie en response op externe exploits",
+          "vraag": {
+            "claim": "Kan snel worden ingegrepen bij aanvallen op externe systemen?",
+            "toelichting": "Provider of SOC herkent misbruik en kan diensten isoleren of toegang blokkeren.",
+            "verificatie": "Getest exploit-responseproces, relevante logbronnen, verantwoordelijkheden en escalatie.",
+            "actie": "Test detectie en response op externe exploits."
+          },
+          "drp": [
+            "R"
+          ],
+          "bewijs": "Het playbook plus een oefen- of incidentverslag waaruit blijkt dat er binnen de afgesproken tijd is gehandeld."
+        }
+      ],
+      "bronnen": [],
+      "nuance": "WAF/CDN is aanvullende bescherming. Autorisatiefouten vereisen applicatietesten en herstel. Een publiek bereikbare origin verhindert groen."
+    },
+    {
+      "id": "AP15",
+      "titel": "Verkeersgolf → onbereikbare dienstverlening",
+      "type": "pad",
+      "scenario": "Een volumetrische DDoS overspoelt de aansluiting.",
+      "chokepoints": [
+        {
+          "id": "AP15-1",
+          "titel": "Borg upstream DDoS-mitigatie en robuuste DNS",
+          "vraag": {
+            "claim": "Wordt volumetrische DDoS v\\xF3\\xF3r je eigen aansluiting opgevangen?",
+            "toelichting": "Een grote verkeersgolf moet bij de provider worden gestopt, niet pas op je eigen firewall.",
+            "verificatie": "Professionele upstream volumetrische mitigatie, passende capaciteit en afspraken; DNS-resilience met onafhankelijke redundantie.",
+            "actie": "Borg upstream DDoS-mitigatie en robuuste DNS."
+          },
+          "drp": [
+            "P"
+          ],
+          "bewijs": "Export of configuratie waaruit blijkt dat de maatregel technisch is afgedwongen, met de dekking en de uitzonderingen erbij."
+        },
+        {
+          "id": "AP15-2",
+          "titel": "Oefen DDoS-response met provider en SOC",
+          "vraag": {
+            "claim": "Is de aanpak voor DDoS getest met provider of SOC?",
+            "toelichting": "Contactpersonen en escalatie zijn bekend en het draaiboek is geoefend.",
+            "verificatie": "Monitor WAF-events en beschikbaarheid; test DDoS-playbook, providerescalatie en herstel van dienstverlening.",
+            "actie": "Oefen DDoS-response met provider en SOC."
+          },
+          "drp": [
+            "R"
+          ],
+          "bewijs": "Het playbook plus een oefen- of incidentverslag waaruit blijkt dat er binnen de afgesproken tijd is gehandeld."
+        }
+      ],
+      "bronnen": [],
+      "nuance": "Mitigatie moet upstream plaatsvinden met voldoende capaciteit. Een lokale WAF houdt een verzadigde verbinding niet beschikbaar."
+    },
+    {
+      "id": "AP16",
+      "titel": "Applicatie-DDoS → uitval",
+      "type": "pad",
+      "scenario": "Veel gerichte verzoeken putten de website of API uit.",
+      "chokepoints": [
+        {
+          "id": "AP16-1",
+          "titel": "Richt WAF, rate limiting en Layer-7-bescherming in",
+          "vraag": {
+            "claim": "Zijn website en API beschermd tegen misbruik van de applicatie?",
+            "toelichting": "Ook veel schijnbaar normale verzoeken kunnen een dienst platleggen.",
+            "verificatie": "WAF, reverse proxy/CDN, rate limiting, application-aware DDoS en passende bot/abuse-bescherming; dekking van API’s.",
+            "actie": "Richt WAF, rate limiting en Layer-7-bescherming in."
+          },
+          "drp": [
+            "P"
+          ],
+          "bewijs": "Export of configuratie waaruit blijkt dat de maatregel technisch is afgedwongen, met de dekking en de uitzonderingen erbij."
+        },
+        {
+          "id": "AP16-2",
+          "titel": "Sluit rechtstreekse toegang tot de origin af",
+          "vraag": {
+            "claim": "Is de achterliggende server rechtstreeks bereikbaar buiten de bescherming om?",
+            "toelichting": "Een aanvaller mag de WAF of het CDN niet kunnen overslaan.",
+            "verificatie": "Beperk origin-toegang tot de beschermingslaag, bijvoorbeeld met netwerkrestricties en geauthenticeerde originverbindingen.",
+            "actie": "Sluit rechtstreekse toegang tot de origin af."
+          },
+          "drp": [
+            "P"
+          ],
+          "bewijs": "Export of configuratie waaruit blijkt dat de maatregel technisch is afgedwongen, met de dekking en de uitzonderingen erbij."
+        },
+        {
+          "id": "AP16-3",
+          "titel": "Oefen DDoS-response met provider en SOC",
+          "vraag": {
+            "claim": "Is de aanpak voor DDoS getest met provider of SOC?",
+            "toelichting": "Contactpersonen en escalatie zijn bekend en het draaiboek is geoefend.",
+            "verificatie": "Monitor WAF-events en beschikbaarheid; test DDoS-playbook, providerescalatie en herstel van dienstverlening.",
+            "actie": "Oefen DDoS-response met provider en SOC."
+          },
+          "drp": [
+            "R"
+          ],
+          "bewijs": "Het playbook plus een oefen- of incidentverslag waaruit blijkt dat er binnen de afgesproken tijd is gehandeld."
+        }
+      ],
+      "bronnen": [],
+      "nuance": "Application-aware bescherming en rate limiting moeten ook de origin afschermen; anders kan een aanvaller de bescherming omzeilen."
+    },
+    {
+      "id": "AP17",
+      "titel": "Ransomware → uitval van de dienstverlening",
+      "type": "impact",
+      "scenario": "Een aanvaller versleutelt systemen of blokkeert dienstverlening.",
+      "chokepoints": [
+        {
+          "id": "AP17-1",
+          "titel": "Dwing phishingbestendige authenticatie af",
+          "vraag": {
+            "claim": "Wordt inloggen met passkeys of een gelijkwaardig sterke methode afgedwongen?",
+            "toelichting": "Bijvoorbeeld Entra Authentication Strength met FIDO2/passkeys of Windows Hello for Business. Controleer alle relevante apps, gebruikers en uitzonderingen.",
+            "telt_niet": "Beschikbaar stellen is niet genoeg. Zwakkere methoden mogen de eis niet kunnen omzeilen.",
+            "actie": "Dwing phishingbestendige authenticatie af."
+          },
+          "drp": [
+            "P"
+          ],
+          "bewijs": "Export of configuratie waaruit blijkt dat de maatregel technisch is afgedwongen, met de dekking en de uitzonderingen erbij."
+        },
+        {
+          "id": "AP17-2",
+          "titel": "Verwijder zwakke fallback- en herstelroutes",
+          "vraag": {
+            "claim": "Kunnen medewerkers nog via een zwakkere methode inloggen?",
+            "toelichting": "Denk aan push-MFA, number matching, sms of een eenmalige code. Ook herstelroutes en uitzonderingen tellen mee.",
+            "telt_niet": "Controleer fallback, registratie en accountherstel. Number matching voorkomt niet alle AiTM-phishing.",
+            "actie": "Verwijder zwakke fallback- en herstelroutes."
+          },
+          "drp": [
+            "P"
+          ],
+          "bewijs": "Export of configuratie waaruit blijkt dat de maatregel technisch is afgedwongen, met de dekking en de uitzonderingen erbij."
+        },
+        {
+          "id": "AP17-3",
+          "titel": "Beperk software- en scriptuitvoering met application control en ASR",
+          "vraag": {
+            "claim": "Wordt het uitvoeren van onbekende software en scripts beperkt?",
+            "toelichting": "Stel dat iemand t\\xF3ch een kwaadaardig commando plakt: wat kan er dan draaien?",
+            "telt_niet": "Application control, relevante ASR-regels, beperking van PowerShell/scriptmisbruik. Alleen logging of detectiemodus telt niet als blokkeren.",
+            "actie": "Beperk software- en scriptuitvoering met application control en ASR."
+          },
+          "drp": [
+            "P"
+          ],
+          "bewijs": "Export of configuratie waaruit blijkt dat de maatregel technisch is afgedwongen, met de dekking en de uitzonderingen erbij."
+        },
+        {
+          "id": "AP17-4",
+          "titel": "Borg OS- en third-party-patching met controle op dekking",
+          "vraag": {
+            "claim": "Worden besturingssysteem \\xE9n overige software tijdig bijgewerkt?",
+            "toelichting": "Ook browsers, PDF-lezers en andere leverancierssoftware tellen mee.",
+            "verificatie": "Risicogestuurde termijnen, versnelde uitrol bij actief misbruik en controle op apparaten die updates missen.",
+            "actie": "Borg OS- en third-party-patching met controle op dekking."
+          },
+          "drp": [
+            "P"
+          ],
+          "bewijs": "Export of configuratie waaruit blijkt dat de maatregel technisch is afgedwongen, met de dekking en de uitzonderingen erbij."
+        },
+        {
+          "id": "AP17-5",
+          "titel": "Borg continu kwetsbaarhedenbeheer en spoedpatching",
+          "vraag": {
+            "claim": "Worden externe kwetsbaarheden continu opgespoord en snel opgelost?",
+            "toelichting": "Actief misbruikte en kritieke kwetsbaarheden krijgen voorrang.",
+            "verificatie": "Vulnerability scanning, exploitmonitoring en versneld patchproces met eigenaar, termijn en verificatie. Een jaarlijkse pentest vervangt dit niet.",
+            "actie": "Borg continu kwetsbaarhedenbeheer en spoedpatching."
+          },
+          "drp": [
+            "P"
+          ],
+          "bewijs": "Export of configuratie waaruit blijkt dat de maatregel technisch is afgedwongen, met de dekking en de uitzonderingen erbij."
+        },
+        {
+          "id": "AP17-6",
+          "titel": "Beperk lateral movement met segmentatie en minimale rechten",
+          "vraag": {
+            "claim": "Kan een aanvaller niet eenvoudig door naar andere systemen?",
+            "toelichting": "Een besmette werkplek mag niet meteen toegang geven tot kritieke servers en beheer.",
+            "verificatie": "Netwerksegmentatie, beperkte laterale protocollen en privileges, getoetste toegangsgrenzen.",
+            "actie": "Beperk lateral movement met segmentatie en minimale rechten."
+          },
+          "drp": [
+            "P"
+          ],
+          "bewijs": "Export of configuratie waaruit blijkt dat de maatregel technisch is afgedwongen, met de dekking en de uitzonderingen erbij."
+        },
+        {
+          "id": "AP17-7",
+          "titel": "Hard de beheerwerkplek en dwing de toegestane toegang af",
+          "vraag": {
+            "claim": "Voldoet de beheerwerkplek aan alle vereiste beveiliging?",
+            "toelichting": "Model A: apart gehard beheerdevice \\xE9n aparte beheeridentity, zonder dagelijks mailen of browsen. Model B: centraal beheerd en compliant, zwaar gehard, geen lokale admin, EDR en ASR actief.",
+            "telt_niet": "Ook toegang technisch beperken tot die werkplek. Een verklaring dat het apparaat “veilig” is, is geen bewijs van configuratie of dekking.",
+            "actie": "Hard de beheerwerkplek en dwing de toegestane toegang af."
+          },
+          "drp": [
+            "P"
+          ],
+          "bewijs": "Export of configuratie waaruit blijkt dat de maatregel technisch is afgedwongen, met de dekking en de uitzonderingen erbij."
+        },
+        {
+          "id": "AP17-8",
+          "titel": "Verwijder permanente rollen en gebruik PIM/JIT",
+          "vraag": {
+            "claim": "Zijn beheerrechten standaard uit en alleen tijdelijk te activeren?",
+            "toelichting": "Geen permanente beheerdersrollen; activering is tijdelijk en doelgebonden.",
+            "verificatie": "Bijvoorbeeld PIM/JIT of gelijkwaardig. Beheers noodaccounts afzonderlijk en monitor ieder gebruik.",
+            "actie": "Verwijder permanente rollen en gebruik PIM/JIT."
+          },
+          "drp": [
+            "P"
+          ],
+          "bewijs": "Export of configuratie waaruit blijkt dat de maatregel technisch is afgedwongen, met de dekking en de uitzonderingen erbij."
+        },
+        {
+          "id": "AP17-9",
+          "titel": "Bescherm back-ups met onveranderbaarheid en gescheiden beheer",
+          "vraag": {
+            "claim": "Zijn kritieke back-ups beschermd tegen een aanvaller in productie?",
+            "toelichting": "Een gecompromitteerd productieaccount mag back-ups niet kunnen verwijderen.",
+            "verificatie": "Dekking kritieke systemen/data, immutable/offline of gelijkwaardig, gescheiden privileged backupidentity en beheerpad.",
+            "actie": "Bescherm back-ups met onveranderbaarheid en gescheiden beheer."
+          },
+          "drp": [
+            "P"
+          ],
+          "bewijs": "Export of configuratie waaruit blijkt dat de maatregel technisch is afgedwongen, met de dekking en de uitzonderingen erbij."
+        },
+        {
+          "id": "AP17-10",
+          "titel": "Test herstel tegen de afgesproken RTO en RPO",
+          "vraag": {
+            "claim": "Is herstel getest en aantoonbaar op tijd haalbaar?",
+            "toelichting": "Een geslaagde back-uptaak is nog geen bewezen herstel.",
+            "verificatie": "Periodieke restore-tests; RTO/RPO uit de BIA; aantonen dat de afgesproken hersteltijd en maximaal dataverlies haalbaar zijn.",
+            "actie": "Test herstel tegen de afgesproken RTO en RPO."
+          },
+          "drp": [
+            "P"
+          ],
+          "bewijs": "Export of configuratie waaruit blijkt dat de maatregel technisch is afgedwongen, met de dekking en de uitzonderingen erbij."
+        },
+        {
+          "id": "AP17-11",
+          "titel": "Oefen het ransomware- en crisisherstelplan",
+          "vraag": {
+            "claim": "Zijn ransomware-response en crisis/herstel samen geoefend?",
+            "toelichting": "Techniek, management en de betrokken diensten weten wie wat doet.",
+            "verificatie": "Ransomware/major-compromise-playbook, isolatie, besluitvorming, communicatie en oefening van herstelprioriteiten.",
+            "actie": "Oefen het ransomware- en crisisherstelplan."
+          },
+          "drp": [
+            "R"
+          ],
+          "bewijs": "Het playbook plus een oefen- of incidentverslag waaruit blijkt dat er binnen de afgesproken tijd is gehandeld."
+        }
+      ],
+      "bronnen": [],
+      "nuance": "Samengesteld scenario: de zwakste relevante toegangsroute en het herstelvermogen tellen afzonderlijk. Sterke back-ups maken een open toegangsroute niet groen."
+    },
+    {
+      "id": "AP18",
+      "titel": "Leveranciersincident → impact op de dienstverlening",
+      "type": "pad",
+      "scenario": "Een incident bij een kritieke leverancier raakt de eigen dienstverlening.",
+      "chokepoints": [
+        {
+          "id": "AP18-1",
+          "titel": "Stel kritieke processen en herstelprioriteiten vast",
+          "vraag": {
+            "claim": "Zijn de kritieke processen van de organisatie vastgesteld?",
+            "toelichting": "Het is duidelijk welke dienstverlening niet lang mag uitvallen.",
+            "verificatie": "Gebruik een BIA om maatschappelijke impact en prioriteiten vast te stellen.",
+            "actie": "Stel kritieke processen en herstelprioriteiten vast."
+          },
+          "drp": [
+            "P"
+          ],
+          "bewijs": "Export of configuratie waaruit blijkt dat de maatregel technisch is afgedwongen, met de dekking en de uitzonderingen erbij."
+        },
+        {
+          "id": "AP18-2",
+          "titel": "Breng kritieke systemen en leveranciers in samenhang in beeld",
+          "vraag": {
+            "claim": "Zijn systemen en leveranciers aan die processen gekoppeld?",
+            "toelichting": "Je weet van wie en waarvan de kritieke dienstverlening afhankelijk is.",
+            "verificatie": "Neem kritieke ketenafhankelijkheden en uitbesteding mee.",
+            "actie": "Breng kritieke systemen en leveranciers in samenhang in beeld."
+          },
+          "drp": [
+            "P"
+          ],
+          "bewijs": "Export of configuratie waaruit blijkt dat de maatregel technisch is afgedwongen, met de dekking en de uitzonderingen erbij."
+        },
+        {
+          "id": "AP18-3",
+          "titel": "Beoordeel kritieke leveranciers periodiek en risicogestuurd",
+          "vraag": {
+            "claim": "Worden kritieke leveranciers periodiek op risico beoordeeld?",
+            "toelichting": "Beoordeel vaker als de impact of dreiging groter is.",
+            "verificatie": "Risicogestuurde review met actuele onderbouwing en een aangewezen eigenaar.",
+            "actie": "Beoordeel kritieke leveranciers periodiek en risicogestuurd."
+          },
+          "drp": [
+            "P"
+          ],
+          "bewijs": "Export of configuratie waaruit blijkt dat de maatregel technisch is afgedwongen, met de dekking en de uitzonderingen erbij."
+        },
+        {
+          "id": "AP18-4",
+          "titel": "Toets technische maatregelen van kritieke leveranciers",
+          "vraag": {
+            "claim": "Kijk je verder dan certificaten naar technische risico’s?",
+            "toelichting": "ISO 27001 zegt iets over het managementsysteem, niet dat iedere aanval wordt tegengehouden.",
+            "verificatie": "Onderzoek dienstspecifieke identity-, werkplek-, ontwikkel-, kwetsbaarheden- en continu\\xEFteitsmaatregelen met bewijs.",
+            "actie": "Toets technische maatregelen van kritieke leveranciers."
+          },
+          "drp": [
+            "P"
+          ],
+          "bewijs": "Export of configuratie waaruit blijkt dat de maatregel technisch is afgedwongen, met de dekking en de uitzonderingen erbij."
+        },
+        {
+          "id": "AP18-5",
+          "titel": "Maak significante leveranciersrestrisico’s expliciet",
+          "vraag": {
+            "claim": "Zijn significante restrisico’s van leveranciers bekend?",
+            "toelichting": "Ook een leverancier met een certificaat kan belangrijke open risico’s hebben.",
+            "verificatie": "Leg onzekerheden en beperkingen vast; noem een leverancier niet simpelweg “veilig”.",
+            "actie": "Maak significante leveranciersrestrisico’s expliciet."
+          },
+          "drp": [
+            "P"
+          ],
+          "bewijs": "Export of configuratie waaruit blijkt dat de maatregel technisch is afgedwongen, met de dekking en de uitzonderingen erbij."
+        },
+        {
+          "id": "AP18-6",
+          "titel": "Leg leveranciersrisico’s voor aan de risicohouder",
+          "vraag": {
+            "claim": "Kent de verantwoordelijke risicohouder deze risico’s?",
+            "toelichting": "De persoon die de gevolgen draagt, moet de risico’s kunnen afwegen.",
+            "verificatie": "Koppel risico aan proceseigenaar en passende bestuurlijke/ambtelijke besluitvorming.",
+            "actie": "Leg leveranciersrisico’s voor aan de risicohouder."
+          },
+          "drp": [
+            "P"
+          ],
+          "bewijs": "Export of configuratie waaruit blijkt dat de maatregel technisch is afgedwongen, met de dekking en de uitzonderingen erbij."
+        },
+        {
+          "id": "AP18-7",
+          "titel": "Leg risicoacceptatie of maatregelen met eigenaar en termijn vast",
+          "vraag": {
+            "claim": "Zijn restrisico’s expliciet geaccepteerd of voorzien van een actie?",
+            "toelichting": "Een actie heeft een eigenaar en termijn; acceptatie is een bewuste beslissing.",
+            "verificatie": "Leg besluit, voorwaarden, vervaldatum en herbeoordeling vast.",
+            "actie": "Leg risicoacceptatie of maatregelen met eigenaar en termijn vast."
+          },
+          "drp": [
+            "P"
+          ],
+          "bewijs": "Export of configuratie waaruit blijkt dat de maatregel technisch is afgedwongen, met de dekking en de uitzonderingen erbij."
+        }
+      ],
+      "bronnen": [],
+      "nuance": "Dit toetst aantoonbare risicobeheersing, niet de technische veiligheid van een leverancier. Alleen certificering is onvoldoende. Met alle antwoorden positief: beperkt risico, geen garantie."
+    }
+  ]
+}

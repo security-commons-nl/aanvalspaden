@@ -1,0 +1,96 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "paden.json",
+  "description": "De gedeelde bron voor de aanvalspaden: vijf clusters voor het overzicht, achttien bladeren voor het detail. Zelfcheck, risicoanalyse en meting lezen dit bestand.",
+  "type": "object",
+  "required": ["versie", "toelichting", "clusters", "bladeren"],
+  "additionalProperties": false,
+  "properties": {
+    "versie": { "type": "string", "pattern": "^[0-9]{4}-[0-9]{2}$" },
+    "toelichting": { "type": "string", "minLength": 20 },
+    "clusters": {
+      "type": "array",
+      "minItems": 5,
+      "maxItems": 5,
+      "items": {
+        "type": "object",
+        "required": ["id", "titel", "kern", "bladeren"],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "type": "string", "pattern": "^C[1-5]$" },
+          "titel": { "type": "string", "minLength": 5 },
+          "kern": { "type": "string", "minLength": 20 },
+          "bladeren": {
+            "type": "array",
+            "minItems": 1,
+            "items": { "type": "string", "pattern": "^AP[0-9]{2}$" }
+          }
+        }
+      }
+    },
+    "bladeren": {
+      "type": "array",
+      "minItems": 18,
+      "maxItems": 18,
+      "items": {
+        "type": "object",
+        "required": ["id", "titel", "type", "scenario", "chokepoints", "bronnen"],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "type": "string", "pattern": "^AP[0-9]{2}$" },
+          "titel": { "type": "string", "pattern": "→" },
+          "type": {
+            "enum": ["pad", "impact"],
+            "description": "pad: een route die een aanvaller loopt. impact: een samengesteld gevolg (ransomware), geen kolom in de matrix."
+          },
+          "scenario": { "type": "string", "minLength": 20 },
+          "nuance": {
+            "type": "string",
+            "minLength": 20,
+            "description": "Wat een positieve uitkomst nog niet betekent; de restrisico's bij dit pad."
+          },
+          "chokepoints": {
+            "type": "array",
+            "minItems": 2,
+            "items": {
+              "type": "object",
+              "required": ["id", "titel", "vraag", "drp", "bewijs"],
+              "additionalProperties": false,
+              "properties": {
+                "id": { "type": "string", "pattern": "^AP[0-9]{2}-[0-9]+$" },
+                "titel": { "type": "string", "minLength": 5 },
+                "vraag": {
+                  "type": "object",
+                  "required": ["claim", "toelichting", "actie"],
+                  "additionalProperties": false,
+                  "description": "De vraagmethodiek: wat claim je, wat betekent dat, wat telt niet mee, en wat is de maatregel.",
+                  "properties": {
+                    "claim": { "type": "string", "pattern": "\\?$" },
+                    "toelichting": { "type": "string", "minLength": 10 },
+                    "telt_niet": { "type": "string", "minLength": 10 },
+                    "verificatie": { "type": "string", "minLength": 10 },
+                    "actie": { "type": "string", "minLength": 10 }
+                  }
+                },
+                "drp": {
+                  "type": "array",
+                  "minItems": 1,
+                  "maxItems": 3,
+                  "uniqueItems": true,
+                  "items": { "enum": ["D", "R", "P"] },
+                  "description": "D detecteren, R reageren, P preventief tegenhouden."
+                },
+                "bewijs": {
+                  "type": "string",
+                  "minLength": 10,
+                  "description": "Welk artefact deze cel groen maakt in diepte 1. Zonder dit blijft de cel rood."
+                }
+              }
+            }
+          },
+          "bronnen": { "type": "array", "items": { "type": "string" } }
+        }
+      }
+    }
+  }
+}
