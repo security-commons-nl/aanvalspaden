@@ -275,7 +275,7 @@
           "titel": "Hard de beheerwerkplek en dwing de toegestane toegang af",
           "vraag": {
             "claim": "Voldoet de beheerwerkplek aan alle vereiste beveiliging?",
-            "toelichting": "Model A: apart gehard beheerdevice \\xE9n aparte beheeridentity, zonder dagelijks mailen of browsen. Model B: centraal beheerd en compliant, zwaar gehard, geen lokale admin, EDR en ASR actief.",
+            "toelichting": "Model A: apart gehard beheerdevice én aparte beheeridentity, zonder dagelijks mailen of browsen. Model B: centraal beheerd en compliant, zwaar gehard, geen lokale admin, EDR en ASR actief.",
             "telt_niet": "Ook toegang technisch beperken tot die werkplek. Een verklaring dat het apparaat “veilig” is, is geen bewijs van configuratie of dekking.",
             "actie": "Hard de beheerwerkplek en dwing de toegestane toegang af."
           },
@@ -394,7 +394,7 @@
           "vraag": {
             "claim": "Wordt misbruik van gestolen sessies technisch beperkt?",
             "toelichting": "Ook na een sterke login kan malware een actieve sessie of token stelen.",
-            "verificatie": "Pas waar ondersteund token protection/device binding, beperkte sessieduur en herbeoordeling van toegang toe. Beoordeel dekking \\xE9n uitzonderingen; passkeys alleen beschermen niet tegen token theft.",
+            "verificatie": "Pas waar ondersteund token protection/device binding, beperkte sessieduur en herbeoordeling van toegang toe. Beoordeel dekking én uitzonderingen; passkeys alleen beschermen niet tegen token theft.",
             "actie": "Beperk tokenmisbruik met apparaatbinding en sessiebeleid."
           },
           "drp": [
@@ -407,7 +407,7 @@
           "titel": "Beperk software- en scriptuitvoering met application control en ASR",
           "vraag": {
             "claim": "Wordt het uitvoeren van onbekende software en scripts beperkt?",
-            "toelichting": "Stel dat iemand t\\xF3ch een kwaadaardig commando plakt: wat kan er dan draaien?",
+            "toelichting": "Stel dat iemand tóch een kwaadaardig commando plakt: wat kan er dan draaien?",
             "telt_niet": "Application control, relevante ASR-regels, beperking van PowerShell/scriptmisbruik. Alleen logging of detectiemodus telt niet als blokkeren.",
             "actie": "Beperk software- en scriptuitvoering met application control en ASR."
           },
@@ -448,7 +448,7 @@
           "id": "AP07-5",
           "titel": "Borg EDR, tamper protection en snelle endpointisolatie",
           "vraag": {
-            "claim": "Zijn endpoints bewaakt en kunnen ze snel worden ge\\xEFsoleerd?",
+            "claim": "Zijn endpoints bewaakt en kunnen ze snel worden geïsoleerd?",
             "toelichting": "Endpointbeveiliging is actief en medewerkers kunnen deze niet zelf uitschakelen.",
             "verificatie": "EDR op alle beheerde endpoints, tamper protection, bewaakte dekking, geteste isolatie en een malware/infostealer/ClickFix-playbook.",
             "actie": "Borg EDR, tamper protection en snelle endpointisolatie."
@@ -553,7 +553,7 @@
           "titel": "Beperk software- en scriptuitvoering met application control en ASR",
           "vraag": {
             "claim": "Wordt het uitvoeren van onbekende software en scripts beperkt?",
-            "toelichting": "Stel dat iemand t\\xF3ch een kwaadaardig commando plakt: wat kan er dan draaien?",
+            "toelichting": "Stel dat iemand tóch een kwaadaardig commando plakt: wat kan er dan draaien?",
             "telt_niet": "Application control, relevante ASR-regels, beperking van PowerShell/scriptmisbruik. Alleen logging of detectiemodus telt niet als blokkeren.",
             "actie": "Beperk software- en scriptuitvoering met application control en ASR."
           },
@@ -594,7 +594,7 @@
           "id": "AP09-4",
           "titel": "Borg EDR, tamper protection en snelle endpointisolatie",
           "vraag": {
-            "claim": "Zijn endpoints bewaakt en kunnen ze snel worden ge\\xEFsoleerd?",
+            "claim": "Zijn endpoints bewaakt en kunnen ze snel worden geïsoleerd?",
             "toelichting": "Endpointbeveiliging is actief en medewerkers kunnen deze niet zelf uitschakelen.",
             "verificatie": "EDR op alle beheerde endpoints, tamper protection, bewaakte dekking, geteste isolatie en een malware/infostealer/ClickFix-playbook.",
             "actie": "Borg EDR, tamper protection en snelle endpointisolatie."
@@ -619,7 +619,7 @@
           "titel": "Beperk software- en scriptuitvoering met application control en ASR",
           "vraag": {
             "claim": "Wordt het uitvoeren van onbekende software en scripts beperkt?",
-            "toelichting": "Stel dat iemand t\\xF3ch een kwaadaardig commando plakt: wat kan er dan draaien?",
+            "toelichting": "Stel dat iemand tóch een kwaadaardig commando plakt: wat kan er dan draaien?",
             "telt_niet": "Application control, relevante ASR-regels, beperking van PowerShell/scriptmisbruik. Alleen logging of detectiemodus telt niet als blokkeren.",
             "actie": "Beperk software- en scriptuitvoering met application control en ASR."
           },
@@ -646,7 +646,7 @@
           "id": "AP10-3",
           "titel": "Borg OS- en third-party-patching met controle op dekking",
           "vraag": {
-            "claim": "Worden besturingssysteem \\xE9n overige software tijdig bijgewerkt?",
+            "claim": "Worden besturingssysteem én overige software tijdig bijgewerkt?",
             "toelichting": "Ook browsers, PDF-lezers en andere leverancierssoftware tellen mee.",
             "verificatie": "Risicogestuurde termijnen, versnelde uitrol bij actief misbruik en controle op apparaten die updates missen.",
             "actie": "Borg OS- en third-party-patching met controle op dekking."
@@ -660,7 +660,7 @@
           "id": "AP10-4",
           "titel": "Borg EDR, tamper protection en snelle endpointisolatie",
           "vraag": {
-            "claim": "Zijn endpoints bewaakt en kunnen ze snel worden ge\\xEFsoleerd?",
+            "claim": "Zijn endpoints bewaakt en kunnen ze snel worden geïsoleerd?",
             "toelichting": "Endpointbeveiliging is actief en medewerkers kunnen deze niet zelf uitschakelen.",
             "verificatie": "EDR op alle beheerde endpoints, tamper protection, bewaakte dekking, geteste isolatie en een malware/infostealer/ClickFix-playbook.",
             "actie": "Borg EDR, tamper protection en snelle endpointisolatie."
@@ -698,7 +698,7 @@
           "id": "AP11-2",
           "titel": "Borg OS- en third-party-patching met controle op dekking",
           "vraag": {
-            "claim": "Worden besturingssysteem \\xE9n overige software tijdig bijgewerkt?",
+            "claim": "Worden besturingssysteem én overige software tijdig bijgewerkt?",
             "toelichting": "Ook browsers, PDF-lezers en andere leverancierssoftware tellen mee.",
             "verificatie": "Risicogestuurde termijnen, versnelde uitrol bij actief misbruik en controle op apparaten die updates missen.",
             "actie": "Borg OS- en third-party-patching met controle op dekking."
@@ -726,7 +726,7 @@
           "id": "AP11-4",
           "titel": "Borg EDR, tamper protection en snelle endpointisolatie",
           "vraag": {
-            "claim": "Zijn endpoints bewaakt en kunnen ze snel worden ge\\xEFsoleerd?",
+            "claim": "Zijn endpoints bewaakt en kunnen ze snel worden geïsoleerd?",
             "toelichting": "Endpointbeveiliging is actief en medewerkers kunnen deze niet zelf uitschakelen.",
             "verificatie": "EDR op alle beheerde endpoints, tamper protection, bewaakte dekking, geteste isolatie en een malware/infostealer/ClickFix-playbook.",
             "actie": "Borg EDR, tamper protection en snelle endpointisolatie."
@@ -817,7 +817,7 @@
           "titel": "Ontdek en bewaak het externe aanvalsoppervlak",
           "vraag": {
             "claim": "Ontdek je doorlopend wat vanaf internet bereikbaar is?",
-            "toelichting": "Actueel overzicht \\xE9n automatische ontdekking van subdomeinen, externe IP’s, cloud-assets en open poorten/services; alerting op nieuwe exposure.",
+            "toelichting": "Actueel overzicht én automatische ontdekking van subdomeinen, externe IP’s, cloud-assets en open poorten/services; alerting op nieuwe exposure.",
             "telt_niet": "Een CMDB alleen is niet genoeg. Ook nieuwe of vergeten diensten moeten worden gevonden.",
             "actie": "Ontdek en bewaak het externe aanvalsoppervlak."
           },
@@ -948,7 +948,7 @@
           "id": "AP15-1",
           "titel": "Borg upstream DDoS-mitigatie en robuuste DNS",
           "vraag": {
-            "claim": "Wordt volumetrische DDoS v\\xF3\\xF3r je eigen aansluiting opgevangen?",
+            "claim": "Wordt volumetrische DDoS vóór je eigen aansluiting opgevangen?",
             "toelichting": "Een grote verkeersgolf moet bij de provider worden gestopt, niet pas op je eigen firewall.",
             "verificatie": "Professionele upstream volumetrische mitigatie, passende capaciteit en afspraken; DNS-resilience met onafhankelijke redundantie.",
             "actie": "Borg upstream DDoS-mitigatie en robuuste DNS."
@@ -1067,7 +1067,7 @@
           "titel": "Beperk software- en scriptuitvoering met application control en ASR",
           "vraag": {
             "claim": "Wordt het uitvoeren van onbekende software en scripts beperkt?",
-            "toelichting": "Stel dat iemand t\\xF3ch een kwaadaardig commando plakt: wat kan er dan draaien?",
+            "toelichting": "Stel dat iemand tóch een kwaadaardig commando plakt: wat kan er dan draaien?",
             "telt_niet": "Application control, relevante ASR-regels, beperking van PowerShell/scriptmisbruik. Alleen logging of detectiemodus telt niet als blokkeren.",
             "actie": "Beperk software- en scriptuitvoering met application control en ASR."
           },
@@ -1080,7 +1080,7 @@
           "id": "AP17-4",
           "titel": "Borg OS- en third-party-patching met controle op dekking",
           "vraag": {
-            "claim": "Worden besturingssysteem \\xE9n overige software tijdig bijgewerkt?",
+            "claim": "Worden besturingssysteem én overige software tijdig bijgewerkt?",
             "toelichting": "Ook browsers, PDF-lezers en andere leverancierssoftware tellen mee.",
             "verificatie": "Risicogestuurde termijnen, versnelde uitrol bij actief misbruik en controle op apparaten die updates missen.",
             "actie": "Borg OS- en third-party-patching met controle op dekking."
@@ -1123,7 +1123,7 @@
           "titel": "Hard de beheerwerkplek en dwing de toegestane toegang af",
           "vraag": {
             "claim": "Voldoet de beheerwerkplek aan alle vereiste beveiliging?",
-            "toelichting": "Model A: apart gehard beheerdevice \\xE9n aparte beheeridentity, zonder dagelijks mailen of browsen. Model B: centraal beheerd en compliant, zwaar gehard, geen lokale admin, EDR en ASR actief.",
+            "toelichting": "Model A: apart gehard beheerdevice én aparte beheeridentity, zonder dagelijks mailen of browsen. Model B: centraal beheerd en compliant, zwaar gehard, geen lokale admin, EDR en ASR actief.",
             "telt_niet": "Ook toegang technisch beperken tot die werkplek. Een verklaring dat het apparaat “veilig” is, is geen bewijs van configuratie of dekking.",
             "actie": "Hard de beheerwerkplek en dwing de toegestane toegang af."
           },
@@ -1246,7 +1246,7 @@
           "vraag": {
             "claim": "Kijk je verder dan certificaten naar technische risico’s?",
             "toelichting": "ISO 27001 zegt iets over het managementsysteem, niet dat iedere aanval wordt tegengehouden.",
-            "verificatie": "Onderzoek dienstspecifieke identity-, werkplek-, ontwikkel-, kwetsbaarheden- en continu\\xEFteitsmaatregelen met bewijs.",
+            "verificatie": "Onderzoek dienstspecifieke identity-, werkplek-, ontwikkel-, kwetsbaarheden- en continuïteitsmaatregelen met bewijs.",
             "actie": "Toets technische maatregelen van kritieke leveranciers."
           },
           "drp": [
@@ -1299,6 +1299,19 @@
       ],
       "bronnen": [],
       "nuance": "Dit toetst aantoonbare risicobeheersing, niet de technische veiligheid van een leverancier. Alleen certificering is onvoldoende. Met alle antwoorden positief: beperkt risico, geen garantie."
+    }
+  ],
+  "randvoorwaarden": [
+    {
+      "id": "soc",
+      "titel": "Borg 24/7 opvolging en escalatie van kritieke meldingen",
+      "vraag": {
+        "claim": "Worden kritieke meldingen 24/7 binnen afgesproken tijden opgevolgd?",
+        "toelichting": "Een melding zonder tijdige actie is nog geen bescherming.",
+        "verificatie": "Leg triage-, reactie- en escalatietijden vast en toets ze. Een SOC compenseert geen ontbrekende preventie.",
+        "actie": "Borg 24/7 opvolging en escalatie van kritieke meldingen."
+      },
+      "werking": "Geldt voor de hele beoordeling, niet voor een enkel pad. Zonder deze voorwaarde blijft een pad met alleen reactieve maatregelen open in plaats van reactief beheerst."
     }
   ]
 }

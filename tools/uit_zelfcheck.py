@@ -1,6 +1,6 @@
 """Eenmalige omzetting: gecompileerde zelfcheck naar paden.json.
 
-Zo is paden.json de eerste keer gevuld, op 28-08-2026, toen de broncode van de zelfcheck nog niet
+Zo is paden.json op 28-08-2026 de eerste keer gevuld, toen de broncode van de zelfcheck nog niet
 beschikbaar was. Vanaf dat moment is paden.json zelf de bron; dit script staat er als documentatie van
 de herkomst en om de omzetting te kunnen herhalen op een nieuwere bundel.
 
@@ -70,6 +70,7 @@ def js_string(v: str) -> str:
     kern = v[1:-1]
     kern = kern.replace('\\"', '"').replace("\\'", "'").replace("\\`", "`")
     kern = re.sub(r"\\u([0-9a-fA-F]{4})", lambda m: chr(int(m.group(1), 16)), kern)
+    kern = re.sub(r"\\x([0-9a-fA-F]{2})", lambda m: chr(int(m.group(1), 16)), kern)
     kern = kern.replace("\\n", " ").replace("\\/", "/")
     return kern.strip()
 
@@ -275,6 +276,23 @@ def bouw() -> dict:
     if ontbreekt:
         raise SystemExit(f"paden zonder cluster: {ontbreekt}")
 
+    # Vragen die in geen enkel pad staan maar wel meewegen in de beoordeling:
+    # randvoorwaarden voor de hele check (zoals 24/7 opvolging van kritieke meldingen).
+    gebruikt = {vid for p in paden for rol in ("required", "limited", "response") for vid in p[rol]}
+    randvoorwaarden = []
+    for vid, v in vragen.items():
+        if vid in gebruikt:
+            continue
+        randvoorwaarden.append({
+            "id": vid,
+            "titel": generiek(v["actie"]).rstrip("."),
+            "vraag": {k: w for k, w in velden(v).items() if w},
+            "werking": (
+                "Geldt voor de hele beoordeling, niet voor een enkel pad. Zonder deze voorwaarde blijft een "
+                "pad met alleen reactieve maatregelen open in plaats van reactief beheerst."
+            ),
+        })
+
     return {
         "versie": "2026-08",
         "toelichting": (
@@ -287,6 +305,7 @@ def bouw() -> dict:
             for cid, titel, kern, aps in CLUSTERS
         ],
         "bladeren": bladeren,
+        "randvoorwaarden": randvoorwaarden,
     }
 
 
@@ -294,6 +313,7 @@ if __name__ == "__main__":
     data = bouw()
     DOEL.parent.mkdir(parents=True, exist_ok=True)
     DOEL.write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-    print(f"{DOEL}: {len(data['clusters'])} clusters, {len(data['bladeren'])} bladeren")
+    print(f"{DOEL}: {len(data['clusters'])} clusters, {len(data['bladeren'])} bladeren, "
+          f"{len(data['randvoorwaarden'])} randvoorwaarde(n)")
     for b in data["bladeren"]:
         print(f"  {b['id']} {b['type']:7s} {len(b['chokepoints'])} chokepoints  {b['titel'][:52]}")

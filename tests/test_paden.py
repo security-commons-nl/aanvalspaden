@@ -98,3 +98,23 @@ def test_helpers_geven_de_juiste_doorsneden():
     assert helper.chokepoint("AP01-1")["blad"] == "AP01"
     assert helper.chokepoint("bestaat-niet") is None
     assert len(helper.chokepoints()) > 50
+
+
+def test_de_bron_bevat_alle_vierenveertig_vragen_uit_de_zelfcheck():
+    """De app stelt 44 vragen; de bron moet ze alle 44 kennen, anders loopt hij achter."""
+    assert len(helper.alle_vragen()) == 44
+
+
+def test_er_is_een_randvoorwaarde_voor_de_hele_beoordeling(data):
+    ids = [r["id"] for r in data["randvoorwaarden"]]
+    assert "soc" in ids, "de 24/7-opvolgingsvraag weegt over alle paden mee"
+    for r in data["randvoorwaarden"]:
+        assert r["vraag"]["claim"].endswith("?")
+        assert len(r["werking"]) > 20
+
+
+def test_geen_onvertaalde_escapes(data):
+    """De bron komt uit een JavaScript-bundel; escapes horen gedecodeerd te zijn, niet letterlijk."""
+    tekst = json.dumps(data, ensure_ascii=False)
+    assert not re.search(r'\\x[0-9a-fA-F]{2}', tekst), 'niet-gedecodeerde hex-escape in de bron'
+    assert not re.search(r'\\u[0-9a-fA-F]{4}', tekst), 'niet-gedecodeerde unicode-escape in de bron'

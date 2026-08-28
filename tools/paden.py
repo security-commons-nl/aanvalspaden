@@ -43,3 +43,19 @@ def chokepoints() -> list[dict]:
 def chokepoint(cp_id: str) -> dict | None:
     """Eén chokepoint op id, of None."""
     return next((cp for cp in chokepoints() if cp["id"] == cp_id), None)
+
+
+def randvoorwaarden() -> list[dict]:
+    """Vragen die voor de hele beoordeling gelden, niet voor een enkel pad."""
+    return laad().get("randvoorwaarden", [])
+
+
+def alle_vragen() -> list[dict]:
+    """Elke unieke vraag uit de bron: die van de chokepoints plus de randvoorwaarden."""
+    gezien, uit = set(), []
+    for bron in ([cp for cp in chokepoints()] + randvoorwaarden()):
+        claim = bron["vraag"]["claim"]
+        if claim not in gezien:
+            gezien.add(claim)
+            uit.append(bron["vraag"])
+    return uit
