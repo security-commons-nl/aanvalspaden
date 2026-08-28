@@ -34,7 +34,13 @@ bladeren   AP01 t/m AP18. AP17 (ransomware) heeft type "impact": het is het gevo
 per chokepoint   vraag: claim, toelichting, wat niet telt, verificatie, actie
                  drp:   D detecteren, R reageren, P preventief
                  bewijs: welk artefact deze cel groen maakt in diepte 1
+
+randvoorwaarden  Vragen die over alle paden heen meewegen in plaats van bij een enkel pad,
+                 zoals 24/7 opvolging van kritieke meldingen.
 ```
+
+Samen 44 unieke vragen: precies de vragen die de zelfcheck stelt. Een test bewaakt dat aantal, zodat
+de bron niet stilletjes achterloopt op de app.
 
 Wijzig een pad of een vraag hier, en alle drie de diepten volgen. Het schema staat in
 [`tools/paden.schema.json`](tools/paden.schema.json); `python -m pytest tests/ -v` valideert de bron en

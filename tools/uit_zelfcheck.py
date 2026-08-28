@@ -18,8 +18,9 @@ import pathlib
 import re
 import sys
 
-BRON = pathlib.Path(r"X:\SECURITY-COMMONS-NL\_wachtkamer\zelfcheck-gecompileerd.html")
-DOEL = pathlib.Path(r"X:\SECURITY-COMMONS-NL\aanvalspaden\paden.json")
+# Aanroep: python tools/uit_zelfcheck.py <zelfcheck.html> [doel.json]
+BRON = pathlib.Path(sys.argv[1]) if len(sys.argv) > 1 else pathlib.Path("zelfcheck.html")
+DOEL = pathlib.Path(sys.argv[2]) if len(sys.argv) > 2 else pathlib.Path(__file__).resolve().parent.parent / "paden.json"
 
 
 def bundel() -> str:
