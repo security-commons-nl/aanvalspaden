@@ -30,7 +30,7 @@ Append-only. Datum, besluit, één zin onderbouwing.
 - **Maintainer-rol** voor de inbrenger van de zelfcheck op deze repo (handeling in GitHub, door een
   org-owner).
 
-## 28-08-2026 — De bron dekt alle vragen van de zelfcheck
+## 28-08-2026 · De bron dekt alle vragen van de zelfcheck
 
 Een doorloop van de gecompileerde zelfcheck met echte antwoorden (alle 44 vragen, gemengd patroon) legde
 twee gaten bloot in de omzetting naar `paden.json`:
@@ -46,7 +46,7 @@ twee gaten bloot in de omzetting naar `paden.json`:
 **Waarom dit telt:** de bron is alleen bruikbaar als hij de app volledig dekt. Een vraag die stil wegvalt,
 valt ook weg uit de risicoanalyse en de meting.
 
-## 28-08-2026 — Diepte 2 landt op dezelfde chokepoints
+## 28-08-2026 · Diepte 2 landt op dezelfde chokepoints
 
 De 37 checklist-items van `security-posture-tool` dragen nu een `pad` en een `chokepoint` uit `paden.json`
 (tabel in `paden_map.py`). Drie items blijven bewust ongekoppeld, met reden vastgelegd: verantwoording aan
