@@ -1,0 +1,24 @@
+{
+  "toelichting": "Een echte doorloop van de gecompileerde zelfcheck (model 1.0, offline editie v1.0) op 28-08-2026 met Playwright: 44 antwoorden in een gemengd patroon, en de uitslag die de app daarop gaf. De referentie-implementatie in tools/score.py moet exact dezelfde uitslag geven. Wijzigt de bron inhoudelijk, dan hoort deze fixture opnieuw gemaakt te worden tegen de app.",
+  "antwoorden": {
+    "pr": "yes", "fallback": "yes", "legacy": "no", "unmanaged": "partial", "devicecode": "unknown",
+    "consent": "no", "session": "yes", "idresponse": "partial", "soc": "no", "model": "dedicated",
+    "adminhard": "unknown", "jit": "partial", "elevation": "yes", "key": "yes", "adminmonitor": "no",
+    "localadmin": "partial", "edr": "unknown", "execution": "no", "browser": "yes", "patch": "partial",
+    "mail": "no", "dmarc": "yes", "mailresponse": "unknown", "assets": "partial", "vuln": "yes",
+    "remote": "yes", "pentest": "no", "exploitresponse": "partial", "upstream": "unknown", "l7": "no",
+    "origin": "yes", "webtest": "partial", "ddosresponse": "no", "segment": "yes", "backup": "unknown",
+    "restore": "partial", "crisis": "yes", "critical": "yes", "dependencies": "no", "review": "partial",
+    "technicalvendor": "unknown", "residual": "no", "owner": "yes", "treatment": "partial"
+  },
+  "status_volgens_app": {
+    "AP01": "open", "AP02": "open", "AP03": "unknown", "AP04": "open", "AP05": "open", "AP06": "open",
+    "AP07": "limited", "AP08": "open", "AP09": "open", "AP10": "open", "AP11": "limited", "AP12": "limited",
+    "AP13": "limited", "AP14": "open", "AP15": "unknown", "AP16": "open", "AP17": "open", "AP18": "open"
+  },
+  "acties_volgens_app": ["fallback", "execution", "l7"],
+  "acties_helpen_bij": {
+    "fallback": ["AP01", "AP02", "AP08", "AP17"],
+    "execution": ["AP07", "AP09", "AP10", "AP17"]
+  }
+}

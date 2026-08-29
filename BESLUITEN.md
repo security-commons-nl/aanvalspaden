@@ -54,3 +54,21 @@ het bestuur, normconformiteit en AI-egressbeleid zijn geen barriere in een aanva
 
 **Waarom dit telt:** hiermee is de keten rond. Een meting daar is het bewijs voor een cel hier, in plaats
 van een tweede lijst die zijn eigen leven leidt.
+
+## 29-08-2026 · Zelf bouwen vanaf de bron; de regels wonen in paden.json
+
+De broncode van de zelfcheck is er niet en komt misschien niet. Wachten hield vijf taken stil. Besluit:
+`check/` wordt gebouwd vanaf `paden.json`; de gecompileerde zelfcheck van de inbrenger is de
+referentie-implementatie waar de nieuwe app tegen wordt getoetst. Herkomst blijft vastgelegd in
+`tools/uit_zelfcheck.py` en hier. De inbrenger is hierover ingelicht voordat de app wordt gepubliceerd.
+
+Daarvoor moest eerst de laatste eigen waarheid uit de app: de scoreregels. Die staan nu als data in de bron
+(antwoorden, statussen, bepaling, uitzonderingen AP05 en AP17, weging van de acties, en per blad de sets
+vereist, beperkt, reactief en plafond). `tools/score.py` leest ze en geeft op een echte doorloop van 44
+antwoorden exact dezelfde achttien statussen en drie acties als de app; die doorloop staat als fixture.
+
+Twee dingen die alleen in de regels zichtbaar werden: drie vragen zijn omgekeerd geformuleerd (ja = de
+barriere ontbreekt) en de status van AP17 is de slechtste van dertien toegangspaden en de herstelbaarheid.
+
+**Nog open, oordeel van de inbrenger nodig:** 57 van de 76 chokepoints zijn alleen preventief en maar 2
+zijn detecterend; AP18 heeft geen enkele D of R. Dat is een inhoudelijke keuze, geen datafout.

@@ -8,7 +8,8 @@
     "toelichting",
     "clusters",
     "bladeren",
-    "randvoorwaarden"
+    "randvoorwaarden",
+    "regels"
   ],
   "additionalProperties": false,
   "properties": {
@@ -69,7 +70,8 @@
           "type",
           "scenario",
           "chokepoints",
-          "bronnen"
+          "bronnen",
+          "regels"
         ],
         "additionalProperties": false,
         "properties": {
@@ -104,6 +106,7 @@
               "type": "object",
               "required": [
                 "id",
+                "vraag_id",
                 "titel",
                 "vraag",
                 "drp",
@@ -169,6 +172,48 @@
                   "type": "string",
                   "minLength": 10,
                   "description": "Welk artefact deze cel groen maakt in diepte 1. Zonder dit blijft de cel rood."
+                },
+                "vraag_id": {
+                  "type": "string",
+                  "pattern": "^[a-z0-9_]+$",
+                  "description": "Stabiele sleutel van de vraag. Dezelfde vraag bij meer paden deelt deze sleutel en wordt maar een keer gesteld."
+                },
+                "negatief": {
+                  "const": true,
+                  "description": "Ja betekent hier dat de barriere ontbreekt; draai ja en nee om voor de regels."
+                },
+                "opties": {
+                  "type": "array",
+                  "minItems": 2,
+                  "items": {
+                    "type": "object",
+                    "required": [
+                      "id",
+                      "label",
+                      "uitleg"
+                    ],
+                    "additionalProperties": false,
+                    "properties": {
+                      "id": {
+                        "type": "string",
+                        "pattern": "^[a-z]+$"
+                      },
+                      "label": {
+                        "type": "string",
+                        "minLength": 2
+                      },
+                      "uitleg": {
+                        "type": "string",
+                        "minLength": 5
+                      }
+                    }
+                  },
+                  "description": "Eigen antwoordopties in plaats van de standaardlijst uit regels.antwoorden."
+                },
+                "alleen_als": {
+                  "type": "string",
+                  "pattern": "^[a-z0-9_]+$",
+                  "description": "Stel deze vraag alleen als de genoemde vraag niet met nee is beantwoord."
                 }
               }
             }
@@ -177,6 +222,49 @@
             "type": "array",
             "items": {
               "type": "string"
+            }
+          },
+          "regels": {
+            "type": "object",
+            "required": [
+              "vereist",
+              "beperkt",
+              "reactief"
+            ],
+            "additionalProperties": false,
+            "description": "De regelsets waarmee de zelfcheck de status van dit pad bepaalt; zie regels.bepaling.",
+            "properties": {
+              "vereist": {
+                "type": "array",
+                "minItems": 1,
+                "items": {
+                  "type": "string",
+                  "pattern": "^[a-z0-9_]+$",
+                  "description": "Stabiele sleutel van de vraag. Dezelfde vraag bij meer paden deelt deze sleutel en wordt maar een keer gesteld."
+                }
+              },
+              "beperkt": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "pattern": "^[a-z0-9_]+$",
+                  "description": "Stabiele sleutel van de vraag. Dezelfde vraag bij meer paden deelt deze sleutel en wordt maar een keer gesteld."
+                }
+              },
+              "reactief": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "pattern": "^[a-z0-9_]+$",
+                  "description": "Stabiele sleutel van de vraag. Dezelfde vraag bij meer paden deelt deze sleutel en wordt maar een keer gesteld."
+                }
+              },
+              "plafond": {
+                "enum": [
+                  "limited"
+                ],
+                "description": "Hoger dan deze status komt het pad niet, ook niet als alles ja is."
+              }
             }
           }
         }
@@ -190,6 +278,7 @@
         "type": "object",
         "required": [
           "id",
+          "vraag_id",
           "titel",
           "vraag",
           "werking"
@@ -239,6 +328,214 @@
           "werking": {
             "type": "string",
             "minLength": 20
+          },
+          "vraag_id": {
+            "type": "string",
+            "pattern": "^[a-z0-9_]+$",
+            "description": "Stabiele sleutel van de vraag. Dezelfde vraag bij meer paden deelt deze sleutel en wordt maar een keer gesteld."
+          }
+        }
+      }
+    },
+    "regels": {
+      "type": "object",
+      "required": [
+        "toelichting",
+        "antwoorden",
+        "telt_als_ja",
+        "negatief",
+        "statussen",
+        "bepaling",
+        "randvoorwaarde",
+        "uitzonderingen",
+        "acties"
+      ],
+      "additionalProperties": false,
+      "description": "De scoreregels als data. Een app leest ze hier en heeft geen eigen versie.",
+      "properties": {
+        "toelichting": {
+          "type": "string",
+          "minLength": 20
+        },
+        "antwoorden": {
+          "type": "array",
+          "minItems": 4,
+          "maxItems": 4,
+          "items": {
+            "type": "object",
+            "required": [
+              "id",
+              "label",
+              "uitleg"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^[a-z]+$"
+              },
+              "label": {
+                "type": "string",
+                "minLength": 2
+              },
+              "uitleg": {
+                "type": "string",
+                "minLength": 5
+              }
+            }
+          }
+        },
+        "telt_als_ja": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string"
+          }
+        },
+        "negatief": {
+          "type": "string",
+          "minLength": 20
+        },
+        "statussen": {
+          "type": "array",
+          "minItems": 5,
+          "maxItems": 5,
+          "items": {
+            "type": "object",
+            "required": [
+              "id",
+              "label",
+              "uitleg"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^[a-z]+$"
+              },
+              "label": {
+                "type": "string",
+                "minLength": 2
+              },
+              "uitleg": {
+                "type": "string",
+                "minLength": 5
+              }
+            }
+          },
+          "description": "Van slechtst naar best; die volgorde bepaalt de samenstelling van AP17."
+        },
+        "bepaling": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 10
+          }
+        },
+        "randvoorwaarde": {
+          "type": "string",
+          "pattern": "^[a-z0-9_]+$",
+          "description": "Stabiele sleutel van de vraag. Dezelfde vraag bij meer paden deelt deze sleutel en wordt maar een keer gesteld."
+        },
+        "uitzonderingen": {
+          "type": "object",
+          "required": [
+            "AP05",
+            "AP17"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "AP05": {
+              "type": "object",
+              "required": [
+                "toelichting",
+                "model_telt_als_ja",
+                "bepaling"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "toelichting": {
+                  "type": "string",
+                  "minLength": 20
+                },
+                "model_telt_als_ja": {
+                  "type": "array",
+                  "minItems": 1,
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "bepaling": {
+                  "type": "array",
+                  "minItems": 1,
+                  "items": {
+                    "type": "string",
+                    "minLength": 10
+                  }
+                }
+              }
+            },
+            "AP17": {
+              "type": "object",
+              "required": [
+                "toelichting",
+                "toegangspaden",
+                "herstelbaarheid"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "toelichting": {
+                  "type": "string",
+                  "minLength": 20
+                },
+                "toegangspaden": {
+                  "type": "array",
+                  "minItems": 1,
+                  "items": {
+                    "type": "string",
+                    "pattern": "^AP[0-9]{2}$"
+                  }
+                },
+                "herstelbaarheid": {
+                  "type": "array",
+                  "minItems": 1,
+                  "items": {
+                    "type": "string",
+                    "minLength": 10
+                  }
+                }
+              }
+            }
+          }
+        },
+        "acties": {
+          "type": "object",
+          "required": [
+            "toelichting",
+            "gewicht",
+            "factor_preventief",
+            "aantal"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "toelichting": {
+              "type": "string",
+              "minLength": 20
+            },
+            "gewicht": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "number"
+              }
+            },
+            "factor_preventief": {
+              "type": "number"
+            },
+            "aantal": {
+              "type": "integer",
+              "minimum": 1
+            }
           }
         }
       }

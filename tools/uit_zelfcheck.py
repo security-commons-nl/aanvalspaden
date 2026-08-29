@@ -148,8 +148,33 @@ def lees_paden(s: str) -> list[dict]:
             "required": lijst("required"),
             "response": lijst("response"),
             "limited": lijst("limited"),
+            "cap": "cap:!0" in blok,
         })
     return paden
+
+
+def lees_statussen(s: str) -> list[dict]:
+    """De wl-tabel: label en uitleg per status, in de volgorde van slecht naar goed."""
+    i = s.find("wl={")
+    blok = s[i : s.find("};", i) + 1]
+    uit = {}
+    for m in re.finditer(r'(\w+):\{label:("(?:[^"\\]|\\.)*"),icon:"[^"]*",description:("(?:[^"\\]|\\.)*")\}', blok):
+        uit[m.group(1)] = {"id": m.group(1), "label": js_string(m.group(2)), "uitleg": js_string(m.group(3))}
+    return [uit[k] for k in STATUS_VOLGORDE]
+
+
+def lees_opties(s: str, naam: str) -> list[dict]:
+    """Een antwoordlijst zoals os=[[id,label,uitleg],...] of ns=[...]."""
+    i = s.find(naam + "=[[")
+    blok = s[i : s.find("]]", i) + 2]  # de lijst eindigt bij de eerste ]]
+    return [
+        {"id": js_string(a), "label": js_string(b), "uitleg": js_string(c)}
+        for a, b, c in re.findall(r'\[("(?:[^"\\]|\\.)*"),("(?:[^"\\]|\\.)*"),("(?:[^"\\]|\\.)*")\]', blok)
+    ]
+
+
+# Van slechtst naar best. Deze volgorde bepaalt ook hoe AP17 wordt samengesteld.
+STATUS_VOLGORDE = ["open", "reactive", "unknown", "limited", "strong"]
 
 
 # Clusters volgens het bouwplan (spec punt 2).
@@ -235,6 +260,7 @@ def bouw() -> dict:
     s = bundel()
     vragen = lees_vragen(s)
     paden = lees_paden(s)
+    opties_model = lees_opties(s, "ns")
     per_id = {p["id"]: p for p in paden}
     in_cluster = {ap for _, _, _, aps in CLUSTERS for ap in aps}
 
@@ -253,13 +279,21 @@ def bouw() -> dict:
                 volgnr += 1
                 letter = v["letter"] if v["letter"] in ("D", "R", "P") else LETTER_VAN_ROL[rol]
                 vr = {k: w for k, w in velden(v).items() if w}
-                chokepoints.append({
+                cp = {
                     "id": f"{pad['id']}-{volgnr}",
+                    "vraag_id": vid,
                     "titel": generiek(v["actie"]).rstrip(".") or generiek(v["claim"]).rstrip("?"),
                     "vraag": vr,
                     "drp": [letter],
                     "bewijs": BEWIJS_PER_LETTER[letter],
-                })
+                }
+                if v["negatief"]:
+                    cp["negatief"] = True
+                if vid == "model":
+                    cp["opties"] = opties_model
+                if vid == "restore":
+                    cp["alleen_als"] = "backup"
+                chokepoints.append(cp)
         titel = TITELS.get(pad["id"], pad["name"])
         blad = {
             "id": pad["id"],
@@ -271,6 +305,13 @@ def bouw() -> dict:
         }
         if pad["technical"]:
             blad["nuance"] = generiek(pad["technical"])
+        blad["regels"] = {
+            "vereist": pad["required"],
+            "beperkt": pad["limited"],
+            "reactief": pad["response"],
+        }
+        if pad["cap"]:
+            blad["regels"]["plafond"] = "limited"
         bladeren.append(blad)
 
     ontbreekt = [b["id"] for b in bladeren if b["type"] == "pad" and b["id"] not in in_cluster]
@@ -286,6 +327,7 @@ def bouw() -> dict:
             continue
         randvoorwaarden.append({
             "id": vid,
+            "vraag_id": vid,
             "titel": generiek(v["actie"]).rstrip("."),
             "vraag": {k: w for k, w in velden(v).items() if w},
             "werking": (
@@ -307,14 +349,89 @@ def bouw() -> dict:
         ],
         "bladeren": bladeren,
         "randvoorwaarden": randvoorwaarden,
+        "regels": regels(s),
+    }
+
+
+def regels(s: str) -> dict:
+    """De scoreregels van de zelfcheck als data. Een app leest ze hier en heeft geen eigen versie."""
+    return {
+        "toelichting": (
+            "Hoe de zelfcheck uit antwoorden een status per pad bepaalt. Elke vraag heeft een vraag_id; "
+            "dezelfde vraag kan bij meer paden als chokepoint staan en wordt maar een keer gesteld. "
+            "De regelsets per pad (vereist, beperkt, reactief, plafond) staan bij het blad."
+        ),
+        "antwoorden": lees_opties(s, "os"),
+        "telt_als_ja": ["yes"],
+        "negatief": (
+            "Bij een chokepoint met negatief: true betekent ja dat de barriere ontbreekt. Draai ja en nee "
+            "om voordat je de regels toepast."
+        ),
+        "statussen": lees_statussen(s),
+        "bepaling": [
+            "Ontbrekend = elke vraag uit vereist die niet met ja is beantwoord.",
+            "Ontbreekt er niets: sterk beheerst, of beperkt risico als het pad een plafond heeft.",
+            "Is alles wat ontbreekt onbekend: onbekend.",
+            "Zijn alle vragen uit beperkt met ja beantwoord: beperkt risico.",
+            "Is minstens een vraag uit reactief met ja beantwoord en de randvoorwaarde ook: reactief beheerst.",
+            "Anders: open aanvalspad.",
+        ],
+        "randvoorwaarde": "soc",
+        "uitzonderingen": {
+            "AP05": {
+                "toelichting": (
+                    "De vraag model heeft eigen antwoordopties en bepaalt de status samen met de andere vragen."
+                ),
+                "model_telt_als_ja": ["dedicated", "hardened"],
+                "bepaling": [
+                    "model leeg of onbekend: onbekend.",
+                    "model permanent of separate, of jit nee: open.",
+                    "model dedicated of hardened en niets ontbreekt: sterk beheerst.",
+                    "Ontbreekt er iets concreets (niet onbekend): model dedicated of hardened en adminhard, jit "
+                    "en elevation alle ja: beperkt risico; anders jit ja en elevation of adminhard concreet niet "
+                    "ja: reactief beheerst; anders open.",
+                    "Anders: onbekend.",
+                ],
+            },
+            "AP17": {
+                "toelichting": (
+                    "Ransomware is het gevolg van andere paden. De status is de slechtste van de toegangs- en "
+                    "verspreidingsroutes en van de herstelbaarheid; ontbrekend is de eigen lijst plus die van "
+                    "alle toegangspaden. Back-ups verlagen niet de kans op binnendringen."
+                ),
+                "toegangspaden": [
+                    "AP01", "AP02", "AP03", "AP04", "AP05", "AP06", "AP07",
+                    "AP09", "AP10", "AP11", "AP12", "AP13", "AP14",
+                ],
+                "herstelbaarheid": [
+                    "backup nee: open.",
+                    "backup, restore en crisis alle ja: sterk beheerst.",
+                    "backup ja en restore ja: beperkt risico.",
+                    "backup of restore leeg of onbekend: onbekend.",
+                    "Anders: open.",
+                ],
+            },
+        },
+        "acties": {
+            "toelichting": (
+                "De drie acties na de uitslag. Kandidaat is elke vraag die niet met ja is beantwoord (bij model: "
+                "niet dedicated of hardened), tenzij haar alleen_als-vraag met nee is beantwoord. Gewicht is de "
+                "som over de paden waar de vraag ontbreekt en die niet sterk zijn; preventieve vragen tellen "
+                "anderhalf keer. Gewicht nul valt af; de drie zwaarste blijven over."
+            ),
+            "gewicht": {"open": 5, "reactive": 4, "unknown": 3, "limited": 2, "strong": 0},
+            "factor_preventief": 1.5,
+            "aantal": 3,
+        },
     }
 
 
 if __name__ == "__main__":
     data = bouw()
     DOEL.parent.mkdir(parents=True, exist_ok=True)
-    DOEL.write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    # Binair met LF: git slaat LF op en de hash op de kopie in de meting rekent daarop.
+    DOEL.write_bytes((json.dumps(data, ensure_ascii=False, indent=2) + "\n").encode("utf-8"))
     print(f"{DOEL}: {len(data['clusters'])} clusters, {len(data['bladeren'])} bladeren, "
-          f"{len(data['randvoorwaarden'])} randvoorwaarde(n)")
+          f"{len(data['randvoorwaarden'])} randvoorwaarde(n), {len(data['regels']['statussen'])} statussen")
     for b in data["bladeren"]:
         print(f"  {b['id']} {b['type']:7s} {len(b['chokepoints'])} chokepoints  {b['titel'][:52]}")

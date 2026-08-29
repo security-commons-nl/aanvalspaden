@@ -64,6 +64,7 @@
       "chokepoints": [
         {
           "id": "AP01-1",
+          "vraag_id": "pr",
           "titel": "Dwing phishingbestendige authenticatie af",
           "vraag": {
             "claim": "Wordt inloggen met passkeys of een gelijkwaardig sterke methode afgedwongen?",
@@ -78,6 +79,7 @@
         },
         {
           "id": "AP01-2",
+          "vraag_id": "fallback",
           "titel": "Verwijder zwakke fallback- en herstelroutes",
           "vraag": {
             "claim": "Kunnen medewerkers nog via een zwakkere methode inloggen?",
@@ -88,10 +90,12 @@
           "drp": [
             "P"
           ],
-          "bewijs": "Export of configuratie waaruit blijkt dat de maatregel technisch is afgedwongen, met de dekking en de uitzonderingen erbij."
+          "bewijs": "Export of configuratie waaruit blijkt dat de maatregel technisch is afgedwongen, met de dekking en de uitzonderingen erbij.",
+          "negatief": true
         },
         {
           "id": "AP01-3",
+          "vraag_id": "idresponse",
           "titel": "Test response op identity- en app-compromise",
           "vraag": {
             "claim": "Is er een werkende aanpak voor verdachte accounts en apps?",
@@ -106,7 +110,17 @@
         }
       ],
       "bronnen": [],
-      "nuance": "Passkeys/FIDO2 zijn aan de echte website gebonden. Een zwakke fallback houdt de phishingroute open; sessiediefstal op een endpoint blijft apart beoordeeld."
+      "nuance": "Passkeys/FIDO2 zijn aan de echte website gebonden. Een zwakke fallback houdt de phishingroute open; sessiediefstal op een endpoint blijft apart beoordeeld.",
+      "regels": {
+        "vereist": [
+          "pr",
+          "fallback"
+        ],
+        "beperkt": [],
+        "reactief": [
+          "idresponse"
+        ]
+      }
     },
     {
       "id": "AP02",
@@ -116,6 +130,7 @@
       "chokepoints": [
         {
           "id": "AP02-1",
+          "vraag_id": "pr",
           "titel": "Dwing phishingbestendige authenticatie af",
           "vraag": {
             "claim": "Wordt inloggen met passkeys of een gelijkwaardig sterke methode afgedwongen?",
@@ -130,6 +145,7 @@
         },
         {
           "id": "AP02-2",
+          "vraag_id": "fallback",
           "titel": "Verwijder zwakke fallback- en herstelroutes",
           "vraag": {
             "claim": "Kunnen medewerkers nog via een zwakkere methode inloggen?",
@@ -140,10 +156,12 @@
           "drp": [
             "P"
           ],
-          "bewijs": "Export of configuratie waaruit blijkt dat de maatregel technisch is afgedwongen, met de dekking en de uitzonderingen erbij."
+          "bewijs": "Export of configuratie waaruit blijkt dat de maatregel technisch is afgedwongen, met de dekking en de uitzonderingen erbij.",
+          "negatief": true
         },
         {
           "id": "AP02-3",
+          "vraag_id": "legacy",
           "titel": "Blokkeer legacy authentication",
           "vraag": {
             "claim": "Zijn verouderde inlogmethoden technisch geblokkeerd?",
@@ -158,6 +176,7 @@
         },
         {
           "id": "AP02-4",
+          "vraag_id": "idresponse",
           "titel": "Test response op identity- en app-compromise",
           "vraag": {
             "claim": "Is er een werkende aanpak voor verdachte accounts en apps?",
@@ -172,7 +191,21 @@
         }
       ],
       "bronnen": [],
-      "nuance": "Blokkeer ook legacyprotocollen. Een onbekende of zwakke uitzondering kan de technische eis ondermijnen."
+      "nuance": "Blokkeer ook legacyprotocollen. Een onbekende of zwakke uitzondering kan de technische eis ondermijnen.",
+      "regels": {
+        "vereist": [
+          "pr",
+          "fallback",
+          "legacy"
+        ],
+        "beperkt": [
+          "pr",
+          "fallback"
+        ],
+        "reactief": [
+          "idresponse"
+        ]
+      }
     },
     {
       "id": "AP03",
@@ -182,6 +215,7 @@
       "chokepoints": [
         {
           "id": "AP03-1",
+          "vraag_id": "devicecode",
           "titel": "Blokkeer Device Code Flow, behalve beheerde uitzonderingen",
           "vraag": {
             "claim": "Is inloggen via een apparaatcode standaard geblokkeerd?",
@@ -196,6 +230,7 @@
         },
         {
           "id": "AP03-2",
+          "vraag_id": "idresponse",
           "titel": "Test response op identity- en app-compromise",
           "vraag": {
             "claim": "Is er een werkende aanpak voor verdachte accounts en apps?",
@@ -210,7 +245,16 @@
         }
       ],
       "bronnen": [],
-      "nuance": "Device Code Flow moet standaard geblokkeerd zijn. Alleen phishingbestendige MFA afdwingen sluit dit scenario niet af."
+      "nuance": "Device Code Flow moet standaard geblokkeerd zijn. Alleen phishingbestendige MFA afdwingen sluit dit scenario niet af.",
+      "regels": {
+        "vereist": [
+          "devicecode"
+        ],
+        "beperkt": [],
+        "reactief": [
+          "idresponse"
+        ]
+      }
     },
     {
       "id": "AP04",
@@ -220,6 +264,7 @@
       "chokepoints": [
         {
           "id": "AP04-1",
+          "vraag_id": "consent",
           "titel": "Beperk app-toestemming en richt gecontroleerde admin consent in",
           "vraag": {
             "claim": "Is toestemming geven aan apps beperkt en gecontroleerd?",
@@ -234,6 +279,7 @@
         },
         {
           "id": "AP04-2",
+          "vraag_id": "idresponse",
           "titel": "Test response op identity- en app-compromise",
           "vraag": {
             "claim": "Is er een werkende aanpak voor verdachte accounts en apps?",
@@ -248,7 +294,16 @@
         }
       ],
       "bronnen": [],
-      "nuance": "Beperk user consent en beoordeel admin consent. Monitor nieuwe enterprise applications en risicovolle scopes."
+      "nuance": "Beperk user consent en beoordeel admin consent. Monitor nieuwe enterprise applications en risicovolle scopes.",
+      "regels": {
+        "vereist": [
+          "consent"
+        ],
+        "beperkt": [],
+        "reactief": [
+          "idresponse"
+        ]
+      }
     },
     {
       "id": "AP05",
@@ -258,6 +313,7 @@
       "chokepoints": [
         {
           "id": "AP05-1",
+          "vraag_id": "model",
           "titel": "Scheid privileged access technisch van dagelijks gebruik",
           "vraag": {
             "claim": "Hoe zijn beheerrechten afgeschermd van dagelijks gebruik?",
@@ -268,10 +324,43 @@
           "drp": [
             "P"
           ],
-          "bewijs": "Export of configuratie waaruit blijkt dat de maatregel technisch is afgedwongen, met de dekking en de uitzonderingen erbij."
+          "bewijs": "Export of configuratie waaruit blijkt dat de maatregel technisch is afgedwongen, met de dekking en de uitzonderingen erbij.",
+          "opties": [
+            {
+              "id": "dedicated",
+              "label": "Dedicated beheerdevice",
+              "uitleg": "Apart gehard apparaat + aparte beheeridentity + tijdelijke rechten"
+            },
+            {
+              "id": "hardened",
+              "label": "Hardened dagelijks device + PIM",
+              "uitleg": "Tijdelijke rechten + aparte fysieke FIDO2-key bij activering"
+            },
+            {
+              "id": "separate",
+              "label": "Alleen een apart beheeraccount",
+              "uitleg": "Op hetzelfde normale device, zonder extra sterke scheiding"
+            },
+            {
+              "id": "permanent",
+              "label": "Permanente beheerrechten",
+              "uitleg": "Beheerrechten zijn standaard actief"
+            },
+            {
+              "id": "partial",
+              "label": "Anders / gedeeltelijk",
+              "uitleg": "De inrichting past niet volledig bij model A of B"
+            },
+            {
+              "id": "unknown",
+              "label": "Onbekend",
+              "uitleg": "Ik weet niet hoe dit technisch is ingericht"
+            }
+          ]
         },
         {
           "id": "AP05-2",
+          "vraag_id": "adminhard",
           "titel": "Hard de beheerwerkplek en dwing de toegestane toegang af",
           "vraag": {
             "claim": "Voldoet de beheerwerkplek aan alle vereiste beveiliging?",
@@ -286,6 +375,7 @@
         },
         {
           "id": "AP05-3",
+          "vraag_id": "jit",
           "titel": "Verwijder permanente rollen en gebruik PIM/JIT",
           "vraag": {
             "claim": "Zijn beheerrechten standaard uit en alleen tijdelijk te activeren?",
@@ -300,6 +390,7 @@
         },
         {
           "id": "AP05-4",
+          "vraag_id": "elevation",
           "titel": "Dwing herauthenticatie af bij privileged elevation",
           "vraag": {
             "claim": "Vereist activering opnieuw phishingbestendige authenticatie?",
@@ -314,6 +405,7 @@
         },
         {
           "id": "AP05-5",
+          "vraag_id": "key",
           "titel": "Vereis een aparte fysieke FIDO2-key voor elevation",
           "vraag": {
             "claim": "Is een aparte fysieke FIDO2-key verplicht voor beheeractivering?",
@@ -328,6 +420,7 @@
         },
         {
           "id": "AP05-6",
+          "vraag_id": "adminmonitor",
           "titel": "Monitor privileged activiteiten en rolwijzigingen",
           "vraag": {
             "claim": "Worden activering en gebruik van beheerrechten actief bewaakt?",
@@ -342,7 +435,21 @@
         }
       ],
       "bronnen": [],
-      "nuance": "Model A en volledig model B kunnen sterk beheerst zijn. Malware op een beheerdevice kan een actieve beheersessie misbruiken; AP09–AP11 en AP07 blijven afzonderlijke risico’s. PIM en een aparte key sluiten dat niet uit."
+      "nuance": "Model A en volledig model B kunnen sterk beheerst zijn. Malware op een beheerdevice kan een actieve beheersessie misbruiken; AP09–AP11 en AP07 blijven afzonderlijke risico’s. PIM en een aparte key sluiten dat niet uit.",
+      "regels": {
+        "vereist": [
+          "model",
+          "adminhard",
+          "jit",
+          "elevation",
+          "key",
+          "adminmonitor"
+        ],
+        "beperkt": [],
+        "reactief": [
+          "adminmonitor"
+        ]
+      }
     },
     {
       "id": "AP06",
@@ -352,6 +459,7 @@
       "chokepoints": [
         {
           "id": "AP06-1",
+          "vraag_id": "unmanaged",
           "titel": "Dwing toegang vanaf beheerde, compliant laptops af",
           "vraag": {
             "claim": "Kan informatie van de organisatie vanaf een willekeurige onbeheerde laptop worden benaderd?",
@@ -362,10 +470,12 @@
           "drp": [
             "P"
           ],
-          "bewijs": "Export of configuratie waaruit blijkt dat de maatregel technisch is afgedwongen, met de dekking en de uitzonderingen erbij."
+          "bewijs": "Export of configuratie waaruit blijkt dat de maatregel technisch is afgedwongen, met de dekking en de uitzonderingen erbij.",
+          "negatief": true
         },
         {
           "id": "AP06-2",
+          "vraag_id": "idresponse",
           "titel": "Test response op identity- en app-compromise",
           "vraag": {
             "claim": "Is er een werkende aanpak voor verdachte accounts en apps?",
@@ -380,7 +490,16 @@
         }
       ],
       "bronnen": [],
-      "nuance": "Dwing apparaatvoorwaarden technisch af op alle relevante toegangsroutes. Een passkey alleen geeft geen apparaatvertrouwen."
+      "nuance": "Dwing apparaatvoorwaarden technisch af op alle relevante toegangsroutes. Een passkey alleen geeft geen apparaatvertrouwen.",
+      "regels": {
+        "vereist": [
+          "unmanaged"
+        ],
+        "beperkt": [],
+        "reactief": [
+          "idresponse"
+        ]
+      }
     },
     {
       "id": "AP07",
@@ -390,6 +509,7 @@
       "chokepoints": [
         {
           "id": "AP07-1",
+          "vraag_id": "session",
           "titel": "Beperk tokenmisbruik met apparaatbinding en sessiebeleid",
           "vraag": {
             "claim": "Wordt misbruik van gestolen sessies technisch beperkt?",
@@ -404,6 +524,7 @@
         },
         {
           "id": "AP07-2",
+          "vraag_id": "execution",
           "titel": "Beperk software- en scriptuitvoering met application control en ASR",
           "vraag": {
             "claim": "Wordt het uitvoeren van onbekende software en scripts beperkt?",
@@ -418,6 +539,7 @@
         },
         {
           "id": "AP07-3",
+          "vraag_id": "browser",
           "titel": "Hard browsers en beperk extensies en gegevensdragers",
           "vraag": {
             "claim": "Zijn browser en gegevensdragers centraal beperkt?",
@@ -432,6 +554,7 @@
         },
         {
           "id": "AP07-4",
+          "vraag_id": "idresponse",
           "titel": "Test response op identity- en app-compromise",
           "vraag": {
             "claim": "Is er een werkende aanpak voor verdachte accounts en apps?",
@@ -446,6 +569,7 @@
         },
         {
           "id": "AP07-5",
+          "vraag_id": "edr",
           "titel": "Borg EDR, tamper protection en snelle endpointisolatie",
           "vraag": {
             "claim": "Zijn endpoints bewaakt en kunnen ze snel worden geïsoleerd?",
@@ -460,7 +584,22 @@
         }
       ],
       "bronnen": [],
-      "nuance": "Tokenbinding en sessiebeleid beperken misbruik waar ondersteund. Niet alle apps/tokens ondersteunen dit; misbruik op hetzelfde apparaat blijft mogelijk. Daarom maximaal beperkt risico in deze zelfcheck."
+      "nuance": "Tokenbinding en sessiebeleid beperken misbruik waar ondersteund. Niet alle apps/tokens ondersteunen dit; misbruik op hetzelfde apparaat blijft mogelijk. Daarom maximaal beperkt risico in deze zelfcheck.",
+      "regels": {
+        "vereist": [
+          "session",
+          "execution",
+          "browser"
+        ],
+        "beperkt": [
+          "session"
+        ],
+        "reactief": [
+          "idresponse",
+          "edr"
+        ],
+        "plafond": "limited"
+      }
     },
     {
       "id": "AP08",
@@ -470,6 +609,7 @@
       "chokepoints": [
         {
           "id": "AP08-1",
+          "vraag_id": "mail",
           "titel": "Dwing een sterke e-mailbaseline af met link-, bijlage- en impersonatiebescherming",
           "vraag": {
             "claim": "Is e-mailbeveiliging actief en aantoonbaar goed ingesteld?",
@@ -484,6 +624,7 @@
         },
         {
           "id": "AP08-2",
+          "vraag_id": "dmarc",
           "titel": "Richt SPF, DKIM en DMARC-handhaving volledig in",
           "vraag": {
             "claim": "Zijn SPF, DKIM en DMARC met handhaving ingericht?",
@@ -498,6 +639,7 @@
         },
         {
           "id": "AP08-3",
+          "vraag_id": "pr",
           "titel": "Dwing phishingbestendige authenticatie af",
           "vraag": {
             "claim": "Wordt inloggen met passkeys of een gelijkwaardig sterke methode afgedwongen?",
@@ -512,6 +654,7 @@
         },
         {
           "id": "AP08-4",
+          "vraag_id": "fallback",
           "titel": "Verwijder zwakke fallback- en herstelroutes",
           "vraag": {
             "claim": "Kunnen medewerkers nog via een zwakkere methode inloggen?",
@@ -522,10 +665,12 @@
           "drp": [
             "P"
           ],
-          "bewijs": "Export of configuratie waaruit blijkt dat de maatregel technisch is afgedwongen, met de dekking en de uitzonderingen erbij."
+          "bewijs": "Export of configuratie waaruit blijkt dat de maatregel technisch is afgedwongen, met de dekking en de uitzonderingen erbij.",
+          "negatief": true
         },
         {
           "id": "AP08-5",
+          "vraag_id": "mailresponse",
           "titel": "Test mail-remediation en het phishing/BEC-playbook",
           "vraag": {
             "claim": "Kunnen kwaadaardige mails achteraf worden verwijderd en fraude worden gestopt?",
@@ -540,7 +685,23 @@
         }
       ],
       "bronnen": [],
-      "nuance": "E-mailfilters en domeinauthenticatie beperken de kans, maar stoppen geen misbruik van ieder echt account of menselijke misleiding. Daarom maximaal beperkt risico."
+      "nuance": "E-mailfilters en domeinauthenticatie beperken de kans, maar stoppen geen misbruik van ieder echt account of menselijke misleiding. Daarom maximaal beperkt risico.",
+      "regels": {
+        "vereist": [
+          "mail",
+          "dmarc",
+          "pr",
+          "fallback"
+        ],
+        "beperkt": [
+          "mail",
+          "dmarc"
+        ],
+        "reactief": [
+          "mailresponse"
+        ],
+        "plafond": "limited"
+      }
     },
     {
       "id": "AP09",
@@ -550,6 +711,7 @@
       "chokepoints": [
         {
           "id": "AP09-1",
+          "vraag_id": "execution",
           "titel": "Beperk software- en scriptuitvoering met application control en ASR",
           "vraag": {
             "claim": "Wordt het uitvoeren van onbekende software en scripts beperkt?",
@@ -564,6 +726,7 @@
         },
         {
           "id": "AP09-2",
+          "vraag_id": "browser",
           "titel": "Hard browsers en beperk extensies en gegevensdragers",
           "vraag": {
             "claim": "Zijn browser en gegevensdragers centraal beperkt?",
@@ -578,6 +741,7 @@
         },
         {
           "id": "AP09-3",
+          "vraag_id": "localadmin",
           "titel": "Verwijder lokale administratorrechten",
           "vraag": {
             "claim": "Werken gewone gebruikers zonder lokale administratorrechten?",
@@ -592,6 +756,7 @@
         },
         {
           "id": "AP09-4",
+          "vraag_id": "edr",
           "titel": "Borg EDR, tamper protection en snelle endpointisolatie",
           "vraag": {
             "claim": "Zijn endpoints bewaakt en kunnen ze snel worden geïsoleerd?",
@@ -606,7 +771,20 @@
         }
       ],
       "bronnen": [],
-      "nuance": "Application/script control en ASR beperken uitvoering. Geen lokale admin alleen voorkomt niet dat malware onder gebruikersrechten draait."
+      "nuance": "Application/script control en ASR beperken uitvoering. Geen lokale admin alleen voorkomt niet dat malware onder gebruikersrechten draait.",
+      "regels": {
+        "vereist": [
+          "execution",
+          "browser",
+          "localadmin"
+        ],
+        "beperkt": [
+          "execution"
+        ],
+        "reactief": [
+          "edr"
+        ]
+      }
     },
     {
       "id": "AP10",
@@ -616,6 +794,7 @@
       "chokepoints": [
         {
           "id": "AP10-1",
+          "vraag_id": "execution",
           "titel": "Beperk software- en scriptuitvoering met application control en ASR",
           "vraag": {
             "claim": "Wordt het uitvoeren van onbekende software en scripts beperkt?",
@@ -630,6 +809,7 @@
         },
         {
           "id": "AP10-2",
+          "vraag_id": "browser",
           "titel": "Hard browsers en beperk extensies en gegevensdragers",
           "vraag": {
             "claim": "Zijn browser en gegevensdragers centraal beperkt?",
@@ -644,6 +824,7 @@
         },
         {
           "id": "AP10-3",
+          "vraag_id": "patch",
           "titel": "Borg OS- en third-party-patching met controle op dekking",
           "vraag": {
             "claim": "Worden besturingssysteem én overige software tijdig bijgewerkt?",
@@ -658,6 +839,7 @@
         },
         {
           "id": "AP10-4",
+          "vraag_id": "edr",
           "titel": "Borg EDR, tamper protection en snelle endpointisolatie",
           "vraag": {
             "claim": "Zijn endpoints bewaakt en kunnen ze snel worden geïsoleerd?",
@@ -672,7 +854,20 @@
         }
       ],
       "bronnen": [],
-      "nuance": "EDR is vooral detectie/response; preventieve uitvoeringbeperking en hardening zijn afzonderlijk nodig."
+      "nuance": "EDR is vooral detectie/response; preventieve uitvoeringbeperking en hardening zijn afzonderlijk nodig.",
+      "regels": {
+        "vereist": [
+          "execution",
+          "browser",
+          "patch"
+        ],
+        "beperkt": [
+          "execution"
+        ],
+        "reactief": [
+          "edr"
+        ]
+      }
     },
     {
       "id": "AP11",
@@ -682,6 +877,7 @@
       "chokepoints": [
         {
           "id": "AP11-1",
+          "vraag_id": "localadmin",
           "titel": "Verwijder lokale administratorrechten",
           "vraag": {
             "claim": "Werken gewone gebruikers zonder lokale administratorrechten?",
@@ -696,6 +892,7 @@
         },
         {
           "id": "AP11-2",
+          "vraag_id": "patch",
           "titel": "Borg OS- en third-party-patching met controle op dekking",
           "vraag": {
             "claim": "Worden besturingssysteem én overige software tijdig bijgewerkt?",
@@ -710,6 +907,7 @@
         },
         {
           "id": "AP11-3",
+          "vraag_id": "segment",
           "titel": "Beperk lateral movement met segmentatie en minimale rechten",
           "vraag": {
             "claim": "Kan een aanvaller niet eenvoudig door naar andere systemen?",
@@ -724,6 +922,7 @@
         },
         {
           "id": "AP11-4",
+          "vraag_id": "edr",
           "titel": "Borg EDR, tamper protection en snelle endpointisolatie",
           "vraag": {
             "claim": "Zijn endpoints bewaakt en kunnen ze snel worden geïsoleerd?",
@@ -738,7 +937,20 @@
         }
       ],
       "bronnen": [],
-      "nuance": "Segmentatie en minimale privileges beperken de impact. Ook lokale privilege-escalatiekwetsbaarheden blijven relevant."
+      "nuance": "Segmentatie en minimale privileges beperken de impact. Ook lokale privilege-escalatiekwetsbaarheden blijven relevant.",
+      "regels": {
+        "vereist": [
+          "localadmin",
+          "patch",
+          "segment"
+        ],
+        "beperkt": [
+          "segment"
+        ],
+        "reactief": [
+          "edr"
+        ]
+      }
     },
     {
       "id": "AP12",
@@ -748,6 +960,7 @@
       "chokepoints": [
         {
           "id": "AP12-1",
+          "vraag_id": "vuln",
           "titel": "Borg continu kwetsbaarhedenbeheer en spoedpatching",
           "vraag": {
             "claim": "Worden externe kwetsbaarheden continu opgespoord en snel opgelost?",
@@ -762,6 +975,7 @@
         },
         {
           "id": "AP12-2",
+          "vraag_id": "remote",
           "titel": "Scherm publieke beheerinterfaces af",
           "vraag": {
             "claim": "Zijn beheerinterfaces afgeschermd van het publieke internet?",
@@ -776,6 +990,7 @@
         },
         {
           "id": "AP12-3",
+          "vraag_id": "pentest",
           "titel": "Laat extern pentesten en verifieer herstel van bevindingen",
           "vraag": {
             "claim": "Worden externe applicaties getest en bevindingen opnieuw gecontroleerd?",
@@ -790,6 +1005,7 @@
         },
         {
           "id": "AP12-4",
+          "vraag_id": "exploitresponse",
           "titel": "Test detectie en response op externe exploits",
           "vraag": {
             "claim": "Kan snel worden ingegrepen bij aanvallen op externe systemen?",
@@ -804,7 +1020,21 @@
         }
       ],
       "bronnen": [],
-      "nuance": "Continue scanning, spoedpatching en herstelcontrole zijn nodig. Pentesten zijn een momentopname; zero-days blijven een restrisico."
+      "nuance": "Continue scanning, spoedpatching en herstelcontrole zijn nodig. Pentesten zijn een momentopname; zero-days blijven een restrisico.",
+      "regels": {
+        "vereist": [
+          "vuln",
+          "remote",
+          "pentest"
+        ],
+        "beperkt": [
+          "vuln",
+          "remote"
+        ],
+        "reactief": [
+          "exploitresponse"
+        ]
+      }
     },
     {
       "id": "AP13",
@@ -814,6 +1044,7 @@
       "chokepoints": [
         {
           "id": "AP13-1",
+          "vraag_id": "assets",
           "titel": "Ontdek en bewaak het externe aanvalsoppervlak",
           "vraag": {
             "claim": "Ontdek je doorlopend wat vanaf internet bereikbaar is?",
@@ -828,6 +1059,7 @@
         },
         {
           "id": "AP13-2",
+          "vraag_id": "vuln",
           "titel": "Borg continu kwetsbaarhedenbeheer en spoedpatching",
           "vraag": {
             "claim": "Worden externe kwetsbaarheden continu opgespoord en snel opgelost?",
@@ -842,6 +1074,7 @@
         },
         {
           "id": "AP13-3",
+          "vraag_id": "remote",
           "titel": "Scherm publieke beheerinterfaces af",
           "vraag": {
             "claim": "Zijn beheerinterfaces afgeschermd van het publieke internet?",
@@ -856,6 +1089,7 @@
         },
         {
           "id": "AP13-4",
+          "vraag_id": "exploitresponse",
           "titel": "Test detectie en response op externe exploits",
           "vraag": {
             "claim": "Kan snel worden ingegrepen bij aanvallen op externe systemen?",
@@ -870,7 +1104,21 @@
         }
       ],
       "bronnen": [],
-      "nuance": "Asset discovery is detectief en krijgt pas betekenis samen met herstel en afscherming. Een CMDB alleen levert geen actueel extern beeld."
+      "nuance": "Asset discovery is detectief en krijgt pas betekenis samen met herstel en afscherming. Een CMDB alleen levert geen actueel extern beeld.",
+      "regels": {
+        "vereist": [
+          "assets",
+          "vuln",
+          "remote"
+        ],
+        "beperkt": [
+          "vuln",
+          "remote"
+        ],
+        "reactief": [
+          "exploitresponse"
+        ]
+      }
     },
     {
       "id": "AP14",
@@ -880,6 +1128,7 @@
       "chokepoints": [
         {
           "id": "AP14-1",
+          "vraag_id": "webtest",
           "titel": "Test web/API-beveiliging en herstel kwetsbaarheden",
           "vraag": {
             "claim": "Worden website en API op kwetsbaarheden getest en gerepareerd?",
@@ -894,6 +1143,7 @@
         },
         {
           "id": "AP14-2",
+          "vraag_id": "l7",
           "titel": "Richt WAF, rate limiting en Layer-7-bescherming in",
           "vraag": {
             "claim": "Zijn website en API beschermd tegen misbruik van de applicatie?",
@@ -908,6 +1158,7 @@
         },
         {
           "id": "AP14-3",
+          "vraag_id": "origin",
           "titel": "Sluit rechtstreekse toegang tot de origin af",
           "vraag": {
             "claim": "Is de achterliggende server rechtstreeks bereikbaar buiten de bescherming om?",
@@ -918,10 +1169,12 @@
           "drp": [
             "P"
           ],
-          "bewijs": "Export of configuratie waaruit blijkt dat de maatregel technisch is afgedwongen, met de dekking en de uitzonderingen erbij."
+          "bewijs": "Export of configuratie waaruit blijkt dat de maatregel technisch is afgedwongen, met de dekking en de uitzonderingen erbij.",
+          "negatief": true
         },
         {
           "id": "AP14-4",
+          "vraag_id": "exploitresponse",
           "titel": "Test detectie en response op externe exploits",
           "vraag": {
             "claim": "Kan snel worden ingegrepen bij aanvallen op externe systemen?",
@@ -936,7 +1189,20 @@
         }
       ],
       "bronnen": [],
-      "nuance": "WAF/CDN is aanvullende bescherming. Autorisatiefouten vereisen applicatietesten en herstel. Een publiek bereikbare origin verhindert groen."
+      "nuance": "WAF/CDN is aanvullende bescherming. Autorisatiefouten vereisen applicatietesten en herstel. Een publiek bereikbare origin verhindert groen.",
+      "regels": {
+        "vereist": [
+          "webtest",
+          "l7",
+          "origin"
+        ],
+        "beperkt": [
+          "webtest"
+        ],
+        "reactief": [
+          "exploitresponse"
+        ]
+      }
     },
     {
       "id": "AP15",
@@ -946,6 +1212,7 @@
       "chokepoints": [
         {
           "id": "AP15-1",
+          "vraag_id": "upstream",
           "titel": "Borg upstream DDoS-mitigatie en robuuste DNS",
           "vraag": {
             "claim": "Wordt volumetrische DDoS vóór je eigen aansluiting opgevangen?",
@@ -960,6 +1227,7 @@
         },
         {
           "id": "AP15-2",
+          "vraag_id": "ddosresponse",
           "titel": "Oefen DDoS-response met provider en SOC",
           "vraag": {
             "claim": "Is de aanpak voor DDoS getest met provider of SOC?",
@@ -974,7 +1242,16 @@
         }
       ],
       "bronnen": [],
-      "nuance": "Mitigatie moet upstream plaatsvinden met voldoende capaciteit. Een lokale WAF houdt een verzadigde verbinding niet beschikbaar."
+      "nuance": "Mitigatie moet upstream plaatsvinden met voldoende capaciteit. Een lokale WAF houdt een verzadigde verbinding niet beschikbaar.",
+      "regels": {
+        "vereist": [
+          "upstream"
+        ],
+        "beperkt": [],
+        "reactief": [
+          "ddosresponse"
+        ]
+      }
     },
     {
       "id": "AP16",
@@ -984,6 +1261,7 @@
       "chokepoints": [
         {
           "id": "AP16-1",
+          "vraag_id": "l7",
           "titel": "Richt WAF, rate limiting en Layer-7-bescherming in",
           "vraag": {
             "claim": "Zijn website en API beschermd tegen misbruik van de applicatie?",
@@ -998,6 +1276,7 @@
         },
         {
           "id": "AP16-2",
+          "vraag_id": "origin",
           "titel": "Sluit rechtstreekse toegang tot de origin af",
           "vraag": {
             "claim": "Is de achterliggende server rechtstreeks bereikbaar buiten de bescherming om?",
@@ -1008,10 +1287,12 @@
           "drp": [
             "P"
           ],
-          "bewijs": "Export of configuratie waaruit blijkt dat de maatregel technisch is afgedwongen, met de dekking en de uitzonderingen erbij."
+          "bewijs": "Export of configuratie waaruit blijkt dat de maatregel technisch is afgedwongen, met de dekking en de uitzonderingen erbij.",
+          "negatief": true
         },
         {
           "id": "AP16-3",
+          "vraag_id": "ddosresponse",
           "titel": "Oefen DDoS-response met provider en SOC",
           "vraag": {
             "claim": "Is de aanpak voor DDoS getest met provider of SOC?",
@@ -1026,7 +1307,17 @@
         }
       ],
       "bronnen": [],
-      "nuance": "Application-aware bescherming en rate limiting moeten ook de origin afschermen; anders kan een aanvaller de bescherming omzeilen."
+      "nuance": "Application-aware bescherming en rate limiting moeten ook de origin afschermen; anders kan een aanvaller de bescherming omzeilen.",
+      "regels": {
+        "vereist": [
+          "l7",
+          "origin"
+        ],
+        "beperkt": [],
+        "reactief": [
+          "ddosresponse"
+        ]
+      }
     },
     {
       "id": "AP17",
@@ -1036,6 +1327,7 @@
       "chokepoints": [
         {
           "id": "AP17-1",
+          "vraag_id": "pr",
           "titel": "Dwing phishingbestendige authenticatie af",
           "vraag": {
             "claim": "Wordt inloggen met passkeys of een gelijkwaardig sterke methode afgedwongen?",
@@ -1050,6 +1342,7 @@
         },
         {
           "id": "AP17-2",
+          "vraag_id": "fallback",
           "titel": "Verwijder zwakke fallback- en herstelroutes",
           "vraag": {
             "claim": "Kunnen medewerkers nog via een zwakkere methode inloggen?",
@@ -1060,10 +1353,12 @@
           "drp": [
             "P"
           ],
-          "bewijs": "Export of configuratie waaruit blijkt dat de maatregel technisch is afgedwongen, met de dekking en de uitzonderingen erbij."
+          "bewijs": "Export of configuratie waaruit blijkt dat de maatregel technisch is afgedwongen, met de dekking en de uitzonderingen erbij.",
+          "negatief": true
         },
         {
           "id": "AP17-3",
+          "vraag_id": "execution",
           "titel": "Beperk software- en scriptuitvoering met application control en ASR",
           "vraag": {
             "claim": "Wordt het uitvoeren van onbekende software en scripts beperkt?",
@@ -1078,6 +1373,7 @@
         },
         {
           "id": "AP17-4",
+          "vraag_id": "patch",
           "titel": "Borg OS- en third-party-patching met controle op dekking",
           "vraag": {
             "claim": "Worden besturingssysteem én overige software tijdig bijgewerkt?",
@@ -1092,6 +1388,7 @@
         },
         {
           "id": "AP17-5",
+          "vraag_id": "vuln",
           "titel": "Borg continu kwetsbaarhedenbeheer en spoedpatching",
           "vraag": {
             "claim": "Worden externe kwetsbaarheden continu opgespoord en snel opgelost?",
@@ -1106,6 +1403,7 @@
         },
         {
           "id": "AP17-6",
+          "vraag_id": "segment",
           "titel": "Beperk lateral movement met segmentatie en minimale rechten",
           "vraag": {
             "claim": "Kan een aanvaller niet eenvoudig door naar andere systemen?",
@@ -1120,6 +1418,7 @@
         },
         {
           "id": "AP17-7",
+          "vraag_id": "adminhard",
           "titel": "Hard de beheerwerkplek en dwing de toegestane toegang af",
           "vraag": {
             "claim": "Voldoet de beheerwerkplek aan alle vereiste beveiliging?",
@@ -1134,6 +1433,7 @@
         },
         {
           "id": "AP17-8",
+          "vraag_id": "jit",
           "titel": "Verwijder permanente rollen en gebruik PIM/JIT",
           "vraag": {
             "claim": "Zijn beheerrechten standaard uit en alleen tijdelijk te activeren?",
@@ -1148,6 +1448,7 @@
         },
         {
           "id": "AP17-9",
+          "vraag_id": "backup",
           "titel": "Bescherm back-ups met onveranderbaarheid en gescheiden beheer",
           "vraag": {
             "claim": "Zijn kritieke back-ups beschermd tegen een aanvaller in productie?",
@@ -1162,6 +1463,7 @@
         },
         {
           "id": "AP17-10",
+          "vraag_id": "restore",
           "titel": "Test herstel tegen de afgesproken RTO en RPO",
           "vraag": {
             "claim": "Is herstel getest en aantoonbaar op tijd haalbaar?",
@@ -1172,10 +1474,12 @@
           "drp": [
             "P"
           ],
-          "bewijs": "Export of configuratie waaruit blijkt dat de maatregel technisch is afgedwongen, met de dekking en de uitzonderingen erbij."
+          "bewijs": "Export of configuratie waaruit blijkt dat de maatregel technisch is afgedwongen, met de dekking en de uitzonderingen erbij.",
+          "alleen_als": "backup"
         },
         {
           "id": "AP17-11",
+          "vraag_id": "crisis",
           "titel": "Oefen het ransomware- en crisisherstelplan",
           "vraag": {
             "claim": "Zijn ransomware-response en crisis/herstel samen geoefend?",
@@ -1190,7 +1494,25 @@
         }
       ],
       "bronnen": [],
-      "nuance": "Samengesteld scenario: de zwakste relevante toegangsroute en het herstelvermogen tellen afzonderlijk. Sterke back-ups maken een open toegangsroute niet groen."
+      "nuance": "Samengesteld scenario: de zwakste relevante toegangsroute en het herstelvermogen tellen afzonderlijk. Sterke back-ups maken een open toegangsroute niet groen.",
+      "regels": {
+        "vereist": [
+          "pr",
+          "fallback",
+          "execution",
+          "patch",
+          "vuln",
+          "segment",
+          "adminhard",
+          "jit",
+          "backup",
+          "restore"
+        ],
+        "beperkt": [],
+        "reactief": [
+          "crisis"
+        ]
+      }
     },
     {
       "id": "AP18",
@@ -1200,6 +1522,7 @@
       "chokepoints": [
         {
           "id": "AP18-1",
+          "vraag_id": "critical",
           "titel": "Stel kritieke processen en herstelprioriteiten vast",
           "vraag": {
             "claim": "Zijn de kritieke processen van de organisatie vastgesteld?",
@@ -1214,6 +1537,7 @@
         },
         {
           "id": "AP18-2",
+          "vraag_id": "dependencies",
           "titel": "Breng kritieke systemen en leveranciers in samenhang in beeld",
           "vraag": {
             "claim": "Zijn systemen en leveranciers aan die processen gekoppeld?",
@@ -1228,6 +1552,7 @@
         },
         {
           "id": "AP18-3",
+          "vraag_id": "review",
           "titel": "Beoordeel kritieke leveranciers periodiek en risicogestuurd",
           "vraag": {
             "claim": "Worden kritieke leveranciers periodiek op risico beoordeeld?",
@@ -1242,6 +1567,7 @@
         },
         {
           "id": "AP18-4",
+          "vraag_id": "technicalvendor",
           "titel": "Toets technische maatregelen van kritieke leveranciers",
           "vraag": {
             "claim": "Kijk je verder dan certificaten naar technische risico’s?",
@@ -1256,6 +1582,7 @@
         },
         {
           "id": "AP18-5",
+          "vraag_id": "residual",
           "titel": "Maak significante leveranciersrestrisico’s expliciet",
           "vraag": {
             "claim": "Zijn significante restrisico’s van leveranciers bekend?",
@@ -1270,6 +1597,7 @@
         },
         {
           "id": "AP18-6",
+          "vraag_id": "owner",
           "titel": "Leg leveranciersrisico’s voor aan de risicohouder",
           "vraag": {
             "claim": "Kent de verantwoordelijke risicohouder deze risico’s?",
@@ -1284,6 +1612,7 @@
         },
         {
           "id": "AP18-7",
+          "vraag_id": "treatment",
           "titel": "Leg risicoacceptatie of maatregelen met eigenaar en termijn vast",
           "vraag": {
             "claim": "Zijn restrisico’s expliciet geaccepteerd of voorzien van een actie?",
@@ -1298,12 +1627,27 @@
         }
       ],
       "bronnen": [],
-      "nuance": "Dit toetst aantoonbare risicobeheersing, niet de technische veiligheid van een leverancier. Alleen certificering is onvoldoende. Met alle antwoorden positief: beperkt risico, geen garantie."
+      "nuance": "Dit toetst aantoonbare risicobeheersing, niet de technische veiligheid van een leverancier. Alleen certificering is onvoldoende. Met alle antwoorden positief: beperkt risico, geen garantie.",
+      "regels": {
+        "vereist": [
+          "critical",
+          "dependencies",
+          "review",
+          "technicalvendor",
+          "residual",
+          "owner",
+          "treatment"
+        ],
+        "beperkt": [],
+        "reactief": [],
+        "plafond": "limited"
+      }
     }
   ],
   "randvoorwaarden": [
     {
       "id": "soc",
+      "vraag_id": "soc",
       "titel": "Borg 24/7 opvolging en escalatie van kritieke meldingen",
       "vraag": {
         "claim": "Worden kritieke meldingen 24/7 binnen afgesproken tijden opgevolgd?",
@@ -1313,5 +1657,123 @@
       },
       "werking": "Geldt voor de hele beoordeling, niet voor een enkel pad. Zonder deze voorwaarde blijft een pad met alleen reactieve maatregelen open in plaats van reactief beheerst."
     }
-  ]
+  ],
+  "regels": {
+    "toelichting": "Hoe de zelfcheck uit antwoorden een status per pad bepaalt. Elke vraag heeft een vraag_id; dezelfde vraag kan bij meer paden als chokepoint staan en wordt maar een keer gesteld. De regelsets per pad (vereist, beperkt, reactief, plafond) staan bij het blad.",
+    "antwoorden": [
+      {
+        "id": "yes",
+        "label": "Ja",
+        "uitleg": "Volledig ingericht"
+      },
+      {
+        "id": "partial",
+        "label": "Gedeeltelijk",
+        "uitleg": "Niet overal of niet volledig"
+      },
+      {
+        "id": "no",
+        "label": "Nee",
+        "uitleg": "Niet ingericht"
+      },
+      {
+        "id": "unknown",
+        "label": "Onbekend",
+        "uitleg": "Ik weet het nog niet"
+      }
+    ],
+    "telt_als_ja": [
+      "yes"
+    ],
+    "negatief": "Bij een chokepoint met negatief: true betekent ja dat de barriere ontbreekt. Draai ja en nee om voordat je de regels toepast.",
+    "statussen": [
+      {
+        "id": "open",
+        "label": "Open aanvalspad",
+        "uitleg": "Een realistische aanvalsroute zonder voldoende preventieve technische barrière."
+      },
+      {
+        "id": "reactive",
+        "label": "Reactief beheerst",
+        "uitleg": "De aanval kan plaatsvinden. Detectie en response vormen de belangrijkste barrière."
+      },
+      {
+        "id": "unknown",
+        "label": "Onbekend",
+        "uitleg": "Er is onvoldoende informatie om de bescherming vast te stellen."
+      },
+      {
+        "id": "limited",
+        "label": "Beperkt risico",
+        "uitleg": "Het aanvalspad bestaat nog; preventieve barrières beperken kans of impact."
+      },
+      {
+        "id": "strong",
+        "label": "Sterk beheerst",
+        "uitleg": "De noodzakelijke barrières zijn volgens je antwoorden aanwezig. Geen garantie dat een aanval onmogelijk is."
+      }
+    ],
+    "bepaling": [
+      "Ontbrekend = elke vraag uit vereist die niet met ja is beantwoord.",
+      "Ontbreekt er niets: sterk beheerst, of beperkt risico als het pad een plafond heeft.",
+      "Is alles wat ontbreekt onbekend: onbekend.",
+      "Zijn alle vragen uit beperkt met ja beantwoord: beperkt risico.",
+      "Is minstens een vraag uit reactief met ja beantwoord en de randvoorwaarde ook: reactief beheerst.",
+      "Anders: open aanvalspad."
+    ],
+    "randvoorwaarde": "soc",
+    "uitzonderingen": {
+      "AP05": {
+        "toelichting": "De vraag model heeft eigen antwoordopties en bepaalt de status samen met de andere vragen.",
+        "model_telt_als_ja": [
+          "dedicated",
+          "hardened"
+        ],
+        "bepaling": [
+          "model leeg of onbekend: onbekend.",
+          "model permanent of separate, of jit nee: open.",
+          "model dedicated of hardened en niets ontbreekt: sterk beheerst.",
+          "Ontbreekt er iets concreets (niet onbekend): model dedicated of hardened en adminhard, jit en elevation alle ja: beperkt risico; anders jit ja en elevation of adminhard concreet niet ja: reactief beheerst; anders open.",
+          "Anders: onbekend."
+        ]
+      },
+      "AP17": {
+        "toelichting": "Ransomware is het gevolg van andere paden. De status is de slechtste van de toegangs- en verspreidingsroutes en van de herstelbaarheid; ontbrekend is de eigen lijst plus die van alle toegangspaden. Back-ups verlagen niet de kans op binnendringen.",
+        "toegangspaden": [
+          "AP01",
+          "AP02",
+          "AP03",
+          "AP04",
+          "AP05",
+          "AP06",
+          "AP07",
+          "AP09",
+          "AP10",
+          "AP11",
+          "AP12",
+          "AP13",
+          "AP14"
+        ],
+        "herstelbaarheid": [
+          "backup nee: open.",
+          "backup, restore en crisis alle ja: sterk beheerst.",
+          "backup ja en restore ja: beperkt risico.",
+          "backup of restore leeg of onbekend: onbekend.",
+          "Anders: open."
+        ]
+      }
+    },
+    "acties": {
+      "toelichting": "De drie acties na de uitslag. Kandidaat is elke vraag die niet met ja is beantwoord (bij model: niet dedicated of hardened), tenzij haar alleen_als-vraag met nee is beantwoord. Gewicht is de som over de paden waar de vraag ontbreekt en die niet sterk zijn; preventieve vragen tellen anderhalf keer. Gewicht nul valt af; de drie zwaarste blijven over.",
+      "gewicht": {
+        "open": 5,
+        "reactive": 4,
+        "unknown": 3,
+        "limited": 2,
+        "strong": 0
+      },
+      "factor_preventief": 1.5,
+      "aantal": 3
+    }
+  }
 }

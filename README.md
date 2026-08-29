@@ -37,7 +37,21 @@ per chokepoint   vraag: claim, toelichting, wat niet telt, verificatie, actie
 
 randvoorwaarden  Vragen die over alle paden heen meewegen in plaats van bij een enkel pad,
                  zoals 24/7 opvolging van kritieke meldingen.
+
+regels           Hoe de zelfcheck uit antwoorden een status bepaalt: de antwoordopties, de vijf
+                 statussen, de bepaling in zes stappen, de uitzonderingen voor AP05 (beheermodel)
+                 en AP17 (samenstelling), en de weging van de drie acties. Per blad staan de
+                 regelsets: vereist, beperkt, reactief en een eventueel plafond.
 ```
+
+Elk chokepoint draagt een `vraag_id`. Dezelfde vraag staat bij meer paden (phishingbestendige
+authenticatie telt bij vier paden) en wordt maar een keer gesteld; het antwoord geldt overal. Drie vragen
+zijn omgekeerd geformuleerd (`negatief: true`): daar betekent ja dat de barriere ontbreekt.
+
+De regels zijn geen tweede waarheid naast de code. `tools/score.py` is een referentie-implementatie die ze
+uit de bron leest, en `tests/fixtures/doorloop-2026-08-28.json` is een echte doorloop van de zelfcheck
+met 44 antwoorden en de uitslag die de app daarop gaf. Een test bewaakt dat de referentie exact hetzelfde
+zegt: achttien statussen, drie acties, in die volgorde.
 
 Samen 44 unieke vragen: precies de vragen die de zelfcheck stelt. Een test bewaakt dat aantal, zodat
 de bron niet stilletjes achterloopt op de app.
@@ -56,6 +70,11 @@ paden.paden()             # de zeventien paden: de kolommen van de matrix
 paden.blad("AP01")        # één blad met zijn chokepoints
 paden.cluster_van("AP01") # het cluster waar het blad in zit
 paden.chokepoint("AP01-1")
+
+from tools import score
+uit = score.beoordeel(paden.laad(), {"pr": "yes", "fallback": "no", "soc": "yes"})
+uit["AP01"]["status"]     # "strong": beide vereiste barrieres staan (fallback is omgekeerd: nee = goed)
+score.acties(paden.laad(), antwoorden, uit)   # de drie zwaarste acties
 ```
 
 ## Mappen
@@ -65,7 +84,7 @@ paden.chokepoint("AP01-1")
 | `paden.json` | De bron, hierboven beschreven |
 | `check/` | Diepte 0 en 1: de offline app (React, Vite). Wacht op de broncode |
 | `methode/` | Leeswijzer bij diepte 1; de volledige methode staat in de kennisbank |
-| `tools/` | Schema, helpers, en het script waarmee de bron uit de zelfcheck is gehaald |
+| `tools/` | Schema, helpers, de referentie-implementatie van de regels, en het script waarmee de bron uit de zelfcheck is gehaald |
 | `tests/` | Validatie van de bron en van de repo-structuur |
 
 Diepte 2 (de meting) woont voorlopig in
