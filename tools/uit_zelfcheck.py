@@ -163,6 +163,13 @@ def lees_statussen(s: str) -> list[dict]:
     return [uit[k] for k in STATUS_VOLGORDE]
 
 
+def lees_onderdelen(s: str) -> list[str]:
+    """De zeven onderdelen waarin de zelfcheck zijn vragen groepeert (Nu-array)."""
+    i = s.find("Nu=[")
+    blok = s[i : s.find("]", i) + 1]
+    return [js_string(x) for x in re.findall(r'"(?:[^"\\]|\\.)*"', blok)]
+
+
 def lees_opties(s: str, naam: str) -> list[dict]:
     """Een antwoordlijst zoals os=[[id,label,uitleg],...] of ns=[...]."""
     i = s.find(naam + "=[[")
@@ -261,6 +268,7 @@ def bouw() -> dict:
     vragen = lees_vragen(s)
     paden = lees_paden(s)
     opties_model = lees_opties(s, "ns")
+    volgorde = list(vragen)  # de volgorde waarin de bundel de vragen definieert
     per_id = {p["id"]: p for p in paden}
     in_cluster = {ap for _, _, _, aps in CLUSTERS for ap in aps}
 
@@ -282,6 +290,7 @@ def bouw() -> dict:
                 cp = {
                     "id": f"{pad['id']}-{volgnr}",
                     "vraag_id": vid,
+                    "onderdeel": v["domein"],
                     "titel": generiek(v["actie"]).rstrip(".") or generiek(v["claim"]).rstrip("?"),
                     "vraag": vr,
                     "drp": [letter],
@@ -328,6 +337,7 @@ def bouw() -> dict:
         randvoorwaarden.append({
             "id": vid,
             "vraag_id": vid,
+            "onderdeel": v["domein"],
             "titel": generiek(v["actie"]).rstrip("."),
             "vraag": {k: w for k, w in velden(v).items() if w},
             "werking": (
@@ -343,6 +353,14 @@ def bouw() -> dict:
             "achttien bladeren voor het detail. Zelfcheck, risicoanalyse en meting lezen dit bestand; "
             "wijzig hier, niet in de code."
         ),
+        "onderdelen": [
+            {
+                "nummer": n,
+                "titel": generiek(naam),
+                "vragen": [vid for vid in volgorde if vragen[vid]["domein"] == n],
+            }
+            for n, naam in enumerate(lees_onderdelen(s))
+        ],
         "clusters": [
             {"id": cid, "titel": titel, "kern": kern, "bladeren": aps}
             for cid, titel, kern, aps in CLUSTERS

@@ -72,3 +72,26 @@ barriere ontbreekt) en de status van AP17 is de slechtste van dertien toegangspa
 
 **Nog open, oordeel van de inbrenger nodig:** 57 van de 76 chokepoints zijn alleen preventief en maar 2
 zijn detecterend; AP18 heeft geen enkele D of R. Dat is een inhoudelijke keuze, geen datafout.
+
+## 29-08-2026 · De zelfcheck staat er, gebouwd vanaf de bron
+
+De inbrenger gaf groen licht (en heeft zelf geen losse broncode; de gecompileerde HTML is wat er is).
+`check/` is daarom nieuw gebouwd vanaf `paden.json`, als één zelfstandig HTML-bestand zonder bundler,
+dependencies of externe verwijzingen. Live op https://security-commons-nl.github.io/aanvalspaden/.
+
+**Waarom geen framework:** de app moet offline werken, controleerbaar niets versturen en over vijf jaar nog
+te bouwen zijn. Een bouwscript van vijftig regels dat de bron in één scripttag zet, haalt dat; een
+dependency-boom niet. Het Content-Security-Policy is `default-src 'none'` met een sha256 op script en
+stylesheet, berekend bij het bouwen en nagerekend in een test. Daardoor is de offlinebelofte een
+controleerbare eigenschap in plaats van een zin in de README.
+
+**Bewijs dat app en bron niet uit elkaar lopen:** de browsertests draaien dezelfde antwoorden door de app,
+door `tools/score.py` en langs de uitslag van de oorspronkelijke zelfcheck. Wijkt er één status af, dan is
+de test rood. Een test verbiedt bovendien pad-ids en vraagteksten in `app.js`.
+
+**Twee bugs die alleen een echte browser liet zien:** het CSP blokkeerde de inline `style` op de
+voortgangsbalk (nu een `<progress>`), en een statusvlag in de legenda droeg hetzelfde `data-status` als een
+pad. Beide gevonden doordat de tests elke consolefout laten falen.
+
+**Nog open:** de D/R-verhouding blijft zoals ze is; de inbrenger bevestigde dat dat voor nu bewust is.
+Diepte 1 (kroonjuwelen, bewijs per cel, risicolijst) komt hierbovenop.

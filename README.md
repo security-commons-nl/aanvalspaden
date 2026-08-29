@@ -82,10 +82,14 @@ score.acties(paden.laad(), antwoorden, uit)   # de drie zwaarste acties
 | Map | Wat erin staat |
 |---|---|
 | `paden.json` | De bron, hierboven beschreven |
-| `check/` | Diepte 0 en 1: de offline app (React, Vite). Wacht op de broncode |
+| `check/` | Diepte 0: de zelfcheck, een zelfstandig HTML-bestand uit de bron. [Live](https://security-commons-nl.github.io/aanvalspaden/) |
 | `methode/` | Leeswijzer bij diepte 1; de volledige methode staat in de kennisbank |
 | `tools/` | Schema, helpers, de referentie-implementatie van de regels, en het script waarmee de bron uit de zelfcheck is gehaald |
 | `tests/` | Validatie van de bron en van de repo-structuur |
+
+De zelfcheck staat live: **[https://security-commons-nl.github.io/aanvalspaden/](https://security-commons-nl.github.io/aanvalspaden/)**. Het is één bestand; opslaan met Ctrl+S geeft je de
+offline versie. De pagina haalt niets van buiten en stuurt niets weg, en dat is niet alleen beloofd:
+`default-src 'none'` met een hash op het script en de stylesheet, nagerekend door een test.
 
 Diepte 2 (de meting) woont voorlopig in
 [security-posture-tool](https://github.com/security-commons-nl/security-posture-tool). Daar draagt elk

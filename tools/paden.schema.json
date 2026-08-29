@@ -7,6 +7,7 @@
     "versie",
     "toelichting",
     "clusters",
+    "onderdelen",
     "bladeren",
     "randvoorwaarden",
     "regels"
@@ -107,6 +108,7 @@
               "required": [
                 "id",
                 "vraag_id",
+                "onderdeel",
                 "titel",
                 "vraag",
                 "drp",
@@ -214,6 +216,12 @@
                   "type": "string",
                   "pattern": "^[a-z0-9_]+$",
                   "description": "Stel deze vraag alleen als de genoemde vraag niet met nee is beantwoord."
+                },
+                "onderdeel": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 6,
+                  "description": "Het onderdeel waarin de zelfcheck deze vraag stelt; zie onderdelen."
                 }
               }
             }
@@ -279,6 +287,7 @@
         "required": [
           "id",
           "vraag_id",
+          "onderdeel",
           "titel",
           "vraag",
           "werking"
@@ -333,6 +342,12 @@
             "type": "string",
             "pattern": "^[a-z0-9_]+$",
             "description": "Stabiele sleutel van de vraag. Dezelfde vraag bij meer paden deelt deze sleutel en wordt maar een keer gesteld."
+          },
+          "onderdeel": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 6,
+            "description": "Het onderdeel waarin de zelfcheck deze vraag stelt; zie onderdelen."
           }
         }
       }
@@ -535,6 +550,40 @@
             "aantal": {
               "type": "integer",
               "minimum": 1
+            }
+          }
+        }
+      }
+    },
+    "onderdelen": {
+      "type": "array",
+      "minItems": 7,
+      "maxItems": 7,
+      "description": "De zeven onderdelen waarin de vragen worden gesteld, met per onderdeel de vraagvolgorde.",
+      "items": {
+        "type": "object",
+        "required": [
+          "nummer",
+          "titel",
+          "vragen"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "nummer": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 6
+          },
+          "titel": {
+            "type": "string",
+            "minLength": 5
+          },
+          "vragen": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "string",
+              "pattern": "^[a-z0-9_]+$"
             }
           }
         }

@@ -15,36 +15,33 @@ jobs:
       test-command: "python -m pytest tests/ -v"
       install-extras: "pytest jsonschema"
 
-  # De app (diepte 0 en 1). Draait pas zodra check/ een package.json heeft; zolang de
-  # broncode van de zelfcheck ontbreekt, slaat deze job zichzelf over in plaats van rood
-  # te staan om iets dat er nog niet is.
+  # De app: bouwen en in een echte browser doorlopen. De browsertests vergelijken de uitslag met
+  # tools/score.py en met de zelfcheck waar de bron uit komt, dus hier valt het door de mand als de
+  # app en de bron uit elkaar lopen.
   check:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
 
-      - name: Is er al een app?
-        id: bestaat
-        run: |
-          if [ -f check/package.json ]; then
-            echo "ja=true" >> "$GITHUB_OUTPUT"
-          else
-            echo "ja=false" >> "$GITHUB_OUTPUT"
-            echo "check/ is nog leeg; zie BESLUITEN.md (broncode zelfcheck)." >> "$GITHUB_STEP_SUMMARY"
-          fi
-
-      - uses: actions/setup-node@v6
-        if: steps.bestaat.outputs.ja == 'true'
+      - uses: actions/setup-python@v6
         with:
-          node-version: 24
-          cache: npm
-          cache-dependency-path: check/package-lock.json
+          python-version: "3.12"
 
-      - name: Tests en build
-        if: steps.bestaat.outputs.ja == 'true'
-        working-directory: check
+      - name: Installeren
         run: |
-          npm ci
-          npx vitest run
-          npm run build
-          test -s dist/index.html
+          python -m pip install --upgrade pip
+          pip install pytest jsonschema playwright
+          python -m playwright install --with-deps chromium
+
+      - name: Bouwen
+        run: python check/bouw.py
+
+      - name: Tests
+        run: python -m pytest check/tests/ -v
+
+      - name: De gebouwde check bewaren
+        uses: actions/upload-artifact@v4
+        with:
+          name: zelfcheck
+          path: check/dist/index.html
+          if-no-files-found: error

@@ -10,3 +10,5 @@ krijgt hier een regel, zodat een uitslag van later nog te plaatsen is tegen de b
 - Vragen dragen een `vraag_id`; dezelfde vraag bij meer paden wordt een keer gesteld.
 - De scoreregels staan in de bron (`regels`, plus `regels` per blad) in plaats van in de app.
   Bewezen gelijk aan de app op een doorloop met 44 antwoorden.
+- `onderdelen`: de zeven onderdelen en de vraagvolgorde, zodat de app zijn schermen uit de bron haalt.
+- `check/`: de zelfcheck gebouwd vanaf deze bron, als één offline HTML-bestand.

@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-__SCRIPT_HASH__'; style-src 'sha256-__STYLE_HASH__'; img-src data:; form-action 'none'; base-uri 'none'">
+<title>Zelfcheck aanvalspaden</title>
+<meta name="description" content="Offline zelfcheck: welke aanvalspaden staan bij jullie open? Alle vragen en regels komen uit een open bron.">
+<style>__CSS__</style>
+</head>
+<body>
+<header>
+  <div class="binnen">
+    <div class="naam">Zelfcheck aanvalspaden</div>
+    <div class="sub">Werkt offline &middot; je antwoorden blijven op dit apparaat</div>
+  </div>
+</header>
+
+<main id="app">
+  <noscript>
+    <section class="kaart">
+      <h1>Zelfcheck aanvalspaden</h1>
+      <p>Deze zelfcheck rekent in je browser, zodat je antwoorden nergens heen gaan. Daarvoor is JavaScript
+      nodig. De vragen en de regels staan open in <code>paden.json</code> in de repository, dus je kunt ze
+      ook zonder deze pagina lezen.</p>
+    </section>
+  </noscript>
+</main>
+
+<footer>
+  <div class="binnen">
+    Zelfcheck aanvalspaden &middot; <span id="versie"></span> &middot;
+    <a href="https://github.com/security-commons-nl/aanvalspaden" rel="noopener">bron en methode op GitHub</a>.
+    Geen account, geen server, geen telemetrie. Deze uitslag komt uit je eigen antwoorden en is geen
+    technische verificatie. Offline gebruiken? Sla deze pagina op met Ctrl+S; alles zit erin.
+  </div>
+</footer>
+
+<script>__SCRIPT__</script>
+</body>
+</html>
