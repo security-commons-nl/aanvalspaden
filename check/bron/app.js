@@ -300,7 +300,7 @@
       laatste ? null : el("button", { tekst: "Direct naar het resultaat", onclick: function () { ga("resultaat"); } })
     ]));
     if (open) {
-      sectie.appendChild(el("p", { class: "voortgang", tekst: open + " vraag" + (open === 1 ? "" : "en") +
+      sectie.appendChild(el("p", { class: "voortgang", tekst: open + (open === 1 ? " vraag" : " vragen") +
         " in dit onderdeel nog onbeantwoord; die tellen als onbekend." }));
     }
     return sectie;
@@ -413,7 +413,7 @@
       el("p", { class: "label", tekst: "DE BEOORDELING" }),
       el("h2", { tekst: "Geen score, wel een eerlijk beeld" }),
       el("p", { tekst: "Geen percentage en geen volwassenheidsniveau. Per aanvalspad kijken we of de " +
-        "noodzakelijke barrieres er zijn. Een positief antwoord betekent: technisch afgedwongen en de " +
+        "noodzakelijke barrières er zijn. Een positief antwoord betekent: technisch afgedwongen en de " +
         "dekking is gecontroleerd." })
     ]);
     var lijst = el("dl", { class: "statussen" });

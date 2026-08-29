@@ -1,7 +1,9 @@
 # Aanvalspaden: van zelfcheck tot risicolijst tot meting
 
-> **Status: in aanbouw.** De gedeelde bron (`paden.json`) staat er en wordt bewaakt door tests. De app
-> (diepte 0 en 1) wacht op de broncode van de zelfcheck; zie [BESLUITEN.md](BESLUITEN.md).
+> **Status: prototype.** De gedeelde bron (`paden.json`) en de zelfcheck (diepte 0) staan er en worden
+> bewaakt door tests; de zelfcheck is [live](https://security-commons-nl.github.io/aanvalspaden/). De
+> risicoanalyse in de app (diepte 1) volgt; de meting (diepte 2) woont nog in de posture-tool. Zie
+> [BESLUITEN.md](BESLUITEN.md).
 
 Eén instrument in drie diepten voor de CISO of ISO van een publieke organisatie. Wie na diepte 0 stopt,
 heeft iets bruikbaars.
