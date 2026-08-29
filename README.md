@@ -1,4 +1,8 @@
-# Aanvalspaden: van zelfcheck tot risicolijst tot meting
+# aanvalspaden
+
+Een instrument in drie diepten: zelfcheck, risicoanalyse en meting, met een gedeelde bron voor de aanvalspaden.
+
+Status: prototype. De bron en de zelfcheck werken en zijn getest; de risicoanalyse in de app volgt.
 
 > **Status: prototype.** De gedeelde bron (`paden.json`) en de zelfcheck (diepte 0) staan er en worden
 > bewaakt door tests; de zelfcheck is [live](https://security-commons-nl.github.io/aanvalspaden/). De
@@ -20,8 +24,26 @@ Twee regels houden het eerlijk:
    bewijslink. Die twee mogen nooit door elkaar lopen.
 2. **Diepte 1 is een knop, geen volgend scherm.** Wie na het resultaat stopt, houdt een afgeronde zelfcheck.
 
-## Zo gebruik je het
+## Voor wie
 
+CISO's en ISO's bij publieke organisaties.
+
+## Snel starten
+
+Doe de zelfcheck op https://security-commons-nl.github.io/aanvalspaden/ (een uur, in je browser). Zelf bouwen: `python check/bouw.py`.
+
+## Bijdragen
+
+Zie de [CONTRIBUTING](https://github.com/security-commons-nl/.github/blob/main/CONTRIBUTING.md) van de organisatie: daar staat per project een formulier, ook zonder Git-ervaring.
+
+Zie [CONTRIBUTING.md](CONTRIBUTING.md). Een issue of discussion is een volwaardige bijdrage; "maak maar een
+pull request" is nooit het antwoord.
+
+## Licentie
+
+EUPL-1.2, zie [LICENSE](LICENSE).
+
+## Zo gebruik je het
 **Het uur, alleen.** Open de zelfcheck: **https://security-commons-nl.github.io/aanvalspaden/**. Liever
 offline? Sla de pagina op met Ctrl+S; het is één bestand en het haalt niets van buiten. Zeven onderdelen,
 44 vragen, en je hebt niets nodig behalve wat je zelf weet van je tenant, je werkplekken en je leveranciers.
@@ -54,7 +76,6 @@ levert het bewijs per cel. Zie onder.
 normenkader. Hij zegt waar een aanvaller ruimte heeft, niet of je compliant bent. Dat vult elkaar aan.
 
 ## De bron: `paden.json`
-
 Alle drie de diepten lezen hetzelfde bestand. Vijf clusters voor het overzicht en de matrix, achttien
 bladeren voor het detail, en per blad de chokepoints met hun vraag.
 
@@ -113,7 +134,6 @@ score.acties(paden.laad(), antwoorden, uit)   # de drie zwaarste acties
 ```
 
 ## Mappen
-
 | Map | Wat erin staat |
 |---|---|
 | `paden.json` | De bron, hierboven beschreven |
@@ -132,12 +152,10 @@ checklist-item een `pad` en een `chokepoint` uit deze bron, zodat een meting daa
 hier. De repo houdt een kopie van `paden.json` met een hash die bewaakt dat hij niet achterloopt.
 
 ## De methode, leesbaar
-
 De vier stappen met de lijn erbij, het papieren sjabloon en een ingevuld voorbeeld staan in de kennisbank:
 [Risicoanalyse langs aanvalspaden](https://security-commons-nl.github.io/kennisbank/security/risicoanalyse-aanvalspaden/).
 
 ## Zelf draaien
-
 ```bash
 pip install pytest jsonschema
 python -m pytest tests/ -v        # bron en structuur
@@ -146,11 +164,5 @@ python -m pytest tests/ -v        # bron en structuur
 Zodra `check/` er is: `cd check && npm ci && npm run build` levert één offline HTML-bestand.
 
 ## Herkomst
-
 De zelfcheck is ontwikkeld door de CISO-organisatie van een Nederlandse gemeente en met toestemming
 ingebracht; de methode komt uit de kennisbank van security-commons-nl. Licentie: EUPL-1.2.
-
-## Bijdragen
-
-Zie [CONTRIBUTING.md](CONTRIBUTING.md). Een issue of discussion is een volwaardige bijdrage; "maak maar een
-pull request" is nooit het antwoord.
