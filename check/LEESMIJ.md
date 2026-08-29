@@ -48,8 +48,9 @@ Een test controleert dat: geen pad-id en geen vraagtekst mag in `app.js` staan.
 python -m pytest check/tests/ -v
 ```
 
-- `test_bouw.py` (7): de bron zit er ongewijzigd in, er is precies één script en één stylesheet, de
-  CSP-hashes kloppen met de inhoud, er is geen externe verwijzing, en de bouw is herhaalbaar.
+- `test_bouw.py` (8): de bron zit er ongewijzigd in, er is precies één script en één stylesheet, de
+  CSP-hashes kloppen met de inhoud, er is geen externe verwijzing, de bouw is herhaalbaar, en er staat
+  een kruimelpad terug naar de hoofdpagina (statuut B10).
 - `test_app.py` (14): de app in Chromium. Klikken, opslaan, herladen, wissen, de vervolgvraag die
   verdwijnt. Daarna de drie doorlopen (alles ja, alles nee, alles onbekend) en, belangrijker, de
   vergelijking: dezelfde antwoorden moeten in de browser dezelfde uitslag geven als `tools/score.py` én

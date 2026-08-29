@@ -35,6 +35,9 @@ header .binnen, footer .binnen, main {
   padding: 1rem 1.25rem;
 }
 
+.kruimel { font-size: .8rem; color: var(--zacht); margin-bottom: .3rem; }
+.kruimel a { color: var(--accent); text-decoration: none; }
+.kruimel a:hover { text-decoration: underline; }
 header .naam { font-weight: 700; letter-spacing: .01em; }
 header .sub, footer .binnen { color: var(--zacht); font-size: .85rem; }
 

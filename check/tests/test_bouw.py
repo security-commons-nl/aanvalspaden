@@ -81,3 +81,10 @@ def test_bouw_is_herhaalbaar(tmp_path):
     een = bouw.bouw(tmp_path / "a").read_bytes()
     twee = bouw.bouw(tmp_path / "b").read_bytes()
     assert een == twee
+
+
+def test_kruimelpad_wijst_terug_naar_de_hoofdpagina(html):
+    """Statuut B10: elke pagina op Pages begint met een weg terug."""
+    assert 'class="kruimel"' in html
+    assert 'href="https://security-commons-nl.github.io/"' in html
+    assert "Security Commons NL" in html
