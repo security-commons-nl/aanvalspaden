@@ -20,6 +20,39 @@ Twee regels houden het eerlijk:
    bewijslink. Die twee mogen nooit door elkaar lopen.
 2. **Diepte 1 is een knop, geen volgend scherm.** Wie na het resultaat stopt, houdt een afgeronde zelfcheck.
 
+## Zo gebruik je het
+
+**Het uur, alleen.** Open de zelfcheck: **https://security-commons-nl.github.io/aanvalspaden/**. Liever
+offline? Sla de pagina op met Ctrl+S; het is één bestand en het haalt niets van buiten. Zeven onderdelen,
+44 vragen, en je hebt niets nodig behalve wat je zelf weet van je tenant, je werkplekken en je leveranciers.
+
+Drie regels bij het invullen:
+
+- **Ja betekent afgedwongen en gecontroleerd.** Een maatregel die beschikbaar is maar te omzeilen, is geen
+  ja. Kies dan gedeeltelijk.
+- **Onbekend is een bruikbaar antwoord.** De check rekent het niet goed en niet fout; hij zegt wat je eerst
+  moet uitzoeken.
+- **Drie vragen zijn omgekeerd geformuleerd** (bijvoorbeeld: kunnen medewerkers nog via een zwakkere methode
+  inloggen?). De app zegt erbij dat ja daar het ongunstige antwoord is.
+
+De uitslag is per aanvalspad een status (open, reactief beheerst, onbekend, beperkt risico, sterk beheerst)
+en drie acties voor morgen. Geen score, geen percentage. "84% veilig" zegt niets; "phishing naar
+accountovername staat open omdat de sms-fallback nog aan staat" wel. Je antwoorden blijven in de opslag van
+je browser; wissen doe je met de knop onder de uitslag.
+
+**De dag, met de lijn.** Neem de open paden mee naar de [methode](methode/README.md). Daar zet je ze af
+tegen je kroonjuwelen, maximaal tien processen of gegevensverzamelingen die bestuurlijk pijn doen. Per open
+pad en kroonjuweel drie vragen: zien we het, kunnen we reageren, houden we het tegen. Hier telt het
+antwoord uit de zelfcheck niet meer; een cel wordt pas groen met een artefact eronder (een export, een
+configuratie, een testverslag). De rode cellen zijn je risicolijst, elk met een maatregel, een eigenaar en
+een termijn, of een bewuste acceptatie door de risico-eigenaar.
+
+**Daarna, doorlopend.** De meting haalt dezelfde chokepoints uit echte data (Entra, firewall, CSV) en
+levert het bewijs per cel. Zie onder.
+
+**Wat je er eerlijk bij zegt tegen de directie:** de check is dreigingsgedreven en geen audit tegen een
+normenkader. Hij zegt waar een aanvaller ruimte heeft, niet of je compliant bent. Dat vult elkaar aan.
+
 ## De bron: `paden.json`
 
 Alle drie de diepten lezen hetzelfde bestand. Vijf clusters voor het overzicht en de matrix, achttien
@@ -89,9 +122,9 @@ score.acties(paden.laad(), antwoorden, uit)   # de drie zwaarste acties
 | `tools/` | Schema, helpers, de referentie-implementatie van de regels, en het script waarmee de bron uit de zelfcheck is gehaald |
 | `tests/` | Validatie van de bron en van de repo-structuur |
 
-De zelfcheck staat live: **[https://security-commons-nl.github.io/aanvalspaden/](https://security-commons-nl.github.io/aanvalspaden/)**. Het is één bestand; opslaan met Ctrl+S geeft je de
-offline versie. De pagina haalt niets van buiten en stuurt niets weg, en dat is niet alleen beloofd:
-`default-src 'none'` met een hash op het script en de stylesheet, nagerekend door een test.
+De zelfcheck haalt niets van buiten en stuurt niets weg, en dat is niet alleen beloofd: het
+Content-Security-Policy is `default-src 'none'` met een hash op het script en de stylesheet, nagerekend
+door een test. Details in [`check/LEESMIJ.md`](check/LEESMIJ.md).
 
 Diepte 2 (de meting) woont voorlopig in
 [security-posture-tool](https://github.com/security-commons-nl/security-posture-tool). Daar draagt elk
