@@ -87,6 +87,37 @@
     return vlag;
   }
 
+  /* De kop van een blok: een soortlabel, dan het nummer en de naam. Het label zegt in een woord
+     waar je naar kijkt, zodat een aanvalspad nooit te verwarren is met een maatregel. */
+  function blokKop(soort, nummer, naam, vlag) {
+    var wrap = document.createElement("div");
+    wrap.appendChild(el("p", "soort", soort));
+    var kop = el("div", "blokkop");
+    var titel = el("h3");
+    if (nummer) { titel.appendChild(el("span", "kop-nummer", nummer)); }
+    titel.appendChild(document.createTextNode(nummer ? " " + naam : naam));
+    kop.appendChild(titel);
+    if (vlag) { kop.appendChild(vlag); }
+    wrap.appendChild(kop);
+    return wrap;
+  }
+
+  /* Een maatregel onder een barriere: het nummer in een vaste kolom vooraan, dan de naam. */
+  function normItem(sterkte, nummer, naam, reden) {
+    var li = el("li");
+    var kop = el("div", "regel-kop");
+    var titel = el("span", "titel");
+    titel.appendChild(el("span", "norm-nummer", nummer));
+    // Een spatie hoort in de tekst, niet alleen in de opmaak: anders plakken nummer en naam aan
+    // elkaar zodra iemand de regel kopieert of met een schermlezer leest.
+    titel.appendChild(document.createTextNode(" " + naam));
+    kop.appendChild(titel);
+    kop.appendChild(sterkteVlag(sterkte));
+    li.appendChild(kop);
+    if (reden) { li.appendChild(el("p", "reden", reden)); }
+    return li;
+  }
+
   function regelItem(sterkte, titel, nummer, reden, bewijs) {
     var li = el("li");
     var kop = el("div", "regel-kop");
@@ -116,10 +147,9 @@
       gevonden++;
 
       var blok = el("section", "blok");
-      var kop = el("div", "blokkop");
-      kop.appendChild(el("h3", null, blad.id + ". " + blad.titel));
-      if (blad.type === "impact") { kop.appendChild(el("span", "chip", "impact, geen voordeur")); }
-      blok.appendChild(kop);
+      var soort = blad.type === "impact" ? "Impact, geen voordeur"
+        : blad.type === "randvoorwaarde" ? "Randvoorwaarde" : "Aanvalspad";
+      blok.appendChild(blokKop(soort, blad.id === "RV" ? null : blad.id, blad.titel));
       if (blad.scenario) { blok.appendChild(el("p", "uitleg", blad.scenario)); }
 
       var lijst = el("ul", "regels");
@@ -142,7 +172,7 @@
           var normen = el("ul", "regels");
           regels.forEach(function (r) {
             var m = maatregelVan(r.norm);
-            normen.appendChild(regelItem(r.sterkte, r.norm + " " + (m ? m.titel : ""), null, r.reden));
+            normen.appendChild(normItem(r.sterkte, r.norm, m ? m.titel : "", r.reden));
           });
           item.appendChild(normen);
         }
@@ -173,14 +203,10 @@
 
       var hard = hardeRegels(regels);
       var blok = el("section", "blok");
-      var kop = el("div", "blokkop");
-      kop.appendChild(el("h3", null, m.id + " " + m.titel));
-      if (hard.length) {
-        kop.appendChild(sterkteVlag(hard[0].sterkte, hard.length + (hard.length === 1 ? " barriere" : " barrieres")));
-      } else {
-        kop.appendChild(sterkteVlag("geen", regels.length ? "alleen raakvlak" : "witte vlek"));
-      }
-      blok.appendChild(kop);
+      var vlag = hard.length
+        ? sterkteVlag(hard[0].sterkte, hard.length + (hard.length === 1 ? " barriere" : " barrieres"))
+        : sterkteVlag("geen", regels.length ? "alleen raakvlak" : "witte vlek");
+      blok.appendChild(blokKop("Maatregel", m.id, m.titel, vlag));
 
       var meta = el("p", "thema", m.thema);
       if (m.overheidsmaatregelen && m.overheidsmaatregelen.length) {
@@ -259,11 +285,11 @@
       wrap.appendChild(el("h3", "themakop", thema));
       items.forEach(function (m) {
         var blok = el("section", "blok");
-        var kop = el("div", "blokkop");
-        kop.appendChild(el("h3", null, m.id + " " + m.titel));
         var raak = m.raakvlakken || [];
-        kop.appendChild(sterkteVlag("geen", raak.length ? "alleen raakvlak" : "witte vlek"));
-        blok.appendChild(kop);
+        blok.appendChild(blokKop(
+          "Maatregel zonder bewijs", m.id, m.titel,
+          sterkteVlag("geen", raak.length ? "alleen raakvlak" : "witte vlek")
+        ));
         if (m.artikel) { blok.appendChild(el("p", "thema", m.artikel)); }
         if (m.kern) { blok.appendChild(el("p", "uitleg", m.kern)); }
         if (raak.length) {

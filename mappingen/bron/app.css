@@ -120,18 +120,53 @@ input[type="search"] {
 }
 input[type="search"]:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
 
-/* Een blok: een aanvalspad, een maatregel of een barriere. */
-.blok { border: 1px solid var(--lijn); border-radius: 8px; padding: .9rem 1rem; margin: .8rem 0; background: var(--wit); }
+/* Drie niveaus, drie duidelijk verschillende maten.
+
+   1 het blok      een aanvalspad of een maatregel: groot, in de accentkleur, met een soortlabel erboven
+   2 de barriere   een chokepoint of een barriere: middelgroot, in inkt, met een lijn erboven
+   3 de regel      een maatregel onder een barriere: klein, het nummer als vaste kolom vooraan
+
+   Zonder dat verschil lezen de drie als een lijst van gelijken en verdwijnt de boom. Grootte, kleur en
+   gewicht doen het werk; er komen geen extra kaders bij, zodat het op een telefoon en in print
+   overeind blijft. */
+
+.blok { border: 1px solid var(--lijn); border-radius: 8px; padding: 1.1rem 1.2rem; margin: 1rem 0; background: var(--wit); }
 .blokkop { display: flex; flex-wrap: wrap; gap: .5rem; align-items: baseline; justify-content: space-between; }
-.blokkop h3 { margin: 0; }
 .blok p { margin: .35rem 0; }
 .nummer { font-variant-numeric: tabular-nums; color: var(--zacht); font-size: .85rem; }
 
-.regels { list-style: none; margin: .5rem 0 0; padding: 0; }
-.regels li { border-top: 1px solid var(--lijn); padding: .6rem 0; }
-.regels li:first-child { border-top: 0; }
+/* Niveau 1: de kop van het blok. */
+.soort { font-size: .68rem; letter-spacing: .14em; text-transform: uppercase; color: var(--zacht); margin: 0 0 .15rem; }
+.blokkop h3 { margin: 0; font-size: 1.45rem; line-height: 1.2; color: var(--accent); letter-spacing: -.01em; }
+.blokkop h3 .kop-nummer { font-variant-numeric: tabular-nums; color: var(--zacht); font-weight: 400; margin-right: .5rem; }
+
+/* Niveau 2: de barrieres binnen een blok. */
+.regels { list-style: none; margin: .8rem 0 0; padding: 0; }
+.regels > li { border-top: 1px solid var(--lijn); padding: .85rem 0 .2rem; }
+.regels > li:first-child { border-top: 0; }
 .regel-kop { display: flex; flex-wrap: wrap; gap: .5rem; align-items: baseline; }
-.regel-kop .titel { font-weight: 700; }
+.regel-kop .titel { font-weight: 700; font-size: 1.05rem; line-height: 1.3; }
+
+/* Niveau 3: de maatregelen onder een barriere. Kleiner, ingesprongen, en het nummer voorop in een
+   vaste kolom zodat je verticaal langs de nummers kunt scannen. */
+.regels .regels { margin: .55rem 0 .3rem; padding-left: 1.1rem; border-left: 2px solid var(--vlak); }
+.regels .regels > li { border-top: 0; padding: .45rem 0; }
+.regels .regels .regel-kop { gap: .55rem; }
+.regels .regels .regel-kop .titel {
+  font-size: .95rem;
+  font-weight: 600;
+  color: var(--inkt);
+}
+.regels .regels .regel-kop .titel .norm-nummer {
+  display: inline-block;
+  min-width: 3.6rem;
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+  color: var(--accent);
+}
+.regels .regels .reden { font-size: .88rem; padding-left: 3.6rem; }
+.regels .regels .bewijs { padding-left: 3.6rem; }
+
 .reden { font-size: .92rem; margin: .25rem 0 0; }
 
 /* De sterkte van een regel. Kleur en woord, nooit alleen kleur. */
@@ -150,7 +185,17 @@ input[type="search"]:focus { outline: 2px solid var(--accent); outline-offset: 1
 .telling .groot { font-size: 1.6rem; font-weight: 700; line-height: 1.1; }
 .telling .wat { font-size: .8rem; color: var(--zacht); }
 
-.themakop { margin: 1.4rem 0 .3rem; border-bottom: 1px solid var(--lijn); padding-bottom: .25rem; font-size: 1rem; }
+/* De themakop groepeert blokken, dus hij hoort groter te zijn dan de koppen eronder. Hij stond op
+   1rem terwijl de blokken op 1,05 stonden: de bovenliggende kop was kleiner dan zijn eigen kinderen.
+   Geen hoofdletters: themanamen als "GOVERN (GV) - Organizational Context" worden daar onleesbaar van. */
+.themakop {
+  margin: 2rem 0 .2rem;
+  padding-bottom: .35rem;
+  border-bottom: 2px solid var(--accent);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--inkt);
+}
 .leeg { color: var(--zacht); font-style: italic; }
 .geenresultaat { padding: 1rem; color: var(--zacht); }
 

@@ -68,15 +68,17 @@ def test_alle_kaders_hebben_een_knop(pagina):
 def test_alle_achttien_paden_staan_er_plus_de_randvoorwaarden(pagina):
     koppen = pagina.locator(".blok h3").all_inner_texts()
     for nummer in range(1, 19):
-        assert any(k.startswith(f"AP{nummer:02d}.") for k in koppen), f"AP{nummer:02d} ontbreekt"
+        assert any(k.startswith(f"AP{nummer:02d} ") for k in koppen), f"AP{nummer:02d} ontbreekt"
     assert any("Randvoorwaarden" in k for k in koppen), "de randvoorwaarden ontbreken"
 
 
 def test_een_bekende_regel_staat_op_het_scherm(pagina):
     """AP01 hoort bewijs te leveren voor beveiligde authenticatie."""
-    blok = pagina.locator(".blok", has_text="AP01.").first
+    blok = pagina.locator(".blok", has_text="Phishing").first
     tekst = blok.inner_text()
-    assert "8.5 Beveiligde authenticatie" in tekst
+    assert "8.5 Beveiligde authenticatie" in tekst, (
+        "nummer en naam horen met een spatie ertussen te staan, ook in gekopieerde tekst"
+    )
     assert "volledig" in tekst
     assert "Bewijs:" in tekst
 
@@ -208,3 +210,51 @@ def test_nist_sluit_het_dichtst_aan_maar_mist_govern(pagina):
     pagina.get_by_role("button", name="Witte vlekken").click()
     tekst = pagina.locator("main").inner_text()
     assert "GOVERN (GV)" in tekst, "de GOVERN-functie hoort bij de witte vlekken te staan"
+
+
+def test_de_drie_niveaus_zijn_visueel_te_onderscheiden(pagina):
+    """Aanvalspad, barriere en maatregel moeten er verschillend uitzien, niet alleen ingesprongen.
+
+    Zonder verschil in grootte lezen de drie als een lijst van gelijken en verdwijnt de boom. Dit is
+    de reden dat de opmaak op drie maten staat; de test legt die volgorde vast.
+    """
+    def px(locator):
+        return float(locator.evaluate("e => getComputedStyle(e).fontSize").replace("px", ""))
+
+    blok = pagina.locator(".blok", has_text="Phishing").first
+    pad = px(blok.locator("h3").first)
+    barriere = px(blok.locator("> ul.regels > li > .regel-kop > .titel").first)
+    maatregel = px(blok.locator(".regels .regels .regel-kop .titel").first)
+
+    assert pad > barriere > maatregel, (
+        f"de niveaus lopen niet af in grootte: pad {pad}, barriere {barriere}, maatregel {maatregel}"
+    )
+    assert pad - barriere >= 5, "het verschil tussen aanvalspad en barriere is te klein om te zien"
+
+
+def test_elk_blok_zegt_met_een_label_waar_je_naar_kijkt(pagina):
+    labels = pagina.locator(".blok .soort").all_inner_texts()
+    assert labels, "blokken hebben geen soortlabel"
+    assert all(l.strip() for l in labels)
+    assert any("AANVALSPAD" in l.upper() for l in labels)
+
+    pagina.get_by_role("button", name="Vanuit de maatregel").click()
+    labels = pagina.locator(".blok .soort").all_inner_texts()
+    assert all("MAATREGEL" in l.upper() for l in labels), "in de maatregelweergave hoort elk blok Maatregel te zeggen"
+
+
+def test_de_themakop_is_groter_dan_de_blokken_eronder(pagina):
+    """De groepskop hoort boven zijn kinderen te staan, ook typografisch.
+
+    Hij stond eerder op 1rem terwijl de blokken op 1,05 stonden, dus de bovenliggende kop was kleiner
+    dan wat hij groepeerde.
+    """
+    pagina.get_by_role("button", name="Witte vlekken").click()
+    def px(locator):
+        return float(locator.evaluate("e => getComputedStyle(e).fontSize").replace("px", ""))
+    thema = px(pagina.locator(".themakop").first)
+    blok = px(pagina.locator(".blok h3").first)
+    assert thema >= blok * 0.7, f"themakop {thema} verdwijnt naast de blokkoppen {blok}"
+    assert "uppercase" not in pagina.locator(".themakop").first.evaluate(
+        "e => getComputedStyle(e).textTransform"
+    ), "hoofdletters maken lange themanamen als 'GOVERN (GV) - Organizational Context' onleesbaar"
