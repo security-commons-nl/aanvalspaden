@@ -5,7 +5,7 @@
     "kennisbank": "https://security-commons-nl.github.io/kennisbank/",
     "repo": "security-commons-nl/kennisbank",
     "bestand": "handelingsperspectief.json",
-    "sha256": "b0b555483d31475bf647ddfc25bef2ad966f4290157dc9119079d4661b5d025a",
+    "sha256": "907d602109e9ad506e67f64721bba08a67235012ab5cb71246aea0077c59b46b",
     "let_op": "De kennisbank is de bron. Klopt deze kopie niet meer, dan draai je dit script opnieuw; hem met de hand bijwerken laat de sha256 achter en verbergt het verschil."
   },
   "handleidingen": [
