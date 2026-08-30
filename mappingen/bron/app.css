@@ -1,0 +1,136 @@
+/* Eén stylesheet, meegebakken in de HTML. Geen externe fonts, geen externe stylesheets:
+   dezelfde afspraak als de zelfcheck, zodat de pagina offline werkt en het
+   Content-Security-Policy op een hash kan staan. De variabelen zijn gelijk aan check/bron/app.css. */
+
+:root {
+  --inkt: #16202b;
+  --zacht: #5a6675;
+  --lijn: #d7dee7;
+  --vlak: #f5f8fb;
+  --wit: #ffffff;
+  --accent: #1f4e79;
+  --volledig: #1f7a4d;
+  --gedeeltelijk: #1f6f8b;
+  --raakvlak: #b26a00;
+  --leeg: #b3261e;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: system-ui, "Segoe UI", Roboto, Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.55;
+  color: var(--inkt);
+  background: var(--vlak);
+}
+
+header, footer { background: var(--wit); border-bottom: 1px solid var(--lijn); }
+footer { border-bottom: 0; border-top: 1px solid var(--lijn); margin-top: 2rem; }
+
+header .binnen, footer .binnen, main {
+  max-width: 60rem;
+  margin: 0 auto;
+  padding: 1rem 1.25rem;
+}
+
+.kruimel { font-size: .8rem; color: var(--zacht); margin-bottom: .3rem; }
+.kruimel a { color: var(--accent); text-decoration: none; }
+.kruimel a:hover { text-decoration: underline; }
+header .naam { font-weight: 700; letter-spacing: .01em; }
+header .sub, footer .binnen { color: var(--zacht); font-size: .85rem; }
+
+.kaart {
+  background: var(--wit);
+  border: 1px solid var(--lijn);
+  border-radius: 10px;
+  padding: 1.5rem;
+  margin: 1.25rem 0;
+}
+
+h1 { font-size: 1.9rem; line-height: 1.2; margin: .2rem 0 .6rem; }
+h2 { font-size: 1.35rem; margin: .2rem 0 .7rem; }
+h3 { font-size: 1.05rem; margin: 1.2rem 0 .4rem; }
+a { color: var(--accent); }
+
+.lead { font-size: 1.05rem; }
+.uitleg, .bewijs, .toelichting { color: var(--zacht); font-size: .9rem; }
+.label { font-size: .72rem; letter-spacing: .12em; color: var(--zacht); margin: 0; text-transform: uppercase; }
+
+/* Keuzebalk: kader en weergave. */
+.balk { display: flex; flex-wrap: wrap; gap: .6rem; align-items: center; margin: 1rem 0 .2rem; }
+.balk .rek { flex: 1 1 8rem; }
+
+button {
+  font: inherit;
+  padding: .5rem .9rem;
+  border: 1px solid var(--lijn);
+  border-radius: 7px;
+  background: var(--wit);
+  color: var(--inkt);
+  cursor: pointer;
+}
+button:hover { border-color: var(--accent); }
+button.gekozen { background: var(--accent); border-color: var(--accent); color: var(--wit); }
+
+input[type="search"] {
+  font: inherit;
+  width: 100%;
+  padding: .5rem .75rem;
+  border: 1px solid var(--lijn);
+  border-radius: 7px;
+  background: var(--wit);
+  color: var(--inkt);
+}
+input[type="search"]:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
+
+/* Een blok: een aanvalspad, een maatregel of een barriere. */
+.blok { border: 1px solid var(--lijn); border-radius: 8px; padding: .9rem 1rem; margin: .8rem 0; background: var(--wit); }
+.blokkop { display: flex; flex-wrap: wrap; gap: .5rem; align-items: baseline; justify-content: space-between; }
+.blokkop h3 { margin: 0; }
+.blok p { margin: .35rem 0; }
+.nummer { font-variant-numeric: tabular-nums; color: var(--zacht); font-size: .85rem; }
+
+.regels { list-style: none; margin: .5rem 0 0; padding: 0; }
+.regels li { border-top: 1px solid var(--lijn); padding: .6rem 0; }
+.regels li:first-child { border-top: 0; }
+.regel-kop { display: flex; flex-wrap: wrap; gap: .5rem; align-items: baseline; }
+.regel-kop .titel { font-weight: 700; }
+.reden { font-size: .92rem; margin: .25rem 0 0; }
+
+/* De sterkte van een regel. Kleur en woord, nooit alleen kleur. */
+.sterkte { display: inline-flex; align-items: center; gap: .35rem; font-size: .78rem; font-weight: 700; white-space: nowrap; }
+.sterkte b { display: inline-block; width: .7rem; height: .7rem; border-radius: 50%; }
+.sterkte.volledig { color: var(--volledig); } .sterkte.volledig b { background: var(--volledig); }
+.sterkte.gedeeltelijk { color: var(--gedeeltelijk); } .sterkte.gedeeltelijk b { background: var(--gedeeltelijk); }
+.sterkte.raakvlak { color: var(--raakvlak); } .sterkte.raakvlak b { background: var(--raakvlak); }
+.sterkte.geen { color: var(--leeg); } .sterkte.geen b { background: var(--leeg); }
+
+.thema { font-size: .8rem; color: var(--zacht); }
+.chip { display: inline-block; font-size: .75rem; border: 1px solid var(--lijn); border-radius: 999px; padding: .05rem .5rem; color: var(--zacht); background: var(--vlak); }
+
+.telling { display: grid; grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr)); gap: .8rem; margin: 1rem 0 0; }
+.telling div { background: var(--vlak); border: 1px solid var(--lijn); border-radius: 8px; padding: .7rem .9rem; }
+.telling .groot { font-size: 1.6rem; font-weight: 700; line-height: 1.1; }
+.telling .wat { font-size: .8rem; color: var(--zacht); }
+
+.themakop { margin: 1.4rem 0 .3rem; border-bottom: 1px solid var(--lijn); padding-bottom: .25rem; font-size: 1rem; }
+.leeg { color: var(--zacht); font-style: italic; }
+.geenresultaat { padding: 1rem; color: var(--zacht); }
+
+details.uitleg-blok { margin: .8rem 0; }
+details.uitleg-blok summary { cursor: pointer; font-weight: 700; }
+
+@media (max-width: 34rem) {
+  h1 { font-size: 1.5rem; }
+  .kaart { padding: 1.1rem; }
+}
+
+@media print {
+  body { background: var(--wit); }
+  .balk { display: none; }
+  .kaart, .blok { break-inside: avoid; border: 0; padding: 0; }
+  details.uitleg-blok[open] summary { list-style: none; }
+  @page { size: A4; margin: 1.5cm; }
+}
