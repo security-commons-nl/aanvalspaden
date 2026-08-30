@@ -47,9 +47,19 @@ def bronbestand() -> pathlib.Path:
              "Zet de kennisbank-repo ernaast, of check hem uit als _kennisbank.")
 
 
+def vingerafdruk(export: dict) -> str:
+    """Sha256 over de inhoud, niet over het bestand.
+
+    Git zet regeleindes op Windows om naar CRLF; hashen over de ruwe bytes zou de controle dan op de
+    ene machine laten slagen en op de andere niet, terwijl er inhoudelijk niets verschilt. Sorteren en
+    vast serialiseren maakt de afdruk onafhankelijk van platform en van de volgorde in het bronbestand.
+    """
+    kern = {"handleidingen": export["handleidingen"], "zonder_handleiding": export["zonder_handleiding"]}
+    return hashlib.sha256(json.dumps(kern, ensure_ascii=False, sort_keys=True).encode("utf-8")).hexdigest()
+
+
 def kopie(bron: pathlib.Path) -> dict:
-    ruw = bron.read_bytes()
-    export = json.loads(ruw.decode("utf-8"))
+    export = json.loads(bron.read_text(encoding="utf-8"))
     return {
         "versie": "gegenereerd door tools/haal_handelingsperspectief.py; wijzig de kennisbank, niet dit bestand",
         "toelichting": TOELICHTING,
@@ -57,7 +67,7 @@ def kopie(bron: pathlib.Path) -> dict:
             "kennisbank": "https://security-commons-nl.github.io/kennisbank/",
             "repo": "security-commons-nl/kennisbank",
             "bestand": "handelingsperspectief.json",
-            "sha256": hashlib.sha256(ruw).hexdigest(),
+            "sha256": vingerafdruk(export),
             "let_op": ("De kennisbank is de bron. Klopt deze kopie niet meer, dan draai je dit script "
                        "opnieuw; hem met de hand bijwerken laat de sha256 achter en verbergt het verschil."),
         },
@@ -69,7 +79,9 @@ def kopie(bron: pathlib.Path) -> dict:
 def main() -> int:
     bron = bronbestand()
     nieuw = json.dumps(kopie(bron), ensure_ascii=False, indent=2) + chr(10)
-    oud = DOEL.read_text(encoding="utf-8") if DOEL.is_file() else ""
+    # Lezen met newline="" laat CRLF uit een Windows-checkout staan; normaliseren voorkomt dat de
+    # controle daarop afgaat in plaats van op de inhoud.
+    oud = DOEL.read_text(encoding="utf-8").replace(chr(13) + chr(10), chr(10)) if DOEL.is_file() else ""
     if "--check" in sys.argv:
         if oud == nieuw:
             print("handelingsperspectief.json is gelijk aan de kennisbank-export.")
@@ -80,7 +92,7 @@ def main() -> int:
     if oud == nieuw:
         print("handelingsperspectief.json: niets gewijzigd")
         return 0
-    DOEL.write_text(nieuw, encoding="utf-8")
+    DOEL.write_bytes(nieuw.encode("utf-8"))
     aantal = len(json.loads(nieuw)["handleidingen"])
     print(f"handelingsperspectief.json bijgewerkt uit {bron}: {aantal} koppelingen")
     return 0

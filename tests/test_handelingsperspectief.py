@@ -30,7 +30,12 @@ from tools import mappingen as helper  # noqa: E402
 DATA = helper.handelingsperspectief()
 AGENDA = helper.gevraagd()
 EM_DASH = re.compile(r"[—–]")
-KENNISBANK_EXPORT = ROOT.parent / "kennisbank" / "handelingsperspectief.json"
+# Lokaal staat de kennisbank ernaast; in CI wordt hij binnen de workspace uitgecheckt als
+# _kennisbank, want een checkout buiten $GITHUB_WORKSPACE wordt geweigerd.
+KENNISBANK_EXPORT = next(
+    (k for k in (ROOT.parent / "kennisbank" / "handelingsperspectief.json",
+                 ROOT / "_kennisbank" / "handelingsperspectief.json") if k.is_file()),
+    ROOT.parent / "kennisbank" / "handelingsperspectief.json")
 
 
 def test_elke_barriere_is_belegd():
@@ -154,15 +159,19 @@ def test_het_gat_is_zichtbaar_en_niet_weggepoetst():
 @pytest.mark.skipif(not KENNISBANK_EXPORT.is_file(),
                     reason="kennisbank staat niet naast deze repo; in CI wordt hij uitgecheckt")
 def test_de_kopie_is_gelijk_aan_de_kennisbank():
-    """De kennisbank is de bron. Loopt de kopie achter, dan belooft de site iets wat er niet is."""
-    import hashlib
+    """De kennisbank is de bron. Loopt de kopie achter, dan belooft de site iets wat er niet is.
 
-    ruw = KENNISBANK_EXPORT.read_bytes()
-    assert DATA["bron"]["sha256"] == hashlib.sha256(ruw).hexdigest(), (
+    De afdruk gaat over de inhoud, niet over de bytes: git zet regeleindes op Windows om naar CRLF, en
+    daar mag een inhoudelijke controle niet op afgaan.
+    """
+    sys.path.insert(0, str(ROOT / "tools"))
+    import haal_handelingsperspectief as haler
+
+    export = json.loads(KENNISBANK_EXPORT.read_text(encoding="utf-8"))
+    assert DATA["bron"]["sha256"] == haler.vingerafdruk(export), (
         "handelingsperspectief.json loopt achter op de kennisbank. "
         "Draai: python tools/haal_handelingsperspectief.py"
     )
-    export = json.loads(ruw.decode("utf-8"))
     assert DATA["handleidingen"] == export["handleidingen"]
     assert DATA["zonder_handleiding"] == export["zonder_handleiding"]
 
