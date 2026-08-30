@@ -160,8 +160,8 @@ hier. De repo houdt een kopie van `paden.json` met een hash die bewaakt dat hij 
 ## Van aanvalspad naar norm
 De zelfcheck vraagt naar barrieres, niet naar normen. Wie hem heeft gedaan, krijgt van zijn auditor of
 zijn risicohouder toch de vraag wat dit betekent voor de BIO. De
-**[normverankering](https://security-commons-nl.github.io/aanvalspaden/normen/)** beantwoordt die vraag,
-en de omgekeerde erbij.
+**[normverankering](https://security-commons-nl.github.io/aanvalspaden/normen/)** beantwoordt die vraag
+voor vier kaders, en de omgekeerde erbij.
 
 Er is precies een relatie, en die heeft een richting: **een barriere levert bewijs voor een maatregel.**
 Nooit "dekt af", nooit "voldoet aan". Wie de zelfcheck heeft gedaan heeft antwoorden; wie het gevraagde
@@ -172,12 +172,20 @@ tegenspreken zonder JSON te lezen. Een raakvlak telt niet als dekking.
 | Kader | Wat erin zit | Wat de zelfcheck raakt |
 |---|---|---|
 | BIO 2.0 en ISO 27001:2022 | 89 maatregelen. BIO 2.0 volgt de ISO 27002-nummering, dus dit is een mapping en niet twee | 44 met bewijs, 45 witte vlekken |
+| NIST CSF 2.0 | 106 subcategorieen in zes functies. Publiek domein, dus de uitkomsten staan er letterlijk | 41 met bewijs, 65 witte vlekken |
 | Wpg-toetsingskader voor boa's | 31 beheersingsmaatregelen plus de vijf technische uit bijlage 4 van de NOREA-handreiking | 8 met bewijs, 28 witte vlekken |
+| AVG | 32 artikelen die in een AVG-toets als toetspunt gelden, van de beginselen tot de doorgifte | 6 met bewijs, 26 witte vlekken |
 
-Die tweede rij is geen tekort maar het punt. Het Wpg-kader gaat over rechtmatige verwerking:
-doelbinding, bewaartermijnen, verstrekking, de rechten van betrokkenen. Geen aanvalspad zegt daar iets
-over, en dat hoort zo. **De witte vlekken zijn daarmee het eigenlijke product:** ze laten per
-maatregelnummer zien waar een dreigingsgerichte zelfcheck ophoudt en de rest van het normenkader begint.
+Die dalende reeks is geen tekort maar het punt. Hoe dichter een kader bij techniek en dreiging staat,
+hoe meer een zelfcheck ervan aantoont: NIST CSF is dreigingsgericht en komt op 39 procent, de AVG gaat
+over grondslag, transparantie en de rechten van betrokkenen en komt op 19. Geen aanvalspad zegt iets
+over bewaartermijnen of een verwerkingsregister, en dat hoort zo. **De witte vlekken zijn daarmee het
+eigenlijke product:** ze laten per maatregelnummer zien waar een dreigingsgerichte zelfcheck ophoudt en
+de rest van het normenkader begint.
+
+De volgorde van de kaders is redactioneel, niet alfabetisch: BIO 2.0 opent, omdat dat het kader is
+waar de doelgroep op wordt bevraagd. Een nieuw kader dat niet in die volgorde staat, laat de tests
+falen.
 
 Drie ingangen op dezelfde data: vanuit het aanvalspad, vanuit de maatregel, en de witte vlekken.
 De mapping hangt aan de barriere (het `vraag_id`), niet aan het chokepoint: de 76 chokepoints delen

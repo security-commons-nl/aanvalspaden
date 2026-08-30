@@ -16,3 +16,7 @@ krijgt hier een regel, zodat een uitslag van later nog te plaatsen is tegen de b
   het Wpg-toetsingskader voor boa-organisaties, met per regel een sterkte en een reden. Een pagina met
   drie ingangen: vanuit het aanvalspad, vanuit de maatregel, en de witte vlekken. `paden.json` zelf is
   hiervoor niet gewijzigd.
+- `mappingen/`: NIST CSF 2.0 en de AVG erbij, samen 333 regels over vier kaders. De volgorde van de
+  kaders is redactioneel vastgelegd (`tools/mappingen.py`, VOLGORDE) in plaats van alfabetisch, want
+  die volgorde bepaalt welk kader de pagina opent. De bedieningsbalk plakt bovenaan en wordt compact
+  zodra de kop uit beeld is.

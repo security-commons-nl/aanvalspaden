@@ -46,10 +46,22 @@ Append-only. Datum, besluit, één zin onderbouwing.
 - **2026-08-30 · De koppeling met de zelfcheck volgt in een tweede ronde.** Eerst de mapping laten
   reviewen zonder dat de zelfcheck ondertussen verandert; verschuift de mapping na review, dan hoeft
   `check/` maar een keer aangepast te worden.
+- **2026-08-30 · Vier kaders, in een redactionele volgorde.** NIST CSF 2.0 en de AVG zijn toegevoegd naast
+  BIO 2.0 en het Wpg-kader. De volgorde staat in `tools/mappingen.py` (`VOLGORDE`) en is niet alfabetisch:
+  BIO 2.0 opent omdat dat het kader is waar de doelgroep op wordt bevraagd. Een kader dat niet in die
+  volgorde staat, laat de tests falen.
+- **2026-08-30 · NIST CSF blijft Engels, de AVG is een redactionele selectie.** CSF staat in het publieke
+  domein, dus de uitkomstformuleringen staan er letterlijk in; ze blijven Engels omdat het kader zo heet.
+  De AVG kent geen maatregelen maar artikelen, dus daar is gekozen voor de 32 artikelen die in een
+  AVG-toets als toetspunt gelden.
+- **2026-08-30 · De bedieningsbalk plakt bovenaan en wordt compact.** Met vier kaders en 106 maatregelen
+  in het grootste kader is scrollen zonder filter onwerkbaar. De balk wordt compact zodra de kop uit beeld
+  is, gemeten met een sentinel in plaats van op scrollpositie, want die klopt niet meer zodra een filter
+  de paginahoogte verandert. Kop, balk en lijst zijn nu drie delen; alleen de lijst hertekent bij filteren.
 
 ## Open
 
-- **Review van de mapping.** De 180 regels in `mappingen/` zijn een eerste versie zonder review van
+- **Review van de mapping.** De 333 regels in `mappingen/` zijn een eerste versie zonder review van
   vakgenoten. Tot die review is gedaan, is elke regel een voorstel dat je met een issue kunt tegenspreken.
 - **Broncode van de zelfcheck.** Nodig voor `check/` (diepte 0 en 1). Verwacht in
   `_wachtkamer/check-bron`. Zolang die er niet is, staan taak 3 en 5 tot en met 7 van het bouwplan stil.

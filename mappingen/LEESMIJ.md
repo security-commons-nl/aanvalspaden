@@ -49,12 +49,34 @@ over nagedacht en het past niet" en "hier is niemand aan toegekomen".
 | Bestand | Kader | Herkomst |
 |---|---|---|
 | `bio2.json` | BIO 2.0, en daarmee ISO 27001:2022 | `bronnen/bio2.json`, gegenereerd uit de gedeelde dataset in `cisochat` |
+| `nist-csf.json` | NIST CSF 2.0 | `bronnen/nist-csf.json`, gegenereerd uit de officiele CSF 2.0 Reference Tool-export |
 | `wpg.json` | Wpg-toetsingskader voor boa-organisaties | `bronnen/wpg.json`, uit de NOREA-handreiking versie 2024 1.0 |
+| `avg.json` | AVG | `bronnen/avg.json`, een redactionele selectie van 32 artikelen |
+
+De **volgorde** staat in `tools/mappingen.py` (`VOLGORDE`) en is redactioneel: BIO 2.0 opent, want dat is
+het kader waar de doelgroep op wordt bevraagd, daarna NIST CSF omdat dat het dichtst bij de aanvalspaden
+staat, en dan de twee kaders die maar deels over beveiliging gaan. Een kader dat er niet in staat, laat de
+tests falen; kies dus een plek in plaats van hem achteraan te laten belanden.
+
+**Waarom de dekking per kader zo verschilt.** Hoe dichter een kader bij techniek en dreiging staat, hoe
+meer een dreigingsgerichte zelfcheck ervan aantoont. BIO 2.0 komt op 49 procent, NIST CSF op 39, het
+Wpg-kader op 22 en de AVG op 19. Dat is geen kwaliteitsverschil tussen de mappings maar een eigenschap van
+de kaders zelf, en het is precies wat de witte vlekken zichtbaar maken.
 
 **BIO 2.0 en ISO 27001 zijn een mapping, geen twee.** BIO 2.0 volgt de nummering van ISO 27002:2022
 (bijlage A van ISO 27001). Maatregel `8.5` hier is dus zowel de BIO2-maatregel als de ISO-maatregel; de
 overheidsmaatregelen die eronder vallen (`8.05.01` en verder) staan erbij. Dat scheelt een heel
 mappingbestand.
+
+**NIST CSF 2.0 blijft Engels.** Het framework staat in het publieke domein, dus de uitkomstformuleringen
+mogen er letterlijk in; ze blijven Engels omdat het kader zo heet en iedereen er zo naar verwijst
+(statuut A10, Engelse vaktermen blijven Engels). De export bevat ook de ingetrokken subcategorieen uit
+CSF 1.1; die worden overgeslagen, zodat er precies 106 geldende subcategorieen overblijven.
+
+**De AVG is een redactionele selectie.** De AVG kent artikelen, geen maatregelen. De 32 artikelen hier
+zijn de toetspunten die in een AVG-toets aan bod komen; artikelen die alleen de toezichthouder of de
+lidstaat binden staan er niet in. Vrijwel alle regels landen op art. 32, art. 5 lid 1 onder f, art. 25 en
+art. 33, en dat is precies de taakverdeling die dit kader zichtbaar maakt.
 
 **Waarom ook de Wpg.** Om te laten zien dat een dreigingsgerichte zelfcheck maar een deel van een
 normenkader raakt, en dat dat klopt. Het Wpg-kader gaat over rechtmatige verwerking: doelbinding,
@@ -64,10 +86,17 @@ van de handreiking, die volgens die bijlage naast de BIO gelden.
 
 ## Auteursrecht
 
-De bronbestanden dragen **nummers, titels en eigen samenvattingen**, geen normteksten. De tekst van
-ISO 27002-maatregelen is auteursrechtelijk beschermd; die hebben we hier niet nodig en staat er dus niet
-in. Een test controleert dat er geen veld met normtekst insluipt. Voor de Wpg geldt dat de NOREA-handreiking
-mag worden gebruikt met bronvermelding; ook daar staan eigen samenvattingen.
+Per kader is dit anders geregeld, en dat is bewust:
+
+| Kader | Wat mag | Wat er in de bron staat |
+|---|---|---|
+| BIO 2.0 / ISO 27001 | ISO 27002-teksten zijn auteursrechtelijk beschermd | Alleen nummer, titel en de BIO2-sub-ids. Een test blokkeert als er een veld met normtekst insluipt |
+| NIST CSF 2.0 | Publiek domein | De uitkomstformuleringen van NIST zelf, letterlijk en in het Engels |
+| Wpg | NOREA-handreiking: gebruik en verspreiding met bronvermelding | Eigen samenvattingen, met de bron erbij |
+| AVG | Wetgeving, vrij | Eigen samenvattingen per artikel |
+
+Kortom: alleen waar het kader zelf vrij is, staat de originele tekst erin. Overal elders staat een eigen
+formulering en een verwijzing naar de bron.
 
 ## Bouwen
 
@@ -84,6 +113,13 @@ De BIO2-bron opnieuw genereren (alleen nodig als de dataset in `cisochat` wijzig
 
 ```bash
 python mappingen/bronnen/genereer_bio2.py
+```
+
+De NIST-bron opnieuw genereren (alleen nodig bij een nieuwe CSF-versie):
+
+```bash
+curl -o nist-csf.xlsx "https://csrc.nist.gov/extensions/nudp/services/json/csf/download?olirids=all"
+python mappingen/bronnen/genereer_nist.py nist-csf.xlsx
 ```
 
 ## Testen
