@@ -1,0 +1,71 @@
+{
+  "versie": "2026-08",
+  "toelichting": "Waar staat de handleiding bij een barriere? De zelfcheck zegt wat je moet doen, dit zegt hoe. Wat hier niet staat is geen omissie maar een openstaande schrijfopdracht: de barrieres onder 'gevraagd' hebben nog geen handleiding, met erbij wat die zou moeten dekken. Dat is de redactieagenda van de kennisbank, en tegelijk de uitnodiging aan wie het wel weet.",
+  "bron": {
+    "kennisbank": "https://security-commons-nl.github.io/kennisbank/",
+    "repo": "security-commons-nl/kennisbank",
+    "let_op": "Een verwijzing noemt het item en de paragraaf. Hernoemt iemand een kop, dan valt de test om; dat is de bedoeling, want een dode verwijzing is erger dan geen verwijzing."
+  },
+  "handleidingen": [
+    {"barriere": "pr", "item": "security/passkeys-invoeren", "titel": "Passkeys invoeren", "paragraaf": "De aanpak in negen stappen", "dekking": "volledig", "reden": "Negen stappen van inzicht tot borging, inclusief het afdwingen van phishingbestendige authenticatie en het meten van de dekking."},
+    {"barriere": "fallback", "item": "security/passkeys-invoeren", "titel": "Passkeys invoeren", "paragraaf": "Waarom je huidige MFA niet genoeg is", "dekking": "volledig", "reden": "Het stuk gaat er expliciet over dat een sterke methode naast een zwakke niets waard is, en behandelt het uitzetten van de zwakkere routes."},
+    {"barriere": "legacy", "item": "security/passkeys-invoeren", "titel": "Passkeys invoeren", "paragraaf": "Keuzes die het verschil maken", "dekking": "gedeeltelijk", "reden": "Legacy authentication komt langs als een van de keuzes, maar het uitfaseren ervan is geen eigen stappenplan."},
+    {"barriere": "key", "item": "security/passkeys-invoeren", "titel": "Passkeys invoeren", "paragraaf": "Keuzes die het verschil maken", "dekking": "gedeeltelijk", "reden": "De keuze voor een aparte fysieke sleutel wordt behandeld, maar niet de uitgifte en het beheer ervan voor beheerders."},
+
+    {"barriere": "execution", "item": "security/meten-voordat-je-ingrijpt", "titel": "Meten voordat je ingrijpt", "paragraaf": "Werkplekanalyse op het Microsoft-platform (E5)", "dekking": "volledig", "reden": "Meet eerst wat er feitelijk draait (PowerShell, mshta, Win+R) en dwing daarna pas af; precies de volgorde die voorkomt dat je legitiem werk breekt."},
+    {"barriere": "browser", "item": "security/meten-voordat-je-ingrijpt", "titel": "Meten voordat je ingrijpt", "paragraaf": "Werkplekanalyse op het Microsoft-platform (E5)", "dekking": "gedeeltelijk", "reden": "De meetaanpak geldt ook voor de browser, maar extensiebeleid en gegevensdragers krijgen geen eigen behandeling."},
+    {"barriere": "localadmin", "item": "security/meten-voordat-je-ingrijpt", "titel": "Meten voordat je ingrijpt", "paragraaf": "Werkplekanalyse op het Microsoft-platform (E5)", "dekking": "gedeeltelijk", "reden": "Het meten van wie lokale rechten gebruikt staat erin; het uitfaseringstraject met de uitzonderingen niet."},
+    {"barriere": "mail", "item": "security/meten-voordat-je-ingrijpt", "titel": "Meten voordat je ingrijpt", "paragraaf": "Identiteit en e-mail", "dekking": "gedeeltelijk", "reden": "Analyse van de mailstroom komt aan bod, het inrichten van de beschermingsbaseline zelf niet."},
+    {"barriere": "edr", "item": "security/meten-voordat-je-ingrijpt", "titel": "Meten voordat je ingrijpt", "paragraaf": "Killchain en chokepoints (ClickFix)", "dekking": "gedeeltelijk", "reden": "Laat zien wat detectie op de werkplek moet opleveren aan de hand van een echte killchain, maar behandelt de uitrol en dekkingsmeting van EDR niet."},
+
+    {"barriere": "technicalvendor", "item": "security/security-annex-leveranciers", "titel": "Security Annex voor leveranciers", "paragraaf": "Zo gebruik je het sjabloon", "dekking": "volledig", "reden": "Twintig artikelen met de technische eisen die je toetst, van FIDO2 en just-in-time beheer tot SSDLC, opgebouwd vanuit de risico's die gemeenten nu zien."},
+    {"barriere": "review", "item": "security/security-annex-leveranciers", "titel": "Security Annex voor leveranciers", "paragraaf": "Geen vinklijst maar een gesprek", "dekking": "gedeeltelijk", "reden": "Het stuk gaat over de inhoud van de beoordeling, niet over het inrichten van de periodieke cyclus eromheen."},
+    {"barriere": "residual", "item": "security/security-annex-leveranciers", "titel": "Security Annex voor leveranciers", "paragraaf": "Lees dit eerst: risico's, niet de norm", "dekking": "gedeeltelijk", "reden": "Maakt duidelijk welke restrisico's je overhoudt als een leverancier niet aan een artikel voldoet; het vastleggen en beleggen ervan staat er niet in."},
+
+    {"barriere": "idresponse", "item": "security/blue-team-opzetten", "titel": "Een blue team opzetten", "paragraaf": "Stap 6. Eén dreiging van begin tot eind", "dekking": "gedeeltelijk", "reden": "Laat zien hoe je een dreiging van begin tot eind afhandelt met een team; het identity-playbook zelf (sessies intrekken, apps verwijderen) staat er niet in."},
+    {"barriere": "exploitresponse", "item": "security/blue-team-opzetten", "titel": "Een blue team opzetten", "paragraaf": "Stap 6. Eén dreiging van begin tot eind", "dekking": "gedeeltelijk", "reden": "Geeft de werkwijze om een dreiging te doorgronden en af te handelen, maar niet het testen van detectie op externe exploits."}
+  ],
+  "gevraagd": [
+    {"barriere": "devicecode", "cluster": "ingangen-naast-de-sterke-inlog", "zou_moeten_dekken": "Hoe je Device Code Flow blokkeert zonder de beheerde uitzonderingen (kiosk, gedeelde apparaten) te breken, en hoe je aantoont dat de uitzonderingen beperkt blijven."},
+    {"barriere": "consent", "cluster": "ingangen-naast-de-sterke-inlog", "zou_moeten_dekken": "Hoe je app-toestemming beperkt en een werkbaar admin-consentproces inricht, inclusief het opruimen van bestaande toestemmingen en het monitoren van nieuwe."},
+    {"barriere": "session", "cluster": "ingangen-naast-de-sterke-inlog", "zou_moeten_dekken": "Hoe je tokendiefstal onbruikbaar maakt met apparaatbinding en sessiebeleid, en welke gebruikersimpact je kunt verwachten."},
+    {"barriere": "unmanaged", "cluster": "ingangen-naast-de-sterke-inlog", "zou_moeten_dekken": "Hoe je toegang beperkt tot beheerde en compliant apparaten, met een route voor de gevallen die er nu buiten vallen (inhuur, bestuurders, ketenpartners)."},
+
+    {"barriere": "model", "cluster": "beheerrechten-scheiden", "zou_moeten_dekken": "Hoe je een beheermodel kiest en invoert waarin privileged access technisch gescheiden is van dagelijks werk, met de migratie erbij."},
+    {"barriere": "adminhard", "cluster": "beheerrechten-scheiden", "zou_moeten_dekken": "Hoe je een beheerwerkplek hardt en afdwingt dat beheer alleen daarvandaan kan, inclusief wat je doet met leveranciers die meebeheren."},
+    {"barriere": "jit", "cluster": "beheerrechten-scheiden", "zou_moeten_dekken": "Hoe je permanente rollen uitfaseert naar just-in-time toekenning, welke rollen je als eerste pakt en hoe je het activeringslogboek gebruikt."},
+    {"barriere": "elevation", "cluster": "beheerrechten-scheiden", "zou_moeten_dekken": "Hoe je herauthenticatie afdwingt op het moment van verhogen, en hoe je voorkomt dat beheerders het omzeilen."},
+    {"barriere": "adminmonitor", "cluster": "beheerrechten-scheiden", "zou_moeten_dekken": "Welke beheerhandelingen en rolwijzigingen je vastlegt, hoe lang je ze bewaart en welke signalen echt tot een melding moeten leiden."},
+
+    {"barriere": "patch", "cluster": "van-scan-naar-gepatcht", "zou_moeten_dekken": "Hoe je patchdekking meet over besturingssysteem en third-party software, wat je doet met de achterblijvers, en hoe je dat rapporteert zonder een percentage zonder betekenis."},
+    {"barriere": "vuln", "cluster": "van-scan-naar-gepatcht", "zou_moeten_dekken": "Hoe je continu scannen inricht met een spoedprocedure voor kritieke kwetsbaarheden, en welke doorlooptijden haalbaar en verdedigbaar zijn."},
+    {"barriere": "assets", "cluster": "van-scan-naar-gepatcht", "zou_moeten_dekken": "Hoe je je externe aanvalsoppervlak ontdekt en blijft bewaken, en wat je doet met de diensten die niemand blijkt te kennen."},
+
+    {"barriere": "remote", "cluster": "de-buitenrand-afschermen", "zou_moeten_dekken": "Hoe je publieke beheerinterfaces afschermt zonder het beheer onwerkbaar te maken, en welke tussenoplossingen (bastion, ZTNA) wanneer passen."},
+    {"barriere": "origin", "cluster": "de-buitenrand-afschermen", "zou_moeten_dekken": "Hoe je afdwingt dat de origin alleen via de beschermde route bereikbaar is, en hoe je controleert dat er geen omweg is blijven staan."},
+    {"barriere": "l7", "cluster": "de-buitenrand-afschermen", "zou_moeten_dekken": "Hoe je een WAF en rate limiting inricht die daadwerkelijk blokkeert in plaats van alleen logt, en hoe je vals-positieven beheerst."},
+    {"barriere": "upstream", "cluster": "de-buitenrand-afschermen", "zou_moeten_dekken": "Wat je met je provider regelt aan DDoS-mitigatie, hoe je robuuste DNS inricht en wat je vooraf afspreekt over opschalen."},
+
+    {"barriere": "pentest", "cluster": "testen-en-hertesten", "zou_moeten_dekken": "Hoe je een pentest uitvraagt die iets oplevert, wat je in de scope zet, en hoe je de hertest zo organiseert dat bevindingen echt dichtgaan."},
+    {"barriere": "webtest", "cluster": "testen-en-hertesten", "zou_moeten_dekken": "Hoe je web- en API-beveiliging test in de ontwikkelketen, en welke bevindingen je blokkerend maakt voor livegang."},
+
+    {"barriere": "dmarc", "cluster": "mail-als-kanaal", "zou_moeten_dekken": "Hoe je SPF, DKIM en DMARC naar handhaving brengt zonder legitieme post te blokkeren, inclusief het traject langs alle verzendende partijen."},
+    {"barriere": "mailresponse", "cluster": "mail-als-kanaal", "zou_moeten_dekken": "Hoe een phishing- en BEC-playbook eruitziet dat je kunt oefenen: melden, terughalen uit postbussen, en het financiele spoor bij fraude."},
+
+    {"barriere": "segment", "cluster": "netwerksegmentatie", "zou_moeten_dekken": "Hoe je zones bepaalt die aansluiten op je processen, hoe je regels afdwingt in plaats van documenteert, en welk bewijs een auditor wil zien."},
+
+    {"barriere": "backup", "cluster": "herstellen-als-het-misgaat", "zou_moeten_dekken": "Hoe je back-ups onveranderbaar maakt en het beheer scheidt, zodat een gecompromitteerd beheeraccount ze niet kan wissen."},
+    {"barriere": "restore", "cluster": "herstellen-als-het-misgaat", "zou_moeten_dekken": "Hoe je een hersteltest opzet die de afgesproken RTO en RPO echt toetst, en wat je doet als de uitkomst tegenvalt."},
+    {"barriere": "crisis", "cluster": "herstellen-als-het-misgaat", "zou_moeten_dekken": "Hoe je een ransomware- en crisisherstelplan oefent met de lijn erbij, en welke verbeterpunten je uit zo'n oefening haalt."},
+    {"barriere": "critical", "cluster": "herstellen-als-het-misgaat", "zou_moeten_dekken": "Hoe je kritieke processen en herstelprioriteiten vaststelt met de lijn, en hoe je die keuze houdbaar houdt als de organisatie verandert."},
+
+    {"barriere": "dependencies", "cluster": "keten-in-beeld", "zou_moeten_dekken": "Hoe je kritieke systemen en leveranciers in samenhang in beeld brengt, uit bronnen die je al hebt, en hoe je dat overzicht actueel houdt."},
+
+    {"barriere": "owner", "cluster": "een-risico-beleggen", "zou_moeten_dekken": "Hoe je een risico daadwerkelijk bij een risicohouder neerlegt: wie is het, hoe voer je dat gesprek, en wat leg je vast."},
+    {"barriere": "treatment", "cluster": "een-risico-beleggen", "zou_moeten_dekken": "Hoe je risicoacceptatie of een maatregel vastlegt met eigenaar en termijn, en hoe je voorkomt dat de lijst een archief wordt."},
+
+    {"barriere": "soc", "cluster": "opvolging-en-detectie", "zou_moeten_dekken": "Hoe je 24/7 opvolging inricht of inkoopt, welke triage-, reactie- en escalatietijden je afspreekt en hoe je toetst of ze gehaald worden."},
+    {"barriere": "ddosresponse", "cluster": "opvolging-en-detectie", "zou_moeten_dekken": "Hoe je een DDoS-response oefent met provider en SOC, en welke afspraken je vooraf maakt over opschaling en communicatie."}
+  ],
+  "geen_handleiding_nodig": []
+}

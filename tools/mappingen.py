@@ -25,10 +25,14 @@ STERKTES = ("volledig", "gedeeltelijk", "raakvlak")
 # twee kaders die maar deels over beveiliging gaan en juist de grens laten zien.
 VOLGORDE = ("bio2", "nist-csf", "wpg", "avg")
 
+# Bestanden in mappingen/ die geen normenkader zijn. Zonder deze lijst wordt elk nieuw JSON-bestand
+# in die map stilletjes als kader opgepakt, en valt de bouw pas om op een ontbrekend bronbestand.
+GEEN_KADER = {"mapping.schema.json", "handelingsperspectief.json"}
+
 
 def kaders() -> list[str]:
     """De kaders waarvoor een mapping bestaat, in redactionele volgorde."""
-    gevonden = {p.stem for p in MAP.glob("*.json") if p.name != "mapping.schema.json"}
+    gevonden = {p.stem for p in MAP.glob("*.json") if p.name not in GEEN_KADER}
     ongeplaatst = sorted(gevonden - set(VOLGORDE))
     return [k for k in VOLGORDE if k in gevonden] + ongeplaatst
 
@@ -135,4 +139,97 @@ def dekking(kader: str) -> dict:
         "alleen_raakvlak": len(aangeraakt - hard),
         "barrieres_gemapt": len({r["barriere"] for r in data["regels"]}),
         "barrieres_ongekoppeld": len(data["ongekoppeld"]),
+    }
+
+
+# ---------------------------------------------------------------------------
+# Handelingsperspectief: waar staat de handleiding bij een barriere?
+#
+# De normverankering zegt wat je aantoont, dit zegt hoe je het doet. Wat er niet
+# staat is net zo belangrijk: een barriere zonder handleiding is een openstaande
+# schrijfopdracht, en die lijst is de redactieagenda van de kennisbank.
+# ---------------------------------------------------------------------------
+
+HP = MAP / "handelingsperspectief.json"
+
+
+def handelingsperspectief() -> dict:
+    return json.loads(HP.read_text(encoding="utf-8"))
+
+
+def handleiding_van(barriere: str) -> dict | None:
+    """De handleiding bij deze barriere, of None als die er nog niet is."""
+    return next((h for h in handelingsperspectief()["handleidingen"] if h["barriere"] == barriere), None)
+
+
+def gevraagd_van(barriere: str) -> dict | None:
+    """De openstaande schrijfopdracht bij deze barriere, of None."""
+    return next((g for g in handelingsperspectief()["gevraagd"] if g["barriere"] == barriere), None)
+
+
+def gewicht_van_barriere(barriere: str) -> int:
+    """Hoe zwaar weegt deze barriere? Proxy zolang er geen echte zelfcheck-data is.
+
+    Het aantal aanvalspaden waarop de barriere staat. Een barriere die bij vier paden meetelt, sluit
+    bij een verbetering vier routes tegelijk; die hoort eerder geschreven te worden dan een die maar
+    op een pad staat. Zodra er uitslagen zijn, is het betere signaal hoe vaak de barriere als actie
+    uit `score.acties()` komt.
+
+    Een randvoorwaarde hangt aan geen enkel pad maar weegt in de beoordeling over alle paden heen
+    mee. Tellen op bladeren zou hem op nul zetten, terwijl hij juist het breedst geldt; hij krijgt
+    daarom het aantal paden als gewicht.
+    """
+    item = barrieres().get(barriere)
+    if not item:
+        return 0
+    if not item["bladeren"] and item["chokepoints"]:
+        return len(paden_bron.paden())
+    return len(item["bladeren"])
+
+
+def schrijfopdrachten() -> list[dict]:
+    """De openstaande schrijfopdrachten, gegroepeerd tot artikelen en gesorteerd op gewicht.
+
+    Een artikel bedient vaak meer dan een barriere: een stuk over werkplekhardening dekt er drie. De
+    mapping loopt per barriere omdat dat precies en toetsbaar is; de backlog groepeert ze, omdat dat
+    is hoe je gaat schrijven.
+    """
+    data = handelingsperspectief()
+    alle = barrieres()
+    per_cluster: dict[str, list[dict]] = {}
+    for item in data["gevraagd"]:
+        per_cluster.setdefault(item["cluster"], []).append(item)
+
+    uit = []
+    for cluster, items in per_cluster.items():
+        gewicht = sum(gewicht_van_barriere(i["barriere"]) for i in items)
+        uit.append({
+            "cluster": cluster,
+            "barrieres": [
+                {
+                    "id": i["barriere"],
+                    "titel": alle[i["barriere"]]["titel"] if i["barriere"] in alle else i["barriere"],
+                    "zou_moeten_dekken": i["zou_moeten_dekken"],
+                    "gewicht": gewicht_van_barriere(i["barriere"]),
+                }
+                for i in sorted(items, key=lambda x: -gewicht_van_barriere(x["barriere"]))
+            ],
+            "gewicht": gewicht,
+        })
+    return sorted(uit, key=lambda c: (-c["gewicht"], c["cluster"]))
+
+
+def dekking_handelingsperspectief() -> dict:
+    data = handelingsperspectief()
+    alle = barrieres()
+    met = {h["barriere"] for h in data["handleidingen"]}
+    volledig = {h["barriere"] for h in data["handleidingen"] if h["dekking"] == "volledig"}
+    return {
+        "barrieres": len(alle),
+        "met_handleiding": len(met),
+        "volledig": len(volledig),
+        "gedeeltelijk": len(met) - len(volledig),
+        "gevraagd": len(data["gevraagd"]),
+        "geen_nodig": len(data["geen_handleiding_nodig"]),
+        "schrijfopdrachten": len(schrijfopdrachten()),
     }
