@@ -20,9 +20,37 @@ Append-only. Datum, besluit, één zin onderbouwing.
 - **2026-08-28 · Teksten uit de zelfcheck zijn generiek gemaakt.** De bron sprak over "gemeentelijke
   gegevens" en "gemeentelijke processen"; dat is "van de organisatie" geworden, omdat de commons voor alle
   publieke organisaties publiceert (statuut A3).
+- **2026-08-30 · De normverankering woont in deze repo als `mappingen/`, niet in een eigen repo.** Elke
+  regel begint met een barriere-id uit `paden.json`; iets dat alleen betekenis heeft naast die bron, hoort
+  ernaast te staan in plaats van in een tweede repo met een eigen schema en een eigen release-ritme.
+- **2026-08-30 · De mapping hangt aan de barriere (`vraag_id`), niet aan het chokepoint.** De 76
+  chokepoints delen 44 unieke barrieres met dezelfde claim en hetzelfde bewijs; per chokepoint mappen zou
+  betekenen dat dezelfde vraag bij vier paden verschillend verankerd kan raken zonder dat het opvalt.
+- **2026-08-30 · Er is precies een relatie: `levert-bewijs-voor`.** Geen "dekt af" en geen "voldoet aan".
+  Een tweede relatie is het begin van een afvinklijst, en het oordeel over compliance is aan de auditor.
+  Een test blokkeert op taal die compliance belooft.
+- **2026-08-30 · Een raakvlak telt niet als dekking.** Een maatregel waar alleen raakvlakken op staan
+  blijft een witte vlek, met die raakvlakken erbij. Anders geeft de pagina precies de valse zekerheid die
+  dit instrument wil vermijden.
+- **2026-08-30 · Elke barriere staat in `regels` of in `ongekoppeld`, met reden.** Stilte mag geen
+  vergissing kunnen zijn: zo is het verschil zichtbaar tussen "hier is over nagedacht en het past niet" en
+  "hier is niemand aan toegekomen".
+- **2026-08-30 · BIO 2.0 en ISO 27001 zijn een mapping, niet twee.** BIO 2.0 volgt de nummering van
+  ISO 27002:2022, dus maatregel `8.5` is beide; de overheidsmaatregelen eronder staan erbij.
+- **2026-08-30 · Het Wpg-toetsingskader is meegenomen om de grens te laten zien.** Van de 36 maatregelen
+  raakt de zelfcheck er acht. Dat is geen tekort maar het punt: een dreigingsgerichte check gaat niet over
+  bewaartermijnen, verstrekking of de rechten van betrokkenen.
+- **2026-08-30 · De bronbestanden dragen geen normteksten.** Alleen nummers, titels en eigen
+  samenvattingen; de tekst van ISO 27002-maatregelen is auteursrechtelijk beschermd en hier niet nodig.
+  Een test controleert dat er geen veld met normtekst insluipt.
+- **2026-08-30 · De koppeling met de zelfcheck volgt in een tweede ronde.** Eerst de mapping laten
+  reviewen zonder dat de zelfcheck ondertussen verandert; verschuift de mapping na review, dan hoeft
+  `check/` maar een keer aangepast te worden.
 
 ## Open
 
+- **Review van de mapping.** De 180 regels in `mappingen/` zijn een eerste versie zonder review van
+  vakgenoten. Tot die review is gedaan, is elke regel een voorstel dat je met een issue kunt tegenspreken.
 - **Broncode van de zelfcheck.** Nodig voor `check/` (diepte 0 en 1). Verwacht in
   `_wachtkamer/check-bron`. Zolang die er niet is, staan taak 3 en 5 tot en met 7 van het bouwplan stil.
 - **Naam.** Deze repo heet `aanvalspaden` bij gebrek aan een gezamenlijk gekozen naam. Kiezen de eigenaren

@@ -12,3 +12,7 @@ krijgt hier een regel, zodat een uitslag van later nog te plaatsen is tegen de b
   Bewezen gelijk aan de app op een doorloop met 44 antwoorden.
 - `onderdelen`: de zeven onderdelen en de vraagvolgorde, zodat de app zijn schermen uit de bron haalt.
 - `check/`: de zelfcheck gebouwd vanaf deze bron, als één offline HTML-bestand.
+- `mappingen/`: de normverankering. 44 barrieres verankerd in BIO 2.0 (en daarmee ISO 27001:2022) en in
+  het Wpg-toetsingskader voor boa-organisaties, met per regel een sterkte en een reden. Een pagina met
+  drie ingangen: vanuit het aanvalspad, vanuit de maatregel, en de witte vlekken. `paden.json` zelf is
+  hiervoor niet gewijzigd.

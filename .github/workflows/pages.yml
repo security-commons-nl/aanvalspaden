@@ -34,6 +34,11 @@ jobs:
           # Dezelfde pagina ook als download onder een sprekende naam.
           cp site/index.html site/zelfcheck-aanvalspaden.html
           cp paden.json site/paden.json
+          # De crosswalk staat een niveau dieper, met de mapping als download ernaast.
+          python mappingen/bouw.py site/normen
+          test -s site/normen/index.html
+          cp site/normen/index.html site/normen/van-aanvalspad-naar-norm.html
+          cp mappingen/bio2.json mappingen/wpg.json site/normen/
 
       - uses: actions/upload-pages-artifact@v3
         with:

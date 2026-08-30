@@ -18,6 +18,11 @@ heeft iets bruikbaars.
 | 1. Risicoanalyse | Kroonjuwelen tegen de open paden | Antwoorden plus bewijs | Een dag, met de lijn | Risicolijst met maatregel, eigenaar, termijn |
 | 2. Meting | Dezelfde paden, uit echte data | Exports en connectors | Doorlopend, techniek | Bewijs per cel |
 
+Dwars op die drie staat de **normverankering**: welke maatregel uit BIO 2.0, ISO 27001 of het
+Wpg-toetsingskader wordt aantoonbaar met het bewijs dat de zelfcheck vraagt, en welke niet.
+[Bekijk hem](https://security-commons-nl.github.io/aanvalspaden/normen/), of lees verder onder
+[Van aanvalspad naar norm](#van-aanvalspad-naar-norm).
+
 Twee regels houden het eerlijk:
 
 1. **Bewijs is de scheidslijn.** In diepte 0 is "ja" een antwoord; in diepte 1 is een cel pas groen met een
@@ -139,6 +144,7 @@ score.acties(paden.laad(), antwoorden, uit)   # de drie zwaarste acties
 | `paden.json` | De bron, hierboven beschreven |
 | `check/` | Diepte 0: de zelfcheck, een zelfstandig HTML-bestand uit de bron. [Live](https://security-commons-nl.github.io/aanvalspaden/) |
 | `methode/` | Leeswijzer bij diepte 1; de volledige methode staat in de kennisbank |
+| `mappingen/` | De normverankering: per barriere welke maatregel er aantoonbaar mee wordt, plus de witte vlekken. [Live](https://security-commons-nl.github.io/aanvalspaden/normen/) |
 | `tools/` | Schema, helpers, de referentie-implementatie van de regels, en het script waarmee de bron uit de zelfcheck is gehaald |
 | `tests/` | Validatie van de bron en van de repo-structuur |
 
@@ -150,6 +156,37 @@ Diepte 2 (de meting) woont voorlopig in
 [security-posture-tool](https://github.com/security-commons-nl/security-posture-tool). Daar draagt elk
 checklist-item een `pad` en een `chokepoint` uit deze bron, zodat een meting daar het bewijs is voor een cel
 hier. De repo houdt een kopie van `paden.json` met een hash die bewaakt dat hij niet achterloopt.
+
+## Van aanvalspad naar norm
+De zelfcheck vraagt naar barrieres, niet naar normen. Wie hem heeft gedaan, krijgt van zijn auditor of
+zijn risicohouder toch de vraag wat dit betekent voor de BIO. De
+**[normverankering](https://security-commons-nl.github.io/aanvalspaden/normen/)** beantwoordt die vraag,
+en de omgekeerde erbij.
+
+Er is precies een relatie, en die heeft een richting: **een barriere levert bewijs voor een maatregel.**
+Nooit "dekt af", nooit "voldoet aan". Wie de zelfcheck heeft gedaan heeft antwoorden; wie het gevraagde
+bewijs erbij legt heeft materiaal voor een gesprek. Het oordeel blijft van de auditor. Elke regel draagt
+een sterkte (`volledig`, `gedeeltelijk`, `raakvlak`) en een reden in een zin, zodat je hem kunt
+tegenspreken zonder JSON te lezen. Een raakvlak telt niet als dekking.
+
+| Kader | Wat erin zit | Wat de zelfcheck raakt |
+|---|---|---|
+| BIO 2.0 en ISO 27001:2022 | 89 maatregelen. BIO 2.0 volgt de ISO 27002-nummering, dus dit is een mapping en niet twee | 44 met bewijs, 45 witte vlekken |
+| Wpg-toetsingskader voor boa's | 31 beheersingsmaatregelen plus de vijf technische uit bijlage 4 van de NOREA-handreiking | 8 met bewijs, 28 witte vlekken |
+
+Die tweede rij is geen tekort maar het punt. Het Wpg-kader gaat over rechtmatige verwerking:
+doelbinding, bewaartermijnen, verstrekking, de rechten van betrokkenen. Geen aanvalspad zegt daar iets
+over, en dat hoort zo. **De witte vlekken zijn daarmee het eigenlijke product:** ze laten per
+maatregelnummer zien waar een dreigingsgerichte zelfcheck ophoudt en de rest van het normenkader begint.
+
+Drie ingangen op dezelfde data: vanuit het aanvalspad, vanuit de maatregel, en de witte vlekken.
+De mapping hangt aan de barriere (het `vraag_id`), niet aan het chokepoint: de 76 chokepoints delen
+44 unieke barrieres, en dezelfde vraag hoort overal hetzelfde te verankeren. Details, de bronnen en de
+afspraak over auteursrecht staan in [`mappingen/LEESMIJ.md`](mappingen/LEESMIJ.md).
+
+**Status: eerste versie, nog niet gereviewd.** De regels zijn geschreven op basis van de bron en het
+kader, en hebben nog geen review van vakgenoten gehad. Een regel die te ruim, te krap of gewoon fout is,
+hoort een issue te worden.
 
 ## De methode, leesbaar
 De vier stappen met de lijn erbij, het papieren sjabloon en een ingevuld voorbeeld staan in de kennisbank:

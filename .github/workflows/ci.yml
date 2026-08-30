@@ -45,3 +45,34 @@ jobs:
           name: zelfcheck
           path: check/dist/index.html
           if-no-files-found: error
+
+  # De crosswalk: de mapping van barrieres naar normenkaders, en de pagina eromheen. De
+  # browsertests vergelijken wat op het scherm staat met tools/mappingen.py, dus hier valt het door
+  # de mand als de pagina en de mapping uit elkaar lopen.
+  mappingen:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Installeren
+        run: |
+          python -m pip install --upgrade pip
+          pip install pytest jsonschema playwright
+          python -m playwright install --with-deps chromium
+
+      - name: Bouwen
+        run: python mappingen/bouw.py
+
+      - name: Tests
+        run: python -m pytest mappingen/tests/ -v
+
+      - name: De gebouwde crosswalk bewaren
+        uses: actions/upload-artifact@v4
+        with:
+          name: crosswalk
+          path: mappingen/dist/index.html
+          if-no-files-found: error
