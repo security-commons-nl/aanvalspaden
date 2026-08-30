@@ -36,7 +36,8 @@ pytestmark = pytest.mark.skipif(
 )
 
 
-@pytest.mark.parametrize("hl", DATA["handleidingen"], ids=[h["barriere"] for h in DATA["handleidingen"]])
+@pytest.mark.parametrize("hl", DATA["handleidingen"],
+                         ids=[f"{h['barriere']}-{h['item'].split('/')[-1]}" for h in DATA["handleidingen"]])
 def test_het_item_bestaat(hl):
     readme = KENNISBANK / hl["item"] / "README.md"
     assert readme.is_file(), (
@@ -45,13 +46,32 @@ def test_het_item_bestaat(hl):
     )
 
 
-@pytest.mark.parametrize("hl", DATA["handleidingen"], ids=[h["barriere"] for h in DATA["handleidingen"]])
-def test_de_paragraaf_bestaat(hl):
+@pytest.mark.parametrize("hl", DATA["handleidingen"],
+                         ids=[f"{h['barriere']}-{h['item'].split('/')[-1]}" for h in DATA["handleidingen"]])
+def test_het_item_noemt_deze_barriere_zelf(hl):
+    """De kennisbank is de bron: het item moet de barriere in zijn eigen frontmatter noemen.
+
+    Zonder deze test kan de kopie een koppeling bevatten die in de kennisbank allang weg is; de site
+    belooft dan een handleiding die niet meer over die barriere gaat.
+    """
     tekst = (KENNISBANK / hl["item"] / "README.md").read_text(encoding="utf-8")
-    koppen = re.findall(r"^##\s+(.+?)\s*$", tekst, re.M)
-    assert hl["paragraaf"] in koppen, (
-        f"{hl['barriere']}: paragraaf {hl['paragraaf']!r} staat niet in {hl['item']}. "
-        f"Is de kop hernoemd, werk dan de verwijzing bij. Gevonden koppen: {koppen}"
+    bar = re.search(r"^barrieres:\s*\[(.*?)\]\s*$", tekst, re.M)
+    assert bar, f"{hl['item']} heeft geen barrieres in de frontmatter, maar wordt wel gekoppeld"
+    genoemd = [b.strip() for b in bar.group(1).split(",") if b.strip()]
+    assert hl["barriere"] in genoemd, (
+        f"{hl['barriere']}: {hl['item']} noemt deze barriere niet meer ({genoemd}). "
+        "Draai python tools/haal_handelingsperspectief.py."
+    )
+    rol = re.search(r"^rol:\s*(\S+)\s*$", tekst, re.M)
+    verwacht = rol.group(1) if rol else "fundering"
+    assert hl["rol"] == verwacht, f"{hl['barriere']}: rol in de kopie ({hl['rol']}) wijkt af van {verwacht}"
+
+
+@pytest.mark.parametrize("hl", DATA["handleidingen"],
+                         ids=[f"{h['barriere']}-{h['item'].split('/')[-1]}" for h in DATA["handleidingen"]])
+def test_de_url_wijst_naar_dit_item(hl):
+    assert hl["url"].endswith("/" + hl["item"] + "/"), (
+        f"{hl['barriere']}: url {hl['url']} hoort te eindigen op /{hl['item']}/"
     )
 
 

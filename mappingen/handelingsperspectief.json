@@ -1,71 +1,374 @@
 {
-  "versie": "2026-08",
-  "toelichting": "Waar staat de handleiding bij een barriere? De zelfcheck zegt wat je moet doen, dit zegt hoe. Wat hier niet staat is geen omissie maar een openstaande schrijfopdracht: de barrieres onder 'gevraagd' hebben nog geen handleiding, met erbij wat die zou moeten dekken. Dat is de redactieagenda van de kennisbank, en tegelijk de uitnodiging aan wie het wel weet.",
+  "versie": "gegenereerd door tools/haal_handelingsperspectief.py; wijzig de kennisbank, niet dit bestand",
+  "toelichting": "Waar staat de handleiding bij een barriere? De zelfcheck zegt wat je moet doen, dit zegt hoe. Wat hier niet staat is geen omissie maar een openstaande schrijfopdracht: de barrieres in gevraagd.json hebben nog geen handleiding, met erbij wat die zou moeten dekken. Dat is de redactieagenda van de kennisbank, en tegelijk de uitnodiging aan wie het wel weet.",
   "bron": {
     "kennisbank": "https://security-commons-nl.github.io/kennisbank/",
     "repo": "security-commons-nl/kennisbank",
-    "let_op": "Een verwijzing noemt het item en de paragraaf. Hernoemt iemand een kop, dan valt de test om; dat is de bedoeling, want een dode verwijzing is erger dan geen verwijzing."
+    "bestand": "handelingsperspectief.json",
+    "sha256": "b0b555483d31475bf647ddfc25bef2ad966f4290157dc9119079d4661b5d025a",
+    "let_op": "De kennisbank is de bron. Klopt deze kopie niet meer, dan draai je dit script opnieuw; hem met de hand bijwerken laat de sha256 achter en verbergt het verschil."
   },
   "handleidingen": [
-    {"barriere": "pr", "item": "security/passkeys-invoeren", "titel": "Passkeys invoeren", "paragraaf": "De aanpak in negen stappen", "dekking": "volledig", "reden": "Negen stappen van inzicht tot borging, inclusief het afdwingen van phishingbestendige authenticatie en het meten van de dekking."},
-    {"barriere": "fallback", "item": "security/passkeys-invoeren", "titel": "Passkeys invoeren", "paragraaf": "Waarom je huidige MFA niet genoeg is", "dekking": "volledig", "reden": "Het stuk gaat er expliciet over dat een sterke methode naast een zwakke niets waard is, en behandelt het uitzetten van de zwakkere routes."},
-    {"barriere": "legacy", "item": "security/passkeys-invoeren", "titel": "Passkeys invoeren", "paragraaf": "Keuzes die het verschil maken", "dekking": "gedeeltelijk", "reden": "Legacy authentication komt langs als een van de keuzes, maar het uitfaseren ervan is geen eigen stappenplan."},
-    {"barriere": "key", "item": "security/passkeys-invoeren", "titel": "Passkeys invoeren", "paragraaf": "Keuzes die het verschil maken", "dekking": "gedeeltelijk", "reden": "De keuze voor een aparte fysieke sleutel wordt behandeld, maar niet de uitgifte en het beheer ervan voor beheerders."},
-
-    {"barriere": "execution", "item": "security/meten-voordat-je-ingrijpt", "titel": "Meten voordat je ingrijpt", "paragraaf": "Werkplekanalyse op het Microsoft-platform (E5)", "dekking": "volledig", "reden": "Meet eerst wat er feitelijk draait (PowerShell, mshta, Win+R) en dwing daarna pas af; precies de volgorde die voorkomt dat je legitiem werk breekt."},
-    {"barriere": "browser", "item": "security/meten-voordat-je-ingrijpt", "titel": "Meten voordat je ingrijpt", "paragraaf": "Werkplekanalyse op het Microsoft-platform (E5)", "dekking": "gedeeltelijk", "reden": "De meetaanpak geldt ook voor de browser, maar extensiebeleid en gegevensdragers krijgen geen eigen behandeling."},
-    {"barriere": "localadmin", "item": "security/meten-voordat-je-ingrijpt", "titel": "Meten voordat je ingrijpt", "paragraaf": "Werkplekanalyse op het Microsoft-platform (E5)", "dekking": "gedeeltelijk", "reden": "Het meten van wie lokale rechten gebruikt staat erin; het uitfaseringstraject met de uitzonderingen niet."},
-    {"barriere": "mail", "item": "security/meten-voordat-je-ingrijpt", "titel": "Meten voordat je ingrijpt", "paragraaf": "Identiteit en e-mail", "dekking": "gedeeltelijk", "reden": "Analyse van de mailstroom komt aan bod, het inrichten van de beschermingsbaseline zelf niet."},
-    {"barriere": "edr", "item": "security/meten-voordat-je-ingrijpt", "titel": "Meten voordat je ingrijpt", "paragraaf": "Killchain en chokepoints (ClickFix)", "dekking": "gedeeltelijk", "reden": "Laat zien wat detectie op de werkplek moet opleveren aan de hand van een echte killchain, maar behandelt de uitrol en dekkingsmeting van EDR niet."},
-
-    {"barriere": "technicalvendor", "item": "security/security-annex-leveranciers", "titel": "Security Annex voor leveranciers", "paragraaf": "Zo gebruik je het sjabloon", "dekking": "volledig", "reden": "Twintig artikelen met de technische eisen die je toetst, van FIDO2 en just-in-time beheer tot SSDLC, opgebouwd vanuit de risico's die gemeenten nu zien."},
-    {"barriere": "review", "item": "security/security-annex-leveranciers", "titel": "Security Annex voor leveranciers", "paragraaf": "Geen vinklijst maar een gesprek", "dekking": "gedeeltelijk", "reden": "Het stuk gaat over de inhoud van de beoordeling, niet over het inrichten van de periodieke cyclus eromheen."},
-    {"barriere": "residual", "item": "security/security-annex-leveranciers", "titel": "Security Annex voor leveranciers", "paragraaf": "Lees dit eerst: risico's, niet de norm", "dekking": "gedeeltelijk", "reden": "Maakt duidelijk welke restrisico's je overhoudt als een leverancier niet aan een artikel voldoet; het vastleggen en beleggen ervan staat er niet in."},
-
-    {"barriere": "idresponse", "item": "security/blue-team-opzetten", "titel": "Een blue team opzetten", "paragraaf": "Stap 6. Eén dreiging van begin tot eind", "dekking": "gedeeltelijk", "reden": "Laat zien hoe je een dreiging van begin tot eind afhandelt met een team; het identity-playbook zelf (sessies intrekken, apps verwijderen) staat er niet in."},
-    {"barriere": "exploitresponse", "item": "security/blue-team-opzetten", "titel": "Een blue team opzetten", "paragraaf": "Stap 6. Eén dreiging van begin tot eind", "dekking": "gedeeltelijk", "reden": "Geeft de werkwijze om een dreiging te doorgronden en af te handelen, maar niet het testen van detectie op externe exploits."}
+    {
+      "barriere": "adminhard",
+      "item": "security/beheerwerkplek",
+      "titel": "Beheerwerkplek voor administratieve taken",
+      "rol": "fundering",
+      "url": "https://security-commons-nl.github.io/kennisbank/security/beheerwerkplek/"
+    },
+    {
+      "barriere": "adminmonitor",
+      "item": "security/logging-en-retentie",
+      "titel": "Bewaartermijnen voor logging en forensiek",
+      "rol": "fundering",
+      "url": "https://security-commons-nl.github.io/kennisbank/security/logging-en-retentie/"
+    },
+    {
+      "barriere": "assets",
+      "item": "security/aanvalsoppervlak-bewaken",
+      "titel": "Je aanvalsoppervlak in beeld houden",
+      "rol": "fundering",
+      "url": "https://security-commons-nl.github.io/kennisbank/security/aanvalsoppervlak-bewaken/"
+    },
+    {
+      "barriere": "backup",
+      "item": "security/onveranderbare-backups",
+      "titel": "Onveranderbare back-ups",
+      "rol": "fundering",
+      "url": "https://security-commons-nl.github.io/kennisbank/security/onveranderbare-backups/"
+    },
+    {
+      "barriere": "consent",
+      "item": "security/cloudportalen-harden",
+      "titel": "Cloud-beheerportalen dichtzetten",
+      "rol": "fundering",
+      "url": "https://security-commons-nl.github.io/kennisbank/security/cloudportalen-harden/"
+    },
+    {
+      "barriere": "consent",
+      "item": "security/identiteit-en-mail-meten",
+      "titel": "Identiteit en e-mail meten voordat je afdwingt",
+      "rol": "verdieping",
+      "url": "https://security-commons-nl.github.io/kennisbank/security/identiteit-en-mail-meten/"
+    },
+    {
+      "barriere": "consent",
+      "item": "security/least-privilege-cloud",
+      "titel": "Rechten in de cloud terugbrengen tot gebruik",
+      "rol": "verdieping",
+      "url": "https://security-commons-nl.github.io/kennisbank/security/least-privilege-cloud/"
+    },
+    {
+      "barriere": "crisis",
+      "item": "security/crisisoefening",
+      "titel": "Crisisoefening voor ransomware en uitval",
+      "rol": "fundering",
+      "url": "https://security-commons-nl.github.io/kennisbank/security/crisisoefening/"
+    },
+    {
+      "barriere": "crisis",
+      "item": "security/crisiscommunicatie",
+      "titel": "Cyber-crisiscommunicatie",
+      "rol": "verdieping",
+      "url": "https://security-commons-nl.github.io/kennisbank/security/crisiscommunicatie/"
+    },
+    {
+      "barriere": "dependencies",
+      "item": "security/ketenafhankelijkheden",
+      "titel": "Ketenafhankelijkheden in beeld",
+      "rol": "fundering",
+      "url": "https://security-commons-nl.github.io/kennisbank/security/ketenafhankelijkheden/"
+    },
+    {
+      "barriere": "edr",
+      "item": "security/edr-inrichten",
+      "titel": "EDR inrichten met dekking en isolatie",
+      "rol": "fundering",
+      "url": "https://security-commons-nl.github.io/kennisbank/security/edr-inrichten/"
+    },
+    {
+      "barriere": "execution",
+      "item": "security/werkplekanalyse-e5",
+      "titel": "Werkplekanalyse op het Microsoft-platform",
+      "rol": "fundering",
+      "url": "https://security-commons-nl.github.io/kennisbank/security/werkplekanalyse-e5/"
+    },
+    {
+      "barriere": "execution",
+      "item": "security/application-control",
+      "titel": "Application- en scriptcontrol",
+      "rol": "verdieping",
+      "url": "https://security-commons-nl.github.io/kennisbank/security/application-control/"
+    },
+    {
+      "barriere": "exploitresponse",
+      "item": "security/incident-response-procedures",
+      "titel": "Incidentprocedures die je hebt geoefend",
+      "rol": "fundering",
+      "url": "https://security-commons-nl.github.io/kennisbank/security/incident-response-procedures/"
+    },
+    {
+      "barriere": "fallback",
+      "item": "security/passkeys-invoeren",
+      "titel": "Passkeys invoeren",
+      "rol": "fundering",
+      "url": "https://security-commons-nl.github.io/kennisbank/security/passkeys-invoeren/"
+    },
+    {
+      "barriere": "fallback",
+      "item": "security/mfa-handhaving",
+      "titel": "MFA afdwingen en zwakke routes saneren",
+      "rol": "verdieping",
+      "url": "https://security-commons-nl.github.io/kennisbank/security/mfa-handhaving/"
+    },
+    {
+      "barriere": "idresponse",
+      "item": "security/incident-response-procedures",
+      "titel": "Incidentprocedures die je hebt geoefend",
+      "rol": "fundering",
+      "url": "https://security-commons-nl.github.io/kennisbank/security/incident-response-procedures/"
+    },
+    {
+      "barriere": "jit",
+      "item": "security/just-in-time-beheerrechten",
+      "titel": "Just-in-time beheerrechten",
+      "rol": "fundering",
+      "url": "https://security-commons-nl.github.io/kennisbank/security/just-in-time-beheerrechten/"
+    },
+    {
+      "barriere": "key",
+      "item": "security/fido2-voor-beheerders",
+      "titel": "Phishingbestendige MFA voor beheeraccounts",
+      "rol": "fundering",
+      "url": "https://security-commons-nl.github.io/kennisbank/security/fido2-voor-beheerders/"
+    },
+    {
+      "barriere": "l7",
+      "item": "security/waf-en-virtual-patching",
+      "titel": "WAF en virtual patching",
+      "rol": "fundering",
+      "url": "https://security-commons-nl.github.io/kennisbank/security/waf-en-virtual-patching/"
+    },
+    {
+      "barriere": "legacy",
+      "item": "security/passkeys-invoeren",
+      "titel": "Passkeys invoeren",
+      "rol": "fundering",
+      "url": "https://security-commons-nl.github.io/kennisbank/security/passkeys-invoeren/"
+    },
+    {
+      "barriere": "legacy",
+      "item": "security/identiteit-en-mail-meten",
+      "titel": "Identiteit en e-mail meten voordat je afdwingt",
+      "rol": "verdieping",
+      "url": "https://security-commons-nl.github.io/kennisbank/security/identiteit-en-mail-meten/"
+    },
+    {
+      "barriere": "legacy",
+      "item": "security/mfa-handhaving",
+      "titel": "MFA afdwingen en zwakke routes saneren",
+      "rol": "verdieping",
+      "url": "https://security-commons-nl.github.io/kennisbank/security/mfa-handhaving/"
+    },
+    {
+      "barriere": "localadmin",
+      "item": "security/patchen-met-dekking",
+      "titel": "Werkplekken beheerd, gehard en gepatcht",
+      "rol": "fundering",
+      "url": "https://security-commons-nl.github.io/kennisbank/security/patchen-met-dekking/"
+    },
+    {
+      "barriere": "mail",
+      "item": "security/identiteit-en-mail-meten",
+      "titel": "Identiteit en e-mail meten voordat je afdwingt",
+      "rol": "verdieping",
+      "url": "https://security-commons-nl.github.io/kennisbank/security/identiteit-en-mail-meten/"
+    },
+    {
+      "barriere": "mailresponse",
+      "item": "security/incident-response-procedures",
+      "titel": "Incidentprocedures die je hebt geoefend",
+      "rol": "fundering",
+      "url": "https://security-commons-nl.github.io/kennisbank/security/incident-response-procedures/"
+    },
+    {
+      "barriere": "model",
+      "item": "security/tiered-administration",
+      "titel": "Beheerrechten scheiden in tiers",
+      "rol": "fundering",
+      "url": "https://security-commons-nl.github.io/kennisbank/security/tiered-administration/"
+    },
+    {
+      "barriere": "patch",
+      "item": "security/patchen-met-dekking",
+      "titel": "Werkplekken beheerd, gehard en gepatcht",
+      "rol": "fundering",
+      "url": "https://security-commons-nl.github.io/kennisbank/security/patchen-met-dekking/"
+    },
+    {
+      "barriere": "pentest",
+      "item": "security/periodiek-pentesten",
+      "titel": "Periodiek pentesten met hertest",
+      "rol": "fundering",
+      "url": "https://security-commons-nl.github.io/kennisbank/security/periodiek-pentesten/"
+    },
+    {
+      "barriere": "pr",
+      "item": "security/passkeys-invoeren",
+      "titel": "Passkeys invoeren",
+      "rol": "fundering",
+      "url": "https://security-commons-nl.github.io/kennisbank/security/passkeys-invoeren/"
+    },
+    {
+      "barriere": "remote",
+      "item": "security/bastion-hosts",
+      "titel": "Beheertoegang via een bastion host",
+      "rol": "fundering",
+      "url": "https://security-commons-nl.github.io/kennisbank/security/bastion-hosts/"
+    },
+    {
+      "barriere": "residual",
+      "item": "security/security-annex-leveranciers",
+      "titel": "Security Annex voor leveranciers",
+      "rol": "fundering",
+      "url": "https://security-commons-nl.github.io/kennisbank/security/security-annex-leveranciers/"
+    },
+    {
+      "barriere": "restore",
+      "item": "security/hersteltest",
+      "titel": "Hersteltest tegen RTO en RPO",
+      "rol": "fundering",
+      "url": "https://security-commons-nl.github.io/kennisbank/security/hersteltest/"
+    },
+    {
+      "barriere": "review",
+      "item": "security/leveranciersbeoordeling",
+      "titel": "Leveranciersbeoordeling met vaste cyclus",
+      "rol": "fundering",
+      "url": "https://security-commons-nl.github.io/kennisbank/security/leveranciersbeoordeling/"
+    },
+    {
+      "barriere": "segment",
+      "item": "security/netwerksegmentatie",
+      "titel": "Netwerksegmentatie",
+      "rol": "fundering",
+      "url": "https://security-commons-nl.github.io/kennisbank/security/netwerksegmentatie/"
+    },
+    {
+      "barriere": "segment",
+      "item": "security/microsegmentatie",
+      "titel": "Microsegmentatie",
+      "rol": "verdieping",
+      "url": "https://security-commons-nl.github.io/kennisbank/security/microsegmentatie/"
+    },
+    {
+      "barriere": "session",
+      "item": "security/sessiebescherming",
+      "titel": "Sessies beschermen tegen tokendiefstal",
+      "rol": "fundering",
+      "url": "https://security-commons-nl.github.io/kennisbank/security/sessiebescherming/"
+    },
+    {
+      "barriere": "session",
+      "item": "security/identiteit-en-mail-meten",
+      "titel": "Identiteit en e-mail meten voordat je afdwingt",
+      "rol": "verdieping",
+      "url": "https://security-commons-nl.github.io/kennisbank/security/identiteit-en-mail-meten/"
+    },
+    {
+      "barriere": "soc",
+      "item": "security/centrale-logverzameling",
+      "titel": "Richt centrale logverzameling in",
+      "rol": "fundering",
+      "url": "https://security-commons-nl.github.io/kennisbank/security/centrale-logverzameling/"
+    },
+    {
+      "barriere": "soc",
+      "item": "security/uitbestede-soc",
+      "titel": "Besteed monitoring uit aan een MSSP",
+      "rol": "alternatief",
+      "url": "https://security-commons-nl.github.io/kennisbank/security/uitbestede-soc/"
+    },
+    {
+      "barriere": "soc",
+      "item": "security/regionaal-soc",
+      "titel": "Deel een SOC met andere organisaties",
+      "rol": "alternatief",
+      "url": "https://security-commons-nl.github.io/kennisbank/security/regionaal-soc/"
+    },
+    {
+      "barriere": "soc",
+      "item": "security/co-managed-siem",
+      "titel": "Kies voor een co-managed SIEM",
+      "rol": "alternatief",
+      "url": "https://security-commons-nl.github.io/kennisbank/security/co-managed-siem/"
+    },
+    {
+      "barriere": "soc",
+      "item": "security/mdr-dienst",
+      "titel": "Neem een MDR-dienst met een handelingsmandaat",
+      "rol": "alternatief",
+      "url": "https://security-commons-nl.github.io/kennisbank/security/mdr-dienst/"
+    },
+    {
+      "barriere": "technicalvendor",
+      "item": "security/security-annex-leveranciers",
+      "titel": "Security Annex voor leveranciers",
+      "rol": "fundering",
+      "url": "https://security-commons-nl.github.io/kennisbank/security/security-annex-leveranciers/"
+    },
+    {
+      "barriere": "technicalvendor",
+      "item": "security/pentest-en-exit-bij-leveranciers",
+      "titel": "Pentest- en exitverplichtingen bij leveranciers",
+      "rol": "verdieping",
+      "url": "https://security-commons-nl.github.io/kennisbank/security/pentest-en-exit-bij-leveranciers/"
+    },
+    {
+      "barriere": "unmanaged",
+      "item": "security/patchen-met-dekking",
+      "titel": "Werkplekken beheerd, gehard en gepatcht",
+      "rol": "fundering",
+      "url": "https://security-commons-nl.github.io/kennisbank/security/patchen-met-dekking/"
+    },
+    {
+      "barriere": "upstream",
+      "item": "security/ddos-scrubbing",
+      "titel": "DDoS-scrubbing en robuuste DNS",
+      "rol": "fundering",
+      "url": "https://security-commons-nl.github.io/kennisbank/security/ddos-scrubbing/"
+    },
+    {
+      "barriere": "vuln",
+      "item": "security/kwetsbaarheden-scannen",
+      "titel": "Kwetsbaarheden scannen en opvolgen",
+      "rol": "fundering",
+      "url": "https://security-commons-nl.github.io/kennisbank/security/kwetsbaarheden-scannen/"
+    },
+    {
+      "barriere": "vuln",
+      "item": "security/exposure-management",
+      "titel": "Kwetsbaarheden wegen op werkelijke blootstelling",
+      "rol": "verdieping",
+      "url": "https://security-commons-nl.github.io/kennisbank/security/exposure-management/"
+    },
+    {
+      "barriere": "webtest",
+      "item": "security/web-en-api-testen",
+      "titel": "Web en API testen in de ontwikkelketen",
+      "rol": "fundering",
+      "url": "https://security-commons-nl.github.io/kennisbank/security/web-en-api-testen/"
+    }
   ],
-  "gevraagd": [
-    {"barriere": "devicecode", "cluster": "ingangen-naast-de-sterke-inlog", "zou_moeten_dekken": "Hoe je Device Code Flow blokkeert zonder de beheerde uitzonderingen (kiosk, gedeelde apparaten) te breken, en hoe je aantoont dat de uitzonderingen beperkt blijven."},
-    {"barriere": "consent", "cluster": "ingangen-naast-de-sterke-inlog", "zou_moeten_dekken": "Hoe je app-toestemming beperkt en een werkbaar admin-consentproces inricht, inclusief het opruimen van bestaande toestemmingen en het monitoren van nieuwe."},
-    {"barriere": "session", "cluster": "ingangen-naast-de-sterke-inlog", "zou_moeten_dekken": "Hoe je tokendiefstal onbruikbaar maakt met apparaatbinding en sessiebeleid, en welke gebruikersimpact je kunt verwachten."},
-    {"barriere": "unmanaged", "cluster": "ingangen-naast-de-sterke-inlog", "zou_moeten_dekken": "Hoe je toegang beperkt tot beheerde en compliant apparaten, met een route voor de gevallen die er nu buiten vallen (inhuur, bestuurders, ketenpartners)."},
-
-    {"barriere": "model", "cluster": "beheerrechten-scheiden", "zou_moeten_dekken": "Hoe je een beheermodel kiest en invoert waarin privileged access technisch gescheiden is van dagelijks werk, met de migratie erbij."},
-    {"barriere": "adminhard", "cluster": "beheerrechten-scheiden", "zou_moeten_dekken": "Hoe je een beheerwerkplek hardt en afdwingt dat beheer alleen daarvandaan kan, inclusief wat je doet met leveranciers die meebeheren."},
-    {"barriere": "jit", "cluster": "beheerrechten-scheiden", "zou_moeten_dekken": "Hoe je permanente rollen uitfaseert naar just-in-time toekenning, welke rollen je als eerste pakt en hoe je het activeringslogboek gebruikt."},
-    {"barriere": "elevation", "cluster": "beheerrechten-scheiden", "zou_moeten_dekken": "Hoe je herauthenticatie afdwingt op het moment van verhogen, en hoe je voorkomt dat beheerders het omzeilen."},
-    {"barriere": "adminmonitor", "cluster": "beheerrechten-scheiden", "zou_moeten_dekken": "Welke beheerhandelingen en rolwijzigingen je vastlegt, hoe lang je ze bewaart en welke signalen echt tot een melding moeten leiden."},
-
-    {"barriere": "patch", "cluster": "van-scan-naar-gepatcht", "zou_moeten_dekken": "Hoe je patchdekking meet over besturingssysteem en third-party software, wat je doet met de achterblijvers, en hoe je dat rapporteert zonder een percentage zonder betekenis."},
-    {"barriere": "vuln", "cluster": "van-scan-naar-gepatcht", "zou_moeten_dekken": "Hoe je continu scannen inricht met een spoedprocedure voor kritieke kwetsbaarheden, en welke doorlooptijden haalbaar en verdedigbaar zijn."},
-    {"barriere": "assets", "cluster": "van-scan-naar-gepatcht", "zou_moeten_dekken": "Hoe je je externe aanvalsoppervlak ontdekt en blijft bewaken, en wat je doet met de diensten die niemand blijkt te kennen."},
-
-    {"barriere": "remote", "cluster": "de-buitenrand-afschermen", "zou_moeten_dekken": "Hoe je publieke beheerinterfaces afschermt zonder het beheer onwerkbaar te maken, en welke tussenoplossingen (bastion, ZTNA) wanneer passen."},
-    {"barriere": "origin", "cluster": "de-buitenrand-afschermen", "zou_moeten_dekken": "Hoe je afdwingt dat de origin alleen via de beschermde route bereikbaar is, en hoe je controleert dat er geen omweg is blijven staan."},
-    {"barriere": "l7", "cluster": "de-buitenrand-afschermen", "zou_moeten_dekken": "Hoe je een WAF en rate limiting inricht die daadwerkelijk blokkeert in plaats van alleen logt, en hoe je vals-positieven beheerst."},
-    {"barriere": "upstream", "cluster": "de-buitenrand-afschermen", "zou_moeten_dekken": "Wat je met je provider regelt aan DDoS-mitigatie, hoe je robuuste DNS inricht en wat je vooraf afspreekt over opschalen."},
-
-    {"barriere": "pentest", "cluster": "testen-en-hertesten", "zou_moeten_dekken": "Hoe je een pentest uitvraagt die iets oplevert, wat je in de scope zet, en hoe je de hertest zo organiseert dat bevindingen echt dichtgaan."},
-    {"barriere": "webtest", "cluster": "testen-en-hertesten", "zou_moeten_dekken": "Hoe je web- en API-beveiliging test in de ontwikkelketen, en welke bevindingen je blokkerend maakt voor livegang."},
-
-    {"barriere": "dmarc", "cluster": "mail-als-kanaal", "zou_moeten_dekken": "Hoe je SPF, DKIM en DMARC naar handhaving brengt zonder legitieme post te blokkeren, inclusief het traject langs alle verzendende partijen."},
-    {"barriere": "mailresponse", "cluster": "mail-als-kanaal", "zou_moeten_dekken": "Hoe een phishing- en BEC-playbook eruitziet dat je kunt oefenen: melden, terughalen uit postbussen, en het financiele spoor bij fraude."},
-
-    {"barriere": "segment", "cluster": "netwerksegmentatie", "zou_moeten_dekken": "Hoe je zones bepaalt die aansluiten op je processen, hoe je regels afdwingt in plaats van documenteert, en welk bewijs een auditor wil zien."},
-
-    {"barriere": "backup", "cluster": "herstellen-als-het-misgaat", "zou_moeten_dekken": "Hoe je back-ups onveranderbaar maakt en het beheer scheidt, zodat een gecompromitteerd beheeraccount ze niet kan wissen."},
-    {"barriere": "restore", "cluster": "herstellen-als-het-misgaat", "zou_moeten_dekken": "Hoe je een hersteltest opzet die de afgesproken RTO en RPO echt toetst, en wat je doet als de uitkomst tegenvalt."},
-    {"barriere": "crisis", "cluster": "herstellen-als-het-misgaat", "zou_moeten_dekken": "Hoe je een ransomware- en crisisherstelplan oefent met de lijn erbij, en welke verbeterpunten je uit zo'n oefening haalt."},
-    {"barriere": "critical", "cluster": "herstellen-als-het-misgaat", "zou_moeten_dekken": "Hoe je kritieke processen en herstelprioriteiten vaststelt met de lijn, en hoe je die keuze houdbaar houdt als de organisatie verandert."},
-
-    {"barriere": "dependencies", "cluster": "keten-in-beeld", "zou_moeten_dekken": "Hoe je kritieke systemen en leveranciers in samenhang in beeld brengt, uit bronnen die je al hebt, en hoe je dat overzicht actueel houdt."},
-
-    {"barriere": "owner", "cluster": "een-risico-beleggen", "zou_moeten_dekken": "Hoe je een risico daadwerkelijk bij een risicohouder neerlegt: wie is het, hoe voer je dat gesprek, en wat leg je vast."},
-    {"barriere": "treatment", "cluster": "een-risico-beleggen", "zou_moeten_dekken": "Hoe je risicoacceptatie of een maatregel vastlegt met eigenaar en termijn, en hoe je voorkomt dat de lijst een archief wordt."},
-
-    {"barriere": "soc", "cluster": "opvolging-en-detectie", "zou_moeten_dekken": "Hoe je 24/7 opvolging inricht of inkoopt, welke triage-, reactie- en escalatietijden je afspreekt en hoe je toetst of ze gehaald worden."},
-    {"barriere": "ddosresponse", "cluster": "opvolging-en-detectie", "zou_moeten_dekken": "Hoe je een DDoS-response oefent met provider en SOC, en welke afspraken je vooraf maakt over opschaling en communicatie."}
-  ],
-  "geen_handleiding_nodig": []
+  "zonder_handleiding": [
+    "browser",
+    "critical",
+    "ddosresponse",
+    "devicecode",
+    "dmarc",
+    "elevation",
+    "origin",
+    "owner",
+    "treatment"
+  ]
 }

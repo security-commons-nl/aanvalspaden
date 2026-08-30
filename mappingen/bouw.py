@@ -145,14 +145,19 @@ def bouw_handelingsperspectief(barrieres: dict) -> dict:
     de AVG wordt bevraagd. Het staat daarom naast de kaders in plaats van erin.
     """
     data = helper.handelingsperspectief()
-    per_barriere = {}
-    for hl in data["handleidingen"]:
-        per_barriere[hl["barriere"]] = hl
+    # Een barriere mag meer dan een handleiding hebben: bij monitoring is de keuze tussen zelf doen,
+    # co-managed en uitbesteden juist het advies. De rol zegt waar je begint en wat ernaast kan.
+    per_barriere = {b: helper.handleidingen_van(b)
+                    for b in sorted({h["barriere"] for h in data["handleidingen"]})}
+    stil = helper.stille_barrieres()
+    if stil:
+        raise SystemExit(f"barrieres zonder handleiding en zonder schrijfopdracht: {stil}. "
+                         "Zet ze in mappingen/gevraagd.json; stilte is nooit een vergissing.")
     return {
         "toelichting": data["toelichting"],
         "kennisbank": data["bron"]["kennisbank"],
         "handleidingen": per_barriere,
-        "gevraagd": {g["barriere"]: g for g in data["gevraagd"]},
+        "gevraagd": {g["barriere"]: g for g in helper.gevraagd()["gevraagd"]},
         "opdrachten": [
             dict(o, barrieres=[
                 dict(b, bewijs=barrieres[b["id"]]["bewijs"] if b["id"] in barrieres else "")

@@ -81,6 +81,24 @@
     return String(tekst).toLowerCase().indexOf(stand.zoek) !== -1;
   }
 
+  /* De vlag bij een barriere in 'Hoe pak ik het aan'. Die zegt iets anders dan een sterktevlag: niet
+     hoeveel bewijs een regel levert, maar waar je begint en of er iets naast staat. */
+  var ROL_UITLEG = {
+    fundering: "Hier begin je: de handleiding die de barriere zelf inricht.",
+    alternatief: "Een van de routes die je kunt kiezen; ze sluiten elkaar uit.",
+    verdieping: "Gaat verder dan de fundering; doe die eerst.",
+    routes: "Meer dan een handleiding bij deze barriere. Kijk welke rol bij jouw situatie past."
+  };
+
+  function rolVlag(hls) {
+    var woord = hls.length === 1 ? hls[0].rol : hls.length + " routes";
+    var vlag = el("span", "sterkte volledig");
+    vlag.appendChild(el("b"));
+    vlag.appendChild(document.createTextNode(woord));
+    vlag.title = hls.length === 1 ? (ROL_UITLEG[hls[0].rol] || "") : ROL_UITLEG.routes;
+    return vlag;
+  }
+
   function sterkteVlag(sterkte, woord) {
     var vlag = el("span", "sterkte " + sterkte);
     vlag.appendChild(el("b"));
@@ -376,27 +394,33 @@
     var kopA = el("h3", "themakop", "Hier ligt een handleiding");
     var lijstA = document.createDocumentFragment();
     Object.keys(HP.handleidingen).forEach(function (id) {
-      var hl = HP.handleidingen[id];
+      var hls = HP.handleidingen[id];
       var b = barriereVan(id);
-      var zoekbaar = id + " " + (b ? b.titel : "") + " " + hl.titel + " " + hl.paragraaf + " " + hl.reden;
+      var zoekbaar = id + " " + (b ? b.titel : "") + " " + hls.map(function (h) {
+        return h.titel + " " + h.rol;
+      }).join(" ");
       if (!past(zoekbaar)) { return; }
       gevondenA++;
 
       var blok = el("section", "blok");
-      blok.appendChild(blokKop("Barriere", null, b ? b.titel : id,
-        sterkteVlag(hl.dekking === "volledig" ? "volledig" : "gedeeltelijk", hl.dekking)));
-      var p = el("p", "thema");
-      p.appendChild(document.createTextNode(hl.titel + " · " + hl.paragraaf));
-      blok.appendChild(p);
-      blok.appendChild(el("p", "reden", hl.reden));
+      blok.appendChild(blokKop("Barriere", null, b ? b.titel : id, rolVlag(hls)));
 
-      var link = document.createElement("a");
-      link.href = HP.kennisbank + hl.item + "/";
-      link.rel = "noopener";
-      link.textContent = "Lees " + hl.titel;
-      var wrapLink = el("p", "bewijs");
-      wrapLink.appendChild(link);
-      blok.appendChild(wrapLink);
+      var lijst = el("ul", "regels");
+      hls.forEach(function (hl) {
+        var li = el("li");
+        var kop = el("div", "regel-kop");
+        var link = document.createElement("a");
+        link.href = hl.url;
+        link.rel = "noopener";
+        link.textContent = hl.titel;
+        var titel = el("span", "titel");
+        titel.appendChild(link);
+        kop.appendChild(titel);
+        kop.appendChild(el("span", "nummer", hl.rol));
+        li.appendChild(kop);
+        lijst.appendChild(li);
+      });
+      blok.appendChild(lijst);
       lijstA.appendChild(blok);
     });
     if (gevondenA) { wrap.appendChild(kopA); wrap.appendChild(lijstA); }

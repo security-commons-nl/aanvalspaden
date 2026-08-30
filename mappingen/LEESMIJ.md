@@ -86,19 +86,29 @@ van de handreiking, die volgens die bijlage naast de BIO gelden.
 
 ## Het handelingsperspectief: hoe pak ik het aan
 
-De normverankering zegt wat je aantoont. `handelingsperspectief.json` zegt hoe je het doet: per
-barriere een verwijzing naar een kennisbank-item en de paragraaf daarbinnen.
+De normverankering zegt wat je aantoont. Het handelingsperspectief zegt hoe je het doet: per barriere
+een of meer handleidingen in de kennisbank, met de rol erbij. `fundering` is waar je begint,
+`alternatief` is een van de routes waartussen je kiest, `verdieping` gaat verder dan de fundering. Bij
+monitoring staan er vijf: zelf een SIEM, co-managed, uitbesteed, MDR of regionaal. Die keuze is het
+advies, dus de pagina toont ze naast elkaar in plaats van er een te kiezen.
 
-Wat er **niet** staat is even belangrijk. Een barriere zonder handleiding staat onder `gevraagd`, met
-erbij wat het artikel zou moeten dekken. Dat is tegelijk de redactieagenda van de kennisbank en de
+**De kennisbank is de bron, deze map heeft een kopie.** In de frontmatter van een kennisbank-item staat
+`barrieres:` en `rol:`; `kennisbank/tools/build.py` exporteert dat, en
+`tools/haal_handelingsperspectief.py` haalt het hierheen met een sha256 eronder. Zo staat een
+handleiding op een plek. Werk `handelingsperspectief.json` dus nooit met de hand bij: dan klopt de
+sha256 niet meer en valt CI om, en dat is precies de bedoeling.
+
+Wat er **niet** staat is even belangrijk. Een barriere zonder handleiding staat in `gevraagd.json`, met
+erbij wat het artikel zou moeten dekken. Dat bestand is wel handwerk, want wat een nog ongeschreven
+handleiding zou moeten dekken weet de kennisbank niet. Het is tegelijk de redactieagenda en de
 uitnodiging aan wie het wel weet: op de pagina krijgt zo'n gat een knop die een vooringevulde issue
 opent, met de barrieres en het gevraagde bewijs er al in.
 
-Stand op 30-08-2026: **14 van de 44 barrieres** hebben een handleiding (4 volledig, 10 gedeeltelijk).
-De overige 30 zijn gegroepeerd tot **11 schrijfopdrachten**, gesorteerd op gewicht.
+Stand op 30-08-2026: **35 van de 44 barrieres** hebben een handleiding, samen 50 koppelingen. De
+overige 9 zijn gegroepeerd tot **8 schrijfopdrachten**, gesorteerd op gewicht.
 
 **De mapping loopt per barriere, de backlog groepeert.** Een artikel over werkplekhardening bedient
-`execution`, `browser` en `localadmin` tegelijk. Per barriere mappen houdt het precies en machinaal
+`patch`, `localadmin` en `unmanaged` tegelijk. Per barriere mappen houdt het precies en machinaal
 toetsbaar; groeperen tot een `cluster` maakt er een haalbare schrijfopdracht van.
 
 **De volgorde komt uit de data.** Het gewicht is het aantal aanvalspaden waarop een barriere staat: wie
@@ -108,9 +118,10 @@ en naar de bodem van de backlog laten zakken. Zodra er echte zelfcheck-uitslagen
 signaal hoe vaak een barriere als actie uit `score.acties()` komt.
 
 Twee tests bewaken dit, op verschillende plekken omdat ze verschillende dingen nodig hebben:
-`tests/test_handelingsperspectief.py` toetst vorm en volledigheid, en
-`mappingen/tests/test_kennisbank_verwijzingen.py` toetst of het item en de paragraaf echt bestaan.
-Die tweede heeft de kennisbank-repo ernaast nodig; CI checkt hem uit naar `_kennisbank`.
+`tests/test_handelingsperspectief.py` toetst vorm, volledigheid en of de kopie nog gelijk is aan de
+kennisbank, en `mappingen/tests/test_kennisbank_verwijzingen.py` toetst of het item bestaat en de
+barriere daar zelf nog in de frontmatter staat. Die tweede heeft de kennisbank-repo ernaast nodig; CI
+checkt hem uit naar `_kennisbank`.
 
 ## Auteursrecht
 

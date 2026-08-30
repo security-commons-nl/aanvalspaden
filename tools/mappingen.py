@@ -27,7 +27,7 @@ VOLGORDE = ("bio2", "nist-csf", "wpg", "avg")
 
 # Bestanden in mappingen/ die geen normenkader zijn. Zonder deze lijst wordt elk nieuw JSON-bestand
 # in die map stilletjes als kader opgepakt, en valt de bouw pas om op een ontbrekend bronbestand.
-GEEN_KADER = {"mapping.schema.json", "handelingsperspectief.json"}
+GEEN_KADER = {"mapping.schema.json", "handelingsperspectief.json", "gevraagd.json"}
 
 
 def kaders() -> list[str]:
@@ -148,23 +148,41 @@ def dekking(kader: str) -> dict:
 # De normverankering zegt wat je aantoont, dit zegt hoe je het doet. Wat er niet
 # staat is net zo belangrijk: een barriere zonder handleiding is een openstaande
 # schrijfopdracht, en die lijst is de redactieagenda van de kennisbank.
+#
+# Twee bestanden, met opzet uit elkaar gehouden. handelingsperspectief.json is een
+# kopie van de kennisbank-export (tools/haal_handelingsperspectief.py) en wordt hier
+# nooit met de hand aangeraakt. gevraagd.json is wel handwerk: wat een nog niet
+# geschreven handleiding zou moeten dekken, weet de kennisbank niet.
 # ---------------------------------------------------------------------------
 
 HP = MAP / "handelingsperspectief.json"
+GEVRAAGD = MAP / "gevraagd.json"
+# De volgorde waarin meer dan een handleiding bij dezelfde barriere wordt getoond: eerst waar je
+# begint, dan wat ernaast kan, dan wat erbovenop gaat.
+ROLLEN = ("fundering", "alternatief", "verdieping")
 
 
 def handelingsperspectief() -> dict:
     return json.loads(HP.read_text(encoding="utf-8"))
 
 
-def handleiding_van(barriere: str) -> dict | None:
-    """De handleiding bij deze barriere, of None als die er nog niet is."""
-    return next((h for h in handelingsperspectief()["handleidingen"] if h["barriere"] == barriere), None)
+def gevraagd() -> dict:
+    return json.loads(GEVRAAGD.read_text(encoding="utf-8"))
+
+
+def handleidingen_van(barriere: str) -> list[dict]:
+    """Alle handleidingen bij deze barriere, op rol gesorteerd; leeg als er nog geen is.
+
+    Meer dan een mag: bij monitoring kun je kiezen tussen zelf doen, co-managed of uitbesteden. Die
+    keuze is de kern van het advies, dus de lijst afkappen op de eerste zou het weggooien.
+    """
+    hl = [h for h in handelingsperspectief()["handleidingen"] if h["barriere"] == barriere]
+    return sorted(hl, key=lambda h: (ROLLEN.index(h["rol"]) if h["rol"] in ROLLEN else 9, h["titel"]))
 
 
 def gevraagd_van(barriere: str) -> dict | None:
     """De openstaande schrijfopdracht bij deze barriere, of None."""
-    return next((g for g in handelingsperspectief()["gevraagd"] if g["barriere"] == barriere), None)
+    return next((g for g in gevraagd()["gevraagd"] if g["barriere"] == barriere), None)
 
 
 def gewicht_van_barriere(barriere: str) -> int:
@@ -194,7 +212,7 @@ def schrijfopdrachten() -> list[dict]:
     mapping loopt per barriere omdat dat precies en toetsbaar is; de backlog groepeert ze, omdat dat
     is hoe je gaat schrijven.
     """
-    data = handelingsperspectief()
+    data = gevraagd()
     alle = barrieres()
     per_cluster: dict[str, list[dict]] = {}
     for item in data["gevraagd"]:
@@ -221,15 +239,27 @@ def schrijfopdrachten() -> list[dict]:
 
 def dekking_handelingsperspectief() -> dict:
     data = handelingsperspectief()
+    agenda = gevraagd()
     alle = barrieres()
     met = {h["barriere"] for h in data["handleidingen"]}
-    volledig = {h["barriere"] for h in data["handleidingen"] if h["dekking"] == "volledig"}
     return {
         "barrieres": len(alle),
         "met_handleiding": len(met),
-        "volledig": len(volledig),
-        "gedeeltelijk": len(met) - len(volledig),
-        "gevraagd": len(data["gevraagd"]),
-        "geen_nodig": len(data["geen_handleiding_nodig"]),
+        "keuze": len({h["barriere"] for h in data["handleidingen"] if h["rol"] == "alternatief"}),
+        "open": len(data["zonder_handleiding"]),
+        "gevraagd": len(agenda["gevraagd"]),
+        "geen_nodig": len(agenda["geen_handleiding_nodig"]),
         "schrijfopdrachten": len(schrijfopdrachten()),
     }
+
+
+def stille_barrieres() -> list[str]:
+    """Barrieres die geen handleiding hebben en ook niet in de agenda staan.
+
+    Stilte is nooit een vergissing: staat een barriere nergens in, dan weet de lezer niet of er niets
+    over te schrijven valt of dat het gewoon is blijven liggen. Deze lijst hoort leeg te zijn.
+    """
+    agenda = gevraagd()
+    genoemd = ({g["barriere"] for g in agenda["gevraagd"]}
+               | {g["barriere"] for g in agenda["geen_handleiding_nodig"]})
+    return sorted(b for b in handelingsperspectief()["zonder_handleiding"] if b not in genoemd)

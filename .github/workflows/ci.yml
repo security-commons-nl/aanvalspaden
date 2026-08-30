@@ -50,10 +50,11 @@ jobs:
   # browsertests vergelijken wat op het scherm staat met tools/mappingen.py, dus hier valt het door
   # de mand als de pagina en de mapping uit elkaar lopen.
   #
-  # De kennisbank wordt erbij uitgecheckt, want het handelingsperspectief verwijst naar items en
-  # paragrafen daarin. Zonder die checkout slaat die test over en zou een hernoemde kop stil een
-  # dode verwijzing opleveren. Hij gaat naar _kennisbank en niet naar ../kennisbank, want een
-  # checkout buiten de workspace wordt geweigerd.
+  # De kennisbank wordt erbij uitgecheckt, want die is de bron van het handelingsperspectief: daar
+  # staat in de frontmatter van elk item bij welke barrieres het hoort. Zonder die checkout slaat de
+  # vergelijking over en zou een hernoemd of ontkoppeld item stil een dode verwijzing opleveren. Hij
+  # gaat naar _kennisbank en niet naar ../kennisbank, want een checkout buiten de workspace wordt
+  # geweigerd.
   mappingen:
     runs-on: ubuntu-latest
     steps:
@@ -74,11 +75,16 @@ jobs:
           pip install pytest jsonschema playwright
           python -m playwright install --with-deps chromium
 
+      # De kennisbank is de bron van de koppeling barriere -> handleiding. Loopt de kopie hier
+      # achter, dan belooft de site een handleiding die er niet (meer) zo staat.
+      - name: Handelingsperspectief loopt gelijk met de kennisbank
+        run: python tools/haal_handelingsperspectief.py --check
+
       - name: Bouwen
         run: python mappingen/bouw.py
 
       - name: Tests
-        run: python -m pytest mappingen/tests/ -v
+        run: python -m pytest mappingen/tests/ tests/test_handelingsperspectief.py -v
 
       - name: De gebouwde crosswalk bewaren
         uses: actions/upload-artifact@v4
