@@ -17,9 +17,10 @@ heeft iets bruikbaars.
 | 0. Zelfcheck | Achttien aanvalspaden, korte vragen | Eigen antwoorden | Een uur, alleen | Welke paden staan open, drie acties voor morgen |
 | 1. Risicoanalyse | Kroonjuwelen tegen de open paden | Antwoorden plus bewijs | Een dag, met de lijn | Risicolijst met maatregel, eigenaar, termijn |
 | 2. Meting | Dezelfde paden, uit echte data | Exports en connectors | Doorlopend, techniek | Bewijs per cel |
+| Handleiding | Hoe pak ik het aan? | Kennisbank, per barriere | Per maatregel | [De handleidingen](https://security-commons-nl.github.io/aanvalspaden/normen/), met de alternatieven ernaast |
 
-Dwars op die drie staat de **normverankering**: welke maatregel uit BIO 2.0, ISO 27001 of het
-Wpg-toetsingskader wordt aantoonbaar met het bewijs dat de zelfcheck vraagt, en welke niet.
+Dwars op die drie staat de **normverankering**: welke maatregel uit BIO 2.0, ISO 27001, NIST CSF 2.0,
+het Wpg-toetsingskader of de AVG wordt aantoonbaar met het bewijs dat de zelfcheck vraagt, en welke niet.
 [Bekijk hem](https://security-commons-nl.github.io/aanvalspaden/normen/), of lees verder onder
 [Van aanvalspad naar norm](#van-aanvalspad-naar-norm).
 
