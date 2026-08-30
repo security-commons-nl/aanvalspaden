@@ -53,9 +53,16 @@ def pagina(browser, bestand):
     p.close()
 
 
-def test_de_pagina_opent_op_het_eerste_kader(pagina):
+def test_de_pagina_opent_op_bio2(pagina):
+    """BIO 2.0 staat voorop in de redactionele volgorde, dus daar begint de lezer."""
     assert pagina.locator("h1").inner_text() == "Van aanvalspad naar norm"
     assert pagina.locator("button.gekozen").first.inner_text() == helper.bron("bio2")["titel"]
+
+
+def test_alle_kaders_hebben_een_knop(pagina):
+    knoppen = pagina.locator(".bedien button").all_inner_texts()
+    for kader in helper.kaders():
+        assert helper.bron(kader)["titel"] in knoppen, f"geen knop voor {kader}"
 
 
 def test_alle_achttien_paden_staan_er_plus_de_randvoorwaarden(pagina):
@@ -133,3 +140,71 @@ def test_de_pagina_slaat_niets_op(pagina):
     assert pagina.evaluate("Object.keys(localStorage).length") == 0
     assert pagina.evaluate("Object.keys(sessionStorage).length") == 0
     assert pagina.evaluate("document.cookie") == ""
+
+
+def test_de_bedieningsbalk_blijft_in_beeld_bij_scrollen(pagina):
+    """Met vier kaders en honderd maatregelen moet het filter bij de hand blijven.
+
+    De balk plakt bovenaan en wordt compact zodra de kop uit beeld is. Getoetst op wat een gebruiker
+    merkt: staat de balk na het scrollen nog binnen het venster, en zijn de knoppen aanklikbaar.
+    """
+    balk = pagina.locator(".bedien")
+    assert balk.count() == 1
+
+    pagina.mouse.wheel(0, 4000)
+    pagina.wait_for_timeout(150)
+
+    vak = balk.bounding_box()
+    hoogte = pagina.evaluate("window.innerHeight")
+    assert vak is not None and vak["y"] >= -1, "de bedieningsbalk is uit beeld gescrold"
+    assert vak["y"] < hoogte / 2, "de bedieningsbalk staat niet bovenin"
+    assert "compact" in balk.get_attribute("class"), "de balk wordt niet compact bij scrollen"
+
+    # En hij werkt daar ook: schakelen vanaf de gescrolde stand moet gewoon kunnen.
+    pagina.get_by_role("button", name="Witte vlekken").click()
+    assert pagina.locator(".telling").count() == 1
+
+
+def test_de_balk_is_ruim_zolang_je_bovenaan_staat(pagina):
+    balk = pagina.locator(".bedien")
+    assert "compact" not in (balk.get_attribute("class") or "")
+    assert pagina.locator(".bedien .toelichting").is_visible()
+
+
+def test_filteren_houdt_de_focus_in_het_zoekveld(pagina):
+    """De lijst wordt apart hertekend, dus typen mag de focus niet kwijtraken."""
+    veld = pagina.locator('input[type="search"]')
+    veld.click()
+    veld.type("segment", delay=10)
+    pagina.wait_for_timeout(80)
+    assert pagina.evaluate("document.activeElement.type") == "search"
+    assert veld.input_value() == "segment"
+
+
+def test_elk_kader_toont_zijn_eigen_witte_vlekken(pagina):
+    """De kern van de pagina: per kader een eigen, kloppende telling."""
+    for kader in helper.kaders():
+        pagina.get_by_role("button", name=helper.bron(kader)["titel"]).click()
+        pagina.get_by_role("button", name="Witte vlekken").click()
+        telling = helper.dekking(kader)
+        groot = pagina.locator(".telling .groot").all_inner_texts()
+        assert str(telling["geraakt"]) in groot, f"{kader}: geraakt-telling ontbreekt"
+        assert str(telling["witte_vlekken"]) in groot, f"{kader}: witte-vlekken-telling ontbreekt"
+
+
+def test_de_avg_laat_zien_dat_beveiliging_maar_een_deel_is(pagina):
+    pagina.get_by_role("button", name=helper.bron("avg")["titel"]).click()
+    pagina.get_by_role("button", name="Witte vlekken").click()
+    tekst = pagina.locator("main").inner_text()
+    for onderwerp in ("Recht op inzage", "Rechtmatigheid van de verwerking", "Register van verwerkingsactiviteiten"):
+        assert onderwerp in tekst, f"{onderwerp} hoort als witte vlek zichtbaar te zijn"
+    telling = helper.dekking("avg")
+    assert telling["witte_vlekken"] > telling["geraakt"]
+
+
+def test_nist_sluit_het_dichtst_aan_maar_mist_govern(pagina):
+    """CSF is dreigingsgericht, dus de dekking is hoger; de GOVERN-functie blijft grotendeels leeg."""
+    pagina.get_by_role("button", name=helper.bron("nist-csf")["titel"]).click()
+    pagina.get_by_role("button", name="Witte vlekken").click()
+    tekst = pagina.locator("main").inner_text()
+    assert "GOVERN (GV)" in tekst, "de GOVERN-functie hoort bij de witte vlekken te staan"

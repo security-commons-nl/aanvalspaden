@@ -58,9 +58,44 @@ a { color: var(--accent); }
 .uitleg, .bewijs, .toelichting { color: var(--zacht); font-size: .9rem; }
 .label { font-size: .72rem; letter-spacing: .12em; color: var(--zacht); margin: 0; text-transform: uppercase; }
 
+/* De bedieningsbalk plakt bovenaan en wordt compact zodra de kop uit beeld is. Met vier kaders en
+   drie weergaven wil je die keuzes bij de hand houden terwijl je door honderd maatregelen scrolt.
+   De sentinel erboven is het meetpunt: zolang die zichtbaar is, staat de balk in ruime stand. */
+.sentinel { height: 1px; margin: 0; }
+
+.bedien {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--wit);
+  border: 1px solid var(--lijn);
+  border-radius: 10px;
+  margin: 1.25rem 0;
+}
+.bedien-binnen { padding: .9rem 1.1rem; }
+
+/* Compacte stand: minder lucht, kleinere knoppen, en de telling en het kaderlabel eruit. De
+   keuzeknoppen en het zoekveld blijven, want daar zit de bediening in. */
+.bedien.compact {
+  border-radius: 0;
+  border-left: 0;
+  border-right: 0;
+  margin: 1.25rem -100vw;
+  padding: 0 100vw;
+  box-shadow: 0 2px 8px rgba(22, 32, 43, .07);
+}
+.bedien.compact .bedien-binnen { padding: .4rem 0; max-width: 60rem; margin: 0 auto; }
+.bedien.compact .balk { margin: .25rem 0; gap: .4rem; }
+.bedien.compact button { padding: .3rem .65rem; font-size: .85rem; }
+.bedien.compact input[type="search"] { padding: .3rem .6rem; font-size: .85rem; }
+.bedien.compact .toelichting,
+.bedien.compact .balk-label { display: none; }
+
 /* Keuzebalk: kader en weergave. */
-.balk { display: flex; flex-wrap: wrap; gap: .6rem; align-items: center; margin: 1rem 0 .2rem; }
+.balk { display: flex; flex-wrap: wrap; gap: .6rem; align-items: center; margin: .5rem 0; }
 .balk .rek { flex: 1 1 8rem; }
+.balk-label { font-size: .72rem; letter-spacing: .12em; color: var(--zacht); text-transform: uppercase; }
+.bedien .toelichting { margin: .5rem 0 0; }
 
 button {
   font: inherit;
@@ -129,8 +164,13 @@ details.uitleg-blok summary { cursor: pointer; font-weight: 700; }
 
 @media print {
   body { background: var(--wit); }
-  .balk { display: none; }
+  .bedien { display: none; }
   .kaart, .blok { break-inside: avoid; border: 0; padding: 0; }
   details.uitleg-blok[open] summary { list-style: none; }
   @page { size: A4; margin: 1.5cm; }
+}
+
+/* Wie liever niet heeft dat er iets meebeweegt, krijgt een gewone balk. */
+@media (prefers-reduced-motion: reduce) {
+  .bedien { position: static; }
 }

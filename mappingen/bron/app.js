@@ -2,10 +2,18 @@
 
    Vanuit het pad   welk bewijs uit dit aanvalspad zegt iets over welke maatregel
    Vanuit de norm   welke barrieres leveren bewijs voor deze maatregel
-   Witte vlekken    de maatregelen waar geen enkele barriere iets over zegt
+   Witte vlekken    de maatregelen waar geen enkele barriere bewijs voor levert
+
+   De pagina bestaat uit drie delen. De kop en de bedieningsbalk worden een keer getekend; alleen de
+   lijst wordt opnieuw opgebouwd als je filtert. Dat scheelt werk bij elke toetsaanslag en het houdt
+   de focus in het zoekveld staan, zonder trucs.
+
+   De bedieningsbalk plakt bovenaan en wordt compact zodra de kop uit beeld is: met vier kaders en
+   drie weergaven wil je die keuzes bij de hand houden terwijl je door honderd maatregelen scrolt.
 
    De data zit in window.__BRON__ en window.__MAPPINGEN__, meegebakken door bouw.py. Geen netwerk,
-   geen opslag: deze pagina leest alleen. */
+   geen opslag: deze pagina leest alleen. Het Content-Security-Policy staat op een hash en verbiedt
+   inline stijl, dus alles gaat via klassen, nooit via element.style. */
 
 (function () {
   "use strict";
@@ -20,12 +28,22 @@
     gedeeltelijk: "Het bewijs toont een deel aan; de maatregel vraagt meer.",
     raakvlak: "Het raakt elkaar, maar dit bewijs toont de maatregel niet aan."
   };
+  var WEERGAVEN = [
+    ["pad", "Vanuit het aanvalspad"],
+    ["norm", "Vanuit de maatregel"],
+    ["wit", "Witte vlekken"]
+  ];
 
   var stand = {
     kader: Object.keys(kaders)[0],
     weergave: "pad",
     zoek: ""
   };
+
+  var lijstVak = null;
+  var kaderKnoppen = {};
+  var weergaveKnoppen = {};
+  var tellingRegel = null;
 
   /* ---------- hulp ---------- */
 
@@ -52,6 +70,10 @@
     });
   }
 
+  function hardeRegels(regels) {
+    return regels.filter(function (r) { return r.sterkte !== "raakvlak"; });
+  }
+
   function past(tekst) {
     if (!stand.zoek) { return true; }
     return String(tekst).toLowerCase().indexOf(stand.zoek) !== -1;
@@ -63,6 +85,18 @@
     vlag.appendChild(document.createTextNode(woord || sterkte));
     vlag.title = STERKTE_UITLEG[sterkte] || "";
     return vlag;
+  }
+
+  function regelItem(sterkte, titel, nummer, reden, bewijs) {
+    var li = el("li");
+    var kop = el("div", "regel-kop");
+    kop.appendChild(sterkteVlag(sterkte));
+    kop.appendChild(el("span", "titel", titel));
+    if (nummer) { kop.appendChild(el("span", "nummer", nummer)); }
+    li.appendChild(kop);
+    if (reden) { li.appendChild(el("p", "reden", reden)); }
+    if (bewijs) { li.appendChild(el("p", "bewijs", "Bewijs: " + bewijs)); }
+    return li;
   }
 
   /* ---------- weergave: vanuit het pad ---------- */
@@ -83,14 +117,10 @@
 
       var blok = el("section", "blok");
       var kop = el("div", "blokkop");
-      var titel = el("h3");
-      titel.appendChild(document.createTextNode(blad.id + ". " + blad.titel));
-      kop.appendChild(titel);
-      if (blad.type === "impact") {
-        kop.appendChild(el("span", "chip", "impact, geen voordeur"));
-      }
+      kop.appendChild(el("h3", null, blad.id + ". " + blad.titel));
+      if (blad.type === "impact") { kop.appendChild(el("span", "chip", "impact, geen voordeur")); }
       blok.appendChild(kop);
-      blok.appendChild(el("p", "uitleg", blad.scenario));
+      if (blad.scenario) { blok.appendChild(el("p", "uitleg", blad.scenario)); }
 
       var lijst = el("ul", "regels");
       blad.chokepoints.forEach(function (cp) {
@@ -99,11 +129,11 @@
         regelkop.appendChild(el("span", "titel", cp.titel));
         regelkop.appendChild(el("span", "nummer", cp.id));
         item.appendChild(regelkop);
-        item.appendChild(el("p", "bewijs", "Bewijs: " + cp.bewijs));
+        if (cp.bewijs) { item.appendChild(el("p", "bewijs", "Bewijs: " + cp.bewijs)); }
 
         var regels = sorteerOpSterkte(cp.regels || []);
         if (!regels.length) {
-          var reden = (huidig().ongekoppeld[cp.barriere] || "Geen regel in dit kader.");
+          var reden = huidig().ongekoppeld[cp.barriere] || "Geen regel in dit kader.";
           var geen = el("p", "reden");
           geen.appendChild(sterkteVlag("geen", "niet in dit kader"));
           geen.appendChild(document.createTextNode(" " + reden));
@@ -112,13 +142,7 @@
           var normen = el("ul", "regels");
           regels.forEach(function (r) {
             var m = maatregelVan(r.norm);
-            var li = el("li");
-            var rk = el("div", "regel-kop");
-            rk.appendChild(sterkteVlag(r.sterkte));
-            rk.appendChild(el("span", "titel", r.norm + " " + (m ? m.titel : "")));
-            li.appendChild(rk);
-            li.appendChild(el("p", "reden", r.reden));
-            normen.appendChild(li);
+            normen.appendChild(regelItem(r.sterkte, r.norm + " " + (m ? m.titel : ""), null, r.reden));
           });
           item.appendChild(normen);
         }
@@ -140,18 +164,17 @@
 
     huidig().maatregelen.forEach(function (m) {
       var regels = sorteerOpSterkte(huidig().perNorm[m.id] || []);
-      var zoekbaar = m.id + " " + m.titel + " " + m.thema + " " + regels.map(function (r) {
+      var zoekbaar = m.id + " " + m.titel + " " + m.thema + " " + (m.kern || "") + " " + regels.map(function (r) {
         var b = barriereVan(r.barriere);
         return (b ? b.titel : r.barriere) + " " + r.reden;
       }).join(" ");
       if (!past(zoekbaar)) { return; }
       gevonden++;
 
+      var hard = hardeRegels(regels);
       var blok = el("section", "blok");
       var kop = el("div", "blokkop");
-      var titel = el("h3", null, m.id + " " + m.titel);
-      kop.appendChild(titel);
-      var hard = regels.filter(function (r) { return r.sterkte !== "raakvlak"; });
+      kop.appendChild(el("h3", null, m.id + " " + m.titel));
       if (hard.length) {
         kop.appendChild(sterkteVlag(hard[0].sterkte, hard.length + (hard.length === 1 ? " barriere" : " barrieres")));
       } else {
@@ -159,8 +182,7 @@
       }
       blok.appendChild(kop);
 
-      var meta = el("p", "thema");
-      meta.appendChild(document.createTextNode(m.thema));
+      var meta = el("p", "thema", m.thema);
       if (m.overheidsmaatregelen && m.overheidsmaatregelen.length) {
         meta.appendChild(document.createTextNode(" · overheidsmaatregelen " + m.overheidsmaatregelen.join(", ")));
       }
@@ -170,35 +192,20 @@
 
       if (!regels.length) {
         blok.appendChild(el("p", "leeg", "Geen enkele barriere uit de zelfcheck levert hier bewijs voor. Zie de witte vlekken."));
-      } else if (!hard.length) {
-        blok.appendChild(el("p", "leeg", "Alleen raakvlakken: de zelfcheck komt in de buurt, maar toont deze maatregel niet aan. Dit telt als witte vlek."));
-        var alleenRaak = el("ul", "regels");
-        regels.forEach(function (r) {
-          var b = barriereVan(r.barriere);
-          var li = el("li");
-          var rk = el("div", "regel-kop");
-          rk.appendChild(sterkteVlag(r.sterkte));
-          rk.appendChild(el("span", "titel", b ? b.titel : r.barriere));
-          li.appendChild(rk);
-          li.appendChild(el("p", "reden", r.reden));
-          alleenRaak.appendChild(li);
-        });
-        blok.appendChild(alleenRaak);
       } else {
+        if (!hard.length) {
+          blok.appendChild(el("p", "leeg", "Alleen raakvlakken: de zelfcheck komt in de buurt, maar toont deze maatregel niet aan. Dit telt als witte vlek."));
+        }
         var lijst = el("ul", "regels");
         regels.forEach(function (r) {
           var b = barriereVan(r.barriere);
-          var li = el("li");
-          var rk = el("div", "regel-kop");
-          rk.appendChild(sterkteVlag(r.sterkte));
-          rk.appendChild(el("span", "titel", b ? b.titel : r.barriere));
-          if (b && b.chokepoints.length) {
-            rk.appendChild(el("span", "nummer", b.chokepoints.join(", ")));
-          }
-          li.appendChild(rk);
-          li.appendChild(el("p", "reden", r.reden));
-          if (b) { li.appendChild(el("p", "bewijs", "Bewijs: " + b.bewijs)); }
-          lijst.appendChild(li);
+          lijst.appendChild(regelItem(
+            r.sterkte,
+            b ? b.titel : r.barriere,
+            b && b.chokepoints.length ? b.chokepoints.join(", ") : null,
+            r.reden,
+            b ? b.bewijs : null
+          ));
         });
         blok.appendChild(lijst);
       }
@@ -254,54 +261,41 @@
         var blok = el("section", "blok");
         var kop = el("div", "blokkop");
         kop.appendChild(el("h3", null, m.id + " " + m.titel));
-        kop.appendChild(sterkteVlag("geen", (m.raakvlakken && m.raakvlakken.length) ? "alleen raakvlak" : "witte vlek"));
+        var raak = m.raakvlakken || [];
+        kop.appendChild(sterkteVlag("geen", raak.length ? "alleen raakvlak" : "witte vlek"));
         blok.appendChild(kop);
         if (m.artikel) { blok.appendChild(el("p", "thema", m.artikel)); }
         if (m.kern) { blok.appendChild(el("p", "uitleg", m.kern)); }
-        if (m.raakvlakken && m.raakvlakken.length) {
-          var raak = el("ul", "regels");
-          m.raakvlakken.forEach(function (r) {
+        if (raak.length) {
+          var lijst = el("ul", "regels");
+          raak.forEach(function (r) {
             var b = barriereVan(r.barriere);
-            var li = el("li");
-            var rk = el("div", "regel-kop");
-            rk.appendChild(sterkteVlag("raakvlak"));
-            rk.appendChild(el("span", "titel", b ? b.titel : r.barriere));
-            li.appendChild(rk);
-            li.appendChild(el("p", "reden", r.reden));
-            raak.appendChild(li);
+            lijst.appendChild(regelItem("raakvlak", b ? b.titel : r.barriere, null, r.reden));
           });
-          blok.appendChild(raak);
+          blok.appendChild(lijst);
         }
         wrap.appendChild(blok);
       });
     });
 
-    if (!gevonden) {
-      wrap.appendChild(el("p", "geenresultaat", "Geen witte vlekken voor deze zoekterm."));
-    }
+    if (!gevonden) { wrap.appendChild(el("p", "geenresultaat", "Geen witte vlekken voor deze zoekterm.")); }
 
     if (data.ongekoppeldeLijst.length) {
       wrap.appendChild(el("h3", "themakop", "Barrieres die dit kader niet raakt"));
-      var lijst = el("ul", "regels");
+      var lijst2 = el("ul", "regels");
       data.ongekoppeldeLijst.forEach(function (paar) {
         var b = barriereVan(paar.barriere);
-        var li = el("li");
-        var rk = el("div", "regel-kop");
-        rk.appendChild(sterkteVlag("geen", "geen regel"));
-        rk.appendChild(el("span", "titel", b ? b.titel : paar.barriere));
-        li.appendChild(rk);
-        li.appendChild(el("p", "reden", paar.reden));
-        lijst.appendChild(li);
+        lijst2.appendChild(regelItem("geen", b ? b.titel : paar.barriere, null, paar.reden));
       });
-      wrap.appendChild(lijst);
+      wrap.appendChild(lijst2);
     }
 
     return wrap;
   }
 
-  /* ---------- opbouw ---------- */
+  /* ---------- de vaste kop ---------- */
 
-  function kop() {
+  function bouwKop() {
     var kaart = el("section", "kaart");
     kaart.appendChild(el("p", "label", "Normverankering"));
     kaart.appendChild(el("h1", null, "Van aanvalspad naar norm"));
@@ -309,81 +303,123 @@
 
     var uitleg = el("details", "uitleg-blok");
     uitleg.appendChild(el("summary", null, "Wat een regel wel en niet zegt"));
-    var p = el("p", "uitleg", bron.belofte);
-    uitleg.appendChild(p);
-    var dl = el("ul", "regels");
+    uitleg.appendChild(el("p", "uitleg", bron.belofte));
+    var lijst = el("ul", "regels");
     STERKTES.forEach(function (s) {
       var li = el("li");
-      var rk = el("div", "regel-kop");
-      rk.appendChild(sterkteVlag(s));
-      li.appendChild(rk);
+      var kop = el("div", "regel-kop");
+      kop.appendChild(sterkteVlag(s));
+      li.appendChild(kop);
       li.appendChild(el("p", "reden", STERKTE_UITLEG[s]));
-      dl.appendChild(li);
+      lijst.appendChild(li);
     });
-    uitleg.appendChild(dl);
+    uitleg.appendChild(lijst);
     kaart.appendChild(uitleg);
+    return kaart;
+  }
 
-    var balk = el("div", "balk");
+  /* ---------- de sticky bedieningsbalk ---------- */
+
+  function bouwBedien() {
+    var balk = el("div", "bedien");
+    var binnen = el("div", "bedien-binnen");
+
+    var rij1 = el("div", "balk");
+    rij1.appendChild(el("span", "balk-label", "Kader"));
     Object.keys(kaders).forEach(function (naam) {
-      var knop = el("button", stand.kader === naam ? "gekozen" : null, kaders[naam].titel);
+      var knop = el("button", null, kaders[naam].titel);
       knop.type = "button";
-      knop.setAttribute("aria-pressed", stand.kader === naam ? "true" : "false");
-      knop.addEventListener("click", function () { stand.kader = naam; teken(); });
-      balk.appendChild(knop);
+      knop.addEventListener("click", function () {
+        stand.kader = naam;
+        werkKnoppenBij();
+        tekenLijst();
+      });
+      kaderKnoppen[naam] = knop;
+      rij1.appendChild(knop);
     });
-    kaart.appendChild(balk);
+    binnen.appendChild(rij1);
 
-    var balk2 = el("div", "balk");
-    [["pad", "Vanuit het aanvalspad"], ["norm", "Vanuit de maatregel"], ["wit", "Witte vlekken"]].forEach(function (paar) {
-      var knop = el("button", stand.weergave === paar[0] ? "gekozen" : null, paar[1]);
+    var rij2 = el("div", "balk");
+    WEERGAVEN.forEach(function (paar) {
+      var knop = el("button", null, paar[1]);
       knop.type = "button";
-      knop.setAttribute("aria-pressed", stand.weergave === paar[0] ? "true" : "false");
-      knop.addEventListener("click", function () { stand.weergave = paar[0]; teken(); });
-      balk2.appendChild(knop);
+      knop.addEventListener("click", function () {
+        stand.weergave = paar[0];
+        werkKnoppenBij();
+        tekenLijst();
+      });
+      weergaveKnoppen[paar[0]] = knop;
+      rij2.appendChild(knop);
     });
+
     var rek = el("div", "rek");
     var zoek = el("input");
     zoek.type = "search";
     zoek.placeholder = "Zoek op maatregel, barriere of woord";
     zoek.setAttribute("aria-label", "Zoeken");
-    zoek.value = stand.zoek;
     zoek.addEventListener("input", function () {
       stand.zoek = zoek.value.trim().toLowerCase();
-      teken({ behoudFocus: true });
+      tekenLijst();
     });
     rek.appendChild(zoek);
-    balk2.appendChild(rek);
-    kaart.appendChild(balk2);
+    rij2.appendChild(rek);
+    binnen.appendChild(rij2);
 
+    tellingRegel = el("p", "toelichting");
+    binnen.appendChild(tellingRegel);
+
+    balk.appendChild(binnen);
+    return balk;
+  }
+
+  function werkKnoppenBij() {
+    Object.keys(kaderKnoppen).forEach(function (naam) {
+      var actief = stand.kader === naam;
+      kaderKnoppen[naam].className = actief ? "gekozen" : "";
+      kaderKnoppen[naam].setAttribute("aria-pressed", actief ? "true" : "false");
+    });
+    Object.keys(weergaveKnoppen).forEach(function (naam) {
+      var actief = stand.weergave === naam;
+      weergaveKnoppen[naam].className = actief ? "gekozen" : "";
+      weergaveKnoppen[naam].setAttribute("aria-pressed", actief ? "true" : "false");
+    });
     var d = huidig().dekking;
-    kaart.appendChild(el("p", "toelichting",
-      huidig().herkomst + " · " + d.regels + " regels · " +
-      d.geraakt + " van " + d.maatregelen + " maatregelen geraakt · " +
-      d.witte_vlekken + " witte vlekken."));
-
-    return kaart;
+    tellingRegel.textContent = huidig().herkomst + " · " + d.regels + " regels · " +
+      d.geraakt + " van " + d.maatregelen + " maatregelen met bewijs · " +
+      d.witte_vlekken + " witte vlekken.";
   }
 
-  function teken(opties) {
-    var focusStand = null;
-    if (opties && opties.behoudFocus) {
-      var actief = document.activeElement;
-      if (actief && actief.type === "search") { focusStand = actief.selectionStart; }
-    }
-
-    app.textContent = "";
-    app.appendChild(kop());
-    if (stand.weergave === "pad") { app.appendChild(toonPaden()); }
-    else if (stand.weergave === "norm") { app.appendChild(toonNormen()); }
-    else { app.appendChild(toonWitteVlekken()); }
-
-    if (focusStand !== null) {
-      var veld = app.querySelector('input[type="search"]');
-      if (veld) { veld.focus(); veld.setSelectionRange(focusStand, focusStand); }
-    }
+  /* Compact zodra de kop uit beeld is. Een sentinel van 1 pixel boven de balk is betrouwbaarder dan
+     meten op scrollpositie: die klopt niet meer zodra het filter de paginahoogte verandert. */
+  function volgScroll(sentinel, balk) {
+    if (!("IntersectionObserver" in window)) { return; }
+    new IntersectionObserver(function (regels) {
+      balk.className = regels[0].isIntersecting ? "bedien" : "bedien compact";
+    }, { threshold: 0 }).observe(sentinel);
   }
+
+  /* ---------- opbouw ---------- */
+
+  function tekenLijst() {
+    lijstVak.textContent = "";
+    if (stand.weergave === "pad") { lijstVak.appendChild(toonPaden()); }
+    else if (stand.weergave === "norm") { lijstVak.appendChild(toonNormen()); }
+    else { lijstVak.appendChild(toonWitteVlekken()); }
+  }
+
+  app.textContent = "";
+  app.appendChild(bouwKop());
+  var sentinel = el("div", "sentinel");
+  app.appendChild(sentinel);
+  var balk = bouwBedien();
+  app.appendChild(balk);
+  lijstVak = el("div", "lijst");
+  app.appendChild(lijstVak);
+
+  werkKnoppenBij();
+  tekenLijst();
+  volgScroll(sentinel, balk);
 
   var versie = document.getElementById("versie");
   if (versie) { versie.textContent = "versie " + bron.versie; }
-  teken();
 })();
