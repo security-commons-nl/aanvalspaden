@@ -1,0 +1,545 @@
+{
+  "kader": "nist-csf",
+  "titel": "NIST CSF 2.0",
+  "toelichting": "De 106 subcategorieen van het NIST Cybersecurity Framework 2.0, gegroepeerd per functie en categorie. De uitkomstformuleringen zijn die van NIST zelf en blijven Engels; het framework staat in het publieke domein.",
+  "bron": {
+    "naam": "National Institute of Standards and Technology (NIST)",
+    "versie": "Cybersecurity Framework 2.0",
+    "peildatum": "2026-08-30",
+    "url": "https://www.nist.gov/cyberframework",
+    "herkomst": "CSF 2.0 Reference Tool, volledige export inclusief informative references",
+    "let_op": "Publiek domein. Ingetrokken subcategorieen uit CSF 1.1 staan wel in de export en zijn hier overgeslagen. Gegenereerd met mappingen/bronnen/genereer_nist.py."
+  },
+  "maatregelen": [
+    {
+      "id": "GV.OC-01",
+      "titel": "The organizational mission is understood and informs cybersecurity risk management",
+      "thema": "GOVERN (GV) · Organizational Context"
+    },
+    {
+      "id": "GV.OC-02",
+      "titel": "Internal and external stakeholders are understood, and their needs and expectations regarding cybersecurity risk management are understood and considered",
+      "thema": "GOVERN (GV) · Organizational Context"
+    },
+    {
+      "id": "GV.OC-03",
+      "titel": "Legal, regulatory, and contractual requirements regarding cybersecurity - including privacy and civil liberties obligations - are understood and managed",
+      "thema": "GOVERN (GV) · Organizational Context"
+    },
+    {
+      "id": "GV.OC-04",
+      "titel": "Critical objectives, capabilities, and services that external stakeholders depend on or expect from the organization are understood and communicated",
+      "thema": "GOVERN (GV) · Organizational Context"
+    },
+    {
+      "id": "GV.OC-05",
+      "titel": "Outcomes, capabilities, and services that the organization depends on are understood and communicated",
+      "thema": "GOVERN (GV) · Organizational Context"
+    },
+    {
+      "id": "GV.RM-01",
+      "titel": "Risk management objectives are established and agreed to by organizational stakeholders",
+      "thema": "GOVERN (GV) · Risk Management Strategy"
+    },
+    {
+      "id": "GV.RM-02",
+      "titel": "Risk appetite and risk tolerance statements are established, communicated, and maintained",
+      "thema": "GOVERN (GV) · Risk Management Strategy"
+    },
+    {
+      "id": "GV.RM-03",
+      "titel": "Cybersecurity risk management activities and outcomes are included in enterprise risk management processes",
+      "thema": "GOVERN (GV) · Risk Management Strategy"
+    },
+    {
+      "id": "GV.RM-04",
+      "titel": "Strategic direction that describes appropriate risk response options is established and communicated",
+      "thema": "GOVERN (GV) · Risk Management Strategy"
+    },
+    {
+      "id": "GV.RM-05",
+      "titel": "Lines of communication across the organization are established for cybersecurity risks, including risks from suppliers and other third parties",
+      "thema": "GOVERN (GV) · Risk Management Strategy"
+    },
+    {
+      "id": "GV.RM-06",
+      "titel": "A standardized method for calculating, documenting, categorizing, and prioritizing cybersecurity risks is established and communicated",
+      "thema": "GOVERN (GV) · Risk Management Strategy"
+    },
+    {
+      "id": "GV.RM-07",
+      "titel": "Strategic opportunities (i.e., positive risks) are characterized and are included in organizational cybersecurity risk discussions",
+      "thema": "GOVERN (GV) · Risk Management Strategy"
+    },
+    {
+      "id": "GV.RR-01",
+      "titel": "Organizational leadership is responsible and accountable for cybersecurity risk and fosters a culture that is risk-aware, ethical, and continually improving",
+      "thema": "GOVERN (GV) · Roles, Responsibilities, and Authorities"
+    },
+    {
+      "id": "GV.RR-02",
+      "titel": "Roles, responsibilities, and authorities related to cybersecurity risk management are established, communicated, understood, and enforced",
+      "thema": "GOVERN (GV) · Roles, Responsibilities, and Authorities"
+    },
+    {
+      "id": "GV.RR-03",
+      "titel": "Adequate resources are allocated commensurate with the cybersecurity risk strategy, roles, responsibilities, and policies",
+      "thema": "GOVERN (GV) · Roles, Responsibilities, and Authorities"
+    },
+    {
+      "id": "GV.RR-04",
+      "titel": "Cybersecurity is included in human resources practices",
+      "thema": "GOVERN (GV) · Roles, Responsibilities, and Authorities"
+    },
+    {
+      "id": "GV.PO-01",
+      "titel": "Policy for managing cybersecurity risks is established based on organizational context, cybersecurity strategy, and priorities and is communicated and enforced",
+      "thema": "GOVERN (GV) · Policy"
+    },
+    {
+      "id": "GV.PO-02",
+      "titel": "Policy for managing cybersecurity risks is reviewed, updated, communicated, and enforced to reflect changes in requirements, threats, technology, and organizational mission",
+      "thema": "GOVERN (GV) · Policy"
+    },
+    {
+      "id": "GV.OV-01",
+      "titel": "Cybersecurity risk management strategy outcomes are reviewed to inform and adjust strategy and direction",
+      "thema": "GOVERN (GV) · Oversight"
+    },
+    {
+      "id": "GV.OV-02",
+      "titel": "The cybersecurity risk management strategy is reviewed and adjusted to ensure coverage of organizational requirements and risks",
+      "thema": "GOVERN (GV) · Oversight"
+    },
+    {
+      "id": "GV.OV-03",
+      "titel": "Organizational cybersecurity risk management performance is evaluated and reviewed for adjustments needed",
+      "thema": "GOVERN (GV) · Oversight"
+    },
+    {
+      "id": "GV.SC-01",
+      "titel": "A cybersecurity supply chain risk management program, strategy, objectives, policies, and processes are established and agreed to by organizational stakeholders",
+      "thema": "GOVERN (GV) · Cybersecurity Supply Chain Risk Management"
+    },
+    {
+      "id": "GV.SC-02",
+      "titel": "Cybersecurity roles and responsibilities for suppliers, customers, and partners are established, communicated, and coordinated internally and externally",
+      "thema": "GOVERN (GV) · Cybersecurity Supply Chain Risk Management"
+    },
+    {
+      "id": "GV.SC-03",
+      "titel": "Cybersecurity supply chain risk management is integrated into cybersecurity and enterprise risk management, risk assessment, and improvement processes",
+      "thema": "GOVERN (GV) · Cybersecurity Supply Chain Risk Management"
+    },
+    {
+      "id": "GV.SC-04",
+      "titel": "Suppliers are known and prioritized by criticality",
+      "thema": "GOVERN (GV) · Cybersecurity Supply Chain Risk Management"
+    },
+    {
+      "id": "GV.SC-05",
+      "titel": "Requirements to address cybersecurity risks in supply chains are established, prioritized, and integrated into contracts and other types of agreements with suppliers and other relevant third parties",
+      "thema": "GOVERN (GV) · Cybersecurity Supply Chain Risk Management"
+    },
+    {
+      "id": "GV.SC-06",
+      "titel": "Planning and due diligence are performed to reduce risks before entering into formal supplier or other third-party relationships",
+      "thema": "GOVERN (GV) · Cybersecurity Supply Chain Risk Management"
+    },
+    {
+      "id": "GV.SC-07",
+      "titel": "The risks posed by a supplier, their products and services, and other third parties are understood, recorded, prioritized, assessed, responded to, and monitored over the course of the relationship",
+      "thema": "GOVERN (GV) · Cybersecurity Supply Chain Risk Management"
+    },
+    {
+      "id": "GV.SC-08",
+      "titel": "Relevant suppliers and other third parties are included in incident planning, response, and recovery activities",
+      "thema": "GOVERN (GV) · Cybersecurity Supply Chain Risk Management"
+    },
+    {
+      "id": "GV.SC-09",
+      "titel": "Supply chain security practices are integrated into cybersecurity and enterprise risk management programs, and their performance is monitored throughout the technology product and service life cycle",
+      "thema": "GOVERN (GV) · Cybersecurity Supply Chain Risk Management"
+    },
+    {
+      "id": "GV.SC-10",
+      "titel": "Cybersecurity supply chain risk management plans include provisions for activities that occur after the conclusion of a partnership or service agreement",
+      "thema": "GOVERN (GV) · Cybersecurity Supply Chain Risk Management"
+    },
+    {
+      "id": "ID.AM-01",
+      "titel": "Inventories of hardware managed by the organization are maintained",
+      "thema": "IDENTIFY (ID) · Asset Management"
+    },
+    {
+      "id": "ID.AM-02",
+      "titel": "Inventories of software, services, and systems managed by the organization are maintained",
+      "thema": "IDENTIFY (ID) · Asset Management"
+    },
+    {
+      "id": "ID.AM-03",
+      "titel": "Representations of the organization's authorized network communication and internal and external network data flows are maintained",
+      "thema": "IDENTIFY (ID) · Asset Management"
+    },
+    {
+      "id": "ID.AM-04",
+      "titel": "Inventories of services provided by suppliers are maintained",
+      "thema": "IDENTIFY (ID) · Asset Management"
+    },
+    {
+      "id": "ID.AM-05",
+      "titel": "Assets are prioritized based on classification, criticality, resources, and impact on the mission",
+      "thema": "IDENTIFY (ID) · Asset Management"
+    },
+    {
+      "id": "ID.AM-07",
+      "titel": "Inventories of data and corresponding metadata for designated data types are maintained",
+      "thema": "IDENTIFY (ID) · Asset Management"
+    },
+    {
+      "id": "ID.AM-08",
+      "titel": "Systems, hardware, software, services, and data are managed throughout their life cycles",
+      "thema": "IDENTIFY (ID) · Asset Management"
+    },
+    {
+      "id": "ID.RA-01",
+      "titel": "Vulnerabilities in assets are identified, validated, and recorded",
+      "thema": "IDENTIFY (ID) · Risk Assessment"
+    },
+    {
+      "id": "ID.RA-02",
+      "titel": "Cyber threat intelligence is received from information sharing forums and sources",
+      "thema": "IDENTIFY (ID) · Risk Assessment"
+    },
+    {
+      "id": "ID.RA-03",
+      "titel": "Internal and external threats to the organization are identified and recorded",
+      "thema": "IDENTIFY (ID) · Risk Assessment"
+    },
+    {
+      "id": "ID.RA-04",
+      "titel": "Potential impacts and likelihoods of threats exploiting vulnerabilities are identified and recorded",
+      "thema": "IDENTIFY (ID) · Risk Assessment"
+    },
+    {
+      "id": "ID.RA-05",
+      "titel": "Threats, vulnerabilities, likelihoods, and impacts are used to understand inherent risk and inform risk response prioritization",
+      "thema": "IDENTIFY (ID) · Risk Assessment"
+    },
+    {
+      "id": "ID.RA-06",
+      "titel": "Risk responses are chosen, prioritized, planned, tracked, and communicated",
+      "thema": "IDENTIFY (ID) · Risk Assessment"
+    },
+    {
+      "id": "ID.RA-07",
+      "titel": "Changes and exceptions are managed, assessed for risk impact, recorded, and tracked",
+      "thema": "IDENTIFY (ID) · Risk Assessment"
+    },
+    {
+      "id": "ID.RA-08",
+      "titel": "Processes for receiving, analyzing, and responding to vulnerability disclosures are established",
+      "thema": "IDENTIFY (ID) · Risk Assessment"
+    },
+    {
+      "id": "ID.RA-09",
+      "titel": "The authenticity and integrity of hardware and software are assessed prior to acquisition and use",
+      "thema": "IDENTIFY (ID) · Risk Assessment"
+    },
+    {
+      "id": "ID.RA-10",
+      "titel": "Critical suppliers are assessed prior to acquisition",
+      "thema": "IDENTIFY (ID) · Risk Assessment"
+    },
+    {
+      "id": "ID.IM-01",
+      "titel": "Improvements are identified from evaluations",
+      "thema": "IDENTIFY (ID) · Improvement"
+    },
+    {
+      "id": "ID.IM-02",
+      "titel": "Improvements are identified from security tests and exercises, including those done in coordination with suppliers and relevant third parties",
+      "thema": "IDENTIFY (ID) · Improvement"
+    },
+    {
+      "id": "ID.IM-03",
+      "titel": "Improvements are identified from execution of operational processes, procedures, and activities",
+      "thema": "IDENTIFY (ID) · Improvement"
+    },
+    {
+      "id": "ID.IM-04",
+      "titel": "Incident response plans and other cybersecurity plans that affect operations are established, communicated, maintained, and improved",
+      "thema": "IDENTIFY (ID) · Improvement"
+    },
+    {
+      "id": "PR.AA-01",
+      "titel": "Identities and credentials for authorized users, services, and hardware are managed by the organization",
+      "thema": "PROTECT (PR) · Identity Management, Authentication, and Access Control"
+    },
+    {
+      "id": "PR.AA-02",
+      "titel": "Identities are proofed and bound to credentials based on the context of interactions",
+      "thema": "PROTECT (PR) · Identity Management, Authentication, and Access Control"
+    },
+    {
+      "id": "PR.AA-03",
+      "titel": "Users, services, and hardware are authenticated",
+      "thema": "PROTECT (PR) · Identity Management, Authentication, and Access Control"
+    },
+    {
+      "id": "PR.AA-04",
+      "titel": "Identity assertions are protected, conveyed, and verified",
+      "thema": "PROTECT (PR) · Identity Management, Authentication, and Access Control"
+    },
+    {
+      "id": "PR.AA-05",
+      "titel": "Access permissions, entitlements, and authorizations are defined in a policy, managed, enforced, and reviewed, and incorporate the principles of least privilege and separation of duties",
+      "thema": "PROTECT (PR) · Identity Management, Authentication, and Access Control"
+    },
+    {
+      "id": "PR.AA-06",
+      "titel": "Physical access to assets is managed, monitored, and enforced commensurate with risk",
+      "thema": "PROTECT (PR) · Identity Management, Authentication, and Access Control"
+    },
+    {
+      "id": "PR.AT-01",
+      "titel": "Personnel are provided with awareness and training so that they possess the knowledge and skills to perform general tasks with cybersecurity risks in mind",
+      "thema": "PROTECT (PR) · Awareness and Training"
+    },
+    {
+      "id": "PR.AT-02",
+      "titel": "Individuals in specialized roles are provided with awareness and training so that they possess the knowledge and skills to perform relevant tasks with cybersecurity risks in mind",
+      "thema": "PROTECT (PR) · Awareness and Training"
+    },
+    {
+      "id": "PR.DS-01",
+      "titel": "The confidentiality, integrity, and availability of data-at-rest are protected",
+      "thema": "PROTECT (PR) · Data Security"
+    },
+    {
+      "id": "PR.DS-02",
+      "titel": "The confidentiality, integrity, and availability of data-in-transit are protected",
+      "thema": "PROTECT (PR) · Data Security"
+    },
+    {
+      "id": "PR.DS-10",
+      "titel": "The confidentiality, integrity, and availability of data-in-use are protected",
+      "thema": "PROTECT (PR) · Data Security"
+    },
+    {
+      "id": "PR.DS-11",
+      "titel": "Backups of data are created, protected, maintained, and tested",
+      "thema": "PROTECT (PR) · Data Security"
+    },
+    {
+      "id": "PR.PS-01",
+      "titel": "Configuration management practices are established and applied",
+      "thema": "PROTECT (PR) · Platform Security"
+    },
+    {
+      "id": "PR.PS-02",
+      "titel": "Software is maintained, replaced, and removed commensurate with risk",
+      "thema": "PROTECT (PR) · Platform Security"
+    },
+    {
+      "id": "PR.PS-03",
+      "titel": "Hardware is maintained, replaced, and removed commensurate with risk",
+      "thema": "PROTECT (PR) · Platform Security"
+    },
+    {
+      "id": "PR.PS-04",
+      "titel": "Log records are generated and made available for continuous monitoring",
+      "thema": "PROTECT (PR) · Platform Security"
+    },
+    {
+      "id": "PR.PS-05",
+      "titel": "Installation and execution of unauthorized software are prevented",
+      "thema": "PROTECT (PR) · Platform Security"
+    },
+    {
+      "id": "PR.PS-06",
+      "titel": "Secure software development practices are integrated, and their performance is monitored throughout the software development life cycle",
+      "thema": "PROTECT (PR) · Platform Security"
+    },
+    {
+      "id": "PR.IR-01",
+      "titel": "Networks and environments are protected from unauthorized logical access and usage",
+      "thema": "PROTECT (PR) · Technology Infrastructure Resilience"
+    },
+    {
+      "id": "PR.IR-02",
+      "titel": "The organization's technology assets are protected from environmental threats",
+      "thema": "PROTECT (PR) · Technology Infrastructure Resilience"
+    },
+    {
+      "id": "PR.IR-03",
+      "titel": "Mechanisms are implemented to achieve resilience requirements in normal and adverse situations",
+      "thema": "PROTECT (PR) · Technology Infrastructure Resilience"
+    },
+    {
+      "id": "PR.IR-04",
+      "titel": "Adequate resource capacity to ensure availability is maintained",
+      "thema": "PROTECT (PR) · Technology Infrastructure Resilience"
+    },
+    {
+      "id": "DE.CM-01",
+      "titel": "Networks and network services are monitored to find potentially adverse events",
+      "thema": "DETECT (DE) · Continuous Monitoring"
+    },
+    {
+      "id": "DE.CM-02",
+      "titel": "The physical environment is monitored to find potentially adverse events",
+      "thema": "DETECT (DE) · Continuous Monitoring"
+    },
+    {
+      "id": "DE.CM-03",
+      "titel": "Personnel activity and technology usage are monitored to find potentially adverse events",
+      "thema": "DETECT (DE) · Continuous Monitoring"
+    },
+    {
+      "id": "DE.CM-06",
+      "titel": "External service provider activities and services are monitored to find potentially adverse events",
+      "thema": "DETECT (DE) · Continuous Monitoring"
+    },
+    {
+      "id": "DE.CM-09",
+      "titel": "Computing hardware and software, runtime environments, and their data are monitored to find potentially adverse events",
+      "thema": "DETECT (DE) · Continuous Monitoring"
+    },
+    {
+      "id": "DE.AE-02",
+      "titel": "Potentially adverse events are analyzed to better understand associated activities",
+      "thema": "DETECT (DE) · Adverse Event Analysis"
+    },
+    {
+      "id": "DE.AE-03",
+      "titel": "Information is correlated from multiple sources",
+      "thema": "DETECT (DE) · Adverse Event Analysis"
+    },
+    {
+      "id": "DE.AE-04",
+      "titel": "The estimated impact and scope of adverse events are understood",
+      "thema": "DETECT (DE) · Adverse Event Analysis"
+    },
+    {
+      "id": "DE.AE-06",
+      "titel": "Information on adverse events is provided to authorized staff and tools",
+      "thema": "DETECT (DE) · Adverse Event Analysis"
+    },
+    {
+      "id": "DE.AE-07",
+      "titel": "Cyber threat intelligence and other contextual information are integrated into the analysis",
+      "thema": "DETECT (DE) · Adverse Event Analysis"
+    },
+    {
+      "id": "DE.AE-08",
+      "titel": "Incidents are declared when adverse events meet the defined incident criteria",
+      "thema": "DETECT (DE) · Adverse Event Analysis"
+    },
+    {
+      "id": "RS.MA-01",
+      "titel": "The incident response plan is executed in coordination with relevant third parties once an incident is declared",
+      "thema": "RESPOND (RS) · Incident Management"
+    },
+    {
+      "id": "RS.MA-02",
+      "titel": "Incident reports are triaged and validated",
+      "thema": "RESPOND (RS) · Incident Management"
+    },
+    {
+      "id": "RS.MA-03",
+      "titel": "Incidents are categorized and prioritized",
+      "thema": "RESPOND (RS) · Incident Management"
+    },
+    {
+      "id": "RS.MA-04",
+      "titel": "Incidents are escalated or elevated as needed",
+      "thema": "RESPOND (RS) · Incident Management"
+    },
+    {
+      "id": "RS.MA-05",
+      "titel": "The criteria for initiating incident recovery are applied",
+      "thema": "RESPOND (RS) · Incident Management"
+    },
+    {
+      "id": "RS.AN-03",
+      "titel": "Analysis is performed to establish what has taken place during an incident and the root cause of the incident",
+      "thema": "RESPOND (RS) · Incident Analysis"
+    },
+    {
+      "id": "RS.AN-06",
+      "titel": "Actions performed during an investigation are recorded, and the records' integrity and provenance are preserved",
+      "thema": "RESPOND (RS) · Incident Analysis"
+    },
+    {
+      "id": "RS.AN-07",
+      "titel": "Incident data and metadata are collected, and their integrity and provenance are preserved",
+      "thema": "RESPOND (RS) · Incident Analysis"
+    },
+    {
+      "id": "RS.AN-08",
+      "titel": "An incident's magnitude is estimated and validated",
+      "thema": "RESPOND (RS) · Incident Analysis"
+    },
+    {
+      "id": "RS.CO-02",
+      "titel": "Internal and external stakeholders are notified of incidents",
+      "thema": "RESPOND (RS) · Incident Response Reporting and Communication"
+    },
+    {
+      "id": "RS.CO-03",
+      "titel": "Information is shared with designated internal and external stakeholders",
+      "thema": "RESPOND (RS) · Incident Response Reporting and Communication"
+    },
+    {
+      "id": "RS.MI-01",
+      "titel": "Incidents are contained",
+      "thema": "RESPOND (RS) · Incident Mitigation"
+    },
+    {
+      "id": "RS.MI-02",
+      "titel": "Incidents are eradicated",
+      "thema": "RESPOND (RS) · Incident Mitigation"
+    },
+    {
+      "id": "RC.RP-01",
+      "titel": "The recovery portion of the incident response plan is executed once initiated from the incident response process",
+      "thema": "RECOVER (RC) · Incident Recovery Plan Execution"
+    },
+    {
+      "id": "RC.RP-02",
+      "titel": "Recovery actions are selected, scoped, prioritized, and performed",
+      "thema": "RECOVER (RC) · Incident Recovery Plan Execution"
+    },
+    {
+      "id": "RC.RP-03",
+      "titel": "The integrity of backups and other restoration assets is verified before using them for restoration",
+      "thema": "RECOVER (RC) · Incident Recovery Plan Execution"
+    },
+    {
+      "id": "RC.RP-04",
+      "titel": "Critical mission functions and cybersecurity risk management are considered to establish post-incident operational norms",
+      "thema": "RECOVER (RC) · Incident Recovery Plan Execution"
+    },
+    {
+      "id": "RC.RP-05",
+      "titel": "The integrity of restored assets is verified, systems and services are restored, and normal operating status is confirmed",
+      "thema": "RECOVER (RC) · Incident Recovery Plan Execution"
+    },
+    {
+      "id": "RC.RP-06",
+      "titel": "The end of incident recovery is declared based on criteria, and incident-related documentation is completed",
+      "thema": "RECOVER (RC) · Incident Recovery Plan Execution"
+    },
+    {
+      "id": "RC.CO-03",
+      "titel": "Recovery activities and progress in restoring operational capabilities are communicated to designated internal and external stakeholders",
+      "thema": "RECOVER (RC) · Incident Recovery Communication"
+    },
+    {
+      "id": "RC.CO-04",
+      "titel": "Public updates on incident recovery are shared using approved methods and messaging",
+      "thema": "RECOVER (RC) · Incident Recovery Communication"
+    }
+  ]
+}

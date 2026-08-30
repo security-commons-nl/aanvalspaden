@@ -19,10 +19,18 @@ BRONNEN = MAP / "bronnen"
 
 STERKTES = ("volledig", "gedeeltelijk", "raakvlak")
 
+# De volgorde is redactioneel, niet alfabetisch (zelfde principe als statuut B4 voor indexpagina's).
+# Het eerste kader is wat de pagina opent. BIO 2.0 staat voorop omdat dat het kader is waar de
+# doelgroep op wordt bevraagd; daarna NIST CSF, dat het dichtst bij de aanvalspaden staat; dan de
+# twee kaders die maar deels over beveiliging gaan en juist de grens laten zien.
+VOLGORDE = ("bio2", "nist-csf", "wpg", "avg")
+
 
 def kaders() -> list[str]:
-    """De kaders waarvoor een mapping bestaat, op naam."""
-    return sorted(p.stem for p in MAP.glob("*.json") if p.name != "mapping.schema.json")
+    """De kaders waarvoor een mapping bestaat, in redactionele volgorde."""
+    gevonden = {p.stem for p in MAP.glob("*.json") if p.name != "mapping.schema.json"}
+    ongeplaatst = sorted(gevonden - set(VOLGORDE))
+    return [k for k in VOLGORDE if k in gevonden] + ongeplaatst
 
 
 def mapping(kader: str) -> dict:

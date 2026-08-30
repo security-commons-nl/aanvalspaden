@@ -1,0 +1,148 @@
+{
+  "kader": "nist-csf",
+  "versie": "2026-08",
+  "toelichting": "Welke subcategorie van NIST CSF 2.0 wordt aantoonbaar met het bewijs achter een barriere uit paden.json. Van de vier kaders sluit dit het dichtst aan: CSF is dreigingsgericht en beschrijft uitkomsten, net als de zelfcheck. De D/R/P-indeling in paden.json (detecteren, reageren, preventief) loopt bijna een op een met de functies DE, RS en PR. Wat ook hier buiten beeld blijft is de GOVERN-functie: strategie, rollen, beleid en toezicht.",
+  "regels": [
+    {"barriere": "pr", "norm": "PR.AA-03", "relatie": "levert-bewijs-voor", "sterkte": "volledig", "reden": "Deze subcategorie vraagt dat gebruikers, diensten en hardware worden geauthenticeerd; afgedwongen phishingbestendige authenticatie met de dekking erbij is daar het directe bewijs voor."},
+    {"barriere": "pr", "norm": "PR.AA-01", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Passkeys tonen aan hoe identiteiten en credentials worden beheerd, maar het beheer ervan omvat meer dan de inlogmethode."},
+
+    {"barriere": "fallback", "norm": "PR.AA-03", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Authenticatie is pas een uitkomst als er geen zwakkere route omheen loopt; het bewijs sluit die routes."},
+    {"barriere": "fallback", "norm": "PR.AA-01", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Registratie, herstel en uitzonderingen horen bij het beheer van identiteiten en credentials."},
+
+    {"barriere": "legacy", "norm": "PR.AA-03", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Verouderde protocollen leveren toegang buiten de moderne authenticatiecontroles om; het blokkeringsbewijs sluit die ingang."},
+    {"barriere": "legacy", "norm": "PR.PS-01", "relatie": "levert-bewijs-voor", "sterkte": "raakvlak", "reden": "Het uitzetten van een protocol is een configuratiekeuze, maar toont de configuratiebeheerpraktijk als geheel niet aan."},
+
+    {"barriere": "devicecode", "norm": "PR.AA-03", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Device Code Flow authenticeert op een apparaat dat de organisatie niet ziet; de configuratie die hem beperkt hoort bij deze uitkomst."},
+    {"barriere": "devicecode", "norm": "PR.PS-01", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Het bewijs is een vastgelegde en afgedwongen instelling met de uitzonderingen erbij, en dat is wat configuratiebeheer vraagt."},
+
+    {"barriere": "consent", "norm": "PR.AA-05", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Toestemming aan een applicatie is toekenning van rechten aan een niet-menselijke identiteit; het bewijs laat zien dat dat beleidsmatig is beperkt en wordt beoordeeld."},
+    {"barriere": "consent", "norm": "PR.AA-01", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "CSF rekent diensten expliciet tot de identiteiten die worden beheerd; app-registraties en hun toestemmingen vallen daaronder."},
+
+    {"barriere": "model", "norm": "PR.AA-05", "relatie": "levert-bewijs-voor", "sterkte": "volledig", "reden": "Een technisch gescheiden beheeromgeving is de sterkste vorm van rechten die zijn gedefinieerd, afgedwongen en herzien, en volgt het principe van functiescheiding dat deze subcategorie noemt."},
+    {"barriere": "model", "norm": "PR.IR-01", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Beheer vanaf een aparte omgeving beschermt de infrastructuur tegen ongeautoriseerd logisch gebruik."},
+
+    {"barriere": "adminhard", "norm": "PR.PS-01", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Een geharde beheerwerkplek is een vastgelegde en gehandhaafde configuratie, met de afwijkingen zichtbaar."},
+    {"barriere": "adminhard", "norm": "PR.AA-05", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Rechten zijn pas afgedwongen als ook vaststaat vanaf welk apparaat ze gebruikt mogen worden."},
+
+    {"barriere": "jit", "norm": "PR.AA-05", "relatie": "levert-bewijs-voor", "sterkte": "volledig", "reden": "Rechten die per keer worden geactiveerd en vanzelf vervallen, zijn precies het beheren, afdwingen en herzien van autorisaties dat deze subcategorie beschrijft."},
+
+    {"barriere": "elevation", "norm": "PR.AA-03", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Herauthenticatie op het moment van verhogen bevestigt de identiteit wanneer het recht wordt gebruikt, niet alleen bij het inloggen."},
+    {"barriere": "elevation", "norm": "PR.AA-05", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Het bewijs zit op het gebruik van het recht, wat de handhaving van de autorisatie aantoont."},
+
+    {"barriere": "key", "norm": "PR.AA-03", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Een aparte fysieke sleutel voor elevation is een aantoonbaar sterke authenticatie op het zwaarste recht."},
+    {"barriere": "key", "norm": "PR.AA-05", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "De eis van een tweede, fysiek gescheiden middel maakt het speciale recht onbruikbaar vanaf een gecompromitteerde werkplek."},
+
+    {"barriere": "adminmonitor", "norm": "DE.CM-03", "relatie": "levert-bewijs-voor", "sterkte": "volledig", "reden": "Deze subcategorie vraagt monitoring van personeelsactiviteit en technologiegebruik om ongewenste gebeurtenissen te vinden; beheerhandelingen en rolwijzigingen zijn daarvan het zwaarste deel."},
+    {"barriere": "adminmonitor", "norm": "PR.AA-05", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Autorisaties zijn pas beheerst als wijzigingen erin zichtbaar en herleidbaar zijn."},
+
+    {"barriere": "unmanaged", "norm": "PR.AA-05", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "De eis van een beheerd en compliant apparaat maakt de toegangsvoorwaarde afdwingbaar in plaats van beschreven."},
+    {"barriere": "unmanaged", "norm": "PR.PS-01", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Compliance van een apparaat is een gemeten configuratiestand, met de afwijkingen erbij."},
+
+    {"barriere": "session", "norm": "PR.AA-03", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Apparaatbinding en sessiebeleid zorgen dat een token buiten zijn context niet werkt; dat is het deel van authenticatie dat na het inloggen doorloopt."},
+    {"barriere": "session", "norm": "PR.AA-05", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Sessieduur en herbeoordeling zijn autorisatiebeleid dat blijft gelden na het eerste toegangsmoment."},
+
+    {"barriere": "execution", "norm": "PR.PS-05", "relatie": "levert-bewijs-voor", "sterkte": "volledig", "reden": "Deze subcategorie vraagt letterlijk dat installatie en uitvoering van ongeautoriseerde software wordt voorkomen; application control in blokkeerstand met dekkingsrapportage is dat bewijs."},
+    {"barriere": "execution", "norm": "DE.CM-09", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "ASR-regels in audit- of blokkeerstand leveren de signalen waarmee software en runtime-omgevingen worden bewaakt."},
+
+    {"barriere": "browser", "norm": "PR.PS-05", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Het beperken van extensies is het voorkomen van ongeautoriseerde software op de plek waar de gebruiker het meeste doet."},
+    {"barriere": "browser", "norm": "PR.PS-01", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Browserbeleid en de beperking van gegevensdragers zijn afgedwongen configuratie."},
+    {"barriere": "browser", "norm": "PR.DS-01", "relatie": "levert-bewijs-voor", "sterkte": "raakvlak", "reden": "Het beperken van gegevensdragers raakt de bescherming van data in rust, maar toont die bescherming niet aan."},
+
+    {"barriere": "edr", "norm": "DE.CM-09", "relatie": "levert-bewijs-voor", "sterkte": "volledig", "reden": "EDR met aantoonbare dekking is precies het bewaken van hardware, software en runtime-omgevingen om ongewenste gebeurtenissen te vinden."},
+    {"barriere": "edr", "norm": "RS.MI-01", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Snelle endpointisolatie is het indammen van een incident, en de test toont aan dat het werkt."},
+    {"barriere": "edr", "norm": "PR.PS-05", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Tamper protection voorkomt dat een aanvaller de beveiligingssoftware zelf uitzet."},
+
+    {"barriere": "mail", "norm": "DE.CM-01", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Link- en bijlagebescherming inspecteert de mailstroom en signaleert ongewenste gebeurtenissen voor ze de werkplek bereiken."},
+    {"barriere": "mail", "norm": "PR.IR-01", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "De maildienst is een netwerkdienst die tegen ongeautoriseerd gebruik wordt beschermd."},
+
+    {"barriere": "dmarc", "norm": "PR.DS-02", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "SPF, DKIM en DMARC beschermen de integriteit en authenticiteit van berichten onderweg, publiek controleerbaar."},
+    {"barriere": "dmarc", "norm": "PR.IR-01", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Handhaving op deze standaarden is een aantoonbare beveiligingseigenschap van de maildienst."},
+
+    {"barriere": "mailresponse", "norm": "RS.MA-01", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Een getest playbook voor phishing en BEC toont aan dat het responseplan voor dit incidenttype daadwerkelijk wordt uitgevoerd."},
+    {"barriere": "mailresponse", "norm": "RS.MI-01", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Het terughalen van berichten uit postbussen is het indammen van het incident."},
+
+    {"barriere": "idresponse", "norm": "RS.MA-01", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Een getest identity-compromise-playbook toont aan dat het responseplan wordt uitgevoerd zodra een account verdacht is."},
+    {"barriere": "idresponse", "norm": "RS.MI-01", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Sessies intrekken, accounts blokkeren en schadelijke apps verwijderen is precies het indammen van een incident."},
+    {"barriere": "idresponse", "norm": "DE.CM-03", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Consent- en app-monitoring is de detectiekant die de response mogelijk maakt."},
+
+    {"barriere": "localadmin", "norm": "PR.AA-05", "relatie": "levert-bewijs-voor", "sterkte": "volledig", "reden": "Een overzicht zonder lokale beheerrechten, met de uitzonderingen en hun reden, is het bewijs dat het principe van minimale rechten is afgedwongen en wordt herzien."},
+    {"barriere": "localadmin", "norm": "PR.PS-05", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Zonder lokale beheerrechten kan een gebruiker geen ongeautoriseerde software installeren."},
+
+    {"barriere": "patch", "norm": "PR.PS-02", "relatie": "levert-bewijs-voor", "sterkte": "volledig", "reden": "Deze subcategorie vraagt dat software risicogericht wordt onderhouden, vervangen en verwijderd; patchrapportage met dekking en achterblijvers is dat bewijs."},
+    {"barriere": "patch", "norm": "ID.RA-01", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "De achterblijverslijst is de vastlegging van kwetsbaarheden in bedrijfsmiddelen."},
+
+    {"barriere": "vuln", "norm": "ID.RA-01", "relatie": "levert-bewijs-voor", "sterkte": "volledig", "reden": "Continu scannen met validatie en vastlegging is letterlijk het identificeren, valideren en registreren van kwetsbaarheden in bedrijfsmiddelen."},
+    {"barriere": "vuln", "norm": "ID.RA-06", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "De spoedprocedure met gemeten doorlooptijden toont aan dat risicoreacties worden gekozen, uitgevoerd en gevolgd."},
+    {"barriere": "vuln", "norm": "ID.RA-02", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "De procedure werkt op dreigingsinformatie van buiten; het bewijs laat zien dat die informatie tot actie leidt."},
+
+    {"barriere": "segment", "norm": "PR.IR-01", "relatie": "levert-bewijs-voor", "sterkte": "volledig", "reden": "Een segmentatieoverzicht met de daadwerkelijk afgedwongen regels tussen zones is het bewijs dat netwerken en omgevingen tegen ongeautoriseerd logisch gebruik zijn beschermd."},
+    {"barriere": "segment", "norm": "PR.AA-05", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Minimale rechten tussen zones beperken wat vanaf welke plek bereikbaar is."},
+
+    {"barriere": "remote", "norm": "PR.IR-01", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Beheerinterfaces die niet vanaf internet bereikbaar zijn, zijn een aantoonbare eigenschap van de netwerkbescherming."},
+    {"barriere": "remote", "norm": "ID.AM-01", "relatie": "levert-bewijs-voor", "sterkte": "raakvlak", "reden": "Het raakt het zicht op wat er draait, maar het bewijs gaat over bereikbaarheid en niet over de inventaris."},
+
+    {"barriere": "pentest", "norm": "ID.RA-01", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Een pentest identificeert en valideert kwetsbaarheden; de hertest toont aan dat ze zijn verholpen."},
+    {"barriere": "pentest", "norm": "ID.IM-01", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Deze subcategorie vraagt verbeteringen uit evaluaties; een externe test met opgevolgde bevindingen is daar een directe invulling van."},
+
+    {"barriere": "exploitresponse", "norm": "DE.AE-02", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "De test laat zien of ongewenste gebeurtenissen op de buitenrand worden geanalyseerd en als aanvalspoging worden begrepen."},
+    {"barriere": "exploitresponse", "norm": "RS.MA-01", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "De oefening toont aan dat het responseplan bij misbruik van een externe kwetsbaarheid wordt uitgevoerd."},
+    {"barriere": "exploitresponse", "norm": "ID.IM-02", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Verbeteringen uit tests en oefeningen zijn precies wat deze subcategorie vraagt."},
+
+    {"barriere": "assets", "norm": "ID.AM-01", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Een actueel overzicht van wat er vanaf internet te zien is, vult de hardware- en dienstinventaris aan op het deel dat het meest blootstaat."},
+    {"barriere": "assets", "norm": "ID.AM-08", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Continu ontdekken en bewaken van het externe aanvalsoppervlak is beheer van bedrijfsmiddelen over hun hele levenscyclus, inclusief wat er ongemerkt bij komt."},
+    {"barriere": "assets", "norm": "ID.RA-01", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Kwetsbaarhedenbeheer is niet meer waard dan de volledigheid van de lijst systemen; dit toont die volledigheid aan de buitenkant aan."},
+
+    {"barriere": "webtest", "norm": "ID.RA-01", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Een web- of API-test identificeert en valideert kwetsbaarheden in een blootgestelde toepassing."},
+    {"barriere": "webtest", "norm": "PR.PS-06", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Testen op beveiliging hoort bij een veilige ontwikkelcyclus; het rapport met opgeloste bevindingen is daar bewijs van."},
+
+    {"barriere": "l7", "norm": "PR.IR-01", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Een WAF met rate limiting beschermt de dienst tegen ongeautoriseerd en ongewenst gebruik, aantoonbaar in de configuratie."},
+    {"barriere": "l7", "norm": "PR.IR-04", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Rate limiting en Layer-7-bescherming houden voldoende capaciteit beschikbaar tijdens een aanval."},
+
+    {"barriere": "origin", "norm": "PR.IR-01", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Een origin die alleen via de beschermde route bereikbaar is, is netwerkbescherming die te controleren valt."},
+
+    {"barriere": "upstream", "norm": "PR.IR-04", "relatie": "levert-bewijs-voor", "sterkte": "volledig", "reden": "Deze subcategorie vraagt dat er voldoende capaciteit beschikbaar blijft om beschikbaarheid te waarborgen; upstream-mitigatie en robuuste DNS zijn daar de invulling van."},
+    {"barriere": "upstream", "norm": "PR.IR-03", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Redundante connectiviteit en DNS zijn weerbaarheidsmechanismen die in normale en ongunstige omstandigheden werken."},
+
+    {"barriere": "ddosresponse", "norm": "RS.MA-01", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "CSF vraagt uitvoering van het responseplan in samenwerking met relevante derden; een geoefende DDoS-response met provider en SOC is precies dat."},
+    {"barriere": "ddosresponse", "norm": "RS.CO-02", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "De oefening toetst of interne en externe belanghebbenden tijdig worden geinformeerd."},
+
+    {"barriere": "backup", "norm": "PR.DS-11", "relatie": "levert-bewijs-voor", "sterkte": "volledig", "reden": "Deze subcategorie vraagt back-ups die worden gemaakt, beschermd, onderhouden en getest; onveranderbaarheid met gescheiden beheer is het beschermingsdeel daarvan."},
+    {"barriere": "backup", "norm": "PR.AA-05", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Gescheiden beheer betekent dat een gecompromitteerd beheeraccount de back-up niet kan wissen."},
+
+    {"barriere": "restore", "norm": "PR.DS-11", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Het testdeel van deze subcategorie is precies wat een hersteltest aantoont."},
+    {"barriere": "restore", "norm": "RC.RP-05", "relatie": "levert-bewijs-voor", "sterkte": "volledig", "reden": "De integriteit van herstelde bedrijfsmiddelen en systemen wordt geverifieerd voordat ze weer in gebruik gaan; een hersteltest tegen RTO en RPO levert dat bewijs."},
+    {"barriere": "restore", "norm": "RC.RP-01", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "De test toont aan dat het herstelplan uitvoerbaar is en niet alleen bestaat."},
+
+    {"barriere": "crisis", "norm": "RC.RP-01", "relatie": "levert-bewijs-voor", "sterkte": "volledig", "reden": "Een geoefend crisisherstelplan, met verslag en verbeterpunten, is het bewijs dat het herstelgedeelte van het responseplan daadwerkelijk wordt uitgevoerd."},
+    {"barriere": "crisis", "norm": "ID.IM-02", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "De verbeterpunten uit de oefening zijn de verbeteringen uit tests en oefeningen die CSF vraagt."},
+    {"barriere": "crisis", "norm": "RC.CO-03", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "In de oefening komt aan bod hoe herstelvoortgang aan belanghebbenden en leiding wordt gemeld."},
+
+    {"barriere": "critical", "norm": "RC.RP-02", "relatie": "levert-bewijs-voor", "sterkte": "volledig", "reden": "Deze subcategorie vraagt dat herstelacties worden geselecteerd, uitgevoerd en gevolgd op volgorde van prioriteit; vastgestelde kritieke processen met herstelprioriteiten zijn die volgorde."},
+    {"barriere": "critical", "norm": "ID.AM-05", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Het prioriteren van processen op belang is de basis onder het prioriteren van bedrijfsmiddelen op kritikaliteit."},
+
+    {"barriere": "dependencies", "norm": "ID.AM-04", "relatie": "levert-bewijs-voor", "sterkte": "volledig", "reden": "Een overzicht van kritieke systemen en leveranciers in samenhang is de inventaris van diensten van derden waar deze subcategorie om vraagt."},
+    {"barriere": "dependencies", "norm": "GV.SC-04", "relatie": "levert-bewijs-voor", "sterkte": "volledig", "reden": "Leveranciers zijn bekend en geprioriteerd op kritikaliteit; dat is letterlijk wat dit overzicht oplevert."},
+    {"barriere": "dependencies", "norm": "ID.AM-05", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "De samenhang tussen proces, systeem en leverancier maakt zichtbaar welke bedrijfsmiddelen kritiek zijn."},
+
+    {"barriere": "review", "norm": "GV.SC-07", "relatie": "levert-bewijs-voor", "sterkte": "volledig", "reden": "Deze subcategorie vraagt dat risico's van leveranciers gedurende de relatie worden begrepen, vastgelegd, geprioriteerd, beoordeeld en gevolgd; een periodieke risicogestuurde beoordeling met uitkomsten is dat bewijs."},
+    {"barriere": "review", "norm": "GV.SC-04", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Risicogestuurd beoordelen veronderstelt dat de prioritering op kritikaliteit actueel blijft."},
+
+    {"barriere": "technicalvendor", "norm": "GV.SC-07", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Het toetsen van technische maatregelen is de inhoudelijke kant van het beoordelen en volgen van leveranciersrisico's."},
+    {"barriere": "technicalvendor", "norm": "GV.SC-05", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Het bewijs laat zien of de eisen die in contracten en afspraken zijn vastgelegd, technisch zijn waargemaakt."},
+
+    {"barriere": "residual", "norm": "GV.SC-07", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Expliciete restrisico's per kritieke leverancier zijn de vastlegging die deze subcategorie vraagt."},
+    {"barriere": "residual", "norm": "GV.RM-06", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Een gestandaardiseerde manier om risico's te beschrijven en te volgen is wat een expliciete restrisicolijst laat zien."},
+
+    {"barriere": "owner", "norm": "GV.RM-05", "relatie": "levert-bewijs-voor", "sterkte": "volledig", "reden": "Deze subcategorie vraagt communicatielijnen over cyberrisico's door de hele organisatie, inclusief naar leiding en derden; een risico dat bij een benoemde risicohouder is neergelegd is daar het bewijs van."},
+    {"barriere": "owner", "norm": "GV.RR-02", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Rollen en verantwoordelijkheden voor risico zijn belegd en worden nageleefd."},
+
+    {"barriere": "treatment", "norm": "GV.RM-06", "relatie": "levert-bewijs-voor", "sterkte": "volledig", "reden": "Een gestandaardiseerde vastlegging met eigenaar en termijn, waarin risicoreacties worden gekozen, gepland en gevolgd, is precies wat hier wordt gevraagd."},
+    {"barriere": "treatment", "norm": "GV.RM-04", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Een vastgelegde acceptatie toont aan dat de strategie voor risicoreactie in de praktijk wordt toegepast."},
+    {"barriere": "treatment", "norm": "ID.RA-06", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Risicoreacties worden gekozen, uitgevoerd en in de tijd gevolgd."},
+
+    {"barriere": "soc", "norm": "DE.AE-08", "relatie": "levert-bewijs-voor", "sterkte": "volledig", "reden": "Incidenten worden verklaard zodra aan de vastgestelde criteria wordt voldaan; afgesproken en getoetste triagetijden zijn dat mechanisme in werking."},
+    {"barriere": "soc", "norm": "RS.MA-02", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Meldingen worden getrieerd en gevalideerd, en de opvolgtijden tonen aan dat dat binnen een afgesproken termijn gebeurt."},
+    {"barriere": "soc", "norm": "DE.CM-01", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Monitoring is pas een uitkomst als een melding tot actie leidt; de escalatietijden tonen dat aan."}
+  ],
+  "ongekoppeld": []
+}

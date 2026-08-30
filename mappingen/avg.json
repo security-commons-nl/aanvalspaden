@@ -1,0 +1,421 @@
+{
+  "kader": "avg",
+  "versie": "2026-08",
+  "toelichting": "Welk AVG-artikel wordt aantoonbaar met het bewijs achter een barriere uit paden.json. Dit kader is het scherpste voorbeeld van waar een zelfcheck ophoudt: de AVG gaat over grondslag, transparantie, rechten van betrokkenen en verantwoording, en maar een klein deel gaat over beveiliging. Vrijwel alle regels hieronder landen dan ook op art. 32 (beveiliging van de verwerking), art. 5 lid 1 onder f (integriteit en vertrouwelijkheid), art. 25 (ontwerp en standaardinstellingen) en art. 33 (melding van een inbreuk). Dat is geen tekort, dat is de taakverdeling.",
+  "regels": [
+    {
+      "barriere": "pr",
+      "norm": "A32",
+      "relatie": "levert-bewijs-voor",
+      "sterkte": "gedeeltelijk",
+      "reden": "Afgedwongen sterke authenticatie is een passende technische maatregel tegen ongeoorloofde toegang tot persoonsgegevens, en de configuratie-export maakt hem aantoonbaar."
+    },
+    {
+      "barriere": "pr",
+      "norm": "A05-1f",
+      "relatie": "levert-bewijs-voor",
+      "sterkte": "gedeeltelijk",
+      "reden": "Het beveiligingsbeginsel eist bescherming tegen ongeoorloofde verwerking; sterke authenticatie is daar de eerste barriere van."
+    },
+    {
+      "barriere": "fallback",
+      "norm": "A32",
+      "relatie": "levert-bewijs-voor",
+      "sterkte": "gedeeltelijk",
+      "reden": "Een maatregel is pas passend als hij niet te omzeilen is; het bewijs toont aan dat er geen zwakkere route naar dezelfde gegevens loopt."
+    },
+    {
+      "barriere": "legacy",
+      "norm": "A32",
+      "relatie": "levert-bewijs-voor",
+      "sterkte": "gedeeltelijk",
+      "reden": "Verouderde protocollen geven toegang buiten de moderne controles om; het blokkeringsbewijs sluit die route naar persoonsgegevens."
+    },
+    {
+      "barriere": "devicecode",
+      "norm": "A32",
+      "relatie": "levert-bewijs-voor",
+      "sterkte": "gedeeltelijk",
+      "reden": "Deze inlogroute geeft toegang op een apparaat dat de organisatie niet ziet; de configuratie die hem beperkt is een passende maatregel."
+    },
+    {
+      "barriere": "consent",
+      "norm": "A32",
+      "relatie": "levert-bewijs-voor",
+      "sterkte": "gedeeltelijk",
+      "reden": "Een applicatie die namens een gebruiker bij persoonsgegevens kan, is een toegangsroute; het bewijs laat zien dat die route wordt beheerst."
+    },
+    {
+      "barriere": "consent",
+      "norm": "A28",
+      "relatie": "levert-bewijs-voor",
+      "sterkte": "raakvlak",
+      "reden": "Een goedgekeurde applicatie van een derde kan feitelijk verwerker worden. Deze barriere toont de beheersing van de toestemming, niet of er een verwerkersovereenkomst ligt."
+    },
+    {
+      "barriere": "model",
+      "norm": "A32",
+      "relatie": "levert-bewijs-voor",
+      "sterkte": "gedeeltelijk",
+      "reden": "Een technisch gescheiden beheeromgeving beperkt wie ongemerkt bij grote hoeveelheden persoonsgegevens kan."
+    },
+    {
+      "barriere": "model",
+      "norm": "A25",
+      "relatie": "levert-bewijs-voor",
+      "sterkte": "gedeeltelijk",
+      "reden": "Het scheiden van beheer en gebruik is een ontwerpkeuze die de verwerking standaard beperkt tot wie het nodig heeft."
+    },
+    {
+      "barriere": "adminhard",
+      "norm": "A32",
+      "relatie": "levert-bewijs-voor",
+      "sterkte": "gedeeltelijk",
+      "reden": "De werkplek waarvandaan systemen met persoonsgegevens worden beheerd is zelf een passende technische maatregel."
+    },
+    {
+      "barriere": "jit",
+      "norm": "A32",
+      "relatie": "levert-bewijs-voor",
+      "sterkte": "gedeeltelijk",
+      "reden": "Rechten die vanzelf vervallen beperken de kring die bij persoonsgegevens kan, en het activeringslogboek maakt dat aantoonbaar."
+    },
+    {
+      "barriere": "jit",
+      "norm": "A25",
+      "relatie": "levert-bewijs-voor",
+      "sterkte": "gedeeltelijk",
+      "reden": "Standaard geen rechten, tenzij geactiveerd, is gegevensbescherming door standaardinstellingen in de praktijk."
+    },
+    {
+      "barriere": "elevation",
+      "norm": "A32",
+      "relatie": "levert-bewijs-voor",
+      "sterkte": "gedeeltelijk",
+      "reden": "Herauthenticatie bij het verhogen van rechten voorkomt dat een gestolen sessie toegang tot persoonsgegevens oplevert."
+    },
+    {
+      "barriere": "key",
+      "norm": "A32",
+      "relatie": "levert-bewijs-voor",
+      "sterkte": "gedeeltelijk",
+      "reden": "Een fysiek gescheiden tweede middel maakt beheertoegang onbruikbaar vanaf een gecompromitteerde werkplek."
+    },
+    {
+      "barriere": "adminmonitor",
+      "norm": "A32",
+      "relatie": "levert-bewijs-voor",
+      "sterkte": "gedeeltelijk",
+      "reden": "Vastlegging van beheerhandelingen en rolwijzigingen maakt achteraf vast te stellen wie bij welke gegevens kon, wat bij een inbreuk het verschil maakt."
+    },
+    {
+      "barriere": "adminmonitor",
+      "norm": "A05-2",
+      "relatie": "levert-bewijs-voor",
+      "sterkte": "gedeeltelijk",
+      "reden": "Verantwoording vraagt aantoonbaarheid; logging van rechten en het gebruik ervan is een van de weinige harde vormen daarvan."
+    },
+    {
+      "barriere": "unmanaged",
+      "norm": "A32",
+      "relatie": "levert-bewijs-voor",
+      "sterkte": "gedeeltelijk",
+      "reden": "Toegang tot persoonsgegevens vanaf een onbeheerd apparaat is een klassiek lekrisico; de eis van een beheerd apparaat sluit dat af."
+    },
+    {
+      "barriere": "unmanaged",
+      "norm": "A25",
+      "relatie": "levert-bewijs-voor",
+      "sterkte": "gedeeltelijk",
+      "reden": "De toegangsvoorwaarde zit in de inrichting, niet in een gedragsregel achteraf."
+    },
+    {
+      "barriere": "session",
+      "norm": "A32",
+      "relatie": "levert-bewijs-voor",
+      "sterkte": "gedeeltelijk",
+      "reden": "Apparaatbinding en sessiebeleid zorgen dat een gestolen token buiten zijn context geen toegang tot gegevens geeft."
+    },
+    {
+      "barriere": "execution",
+      "norm": "A32",
+      "relatie": "levert-bewijs-voor",
+      "sterkte": "gedeeltelijk",
+      "reden": "Het voorkomen dat willekeurige software draait op werkplekken waar persoonsgegevens worden verwerkt, is een aantoonbare passende maatregel."
+    },
+    {
+      "barriere": "browser",
+      "norm": "A32",
+      "relatie": "levert-bewijs-voor",
+      "sterkte": "gedeeltelijk",
+      "reden": "De browser is de plek waar persoonsgegevens in beeld komen; hardening en beperkte gegevensdragers beperken wat ermee kan gebeuren."
+    },
+    {
+      "barriere": "edr",
+      "norm": "A32",
+      "relatie": "levert-bewijs-voor",
+      "sterkte": "gedeeltelijk",
+      "reden": "Endpointdetectie met aantoonbare dekking is een passende maatregel en levert het vermogen om een inbreuk tijdig op te merken."
+    },
+    {
+      "barriere": "edr",
+      "norm": "A33",
+      "relatie": "levert-bewijs-voor",
+      "sterkte": "gedeeltelijk",
+      "reden": "De 72-uurstermijn begint bij het bekend worden van de inbreuk; detectie op de werkplek is vaak het moment waarop die klok gaat lopen."
+    },
+    {
+      "barriere": "mail",
+      "norm": "A32",
+      "relatie": "levert-bewijs-voor",
+      "sterkte": "gedeeltelijk",
+      "reden": "E-mail is het kanaal waarlangs persoonsgegevens het vaakst ongemerkt naar buiten gaan; een sterke baseline beperkt dat."
+    },
+    {
+      "barriere": "dmarc",
+      "norm": "A32",
+      "relatie": "levert-bewijs-voor",
+      "sterkte": "gedeeltelijk",
+      "reden": "Handhaving op SPF, DKIM en DMARC beschermt de integriteit van berichtenverkeer en is publiek controleerbaar."
+    },
+    {
+      "barriere": "mailresponse",
+      "norm": "A33",
+      "relatie": "levert-bewijs-voor",
+      "sterkte": "gedeeltelijk",
+      "reden": "Verkeerd verzonden of onderschepte mail is een van de meest gemelde datalekken; het playbook toont aan dat er wordt gehandeld en gedocumenteerd."
+    },
+    {
+      "barriere": "mailresponse",
+      "norm": "A34",
+      "relatie": "levert-bewijs-voor",
+      "sterkte": "raakvlak",
+      "reden": "Het playbook raakt de vraag of betrokkenen moeten worden geinformeerd, maar dat oordeel en die communicatie zitten er niet in."
+    },
+    {
+      "barriere": "idresponse",
+      "norm": "A33",
+      "relatie": "levert-bewijs-voor",
+      "sterkte": "gedeeltelijk",
+      "reden": "Een overgenomen account is een veelvoorkomende oorzaak van een inbreuk; het geteste playbook toont aan dat er wordt gedetecteerd, gehandeld en vastgelegd."
+    },
+    {
+      "barriere": "idresponse",
+      "norm": "A32",
+      "relatie": "levert-bewijs-voor",
+      "sterkte": "gedeeltelijk",
+      "reden": "Het vermogen om toegang snel in te trekken hoort bij de passende maatregelen."
+    },
+    {
+      "barriere": "localadmin",
+      "norm": "A32",
+      "relatie": "levert-bewijs-voor",
+      "sterkte": "gedeeltelijk",
+      "reden": "Een gebruiker met lokale beheerrechten kan de beperkingen op zijn eigen toegang tot gegevens opheffen; het bewijs toont aan dat dat niet kan."
+    },
+    {
+      "barriere": "patch",
+      "norm": "A32",
+      "relatie": "levert-bewijs-voor",
+      "sterkte": "gedeeltelijk",
+      "reden": "Achterstallig patchen is bij toezichthouders een terugkerende bevinding onder passende maatregelen; de dekkingsrapportage is het tegenbewijs."
+    },
+    {
+      "barriere": "vuln",
+      "norm": "A32",
+      "relatie": "levert-bewijs-voor",
+      "sterkte": "gedeeltelijk",
+      "reden": "Art. 32 noemt het regelmatig testen en beoordelen van de doeltreffendheid van maatregelen; continu scannen met gemeten doorlooptijden is daar de invulling van."
+    },
+    {
+      "barriere": "segment",
+      "norm": "A32",
+      "relatie": "levert-bewijs-voor",
+      "sterkte": "gedeeltelijk",
+      "reden": "Segmentatie beperkt hoe ver een aanvaller komt en dus hoeveel persoonsgegevens bij een inbreuk betrokken raken."
+    },
+    {
+      "barriere": "segment",
+      "norm": "A25",
+      "relatie": "levert-bewijs-voor",
+      "sterkte": "gedeeltelijk",
+      "reden": "Scheiding tussen zones is een ontwerpkeuze die de reikwijdte van een verwerking standaard beperkt."
+    },
+    {
+      "barriere": "remote",
+      "norm": "A32",
+      "relatie": "levert-bewijs-voor",
+      "sterkte": "gedeeltelijk",
+      "reden": "Een beheerinterface die vanaf internet bereikbaar is, is een direct risico voor de systemen waarin persoonsgegevens staan."
+    },
+    {
+      "barriere": "pentest",
+      "norm": "A32",
+      "relatie": "levert-bewijs-voor",
+      "sterkte": "volledig",
+      "reden": "Art. 32 lid 1 onder d vraagt letterlijk een procedure voor het periodiek testen en beoordelen van de doeltreffendheid van de maatregelen; een externe pentest met geverifieerd herstel is daar het duidelijkste bewijs voor."
+    },
+    {
+      "barriere": "webtest",
+      "norm": "A32",
+      "relatie": "levert-bewijs-voor",
+      "sterkte": "volledig",
+      "reden": "Het periodiek testen van de doeltreffendheid van maatregelen op de applicaties waarin persoonsgegevens worden verwerkt, met herstel erbij, is wat art. 32 lid 1 onder d vraagt."
+    },
+    {
+      "barriere": "webtest",
+      "norm": "A25",
+      "relatie": "levert-bewijs-voor",
+      "sterkte": "gedeeltelijk",
+      "reden": "Beveiligingstests tijdens ontwikkeling en acceptatie horen bij gegevensbescherming door ontwerp."
+    },
+    {
+      "barriere": "exploitresponse",
+      "norm": "A33",
+      "relatie": "levert-bewijs-voor",
+      "sterkte": "gedeeltelijk",
+      "reden": "De test laat zien of misbruik van een kwetsbaarheid tijdig wordt opgemerkt, wat bepaalt of de meldtermijn gehaald kan worden."
+    },
+    {
+      "barriere": "assets",
+      "norm": "A32",
+      "relatie": "levert-bewijs-voor",
+      "sterkte": "gedeeltelijk",
+      "reden": "Een vergeten internetdienst met persoonsgegevens is een bekend datalekscenario; het overzicht maakt zichtbaar wat er blootstaat."
+    },
+    {
+      "barriere": "assets",
+      "norm": "A30",
+      "relatie": "levert-bewijs-voor",
+      "sterkte": "raakvlak",
+      "reden": "Het raakt de vraag welke verwerkingen er zijn, maar een technisch overzicht van het aanvalsoppervlak is geen register van verwerkingsactiviteiten."
+    },
+    {
+      "barriere": "l7",
+      "norm": "A32",
+      "relatie": "levert-bewijs-voor",
+      "sterkte": "gedeeltelijk",
+      "reden": "Bescherming op applicatieniveau houdt de dienst beschikbaar en weert bekende aanvalspatronen; beschikbaarheid is expliciet onderdeel van art. 32."
+    },
+    {
+      "barriere": "origin",
+      "norm": "A32",
+      "relatie": "levert-bewijs-voor",
+      "sterkte": "gedeeltelijk",
+      "reden": "Een rechtstreeks bereikbare origin maakt de bescherming ervoor betekenisloos; het bewijs sluit die route af."
+    },
+    {
+      "barriere": "upstream",
+      "norm": "A32",
+      "relatie": "levert-bewijs-voor",
+      "sterkte": "gedeeltelijk",
+      "reden": "Art. 32 noemt het vermogen om beschikbaarheid en toegang tijdig te herstellen; upstream-mitigatie en robuuste DNS horen daarbij."
+    },
+    {
+      "barriere": "backup",
+      "norm": "A32",
+      "relatie": "levert-bewijs-voor",
+      "sterkte": "gedeeltelijk",
+      "reden": "Het vermogen om de beschikbaarheid van persoonsgegevens te herstellen staat expliciet in art. 32; onveranderbare back-ups met gescheiden beheer maken dat hard."
+    },
+    {
+      "barriere": "backup",
+      "norm": "A17",
+      "relatie": "levert-bewijs-voor",
+      "sterkte": "raakvlak",
+      "reden": "Let op de andere kant: back-ups bevatten vaak gegevens die na een wisverzoek verwijderd hadden moeten zijn. Deze barriere toont dat niet aan en kan het probleem juist vergroten."
+    },
+    {
+      "barriere": "restore",
+      "norm": "A32",
+      "relatie": "levert-bewijs-voor",
+      "sterkte": "volledig",
+      "reden": "Art. 32 lid 1 onder c vraagt het vermogen om beschikbaarheid en toegang tot persoonsgegevens tijdig te herstellen; een hersteltest tegen RTO en RPO is precies dat bewijs."
+    },
+    {
+      "barriere": "crisis",
+      "norm": "A33",
+      "relatie": "levert-bewijs-voor",
+      "sterkte": "gedeeltelijk",
+      "reden": "In een crisisoefening komt de meldketen aan bod: wie stelt vast of persoonsgegevens zijn geraakt en wie meldt binnen 72 uur."
+    },
+    {
+      "barriere": "crisis",
+      "norm": "A32",
+      "relatie": "levert-bewijs-voor",
+      "sterkte": "gedeeltelijk",
+      "reden": "De oefening toetst het herstelvermogen dat art. 32 vraagt."
+    },
+    {
+      "barriere": "dependencies",
+      "norm": "A28",
+      "relatie": "levert-bewijs-voor",
+      "sterkte": "gedeeltelijk",
+      "reden": "Zicht op welke leveranciers in welke keten zitten, is de voorwaarde om te weten met wie een verwerkersovereenkomst nodig is en wie subverwerker is."
+    },
+    {
+      "barriere": "dependencies",
+      "norm": "A30",
+      "relatie": "levert-bewijs-voor",
+      "sterkte": "raakvlak",
+      "reden": "Het overzicht voedt hooguit de kolom categorieen ontvangers. Een register vraagt doelen, categorieen betrokkenen en bewaartermijnen, en die staan hier niet in."
+    },
+    {
+      "barriere": "review",
+      "norm": "A28",
+      "relatie": "levert-bewijs-voor",
+      "sterkte": "gedeeltelijk",
+      "reden": "Art. 28 eist dat een verwerker voldoende garanties biedt; een periodieke beoordeling toont aan dat die garanties ook na contractsluiting worden gecontroleerd."
+    },
+    {
+      "barriere": "technicalvendor",
+      "norm": "A28",
+      "relatie": "levert-bewijs-voor",
+      "sterkte": "gedeeltelijk",
+      "reden": "Het toetsen van technische maatregelen bij een verwerker is de inhoudelijke invulling van de garantie-eis, in plaats van een papieren verklaring."
+    },
+    {
+      "barriere": "technicalvendor",
+      "norm": "A32",
+      "relatie": "levert-bewijs-voor",
+      "sterkte": "gedeeltelijk",
+      "reden": "Art. 32 richt zich uitdrukkelijk ook tot de verwerker; deze toets levert daar het bewijs voor."
+    },
+    {
+      "barriere": "soc",
+      "norm": "A33",
+      "relatie": "levert-bewijs-voor",
+      "sterkte": "volledig",
+      "reden": "De meldtermijn van 72 uur is alleen haalbaar met afgesproken en getoetste triage- en escalatietijden; dat is het organisatorische bewijs dat art. 33 werkbaar is gemaakt."
+    },
+    {
+      "barriere": "soc",
+      "norm": "A32",
+      "relatie": "levert-bewijs-voor",
+      "sterkte": "gedeeltelijk",
+      "reden": "Een melding zonder tijdige opvolging is geen maatregel; de opvolgtijden maken de detectie passend."
+    }
+  ],
+  "ongekoppeld": [
+    {
+      "barriere": "ddosresponse",
+      "reden": "Een aanval op de beschikbaarheid raakt art. 32, maar een geoefende DDoS-response met een provider zegt niets over de bescherming van persoonsgegevens zelf. De AVG kent geen norm voor het oefenen met ketenpartners."
+    },
+    {
+      "barriere": "critical",
+      "reden": "Het vaststellen van kritieke processen en herstelprioriteiten is een continuiteitskeuze. De AVG stelt daar geen eis aan; art. 32 vraagt herstelvermogen, niet in welke volgorde de organisatie haar processen terugbrengt."
+    },
+    {
+      "barriere": "residual",
+      "reden": "Het expliciet maken van restrisico's bij leveranciers is risicomanagement. De AVG kent dit alleen indirect via de DPIA (art. 35), en die gaat over risico's voor betrokkenen, niet over leveranciersrisico's voor de organisatie."
+    },
+    {
+      "barriere": "owner",
+      "reden": "Het beleggen van een risico bij een risicohouder is interne governance. De AVG belegt de verantwoordelijkheid bij de verwerkingsverantwoordelijke als geheel en kent geen norm voor deze interne stap."
+    },
+    {
+      "barriere": "treatment",
+      "reden": "Het vastleggen van risicoacceptatie met eigenaar en termijn is een eigen keuze in het risicoproces. De AVG toetst of verwerkingen rechtmatig en beveiligd zijn, niet hoe restrisico's worden geadministreerd."
+    }
+  ]
+}

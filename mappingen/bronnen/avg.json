@@ -1,0 +1,238 @@
+{
+  "kader": "avg",
+  "titel": "AVG",
+  "toelichting": "De AVG kent geen maatregelen maar artikelen, dus dit kader is een redactionele selectie: de 32 artikelen die in een AVG-toets als toetspunt gelden, van de beginselen tot de doorgifte. Beveiliging is er daarvan maar een klein deel; het overgrote deel gaat over grondslag, transparantie, rechten van betrokkenen en verantwoording. Precies daarom staat dit kader erbij. De artikelnummers zijn die van Verordening (EU) 2016/679; de omschrijvingen zijn eigen samenvattingen, want de wettekst zelf is elders beter te lezen.",
+  "bron": {
+    "naam": "Verordening (EU) 2016/679 (Algemene verordening gegevensbescherming)",
+    "versie": "geconsolideerde tekst",
+    "peildatum": "2026-08-30",
+    "url": "https://eur-lex.europa.eu/legal-content/NL/TXT/?uri=CELEX%3A02016R0679-20160504",
+    "let_op": "Wetgeving, vrij te gebruiken. De selectie van artikelen is redactioneel: artikelen die alleen de toezichthouder of de lidstaat binden staan er niet in."
+  },
+  "maatregelen": [
+    {
+      "id": "A05",
+      "titel": "Beginselen van verwerking",
+      "artikel": "AVG art. 5 lid 1",
+      "thema": "Beginselen en grondslag",
+      "kern": "Rechtmatig, behoorlijk, transparant, doelgebonden, minimaal, juist, niet langer dan nodig, en integer en vertrouwelijk verwerkt."
+    },
+    {
+      "id": "A05-1f",
+      "titel": "Integriteit en vertrouwelijkheid",
+      "artikel": "AVG art. 5 lid 1 onder f",
+      "thema": "Beveiliging en ontwerp",
+      "kern": "Persoonsgegevens worden zo verwerkt dat ze beveiligd zijn tegen ongeoorloofde verwerking, verlies of beschadiging. Dit is het beveiligingsbeginsel waar art. 32 de uitwerking van is."
+    },
+    {
+      "id": "A05-2",
+      "titel": "Verantwoordingsplicht",
+      "artikel": "AVG art. 5 lid 2",
+      "thema": "Verantwoording en toezicht",
+      "kern": "De verwerkingsverantwoordelijke kan aantonen dat hij de beginselen naleeft. Aantonen, niet stellen."
+    },
+    {
+      "id": "A06",
+      "titel": "Rechtmatigheid van de verwerking",
+      "artikel": "AVG art. 6",
+      "thema": "Beginselen en grondslag",
+      "kern": "Elke verwerking rust op een van de zes grondslagen."
+    },
+    {
+      "id": "A07",
+      "titel": "Voorwaarden voor toestemming",
+      "artikel": "AVG art. 7",
+      "thema": "Beginselen en grondslag",
+      "kern": "Toestemming is aantoonbaar, vrij, specifiek en even makkelijk in te trekken als te geven."
+    },
+    {
+      "id": "A09",
+      "titel": "Bijzondere categorieen van persoonsgegevens",
+      "artikel": "AVG art. 9",
+      "thema": "Beginselen en grondslag",
+      "kern": "Verwerking van bijzondere categorieen is verboden, tenzij een van de uitzonderingen geldt."
+    },
+    {
+      "id": "A12",
+      "titel": "Transparante informatie en communicatie",
+      "artikel": "AVG art. 12",
+      "thema": "Rechten van betrokkenen",
+      "kern": "Informatie is beknopt, toegankelijk en begrijpelijk, en verzoeken worden binnen een maand afgehandeld."
+    },
+    {
+      "id": "A13",
+      "titel": "Informatieplicht bij verzameling bij de betrokkene",
+      "artikel": "AVG art. 13",
+      "thema": "Rechten van betrokkenen",
+      "kern": "Bij het verzamelen wordt verteld wie, waarom, hoe lang en met welke rechten."
+    },
+    {
+      "id": "A14",
+      "titel": "Informatieplicht bij verkrijging elders",
+      "artikel": "AVG art. 14",
+      "thema": "Rechten van betrokkenen",
+      "kern": "Ook wanneer gegevens niet bij de betrokkene zelf zijn verzameld, wordt hij geinformeerd."
+    },
+    {
+      "id": "A15",
+      "titel": "Recht op inzage",
+      "artikel": "AVG art. 15",
+      "thema": "Rechten van betrokkenen",
+      "kern": "De betrokkene krijgt inzage in zijn gegevens en de context daarvan."
+    },
+    {
+      "id": "A16",
+      "titel": "Recht op rectificatie",
+      "artikel": "AVG art. 16",
+      "thema": "Rechten van betrokkenen",
+      "kern": "Onjuiste gegevens worden gecorrigeerd, onvolledige aangevuld."
+    },
+    {
+      "id": "A17",
+      "titel": "Recht op gegevenswissing",
+      "artikel": "AVG art. 17",
+      "thema": "Rechten van betrokkenen",
+      "kern": "Gegevens worden gewist wanneer een van de wettelijke gronden geldt, ook bij ontvangers."
+    },
+    {
+      "id": "A18",
+      "titel": "Recht op beperking van de verwerking",
+      "artikel": "AVG art. 18",
+      "thema": "Rechten van betrokkenen",
+      "kern": "Een verwerking kan tijdelijk worden stilgelegd zonder dat gegevens verdwijnen."
+    },
+    {
+      "id": "A20",
+      "titel": "Recht op overdraagbaarheid",
+      "artikel": "AVG art. 20",
+      "thema": "Rechten van betrokkenen",
+      "kern": "Gegevens zijn in een gangbaar formaat mee te nemen naar een andere partij."
+    },
+    {
+      "id": "A21",
+      "titel": "Recht van bezwaar",
+      "artikel": "AVG art. 21",
+      "thema": "Rechten van betrokkenen",
+      "kern": "De betrokkene kan bezwaar maken; de verwerking stopt tenzij er dwingende gronden zijn."
+    },
+    {
+      "id": "A22",
+      "titel": "Geautomatiseerde besluitvorming en profilering",
+      "artikel": "AVG art. 22",
+      "thema": "Rechten van betrokkenen",
+      "kern": "Een besluit uitsluitend op geautomatiseerde verwerking mag alleen onder voorwaarden, met menselijke tussenkomst als waarborg."
+    },
+    {
+      "id": "A24",
+      "titel": "Verantwoordelijkheid van de verwerkingsverantwoordelijke",
+      "artikel": "AVG art. 24",
+      "thema": "Verantwoording en toezicht",
+      "kern": "Passende technische en organisatorische maatregelen, aantoonbaar en periodiek geactualiseerd."
+    },
+    {
+      "id": "A25",
+      "titel": "Gegevensbescherming door ontwerp en standaardinstellingen",
+      "artikel": "AVG art. 25",
+      "thema": "Beveiliging en ontwerp",
+      "kern": "Privacy zit in het ontwerp en in de standaardinstellingen, niet in een vinkje achteraf."
+    },
+    {
+      "id": "A26",
+      "titel": "Gezamenlijke verwerkingsverantwoordelijken",
+      "artikel": "AVG art. 26",
+      "thema": "Verwerkers en ketenpartners",
+      "kern": "Wie samen doel en middelen bepaalt, legt de rolverdeling vast."
+    },
+    {
+      "id": "A28",
+      "titel": "Verwerker en verwerkersovereenkomst",
+      "artikel": "AVG art. 28",
+      "thema": "Verwerkers en ketenpartners",
+      "kern": "Een verwerker biedt voldoende garanties, werkt op instructie en dat is contractueel vastgelegd, subverwerkers inbegrepen."
+    },
+    {
+      "id": "A29",
+      "titel": "Verwerking onder gezag",
+      "artikel": "AVG art. 29",
+      "thema": "Verwerkers en ketenpartners",
+      "kern": "Wie toegang heeft, verwerkt alleen op instructie van de verwerkingsverantwoordelijke."
+    },
+    {
+      "id": "A30",
+      "titel": "Register van verwerkingsactiviteiten",
+      "artikel": "AVG art. 30",
+      "thema": "Verantwoording en toezicht",
+      "kern": "Er is een actueel register met doelen, categorieen, ontvangers, termijnen en een algemene beschrijving van de beveiliging."
+    },
+    {
+      "id": "A32",
+      "titel": "Beveiliging van de verwerking",
+      "artikel": "AVG art. 32",
+      "thema": "Beveiliging en ontwerp",
+      "kern": "Passende technische en organisatorische maatregelen gezien de stand van de techniek en het risico, inclusief het periodiek testen en beoordelen van de doeltreffendheid ervan."
+    },
+    {
+      "id": "A33",
+      "titel": "Melding van een inbreuk aan de toezichthouder",
+      "artikel": "AVG art. 33",
+      "thema": "Datalekken",
+      "kern": "Binnen 72 uur melden waar dat moet, en elke inbreuk documenteren, ook de niet-gemelde."
+    },
+    {
+      "id": "A34",
+      "titel": "Mededeling van een inbreuk aan de betrokkene",
+      "artikel": "AVG art. 34",
+      "thema": "Datalekken",
+      "kern": "Bij hoog risico wordt ook de betrokkene geinformeerd, in duidelijke taal."
+    },
+    {
+      "id": "A35",
+      "titel": "Gegevensbeschermingseffectbeoordeling (DPIA)",
+      "artikel": "AVG art. 35",
+      "thema": "Verantwoording en toezicht",
+      "kern": "Bij waarschijnlijk hoog risico wordt vooraf een DPIA uitgevoerd, met de maatregelen erin."
+    },
+    {
+      "id": "A36",
+      "titel": "Voorafgaande raadpleging",
+      "artikel": "AVG art. 36",
+      "thema": "Verantwoording en toezicht",
+      "kern": "Blijft het restrisico na de DPIA hoog, dan wordt de toezichthouder vooraf geraadpleegd."
+    },
+    {
+      "id": "A37",
+      "titel": "Aanwijzing van de functionaris voor gegevensbescherming",
+      "artikel": "AVG art. 37",
+      "thema": "Verantwoording en toezicht",
+      "kern": "Overheidsinstanties wijzen een FG aan en melden die bij de toezichthouder."
+    },
+    {
+      "id": "A38",
+      "titel": "Positie van de functionaris voor gegevensbescherming",
+      "artikel": "AVG art. 38",
+      "thema": "Verantwoording en toezicht",
+      "kern": "De FG wordt tijdig betrokken, krijgt middelen en werkt onafhankelijk."
+    },
+    {
+      "id": "A39",
+      "titel": "Taken van de functionaris voor gegevensbescherming",
+      "artikel": "AVG art. 39",
+      "thema": "Verantwoording en toezicht",
+      "kern": "Informeren, adviseren, toezien op naleving en samenwerken met de toezichthouder."
+    },
+    {
+      "id": "A44",
+      "titel": "Algemeen beginsel voor doorgiften",
+      "artikel": "AVG art. 44",
+      "thema": "Doorgifte",
+      "kern": "Doorgifte naar een derde land mag alleen als het beschermingsniveau in stand blijft."
+    },
+    {
+      "id": "A46",
+      "titel": "Doorgiften met passende waarborgen",
+      "artikel": "AVG art. 46",
+      "thema": "Doorgifte",
+      "kern": "Zonder adequaatheidsbesluit zijn passende waarborgen nodig, met afdwingbare rechten voor betrokkenen."
+    }
+  ]
+}

@@ -233,3 +233,21 @@ def test_dekking_telt_op(kader):
     telling = helper.dekking(kader)
     assert telling["geraakt"] + telling["witte_vlekken"] == telling["maatregelen"]
     assert telling["barrieres_gemapt"] + telling["barrieres_ongekoppeld"] == len(helper.barrieres())
+
+
+def test_elk_kader_staat_in_de_redactionele_volgorde():
+    """De volgorde bepaalt welk kader de pagina opent, dus die keuze is bewust en niet alfabetisch.
+
+    Een nieuw kader dat hier niet in staat, belandt achteraan zonder dat iemand daar iets van vindt.
+    Deze test dwingt af dat je er een plek voor kiest.
+    """
+    ongeplaatst = [k for k in KADERS if k not in helper.VOLGORDE]
+    assert not ongeplaatst, (
+        f"deze kaders staan niet in tools/mappingen.py VOLGORDE: {ongeplaatst}. "
+        "Kies een plek; de eerste in de rij is wat de pagina opent."
+    )
+
+
+def test_de_pagina_opent_op_bio2():
+    """BIO 2.0 is het kader waar de doelgroep op wordt bevraagd, dus dat staat voorop."""
+    assert KADERS[0] == "bio2"
