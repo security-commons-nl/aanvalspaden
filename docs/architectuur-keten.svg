@@ -1,0 +1,171 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1240 1000" width="1240" height="1000" role="img" aria-labelledby="titel beschrijving">
+  <title id="titel">Architectuur van de aanvalspaden-keten</title>
+  <desc id="beschrijving">Drie diepten (zelfcheck, risicoanalyse, meting) die alle drie lezen uit één bron, paden.json. De zelfcheck werkt op eigen antwoorden, de risicoanalyse eist bewijs, de meting levert dat bewijs uit data.</desc>
+
+  <defs>
+    <style>
+      .t      { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; fill: #1a1d21; }
+      .h1     { font-size: 26px; font-weight: 700; fill: #1f4e79; letter-spacing: -0.3px; }
+      .sub    { font-size: 14px; fill: #5c6570; }
+      .kop    { font-size: 17px; font-weight: 700; fill: #1f4e79; }
+      .diepte { font-size: 11.5px; font-weight: 700; fill: #8a94a0; letter-spacing: 1.2px; }
+      .lbl    { font-size: 13px; fill: #3c434b; }
+      .lblb   { font-size: 13px; font-weight: 600; fill: #3c434b; }
+      .klein  { font-size: 11.5px; fill: #5c6570; }
+      .mono   { font-family: Consolas, "SF Mono", Menlo, monospace; font-size: 12px; fill: #1f4e79; }
+      .monok  { font-family: Consolas, "SF Mono", Menlo, monospace; font-size: 11px; fill: #5c6570; }
+      .uit    { font-size: 12.5px; font-weight: 600; fill: #2e7d68; }
+      .waar   { font-size: 12px; font-weight: 600; fill: #b45309; }
+      .card   { fill: #ffffff; stroke: #dfe3e8; stroke-width: 1.5; }
+      .bron   { fill: #f3f6fa; stroke: #1f4e79; stroke-width: 2; }
+      .note   { fill: #fffbe9; stroke: #ecd98a; stroke-width: 1.5; }
+      .strook { fill: #f6f7f9; stroke: #dfe3e8; stroke-width: 1; }
+      .lijn   { stroke: #9aa6b4; stroke-width: 2; fill: none; }
+      .lijnb  { stroke: #1f4e79; stroke-width: 2; fill: none; }
+      .stip   { stroke: #9aa6b4; stroke-width: 1.6; fill: none; stroke-dasharray: 5 4; }
+    </style>
+    <marker id="pijl" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#9aa6b4"/>
+    </marker>
+    <marker id="pijlb" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#1f4e79"/>
+    </marker>
+  </defs>
+
+  <rect width="1240" height="1000" fill="#ffffff"/>
+
+  <!-- Titel -->
+  <text class="t h1" x="40" y="48">Aanvalspaden: van zelfcheck tot risicolijst tot meting</text>
+  <text class="t sub" x="40" y="72">Eén instrument, drie diepten, één bron. Wie na diepte 0 stopt, heeft iets bruikbaars.</text>
+  <line x1="40" y1="88" x2="1200" y2="88" stroke="#1f4e79" stroke-width="2.5"/>
+
+  <!-- ============ DIEPTE 0 ============ -->
+  <rect class="card" x="40" y="118" width="360" height="286" rx="8"/>
+  <text class="t diepte" x="64" y="146">DIEPTE 0</text>
+  <text class="t kop" x="64" y="170">Zelfcheck</text>
+  <text class="t klein" x="64" y="190">Een uur · de CISO alleen · geen lijn nodig</text>
+
+  <line x1="64" y1="204" x2="376" y2="204" stroke="#eef1f5" stroke-width="1"/>
+  <text class="t lblb" x="64" y="226">Invoer</text>
+  <text class="t lbl" x="64" y="246">Eigen antwoorden op 18 paden:</text>
+  <text class="t lbl" x="64" y="264">ja · gedeeltelijk · nee · onbekend</text>
+
+  <text class="t lblb" x="64" y="292">Uitkomst</text>
+  <text class="t lbl" x="64" y="312">Per pad: sterk beheerst, beperkt,</text>
+  <text class="t lbl" x="64" y="330">reactief beheerst, open, onbekend</text>
+  <text class="t uit" x="64" y="354">→ welke paden staan open</text>
+  <text class="t uit" x="64" y="372">→ drie acties voor morgen</text>
+
+
+  <!-- ============ DIEPTE 1 ============ -->
+  <rect class="card" x="440" y="118" width="360" height="286" rx="8"/>
+  <text class="t diepte" x="464" y="146">DIEPTE 1</text>
+  <text class="t kop" x="464" y="170">Risicoanalyse</text>
+  <text class="t klein" x="464" y="190">Een dag · met de lijn erbij</text>
+
+  <line x1="464" y1="204" x2="776" y2="204" stroke="#eef1f5" stroke-width="1"/>
+  <text class="t lblb" x="464" y="226">Invoer</text>
+  <text class="t lbl" x="464" y="246">Tien kroonjuwelen (proces, eigenaar)</text>
+  <text class="t lbl" x="464" y="264">× alleen de open en reactieve paden</text>
+
+  <text class="t lblb" x="464" y="292">Per cel</text>
+  <text class="t lbl" x="464" y="312">D detecteren · R reageren · P preventief,</text>
+  <text class="t lbl" x="464" y="330">groen alleen met een bewijslink</text>
+  <text class="t uit" x="464" y="354">→ rode cellen = de risicolijst</text>
+  <text class="t uit" x="464" y="372">→ maatregel, eigenaar, termijn</text>
+
+  <!-- ============ DIEPTE 2 ============ -->
+  <rect class="card" x="840" y="118" width="360" height="286" rx="8"/>
+  <text class="t diepte" x="864" y="146">DIEPTE 2</text>
+  <text class="t kop" x="864" y="170">Meting</text>
+  <text class="t klein" x="864" y="190">Doorlopend · techniek · volgt later</text>
+
+  <line x1="864" y1="204" x2="1176" y2="204" stroke="#eef1f5" stroke-width="1"/>
+  <text class="t lblb" x="864" y="226">Invoer</text>
+  <text class="t lbl" x="864" y="246">Echte data: exports en connectors</text>
+  <text class="t lbl" x="864" y="264">(identity, netwerk, endpoint, back-up)</text>
+
+  <text class="t lblb" x="864" y="292">Uitkomst</text>
+  <text class="t lbl" x="864" y="312">Elke bevinding krijgt een pad en een</text>
+  <text class="t lbl" x="864" y="330">chokepoint uit dezelfde bron</text>
+  <text class="t uit" x="864" y="354">→ bevinding = bewijs voor een cel</text>
+  <text class="t uit" x="864" y="372">→ van "ik denk" naar "ik kan het tonen"</text>
+
+  <!-- Pijlen tussen de diepten -->
+  <path class="lijn" d="M 400 240 L 434 240" marker-end="url(#pijl)"/>
+
+  <path class="lijn" d="M 800 240 L 834 240" marker-end="url(#pijl)"/>
+
+  <!-- Terugpijl: meting levert bewijs terug aan diepte 1 -->
+  <path class="stip" d="M 1020 404 L 1020 432 L 620 432 L 620 406" marker-end="url(#pijl)"/>
+  <text class="t klein" x="700" y="426">bevindingen vullen de bewijskolom van diepte 1</text>
+
+  <!-- ============ DE SCHEIDSLIJN ============ -->
+  <rect class="note" x="40" y="452" width="1160" height="76" rx="6"/>
+  <text class="t waar" x="64" y="476">Twee regels</text>
+  <text class="t lblb" x="150" y="476">1. Bewijs is de scheidslijn.</text>
+  <text class="t lbl" x="330" y="476">In diepte 0 is "ja" een antwoord; in diepte 1 is groen pas groen met een bewijslink.</text>
+  <text class="t lblb" x="150" y="500">2. Diepte 1 is een knop.</text>
+  <text class="t lbl" x="330" y="500">Geen volgend scherm: wie na het resultaat stopt, houdt een afgeronde zelfcheck.</text>
+
+  <!-- ============ DE BRON ============ -->
+  <rect class="bron" x="240" y="540" width="760" height="188" rx="8"/>
+  <text class="t kop" x="272" y="572">paden.json</text>
+  <text class="t klein" x="272" y="592">De enige bron. Wijzig hier, en alle drie de diepten volgen.</text>
+
+  <line x1="272" y1="606" x2="968" y2="606" stroke="#d0d7e2" stroke-width="1"/>
+
+  <text class="t lblb" x="272" y="630">5 clusters</text>
+  <text class="t klein" x="272" y="650">C1 account · C2 werkplek</text>
+  <text class="t klein" x="272" y="666">C3 internetdienst · C4 keten</text>
+  <text class="t klein" x="272" y="682">C5 beheerrechten</text>
+  <text class="t monok" x="272" y="706">het overzicht en de matrix</text>
+
+  <text class="t lblb" x="512" y="630">18 bladeren</text>
+  <text class="t klein" x="512" y="650">AP01 t/m AP18, het detail</text>
+  <text class="t klein" x="512" y="666">AP17 is impact, geen pad</text>
+  <text class="t klein" x="512" y="682">DDoS erbij als AP15, AP16</text>
+  <text class="t monok" x="512" y="706">de vragen van de zelfcheck</text>
+
+  <text class="t lblb" x="752" y="630">Per chokepoint</text>
+  <text class="t klein" x="752" y="650">claim · toelichting</text>
+  <text class="t klein" x="752" y="666">wat niet telt · actie</text>
+  <text class="t klein" x="752" y="682">D/R/P en welk bewijs</text>
+  <text class="t monok" x="752" y="706">de vraagmethodiek als norm</text>
+
+  <line x1="492" y1="606" x2="492" y2="716" stroke="#e3e9f0" stroke-width="1"/>
+  <line x1="732" y1="606" x2="732" y2="716" stroke="#e3e9f0" stroke-width="1"/>
+
+  <!-- Pijlen van de bron omhoog naar de drie diepten -->
+  <path class="lijnb" d="M 620 540 L 620 534" marker-end="url(#pijlb)"/>
+  <text class="t klein" x="272" y="722">Alle drie de diepten hierboven lezen dit bestand; geen van de drie heeft een eigen kopie van de vragen.</text>
+
+  <!-- ============ ONDERSTE STROOK: repo en methode ============ -->
+  <rect class="strook" x="40" y="762" width="560" height="196" rx="8"/>
+  <text class="t kop" x="64" y="790">De repo</text>
+  <text class="t klein" x="64" y="810">github.com/security-commons-nl/aanvalspaden · EUPL-1.2 · prototype</text>
+  <text class="t mono" x="64" y="838">paden.json</text>
+  <text class="t klein" x="230" y="838">de bron, hierboven</text>
+  <text class="t mono" x="64" y="860">check/</text>
+  <text class="t klein" x="230" y="860">diepte 0 en 1: React, Vite, offline HTML</text>
+  <text class="t mono" x="64" y="882">methode/</text>
+  <text class="t klein" x="230" y="882">leeswijzer, verwijst naar de kennisbank</text>
+  <text class="t mono" x="64" y="904">meting/</text>
+  <text class="t klein" x="230" y="904">diepte 2, komt later uit security-posture-tool</text>
+  <text class="t mono" x="64" y="926">tools/, tests/</text>
+  <text class="t klein" x="230" y="926">schema en validatie van paden.json</text>
+  <text class="t klein" x="64" y="948">Eén offline bestand: geen server, geen account, antwoorden blijven op het apparaat.</text>
+
+  <rect class="strook" x="640" y="762" width="560" height="196" rx="8"/>
+  <text class="t kop" x="664" y="790">De methode, leesbaar</text>
+  <text class="t klein" x="664" y="810">kennisbank · security/risicoanalyse-aanvalspaden</text>
+  <text class="t lbl" x="664" y="838">1. Kroonjuwelen, maximaal tien</text>
+  <text class="t lbl" x="664" y="860">2. De aanvalspaden, generiek</text>
+  <text class="t lbl" x="664" y="882">3. Dekking meten met bewijs</text>
+  <text class="t lbl" x="664" y="904">4. De rode cellen zijn de risicolijst</text>
+  <text class="t klein" x="664" y="930">Het papieren sjabloon en het ingevulde voorbeeld voor wie geen app wil,</text>
+  <text class="t klein" x="664" y="948">en de uitleg waarmee je het gesprek met de lijn voert.</text>
+
+  <!-- verbinding repo <-> methode -->
+  <path class="stip" d="M 600 860 L 640 860"/>
+</svg>
