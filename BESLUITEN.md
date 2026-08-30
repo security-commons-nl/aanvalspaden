@@ -58,6 +58,22 @@ Append-only. Datum, besluit, één zin onderbouwing.
   in het grootste kader is scrollen zonder filter onwerkbaar. De balk wordt compact zodra de kop uit beeld
   is, gemeten met een sentinel in plaats van op scrollpositie, want die klopt niet meer zodra een filter
   de paginahoogte verandert. Kop, balk en lijst zijn nu drie delen; alleen de lijst hertekent bij filteren.
+- **2026-08-30 · Het handelingsperspectief hangt aan dezelfde barriere als de normverankering.** De
+  zelfcheck zegt wat je moet doen, de kennisbank zegt hoe. Dat verband wordt vastgelegd per barriere,
+  met een verwijzing naar item en paragraaf, en niet als losse links in lopende tekst.
+- **2026-08-30 · Een ontbrekende handleiding is geen leeg vlak maar een uitnodiging.** Elke barriere
+  zonder handleiding draagt een zin over wat het artikel zou moeten dekken, en op de pagina een knop
+  naar een vooringevulde issue. Een kennisbank die alleen toont wat er ligt is een etalage; wat er
+  ontbreekt is wat een commons nodig heeft.
+- **2026-08-30 · De mapping loopt per barriere, de backlog groepeert tot schrijfopdrachten.** Per
+  barriere is precies en toetsbaar; een artikel bedient er vaak drie. Zo blijft de lijst exact en de
+  agenda haalbaar: 30 gaten worden 11 opdrachten.
+- **2026-08-30 · De volgorde van de backlog komt uit de data, niet uit een mening.** Gewicht is het
+  aantal aanvalspaden waarop een barriere staat. Een randvoorwaarde weegt over alle paden, anders zakt
+  hij naar de bodem terwijl hij juist het breedst geldt.
+- **2026-08-30 · `bouw.py` doet `node --check` op het script voor het de pagina in gaat.** Een
+  syntaxfout maakte de hele app leeg zonder foutmelding; de browsertests vingen dat pas na dertig
+  seconden wachten op een selector die nooit kwam. Nu valt de bouw meteen om, met de regel erbij.
 
 ## Open
 

@@ -196,6 +196,26 @@ afspraak over auteursrecht staan in [`mappingen/LEESMIJ.md`](mappingen/LEESMIJ.m
 kader, en hebben nog geen review van vakgenoten gehad. Een regel die te ruim, te krap of gewoon fout is,
 hoort een issue te worden.
 
+## Hoe pak ik het aan
+De zelfcheck zegt wat je moet doen, maar niet hoe. Voor een deel van de barrieres ligt er een
+handleiding in de kennisbank; voor de meeste nog niet. Dat staat allebei op de pagina, onder
+[Hoe pak ik het aan](https://security-commons-nl.github.io/aanvalspaden/normen/).
+
+| | Aantal |
+|---|---|
+| Barrieres met een handleiding | 14 (4 volledig, 10 gedeeltelijk) |
+| Barrieres zonder handleiding | 30 |
+| Artikelen om te schrijven | 11 |
+
+**Die 30 zijn geen tekort maar de redactieagenda.** Per ontbrekende handleiding staat er wat het
+artikel zou moeten dekken, en een knop die een vooringevulde issue opent met de barrieres en het
+gevraagde bewijs erin. Een kennisbank die alleen toont wat er ligt is een etalage; wat ontbreekt is
+wat een commons nodig heeft.
+
+De volgorde komt uit de data: het gewicht is het aantal aanvalspaden waarop een barriere staat, dus
+wat de meeste routes tegelijk sluit, schrijf je eerst. Zodra er echte zelfcheck-uitslagen zijn, is het
+betere signaal hoe vaak een barriere als actie bovenkomt.
+
 ## De methode, leesbaar
 De vier stappen met de lijn erbij, het papieren sjabloon en een ingevuld voorbeeld staan in de kennisbank:
 [Risicoanalyse langs aanvalspaden](https://security-commons-nl.github.io/kennisbank/security/risicoanalyse-aanvalspaden/).

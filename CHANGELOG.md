@@ -20,3 +20,7 @@ krijgt hier een regel, zodat een uitslag van later nog te plaatsen is tegen de b
   kaders is redactioneel vastgelegd (`tools/mappingen.py`, VOLGORDE) in plaats van alfabetisch, want
   die volgorde bepaalt welk kader de pagina opent. De bedieningsbalk plakt bovenaan en wordt compact
   zodra de kop uit beeld is.
+- `mappingen/handelingsperspectief.json`: per barriere waar de handleiding staat, en waar nog niet.
+  14 van de 44 barrieres hebben er een; de overige 30 staan als openstaande schrijfopdracht met wat
+  het artikel zou moeten dekken, gegroepeerd tot 11 clusters. Vierde weergave op de pagina, met per
+  gat een knop naar een vooringevulde issue. `bouw.py` doet nu ook `node --check` op het script.

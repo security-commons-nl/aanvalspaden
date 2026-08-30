@@ -84,6 +84,34 @@ bewaartermijnen, verstrekking, rechten van betrokkenen. Geen aanvalspad zegt daa
 zelfcheck wel raakt is beveiliging: maatregel 6 (art. 4a Wpg) en de technische maatregelen uit bijlage 4
 van de handreiking, die volgens die bijlage naast de BIO gelden.
 
+## Het handelingsperspectief: hoe pak ik het aan
+
+De normverankering zegt wat je aantoont. `handelingsperspectief.json` zegt hoe je het doet: per
+barriere een verwijzing naar een kennisbank-item en de paragraaf daarbinnen.
+
+Wat er **niet** staat is even belangrijk. Een barriere zonder handleiding staat onder `gevraagd`, met
+erbij wat het artikel zou moeten dekken. Dat is tegelijk de redactieagenda van de kennisbank en de
+uitnodiging aan wie het wel weet: op de pagina krijgt zo'n gat een knop die een vooringevulde issue
+opent, met de barrieres en het gevraagde bewijs er al in.
+
+Stand op 30-08-2026: **14 van de 44 barrieres** hebben een handleiding (4 volledig, 10 gedeeltelijk).
+De overige 30 zijn gegroepeerd tot **11 schrijfopdrachten**, gesorteerd op gewicht.
+
+**De mapping loopt per barriere, de backlog groepeert.** Een artikel over werkplekhardening bedient
+`execution`, `browser` en `localadmin` tegelijk. Per barriere mappen houdt het precies en machinaal
+toetsbaar; groeperen tot een `cluster` maakt er een haalbare schrijfopdracht van.
+
+**De volgorde komt uit de data.** Het gewicht is het aantal aanvalspaden waarop een barriere staat: wie
+daar verbetert, sluit meer routes tegelijk. Een randvoorwaarde hangt aan geen enkel pad maar weegt over
+alle paden mee, en krijgt daarom het aantal paden als gewicht; tellen op bladeren zou hem op nul zetten
+en naar de bodem van de backlog laten zakken. Zodra er echte zelfcheck-uitslagen zijn, is het betere
+signaal hoe vaak een barriere als actie uit `score.acties()` komt.
+
+Twee tests bewaken dit, op verschillende plekken omdat ze verschillende dingen nodig hebben:
+`tests/test_handelingsperspectief.py` toetst vorm en volledigheid, en
+`mappingen/tests/test_kennisbank_verwijzingen.py` toetst of het item en de paragraaf echt bestaan.
+Die tweede heeft de kennisbank-repo ernaast nodig; CI checkt hem uit naar `_kennisbank`.
+
 ## Auteursrecht
 
 Per kader is dit anders geregeld, en dat is bewust:
