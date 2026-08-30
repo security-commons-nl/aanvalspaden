@@ -1,0 +1,789 @@
+{
+  "kader": "bio2",
+  "titel": "BIO 2.0",
+  "toelichting": "De maatregelen van BIO 2.0, gegroepeerd op de ISO 27002-structuur die BIO 2.0 volgt. Elke maatregel noemt de overheidsmaatregelen die eronder vallen. De teksten zelf staan in de bron; hier staan alleen nummer, titel en thema.",
+  "bron": {
+    "naam": "Centrum Informatiebeveiliging en Privacybescherming (CIP)",
+    "versie": "BIO2 v1.3 definitief - 9 januari 2026",
+    "herkomst": "security-commons-nl/cisochat, data/bio2.json",
+    "commit": "0d2de8b9c460f9fa9e17521006196d7f337e7a4a",
+    "let_op": "Gegenereerd met mappingen/bronnen/genereer_bio2.py. Wijzig de dataset in cisochat, niet dit bestand."
+  },
+  "tweede_etiket": {
+    "kader": "ISO 27001:2022",
+    "toelichting": "BIO 2.0 volgt de nummering van ISO 27002:2022, bijlage A van ISO 27001:2022. Het nummer van een maatregel hier is dus ook het ISO-nummer. De ISO-tekst staat er niet bij; die is auteursrechtelijk beschermd."
+  },
+  "maatregelen": [
+    {
+      "id": "5.1",
+      "titel": "Informatiebeveiligingsbeleid",
+      "thema": "IV-beleid",
+      "overheidsmaatregelen": [
+        "5.01.01",
+        "5.01.02"
+      ]
+    },
+    {
+      "id": "5.2",
+      "titel": "Rollen en verantwoordelijkheden bij informatiebeveiliging",
+      "thema": "IV-beleid",
+      "overheidsmaatregelen": [
+        "5.02.01",
+        "5.02.02"
+      ]
+    },
+    {
+      "id": "5.3",
+      "titel": "Functiescheiding",
+      "thema": "IV-beleid",
+      "overheidsmaatregelen": [
+        "5.03.01"
+      ]
+    },
+    {
+      "id": "5.4",
+      "titel": "Managementverantwoordelijkheden",
+      "thema": "Screening, bewustzijn & opleiding",
+      "overheidsmaatregelen": [
+        "5.04.01",
+        "5.04.02",
+        "5.04.03"
+      ]
+    },
+    {
+      "id": "5.5",
+      "titel": "Contact met overheidsinstanties",
+      "thema": "IV-beleid",
+      "overheidsmaatregelen": [
+        "5.05.01"
+      ]
+    },
+    {
+      "id": "5.6",
+      "titel": "Contact met speciale belangengroepen",
+      "thema": "IV-beleid",
+      "overheidsmaatregelen": [
+        "5.06.01"
+      ]
+    },
+    {
+      "id": "5.7",
+      "titel": "Informatie en analyses over dreigingen",
+      "thema": "IV-beleid",
+      "overheidsmaatregelen": [
+        "5.07.01"
+      ]
+    },
+    {
+      "id": "5.8",
+      "titel": "Informatiebeveiliging in projectmanagement",
+      "thema": "Informatiebeveiliging binnen projecten",
+      "overheidsmaatregelen": [
+        "5.08.01"
+      ]
+    },
+    {
+      "id": "5.9",
+      "titel": "Inventarisatie van informatie en andere gerelateerde bedrijfsmiddelen",
+      "thema": "Bedrijfsmiddelenbeheer",
+      "overheidsmaatregelen": [
+        "5.09.01"
+      ]
+    },
+    {
+      "id": "5.10",
+      "titel": "Aanvaardbaar gebruik van informatie en andere gerelateerde bedrijfsmiddelen",
+      "thema": "Bedrijfsmiddelenbeheer",
+      "overheidsmaatregelen": [
+        "5.10.01"
+      ]
+    },
+    {
+      "id": "5.11",
+      "titel": "Retourneren van bedrijfsmiddelen",
+      "thema": "Bedrijfsmiddelenbeheer",
+      "overheidsmaatregelen": [
+        "5.11.01"
+      ]
+    },
+    {
+      "id": "5.12",
+      "titel": "Classificeren van informatie",
+      "thema": "Informatie classificatie",
+      "overheidsmaatregelen": [
+        "5.12.01"
+      ]
+    },
+    {
+      "id": "5.13",
+      "titel": "Labelen van informatie",
+      "thema": "Informatie classificatie",
+      "overheidsmaatregelen": [
+        "5.13.01"
+      ]
+    },
+    {
+      "id": "5.14",
+      "titel": "Overdragen van informatie",
+      "thema": "Informatie classificatie",
+      "overheidsmaatregelen": [
+        "5.14.01",
+        "5.14.02",
+        "5.14.03",
+        "5.14.04",
+        "5.14.05"
+      ]
+    },
+    {
+      "id": "5.15",
+      "titel": "Toegangsbeveiliging",
+      "thema": "Logische toegangsbeveiliging",
+      "overheidsmaatregelen": [
+        "5.15.01"
+      ]
+    },
+    {
+      "id": "5.16",
+      "titel": "Identiteitsbeheer",
+      "thema": "Logische toegangsbeveiliging",
+      "overheidsmaatregelen": [
+        "5.16.01",
+        "5.16.02"
+      ]
+    },
+    {
+      "id": "5.17",
+      "titel": "Authenticatie-informatie",
+      "thema": "Logische toegangsbeveiliging",
+      "overheidsmaatregelen": [
+        "5.17.01",
+        "5.17.02",
+        "5.17.03"
+      ]
+    },
+    {
+      "id": "5.18",
+      "titel": "Toegangsrechten",
+      "thema": "Logische toegangsbeveiliging",
+      "overheidsmaatregelen": [
+        "5.18.01",
+        "5.18.02"
+      ]
+    },
+    {
+      "id": "5.19",
+      "titel": "Informatiebeveiliging in leveranciersrelaties",
+      "thema": "Leveranciersbeheer - Inkoop",
+      "overheidsmaatregelen": [
+        "5.19.01"
+      ]
+    },
+    {
+      "id": "5.20",
+      "titel": "Adresseren van informatiebeveiliging in leveranciersovereenkomsten",
+      "thema": "Leveranciersbeheer - Inkoop",
+      "overheidsmaatregelen": [
+        "5.20.01",
+        "5.20.02",
+        "5.20.03"
+      ]
+    },
+    {
+      "id": "5.21",
+      "titel": "Beheren van informatiebeveiliging in de ICT-toeleveringsketen",
+      "thema": "Leveranciersbeheer - Inkoop",
+      "overheidsmaatregelen": [
+        "5.21.02",
+        "5.21.03",
+        "5.21.04"
+      ]
+    },
+    {
+      "id": "5.22",
+      "titel": "Monitoren, beoordelen en het beheren van wijzigingen van leveranciersdiensten",
+      "thema": "Leveranciersbeheer - contractbeheer",
+      "overheidsmaatregelen": [
+        "5.22.01",
+        "5.22.02"
+      ]
+    },
+    {
+      "id": "5.23",
+      "titel": "Informatiebeveiliging voor het gebruik van clouddiensten",
+      "thema": "Leveranciersbeheer - contractbeheer",
+      "overheidsmaatregelen": [
+        "5.23.01"
+      ]
+    },
+    {
+      "id": "5.24",
+      "titel": "Plannen en voorbereiden van het beheer van informatie-beveiligingsincidenten",
+      "thema": "Security Incident Management",
+      "overheidsmaatregelen": [
+        "5.24.01",
+        "5.24.02",
+        "5.24.03",
+        "5.24.04",
+        "5.24.05",
+        "5.24.06",
+        "5.24.07",
+        "5.24.08"
+      ]
+    },
+    {
+      "id": "5.25",
+      "titel": "Beoordelen van en besluiten over informatiebeveiligingsgebeurtenissen",
+      "thema": "Security Incident Management",
+      "overheidsmaatregelen": [
+        "5.25.01"
+      ]
+    },
+    {
+      "id": "5.26",
+      "titel": "Reageren op informatiebeveiligings-incidenten",
+      "thema": "Security Incident Management",
+      "overheidsmaatregelen": [
+        "5.26.01"
+      ]
+    },
+    {
+      "id": "5.27",
+      "titel": "Leren van informatiebeveiligingsincidenten",
+      "thema": "Security Incident Management",
+      "overheidsmaatregelen": [
+        "5.27.01",
+        "5.27.02"
+      ]
+    },
+    {
+      "id": "5.28",
+      "titel": "Verzamelen van bewijsmateriaal",
+      "thema": "Security Incident Management",
+      "overheidsmaatregelen": [
+        "5.28.01"
+      ]
+    },
+    {
+      "id": "5.29",
+      "titel": "Informatiebeveiliging tijdens een verstoring",
+      "thema": "Business Continuity & Disaster Recovery",
+      "overheidsmaatregelen": [
+        "5.29.01"
+      ]
+    },
+    {
+      "id": "5.30",
+      "titel": "ICT-gereedheid voor bedrijfscontinuïteit",
+      "thema": "Business Continuity & Disaster Recovery",
+      "overheidsmaatregelen": [
+        "5.30.01",
+        "5.30.02"
+      ]
+    },
+    {
+      "id": "5.31",
+      "titel": "Wettelijke, statutaire, regelgevende en contractuele eisen",
+      "thema": "IT-Compliance",
+      "overheidsmaatregelen": [
+        "5.31.01"
+      ]
+    },
+    {
+      "id": "5.32",
+      "titel": "Intellectuele-eigendomsrechten",
+      "thema": "IT-Compliance",
+      "overheidsmaatregelen": [
+        "5.32.01"
+      ]
+    },
+    {
+      "id": "5.33",
+      "titel": "Beschermen van registraties",
+      "thema": "IT-Compliance",
+      "overheidsmaatregelen": [
+        "5.33.01"
+      ]
+    },
+    {
+      "id": "5.34",
+      "titel": "Privacy en bescherming van persoonsgegevens",
+      "thema": "IT-Compliance",
+      "overheidsmaatregelen": [
+        "5.34.01"
+      ]
+    },
+    {
+      "id": "5.35",
+      "titel": "Onafhankelijke beoordeling van informatiebeveiliging",
+      "thema": "IV-beleid",
+      "overheidsmaatregelen": [
+        "5.35.02"
+      ]
+    },
+    {
+      "id": "5.36",
+      "titel": "Naleving van beleid, regels en normen voor informatiebeveiliging",
+      "thema": "IV-beleid",
+      "overheidsmaatregelen": [
+        "5.36.01"
+      ]
+    },
+    {
+      "id": "6.2",
+      "titel": "Arbeidsovereenkomst",
+      "thema": "Screening, bewustzijn & opleiding",
+      "overheidsmaatregelen": [
+        "6.02.01"
+      ]
+    },
+    {
+      "id": "6.3",
+      "titel": "Bewustwording van, opleiding en training in informatiebeveiliging",
+      "thema": "Screening, bewustzijn & opleiding",
+      "overheidsmaatregelen": [
+        "6.03.01",
+        "6.03.02",
+        "6.03.03"
+      ]
+    },
+    {
+      "id": "6.4",
+      "titel": "Disciplinaire procedure",
+      "thema": "Screening, bewustzijn & opleiding",
+      "overheidsmaatregelen": [
+        "6.04.01"
+      ]
+    },
+    {
+      "id": "6.5",
+      "titel": "Verantwoordelijkheden na beëindiging of wijziging van het dienstverband",
+      "thema": "Screening, bewustzijn & opleiding",
+      "overheidsmaatregelen": [
+        "6.05.01"
+      ]
+    },
+    {
+      "id": "6.6",
+      "titel": "Vertrouwelijkheids- of geheimhoudingsovereenkomsten",
+      "thema": "Screening, bewustzijn & opleiding",
+      "overheidsmaatregelen": [
+        "6.06.01"
+      ]
+    },
+    {
+      "id": "6.7",
+      "titel": "Werken op afstand",
+      "thema": "Logische toegangsbeveiliging",
+      "overheidsmaatregelen": [
+        "6.07.01"
+      ]
+    },
+    {
+      "id": "6.8",
+      "titel": "Melden van informatiebeveiligings-gebeurtenissen",
+      "thema": "Security Incident Management",
+      "overheidsmaatregelen": [
+        "6.08.01"
+      ]
+    },
+    {
+      "id": "7.1",
+      "titel": "Fysieke beveiligingszones",
+      "thema": "Fysieke toegang & beveiliging",
+      "overheidsmaatregelen": [
+        "7.01.01",
+        "7.01.02"
+      ]
+    },
+    {
+      "id": "7.2",
+      "titel": "Fysieke toegangsbeveiliging",
+      "thema": "Fysieke toegang & beveiliging",
+      "overheidsmaatregelen": [
+        "7.02.01"
+      ]
+    },
+    {
+      "id": "7.5",
+      "titel": "Beschermen tegen fysieke en omgevingsdreigingen",
+      "thema": "Fysieke toegang & beveiliging",
+      "overheidsmaatregelen": [
+        "7.05.01"
+      ]
+    },
+    {
+      "id": "7.6",
+      "titel": "Werken in beveiligde zones",
+      "thema": "Bedrijfsmiddelenbeheer",
+      "overheidsmaatregelen": [
+        "7.06.01"
+      ]
+    },
+    {
+      "id": "7.7",
+      "titel": "‘Clear desk’ en ‘clear screen’",
+      "thema": "IT-Compliance",
+      "overheidsmaatregelen": [
+        "7.07.01"
+      ]
+    },
+    {
+      "id": "7.8",
+      "titel": "Plaatsen en beschermen van apparatuur",
+      "thema": "Bedrijfsmiddelenbeheer",
+      "overheidsmaatregelen": [
+        "7.08.01"
+      ]
+    },
+    {
+      "id": "7.9",
+      "titel": "Beveiligen van bedrijfsmiddelen buiten het terrein",
+      "thema": "Bedrijfsmiddelenbeheer",
+      "overheidsmaatregelen": [
+        "7.09.01"
+      ]
+    },
+    {
+      "id": "7.10",
+      "titel": "Opslagmedia",
+      "thema": "Afvoer en hergebruik gegevensdragers",
+      "overheidsmaatregelen": [
+        "7.10.01",
+        "7.10.02",
+        "7.10.03"
+      ]
+    },
+    {
+      "id": "7.11",
+      "titel": "Nutsvoorzieningen",
+      "thema": "Bedrijfsmiddelenbeheer",
+      "overheidsmaatregelen": [
+        "7.11.01"
+      ]
+    },
+    {
+      "id": "7.12",
+      "titel": "Beveiligen van bekabeling",
+      "thema": "Fysieke toegang & beveiliging",
+      "overheidsmaatregelen": [
+        "7.12.01"
+      ]
+    },
+    {
+      "id": "7.13",
+      "titel": "Onderhoud van apparatuur",
+      "thema": "Bedrijfsmiddelenbeheer",
+      "overheidsmaatregelen": [
+        "7.13.01"
+      ]
+    },
+    {
+      "id": "7.14",
+      "titel": "Veilig verwijderen of hergebruiken van apparatuur",
+      "thema": "Afvoer en hergebruik gegevensdragers",
+      "overheidsmaatregelen": [
+        "7.14.01"
+      ]
+    },
+    {
+      "id": "8.1",
+      "titel": "User endpoint devices",
+      "thema": "Mobile Device Management",
+      "overheidsmaatregelen": [
+        "8.01.01",
+        "8.01.02"
+      ]
+    },
+    {
+      "id": "8.2",
+      "titel": "Speciale toegangsrechten",
+      "thema": "Logische toegangsbeveiliging",
+      "overheidsmaatregelen": [
+        "8.02.01"
+      ]
+    },
+    {
+      "id": "8.3",
+      "titel": "Beperking toegang tot informatie",
+      "thema": "Logische toegangsbeveiliging",
+      "overheidsmaatregelen": [
+        "8.03.01",
+        "8.03.02"
+      ]
+    },
+    {
+      "id": "8.4",
+      "titel": "Toegangsbeveiliging op broncode",
+      "thema": "Logische toegangsbeveiliging",
+      "overheidsmaatregelen": [
+        "8.04.01"
+      ]
+    },
+    {
+      "id": "8.5",
+      "titel": "Beveiligde authenticatie",
+      "thema": "Logische toegangsbeveiliging",
+      "overheidsmaatregelen": [
+        "8.05.01"
+      ]
+    },
+    {
+      "id": "8.6",
+      "titel": "Capaciteitsbeheer",
+      "thema": "IT-Compliance",
+      "overheidsmaatregelen": [
+        "8.06.01"
+      ]
+    },
+    {
+      "id": "8.7",
+      "titel": "Bescherming tegen malware",
+      "thema": "Vulnerability & patchmanagement",
+      "overheidsmaatregelen": [
+        "8.07.01",
+        "8.07.02",
+        "8.07.03",
+        "8.07.04"
+      ]
+    },
+    {
+      "id": "8.8",
+      "titel": "Beheer van technische kwetsbaarheden",
+      "thema": "Vulnerability & patchmanagement",
+      "overheidsmaatregelen": [
+        "8.08.01",
+        "8.08.02",
+        "8.08.03",
+        "8.08.04",
+        "8.08.05",
+        "8.08.06"
+      ]
+    },
+    {
+      "id": "8.9",
+      "titel": "Configuratiebeheer",
+      "thema": "Vulnerability & patchmanagement",
+      "overheidsmaatregelen": [
+        "8.09.01"
+      ]
+    },
+    {
+      "id": "8.10",
+      "titel": "Wissen van informatie",
+      "thema": "Afvoer en hergebruik gegevensdragers",
+      "overheidsmaatregelen": [
+        "8.10.01"
+      ]
+    },
+    {
+      "id": "8.11",
+      "titel": "Maskeren van gegevens",
+      "thema": "IT-Compliance",
+      "overheidsmaatregelen": [
+        "8.11.01"
+      ]
+    },
+    {
+      "id": "8.12",
+      "titel": "Voorkomen van gegevenslekken (data leakage prevention)",
+      "thema": "IT-Compliance",
+      "overheidsmaatregelen": [
+        "8.12.01"
+      ]
+    },
+    {
+      "id": "8.13",
+      "titel": "Back-up van informatie",
+      "thema": "Back-up & Recovery",
+      "overheidsmaatregelen": [
+        "8.13.01",
+        "8.13.02",
+        "8.13.03",
+        "8.13.04"
+      ]
+    },
+    {
+      "id": "8.14",
+      "titel": "Redundantie van informatieverwerkende faciliteiten",
+      "thema": "Business Continuity & Disaster Recovery",
+      "overheidsmaatregelen": [
+        "8.14.01"
+      ]
+    },
+    {
+      "id": "8.15",
+      "titel": "Logging",
+      "thema": "Logging & monitoring",
+      "overheidsmaatregelen": [
+        "8.15.01",
+        "8.15.02",
+        "8.15.03",
+        "8.15.04",
+        "8.15.05",
+        "8.15.06"
+      ]
+    },
+    {
+      "id": "8.16",
+      "titel": "Monitoren van activiteiten",
+      "thema": "Logging & monitoring",
+      "overheidsmaatregelen": [
+        "8.16.01",
+        "8.16.02",
+        "8.16.03",
+        "8.16.04"
+      ]
+    },
+    {
+      "id": "8.17",
+      "titel": "Kloksynchronisatie",
+      "thema": "IT-Compliance",
+      "overheidsmaatregelen": [
+        "8.17.01"
+      ]
+    },
+    {
+      "id": "8.18",
+      "titel": "Gebruik van speciale systeemhulpmiddelen",
+      "thema": "Logische toegangsbeveiliging",
+      "overheidsmaatregelen": [
+        "8.18.01",
+        "8.18.02"
+      ]
+    },
+    {
+      "id": "8.19",
+      "titel": "Installeren van software op operationele systemen",
+      "thema": "Wijzigingsbeheer",
+      "overheidsmaatregelen": [
+        "8.19.01"
+      ]
+    },
+    {
+      "id": "8.20",
+      "titel": "Beveiliging netwerkcomponenten",
+      "thema": "Netwerkbeveiliging",
+      "overheidsmaatregelen": [
+        "8.20.01",
+        "8.20.02"
+      ]
+    },
+    {
+      "id": "8.21",
+      "titel": "Beveiliging van netwerkdiensten",
+      "thema": "Netwerkbeveiliging",
+      "overheidsmaatregelen": [
+        "8.21.01",
+        "8.21.02",
+        "8.21.03",
+        "8.21.04"
+      ]
+    },
+    {
+      "id": "8.22",
+      "titel": "Netwerksegmentatie",
+      "thema": "Netwerkbeveiliging",
+      "overheidsmaatregelen": [
+        "8.22.01"
+      ]
+    },
+    {
+      "id": "8.23",
+      "titel": "Toepassen van webfilters",
+      "thema": "Netwerkbeveiliging",
+      "overheidsmaatregelen": [
+        "8.23.01"
+      ]
+    },
+    {
+      "id": "8.24",
+      "titel": "Gebruik van cryptografie",
+      "thema": "Cryptografie",
+      "overheidsmaatregelen": [
+        "8.24.01"
+      ]
+    },
+    {
+      "id": "8.25",
+      "titel": "Beveiligen tijdens de ontwikkelcyclus",
+      "thema": "Secure Software Development",
+      "overheidsmaatregelen": [
+        "8.25.01"
+      ]
+    },
+    {
+      "id": "8.26",
+      "titel": "Toepassingsbeveiligingseisen",
+      "thema": "Secure Software Development",
+      "overheidsmaatregelen": [
+        "8.26.01"
+      ]
+    },
+    {
+      "id": "8.27",
+      "titel": "Veilige systeemarchitectuur en technische uitgangspunten",
+      "thema": "Secure Software Development",
+      "overheidsmaatregelen": [
+        "8.27.01"
+      ]
+    },
+    {
+      "id": "8.28",
+      "titel": "Veilig coderen",
+      "thema": "Secure Software Development",
+      "overheidsmaatregelen": [
+        "8.28.01"
+      ]
+    },
+    {
+      "id": "8.29",
+      "titel": "Testen van de beveiliging tijdens ontwikkeling en acceptatie",
+      "thema": "Wijzigingsbeheer",
+      "overheidsmaatregelen": [
+        "8.29.01"
+      ]
+    },
+    {
+      "id": "8.30",
+      "titel": "Uitbestede systeemontwikkeling",
+      "thema": "Secure Software Development",
+      "overheidsmaatregelen": [
+        "8.30.01"
+      ]
+    },
+    {
+      "id": "8.31",
+      "titel": "Scheiding van ontwikkel-, test- en productieomgevingen",
+      "thema": "Wijzigingsbeheer",
+      "overheidsmaatregelen": [
+        "8.31.01",
+        "8.31.02"
+      ]
+    },
+    {
+      "id": "8.32",
+      "titel": "Wijzigingsbeheer",
+      "thema": "Wijzigingsbeheer",
+      "overheidsmaatregelen": [
+        "8.32.01",
+        "8.32.02"
+      ]
+    },
+    {
+      "id": "8.33",
+      "titel": "Testgegevens",
+      "thema": "Wijzigingsbeheer",
+      "overheidsmaatregelen": [
+        "8.33.01"
+      ]
+    },
+    {
+      "id": "8.34",
+      "titel": "Bescherming van informatiesystemen tijdens audits",
+      "thema": "IT-Compliance",
+      "overheidsmaatregelen": [
+        "8.34.01"
+      ]
+    }
+  ]
+}

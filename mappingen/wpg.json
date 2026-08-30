@@ -1,0 +1,114 @@
+{
+  "kader": "wpg",
+  "versie": "2026-08",
+  "toelichting": "Welke beheersingsmaatregel uit het Wpg-toetsingskader voor boa-organisaties wordt aantoonbaar met het bewijs achter een barriere uit paden.json. Dit kader is met opzet meegenomen: het laat zien dat een dreigingsgerichte zelfcheck maar een deel van een normenkader raakt. Beveiliging (maatregel 6 en bijlage 4) komt ver, en de rest van de Wpg gaat over doelbinding, bewaartermijnen, verstrekking en de rechten van betrokkenen. Daar zegt geen enkel aanvalspad iets over, en dat hoort zo.",
+  "regels": [
+    {"barriere": "pr", "norm": "B4-2", "relatie": "levert-bewijs-voor", "sterkte": "volledig", "reden": "Het vaststellen van de identiteit van een gebruiker is de kern van deze maatregel; afgedwongen phishingbestendige authenticatie is het sterkste bewijs dat een auditor daarvoor kan krijgen."},
+    {"barriere": "pr", "norm": "W06", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Sterke authenticatie is een van de passende technische maatregelen die onder beveiliging en ontwerp worden getoetst."},
+
+    {"barriere": "fallback", "norm": "B4-2", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Een toegangsmiddel is pas betrouwbaar als het niet te omzeilen is; het bewijs toont aan dat er geen zwakkere route naar dezelfde toegang bestaat."},
+    {"barriere": "fallback", "norm": "W06", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Herstelroutes zijn een bekend gat in de beveiliging van toegang tot politiegegevens; het bewijs laat zien dat ze zijn dichtgezet."},
+
+    {"barriere": "legacy", "norm": "B4-2", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Verouderde protocollen leveren toegang zonder de moderne controles; het blokkeringsbewijs hoort bij de betrouwbaarheid van het toegangsmechanisme."},
+
+    {"barriere": "devicecode", "norm": "B4-2", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Deze inlogroute geeft toegang op een apparaat dat de organisatie niet ziet; de configuratie die hem beperkt hoort bij logische toegangsbeveiliging."},
+
+    {"barriere": "consent", "norm": "B4-2", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Een applicatie die namens een gebruiker bij gegevens kan, krijgt rechten toegekend; het bewijs laat zien wie dat mag goedkeuren."},
+    {"barriere": "consent", "norm": "W10", "relatie": "levert-bewijs-voor", "sterkte": "raakvlak", "reden": "Het raakt de autorisatie op politiegegevens, maar het bewijs gaat over applicaties in het algemeen en niet over toegang tot de Wpg-bestanden."},
+
+    {"barriere": "model", "norm": "W10", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Een technisch gescheiden beheeromgeving toont aan dat beheertoegang tot systemen met politiegegevens apart is geregeld van dagelijks gebruik."},
+    {"barriere": "model", "norm": "B4-2", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Het scheiden van beheer en gebruik is de inrichting die het toekennen en controleren van rechten hanteerbaar maakt."},
+
+    {"barriere": "adminhard", "norm": "W06", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "De werkplek waarvandaan systemen met politiegegevens worden beheerd, is zelf een passende technische maatregel; de hardening is aantoonbaar."},
+    {"barriere": "adminhard", "norm": "B4-2", "relatie": "levert-bewijs-voor", "sterkte": "raakvlak", "reden": "Het raakt de betrouwbaarheid van de toegang, maar het bewijs gaat over het apparaat en niet over het rechtenmechanisme."},
+
+    {"barriere": "jit", "norm": "W10", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Rollen die vanzelf vervallen zijn een sterkere vorm van het beperken en periodiek beoordelen van autorisaties dan een lijst die wordt opgeschoond."},
+    {"barriere": "jit", "norm": "B4-2", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Het activeringslogboek maakt controleerbaar wie wanneer welk recht had, en dat is wat deze maatregel vraagt."},
+
+    {"barriere": "elevation", "norm": "B4-2", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Herauthenticatie op het moment van verhogen bevestigt de identiteit op het moment dat het recht wordt gebruikt, niet alleen bij het inloggen."},
+
+    {"barriere": "key", "norm": "B4-2", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Een tweede, fysiek gescheiden middel voor beheertoegang is een aantoonbaar sterk identiteitsmechanisme."},
+
+    {"barriere": "adminmonitor", "norm": "W28", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Vastlegging van beheerhandelingen en rolwijzigingen is logging, al eist de Wpg specifiek de vastlegging van verwerkingen van politiegegevens en niet alleen van beheeracties."},
+    {"barriere": "adminmonitor", "norm": "W10", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Autorisatie is pas beheerst als wijzigingen in rechten zichtbaar en herleidbaar zijn."},
+    {"barriere": "adminmonitor", "norm": "B4-2", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Het controleerbaar houden van toegekende rechten is expliciet onderdeel van deze maatregel."},
+
+    {"barriere": "unmanaged", "norm": "B4-2", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "De eis van een beheerd en compliant apparaat maakt het toegangsmechanisme afhankelijk van iets dat de organisatie zelf controleert."},
+    {"barriere": "unmanaged", "norm": "W06", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Toegang tot politiegegevens vanaf een onbeheerd apparaat is precies het risico dat passende maatregelen moeten afdekken."},
+
+    {"barriere": "session", "norm": "B4-2", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Apparaatbinding en sessiebeleid zorgen dat een gestolen sessie buiten zijn context niet werkt; dat hoort bij de betrouwbaarheid van het toegangsmiddel."},
+
+    {"barriere": "localadmin", "norm": "W10", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Een gebruiker met lokale beheerrechten kan de beperkingen op zijn eigen toegang opheffen; het bewijs toont aan dat dat niet kan."},
+    {"barriere": "localadmin", "norm": "B4-2", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Rechten zijn pas effectief als de gebruiker ze niet zelf kan verhogen."},
+
+    {"barriere": "execution", "norm": "W06", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Het voorkomen dat willekeurige software draait op werkplekken waar politiegegevens worden verwerkt, is een aantoonbare passende maatregel."},
+
+    {"barriere": "browser", "norm": "W06", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "De browser is de plek waar politiegegevens in beeld komen; hardening en beperkte gegevensdragers beperken wat daarmee kan gebeuren."},
+
+    {"barriere": "edr", "norm": "W06", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Endpointdetectie met aantoonbare dekking is een van de technische maatregelen die onder beveiliging en ontwerp wordt getoetst."},
+    {"barriere": "edr", "norm": "W30", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Detectie op de werkplek is vaak de eerste plek waar een datalek zichtbaar wordt, en isolatie beperkt de gevolgen."},
+
+    {"barriere": "mail", "norm": "W06", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Een sterke mailbaseline beschermt het kanaal waarlangs politiegegevens ongemerkt naar buiten kunnen gaan."},
+
+    {"barriere": "dmarc", "norm": "W06", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Handhaving op SPF, DKIM en DMARC is een publiek controleerbare, aantoonbare beveiligingsmaatregel op het mailkanaal."},
+    {"barriere": "dmarc", "norm": "B4-4", "relatie": "levert-bewijs-voor", "sterkte": "raakvlak", "reden": "DKIM ondertekent cryptografisch, maar het cryptografiebeleid dat deze maatregel vraagt wordt hiermee niet aangetoond."},
+
+    {"barriere": "idresponse", "norm": "W30", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Een overgenomen account is een van de meest voorkomende oorzaken van een datalek; het geteste playbook toont aan dat er wordt gedetecteerd en gehandeld."},
+
+    {"barriere": "mailresponse", "norm": "W30", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Verkeerd verzonden of onderschepte mail is een klassiek datalek; het playbook toont aan dat het wordt behandeld en de gevolgen worden beperkt."},
+
+    {"barriere": "exploitresponse", "norm": "W30", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "De test laat zien of misbruik van een kwetsbaarheid in een systeem met politiegegevens tijdig wordt opgemerkt en behandeld."},
+
+    {"barriere": "patch", "norm": "B4-3", "relatie": "levert-bewijs-voor", "sterkte": "volledig", "reden": "Patchrapportage met dekking en achterblijvers is precies het bewijs dat deze maatregel vraagt: kwetsbaarheden tijdig kennen en de blootstelling beperken."},
+    {"barriere": "patch", "norm": "W06", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Achterstallig patchen is de meest voorkomende bevinding bij passende technische maatregelen."},
+    {"barriere": "patch", "norm": "B4-1", "relatie": "levert-bewijs-voor", "sterkte": "raakvlak", "reden": "Patches lopen via wijzigingenbeheer, maar het dekkingsbewijs zegt niets over autorisatie en test van wijzigingen."},
+
+    {"barriere": "vuln", "norm": "B4-3", "relatie": "levert-bewijs-voor", "sterkte": "volledig", "reden": "Continu scannen met een spoedprocedure en gemeten doorlooptijden is het kernbewijs bij het beheer van kwetsbaarheden."},
+    {"barriere": "vuln", "norm": "W06", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Het tijdig beperken van bekende kwetsbaarheden hoort bij de passende maatregelen die worden getoetst."},
+
+    {"barriere": "segment", "norm": "W06", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Segmentatie beperkt wie vanaf welke plek bij de systemen met politiegegevens kan, en dat is aantoonbaar in de configuratie."},
+    {"barriere": "segment", "norm": "W10", "relatie": "levert-bewijs-voor", "sterkte": "raakvlak", "reden": "Het raakt de beperking van toegang, maar op netwerkniveau en niet op het niveau van de geautoriseerde functionaris."},
+
+    {"barriere": "remote", "norm": "W06", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Een beheerinterface die vanaf internet bereikbaar is, is een direct risico voor de systemen waarin politiegegevens staan."},
+
+    {"barriere": "pentest", "norm": "B4-5", "relatie": "levert-bewijs-voor", "sterkte": "volledig", "reden": "Een extern uitgevoerde penetratietest met geverifieerd herstel is letterlijk wat deze maatregel voorschrijft."},
+    {"barriere": "pentest", "norm": "W06", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "De test onderbouwt of de getroffen maatregelen in de praktijk passend zijn."},
+
+    {"barriere": "webtest", "norm": "B4-5", "relatie": "levert-bewijs-voor", "sterkte": "volledig", "reden": "Scans en tests op de webapplicaties en API's waarin politiegegevens worden verwerkt, met herstel erbij, zijn het bewijs dat deze maatregel vraagt."},
+    {"barriere": "webtest", "norm": "B4-1", "relatie": "levert-bewijs-voor", "sterkte": "raakvlak", "reden": "Testen hoort bij het gecontroleerd doorvoeren van wijzigingen aan webapplicaties, maar het bewijs gaat over de test en niet over het wijzigingsproces."},
+
+    {"barriere": "assets", "norm": "B4-3", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Kwetsbaarhedenbeheer is niet meer waard dan de volledigheid van de lijst systemen; dit toont die volledigheid aan de buitenkant aan."},
+    {"barriere": "assets", "norm": "W01", "relatie": "levert-bewijs-voor", "sterkte": "raakvlak", "reden": "Het raakt de vraag welke systemen er zijn, maar de reikwijdte gaat over bestanden met politiegegevens en niet over het externe aanvalsoppervlak."},
+
+    {"barriere": "l7", "norm": "W06", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Bescherming op applicatieniveau houdt de dienst waarin politiegegevens worden verwerkt beschikbaar en weert bekende aanvalspatronen."},
+
+    {"barriere": "origin", "norm": "W06", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Een achterliggende server die rechtstreeks bereikbaar is, maakt de bescherming ervoor betekenisloos; het bewijs sluit die route af."},
+
+    {"barriere": "upstream", "norm": "W06", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Beschikbaarheid hoort bij passende beveiliging; upstream-mitigatie en robuuste DNS zijn daar de aantoonbare invulling van."},
+
+    {"barriere": "backup", "norm": "W06", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Onveranderbare back-ups met gescheiden beheer beschermen de beschikbaarheid en integriteit van politiegegevens."},
+    {"barriere": "backup", "norm": "W20", "relatie": "levert-bewijs-voor", "sterkte": "raakvlak", "reden": "Let op de andere kant: back-ups bevatten vaak politiegegevens die volgens de bewaartermijn al vernietigd hadden moeten zijn. Deze barriere toont dat niet aan en kan het probleem zelfs vergroten."},
+
+    {"barriere": "restore", "norm": "W06", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Een hersteltest laat zien dat de beschikbaarheid van politiegegevens na een verstoring echt terugkomt, en niet alleen op papier is geregeld."},
+
+    {"barriere": "crisis", "norm": "W30", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "In een crisisoefening komt de meldketen aan bod: wie stelt vast of er politiegegevens zijn geraakt en wie meldt aan de toezichthouder."},
+
+    {"barriere": "dependencies", "norm": "W13", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Zicht op welke leveranciers in welke keten zitten, is de voorwaarde om te weten met wie een verwerkersovereenkomst nodig is."},
+    {"barriere": "dependencies", "norm": "W01", "relatie": "levert-bewijs-voor", "sterkte": "raakvlak", "reden": "Het raakt de vraag waar gegevens staan, maar het overzicht gaat over kritieke systemen en niet specifiek over bestanden met politiegegevens."},
+
+    {"barriere": "review", "norm": "W13", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Een periodieke beoordeling van kritieke leveranciers is het bewijs dat de verwerker daadwerkelijk wordt gecontroleerd en niet alleen contractueel is vastgelegd."},
+
+    {"barriere": "technicalvendor", "norm": "W13", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Bijlage 4 geldt uitdrukkelijk ook voor leveranciers; het toetsen van hun technische maatregelen is precies die controle."},
+
+    {"barriere": "residual", "norm": "W13", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Expliciete restrisico's bij een verwerker laten zien wat er ondanks de overeenkomst niet is afgedekt."},
+
+    {"barriere": "soc", "norm": "W30", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Een datalek moet binnen een wettelijke termijn worden beoordeeld en gemeld; afgesproken en getoetste opvolgtijden maken dat haalbaar."},
+    {"barriere": "soc", "norm": "W28", "relatie": "levert-bewijs-voor", "sterkte": "raakvlak", "reden": "Opvolging veronderstelt logging, maar het bewijs gaat over reactietijden en niet over de wettelijk voorgeschreven vastlegging van verwerkingen."}
+  ],
+  "ongekoppeld": [
+    {"barriere": "critical", "reden": "Het vaststellen van kritieke processen en herstelprioriteiten is een bestuurlijke keuze over continuiteit. De Wpg stelt daar geen eis aan; het kader gaat over rechtmatige verwerking, niet over welk proces als eerste terug moet zijn."},
+    {"barriere": "ddosresponse", "reden": "Een aanval op de beschikbaarheid is vrijwel nooit een datalek, dus de meldplicht komt er niet aan te pas. Wat de oefening wel laat zien, namelijk dat er met een externe partij wordt opgeschaald, is te ver van de norm om als bewijs te tellen."},
+    {"barriere": "owner", "reden": "Het beleggen van een risico bij een risicohouder is governance. De Wpg belegt de verantwoordelijkheid bij de verwerkingsverantwoordelijke en de FG en kent geen norm voor deze interne stap."},
+    {"barriere": "treatment", "reden": "Het vastleggen van risicoacceptatie met eigenaar en termijn is een eigen keuze in het risicoproces. Het Wpg-kader toetst of verwerkingen rechtmatig zijn, niet hoe een organisatie haar restrisico's administreert."}
+  ]
+}

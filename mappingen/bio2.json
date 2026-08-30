@@ -1,0 +1,169 @@
+{
+  "kader": "bio2",
+  "versie": "2026-08",
+  "toelichting": "Welke maatregel uit BIO 2.0 wordt aantoonbaar met het bewijs achter een barriere uit paden.json. De nummers zijn ook de ISO 27002-nummers, want BIO 2.0 volgt die structuur. Een regel zegt nooit dat je aan een maatregel voldoet: hij zegt dat het bewijs dat de zelfcheck vraagt, iets aantoont over die maatregel. Wat hier niet staat, staat in de witte vlekken.",
+  "regels": [
+    {"barriere": "pr", "norm": "8.5", "relatie": "levert-bewijs-voor", "sterkte": "volledig", "reden": "De configuratie-export die laat zien dat phishingbestendige authenticatie technisch is afgedwongen, met de dekking en de uitzonderingen, is precies het bewijs dat beveiligde authenticatie vraagt."},
+    {"barriere": "pr", "norm": "5.17", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Passkeys of gelijkwaardig sterke methoden tonen aan hoe authenticatie-informatie wordt beschermd, maar de maatregel gaat ook over uitgifte en beheer daarvan."},
+    {"barriere": "pr", "norm": "5.15", "relatie": "levert-bewijs-voor", "sterkte": "raakvlak", "reden": "Sterke authenticatie is een voorwaarde voor toegangsbeveiliging, maar zegt niets over het toegangsbeleid zelf."},
+
+    {"barriere": "fallback", "norm": "8.5", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Aantonen dat zwakkere methoden de eis niet kunnen omzeilen, maakt de authenticatiemaatregel pas hard; zonder dit bewijs is de sterke methode alleen beschikbaar gesteld."},
+    {"barriere": "fallback", "norm": "5.17", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Herstelroutes en registratie zijn onderdeel van het beheer van authenticatie-informatie; het bewijs laat zien dat daar geen zwakke ingang zit."},
+    {"barriere": "fallback", "norm": "5.16", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Accountherstel hoort bij identiteitsbeheer; het bewijs toont aan hoe een identiteit opnieuw in handen van de juiste persoon komt."},
+
+    {"barriere": "legacy", "norm": "8.5", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Protocollen die geen moderne authenticatie ondersteunen zijn een ingang langs de sterke methode heen; het blokkeringsbewijs sluit die."},
+    {"barriere": "legacy", "norm": "8.21", "relatie": "levert-bewijs-voor", "sterkte": "raakvlak", "reden": "Het gaat om het uitzetten van een verouderde dienst, maar de maatregel over netwerkdiensten vraagt een bredere onderbouwing dan dit ene protocol."},
+
+    {"barriere": "devicecode", "norm": "8.5", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Device Code Flow omzeilt de context van de sterke authenticatie; de configuratie die hem blokkeert of beperkt tot beheerde uitzonderingen is bewijs bij beveiligde authenticatie."},
+    {"barriere": "devicecode", "norm": "8.9", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Het bewijs is een vastgelegde en afgedwongen configuratie-instelling met de uitzonderingen erbij, en dat is wat configuratiebeheer vraagt."},
+
+    {"barriere": "consent", "norm": "8.2", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Admin consent is een speciaal recht; het bewijs toont aan dat het is beperkt tot een gecontroleerd proces."},
+    {"barriere": "consent", "norm": "5.18", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Toestemming aan een applicatie is toekenning van toegangsrechten aan iets anders dan een mens; het bewijs laat zien wie dat mag en onder welke voorwaarde."},
+    {"barriere": "consent", "norm": "5.23", "relatie": "levert-bewijs-voor", "sterkte": "raakvlak", "reden": "Het raakt de beheersing van clouddiensten, maar zegt niets over de afspraken met de aanbieder van die diensten."},
+
+    {"barriere": "model", "norm": "8.2", "relatie": "levert-bewijs-voor", "sterkte": "volledig", "reden": "Een technisch gescheiden beheeromgeving is het kernbewijs bij speciale toegangsrechten: beheer gebeurt niet vanaf de plek waar ook wordt gemaild en gebrowsed."},
+    {"barriere": "model", "norm": "5.3", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "De scheiding tussen dagelijks werk en beheer is functiescheiding in de techniek, maar de maatregel gaat ook over de organisatie eromheen."},
+    {"barriere": "model", "norm": "5.15", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Het beheermodel is de vertaling van het toegangsbeleid naar de zwaarste rechten."},
+
+    {"barriere": "adminhard", "norm": "8.1", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "De beheerwerkplek is een endpoint met een zwaardere eis; de hardening-configuratie is bewijs bij de maatregel over endpoints, maar dekt niet het hele apparatenlandschap."},
+    {"barriere": "adminhard", "norm": "8.2", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Speciale rechten zijn pas beheerst als ook het apparaat waarvandaan ze worden gebruikt is vastgelegd en afgedwongen."},
+    {"barriere": "adminhard", "norm": "8.9", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Een geharde beheerwerkplek is een vastgelegde en gehandhaafde configuratie, met de afwijkingen zichtbaar."},
+
+    {"barriere": "jit", "norm": "8.2", "relatie": "levert-bewijs-voor", "sterkte": "volledig", "reden": "Het overzicht van rollen zonder permanente toekenning, met activering per keer, is het bewijs dat speciale toegangsrechten beperkt zijn in tijd en omvang."},
+    {"barriere": "jit", "norm": "5.18", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Rechten die vanzelf vervallen zijn een sterkere vorm van het intrekken en beoordelen van toegangsrechten dan een periodieke schoning."},
+
+    {"barriere": "elevation", "norm": "8.5", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Herauthenticatie op het moment van verhogen toont aan dat een gestolen sessie niet vanzelf beheerrechten oplevert."},
+    {"barriere": "elevation", "norm": "8.2", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Het bewijs zit op het moment waarop het speciale recht wordt gebruikt, niet alleen op de toekenning ervan."},
+
+    {"barriere": "key", "norm": "8.5", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Een aparte fysieke sleutel voor elevation is de zwaarste vorm van beveiligde authenticatie en is als configuratie aantoonbaar."},
+    {"barriere": "key", "norm": "8.2", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "De eis van een tweede, fysiek gescheiden middel maakt het speciale recht ook bij een gecompromitteerde werkplek onbruikbaar."},
+
+    {"barriere": "adminmonitor", "norm": "8.15", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Vastlegging van beheerhandelingen en rolwijzigingen is precies de logging die deze maatregel vraagt, maar dan alleen voor het privileged domein."},
+    {"barriere": "adminmonitor", "norm": "8.16", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Actief kijken naar rolwijzigingen en beheeractiviteit is monitoring op de plek waar het hardst telt; de maatregel vraagt daarnaast dekking over de rest."},
+    {"barriere": "adminmonitor", "norm": "8.2", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Speciale rechten zijn pas beheerst als het gebruik ervan zichtbaar en herleidbaar is."},
+
+    {"barriere": "unmanaged", "norm": "8.1", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "De eis dat toegang alleen vanaf een beheerd en compliant apparaat mag, is het bewijs dat de endpointmaatregel technisch wordt gehandhaafd."},
+    {"barriere": "unmanaged", "norm": "5.15", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Het apparaat is hier onderdeel van de toegangsvoorwaarde; dat is toegangsbeleid dat is afgedwongen in plaats van opgeschreven."},
+    {"barriere": "unmanaged", "norm": "6.7", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Werken op afstand is pas beheerst als vaststaat vanaf welk apparaat dat mag; het bewijs laat de handhaving zien."},
+
+    {"barriere": "session", "norm": "8.5", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Apparaatbinding en sessiebeleid tonen aan dat een token buiten zijn context niet bruikbaar is, en dat is het deel van authenticatie dat na het inloggen doorloopt."},
+    {"barriere": "session", "norm": "5.15", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Sessieduur en herbeoordeling zijn toegangsbeleid dat blijft gelden na het eerste toegangsmoment."},
+
+    {"barriere": "execution", "norm": "8.7", "relatie": "levert-bewijs-voor", "sterkte": "volledig", "reden": "Application control en ASR-regels in blokkeerstand, met de dekking erbij, zijn het sterkste bewijs bij bescherming tegen malware: niet detecteren achteraf maar uitvoering voorkomen."},
+    {"barriere": "execution", "norm": "8.19", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Beperken welke software mag draaien is de handhaving van de regel dat alleen toegestane software op een systeem terechtkomt."},
+
+    {"barriere": "browser", "norm": "8.7", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Een geharde browser met beperkte extensies sluit de meest gebruikte route waarlangs malware binnenkomt."},
+    {"barriere": "browser", "norm": "8.23", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Browserbeleid en webfiltering horen bij elkaar; het bewijs toont aan wat er in de browser is dichtgezet."},
+    {"barriere": "browser", "norm": "7.10", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Het beperken van gegevensdragers op de werkplek is aantoonbaar beleid op opslagmedia."},
+
+    {"barriere": "edr", "norm": "8.7", "relatie": "levert-bewijs-voor", "sterkte": "volledig", "reden": "EDR met tamper protection en aantoonbare dekking is de kernmaatregel tegen malware, en de isolatietest laat zien dat hij ook iets doet."},
+    {"barriere": "edr", "norm": "8.16", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "EDR is de bron waarmee activiteiten op endpoints worden gemonitord; de dekkingsrapportage laat zien over hoeveel apparaten dat gaat."},
+    {"barriere": "edr", "norm": "5.26", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Snelle endpointisolatie is de eerste reactie op een incident, en de test ervan is bewijs dat reageren werkt."},
+
+    {"barriere": "mail", "norm": "8.7", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Link- en bijlagebescherming in de mailstroom onderschept malware voor hij de werkplek bereikt."},
+    {"barriere": "mail", "norm": "5.14", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "E-mail is het kanaal waarlangs informatie wordt overgedragen; impersonatiebescherming toont aan dat de afzenderkant is beheerst."},
+
+    {"barriere": "dmarc", "norm": "8.21", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "SPF, DKIM en DMARC op handhaving zijn een aantoonbare beveiligingseigenschap van de maildienst, met een publiek controleerbare configuratie."},
+    {"barriere": "dmarc", "norm": "5.14", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Deze standaarden bepalen of een ontvanger kan vertrouwen dat een bericht van de organisatie komt, en dat is de kern van veilige overdracht van informatie."},
+    {"barriere": "dmarc", "norm": "8.24", "relatie": "levert-bewijs-voor", "sterkte": "raakvlak", "reden": "DKIM gebruikt cryptografische ondertekening, maar het cryptografiebeleid van de organisatie wordt hier niet mee aangetoond."},
+
+    {"barriere": "mailresponse", "norm": "5.26", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Een getest playbook voor phishing en BEC, inclusief het terughalen van berichten uit postbussen, is bewijs dat er op dit incidenttype echt wordt gereageerd."},
+    {"barriere": "mailresponse", "norm": "5.24", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Het playbook is de voorbereiding die deze maatregel vraagt, voor een van de meest voorkomende incidenten."},
+    {"barriere": "mailresponse", "norm": "6.8", "relatie": "levert-bewijs-voor", "sterkte": "raakvlak", "reden": "Het raakt de meldroute voor medewerkers, maar het bewijs gaat over de afhandeling en niet over het melden."},
+
+    {"barriere": "idresponse", "norm": "5.26", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Een getest identity-compromise-playbook, waarin sessies worden ingetrokken en accounts geblokkeerd, is bewijs dat reageren op dit incidenttype werkt."},
+    {"barriere": "idresponse", "norm": "5.24", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Het playbook en de belegde rollen zijn de voorbereiding op incidenten, toegespitst op identiteiten en applicaties."},
+    {"barriere": "idresponse", "norm": "8.16", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Consent- en app-monitoring is de detectiekant die de response mogelijk maakt."},
+
+    {"barriere": "localadmin", "norm": "8.2", "relatie": "levert-bewijs-voor", "sterkte": "volledig", "reden": "Een overzicht waaruit blijkt dat gebruikers geen lokale beheerrechten hebben, met de uitzonderingen en hun reden, is het bewijs bij speciale toegangsrechten op de werkplek."},
+    {"barriere": "localadmin", "norm": "8.18", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Zonder lokale beheerrechten zijn systeemhulpmiddelen die de beveiliging kunnen omzeilen niet bruikbaar."},
+
+    {"barriere": "patch", "norm": "8.8", "relatie": "levert-bewijs-voor", "sterkte": "volledig", "reden": "Patchrapportage over besturingssysteem en third-party software, met de dekking en de achterblijvers, is het bewijs dat technische kwetsbaarheden worden beheerst."},
+    {"barriere": "patch", "norm": "8.19", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Het patchproces is de gecontroleerde manier waarop software op productiesystemen wordt bijgewerkt."},
+    {"barriere": "patch", "norm": "8.32", "relatie": "levert-bewijs-voor", "sterkte": "raakvlak", "reden": "Patchen loopt via wijzigingsbeheer, maar het dekkingsbewijs zegt niets over hoe wijzigingen worden beoordeeld en goedgekeurd."},
+
+    {"barriere": "vuln", "norm": "8.8", "relatie": "levert-bewijs-voor", "sterkte": "volledig", "reden": "Continu scannen met een spoedprocedure voor kritieke kwetsbaarheden, en de doorlooptijden erbij, is de kern van het beheer van technische kwetsbaarheden."},
+    {"barriere": "vuln", "norm": "5.7", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "De spoedprocedure werkt op signalen van buiten; het bewijs laat zien dat dreigingsinformatie tot actie leidt."},
+
+    {"barriere": "segment", "norm": "8.22", "relatie": "levert-bewijs-voor", "sterkte": "volledig", "reden": "Een segmentatieoverzicht met de daadwerkelijk afgedwongen regels tussen zones is het bewijs dat netwerksegmentatie vraagt."},
+    {"barriere": "segment", "norm": "8.20", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Segmentatie wordt afgedwongen op netwerkcomponenten; de configuratie daarvan is onderdeel van het bewijs."},
+    {"barriere": "segment", "norm": "8.3", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Minimale rechten tussen zones beperken welke informatie vanaf welke plek bereikbaar is."},
+
+    {"barriere": "remote", "norm": "8.20", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Beheerinterfaces die niet vanaf internet bereikbaar zijn, zijn een aantoonbare eigenschap van de netwerkinrichting."},
+    {"barriere": "remote", "norm": "8.21", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Het bewijs laat zien welke diensten wel en niet worden aangeboden aan het internet."},
+    {"barriere": "remote", "norm": "8.18", "relatie": "levert-bewijs-voor", "sterkte": "raakvlak", "reden": "Beheerinterfaces zijn systeemhulpmiddelen, maar het bewijs gaat over de bereikbaarheid en niet over wie ze mag gebruiken."},
+
+    {"barriere": "pentest", "norm": "8.29", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Een pentestrapport met de hertest erbij is het bewijs dat beveiliging wordt getest, al gaat de maatregel ook over testen tijdens ontwikkeling en acceptatie."},
+    {"barriere": "pentest", "norm": "8.8", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Bevindingen uit een pentest zijn technische kwetsbaarheden; de geverifieerde herstelacties tonen aan dat ze worden opgevolgd."},
+    {"barriere": "pentest", "norm": "5.35", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Een test door een externe partij is een onafhankelijke beoordeling, maar dan van de techniek en niet van het managementsysteem."},
+
+    {"barriere": "exploitresponse", "norm": "5.26", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Een geoefende reactie op misbruik van een externe kwetsbaarheid is bewijs dat er op dit scenario wordt gereageerd."},
+    {"barriere": "exploitresponse", "norm": "8.16", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "De test laat zien of exploitpogingen op de buitenrand daadwerkelijk zichtbaar zijn in de monitoring."},
+    {"barriere": "exploitresponse", "norm": "5.24", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "De voorbereiding op dit incidenttype, inclusief wie wat doet, is wat deze maatregel vraagt."},
+
+    {"barriere": "assets", "norm": "5.9", "relatie": "levert-bewijs-voor", "sterkte": "volledig", "reden": "Een actueel overzicht van wat er vanaf internet van de organisatie te zien is, met eigenaar per dienst, is de inventarisatie waar deze maatregel om vraagt, voor het deel dat er het meest toe doet."},
+    {"barriere": "assets", "norm": "8.8", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Kwetsbaarhedenbeheer is niet meer waard dan de volledigheid van de lijst systemen; dit bewijs toont die volledigheid aan de buitenkant aan."},
+    {"barriere": "assets", "norm": "8.9", "relatie": "levert-bewijs-voor", "sterkte": "raakvlak", "reden": "Het raakt configuratiebeheer omdat onbekende diensten meestal buiten het beheerproces zijn ontstaan, maar toont dat proces niet aan."},
+
+    {"barriere": "webtest", "norm": "8.29", "relatie": "levert-bewijs-voor", "sterkte": "volledig", "reden": "Een testrapport over de webapplicatie of API met de opgeloste bevindingen erbij is het bewijs dat beveiliging wordt getest voor en tijdens gebruik."},
+    {"barriere": "webtest", "norm": "8.26", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "De test toetst of de beveiligingseisen aan de applicatie in de praktijk zijn gehaald."},
+    {"barriere": "webtest", "norm": "8.8", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Bevindingen uit de test zijn technische kwetsbaarheden die via hetzelfde proces worden opgevolgd."},
+
+    {"barriere": "l7", "norm": "8.20", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Een WAF met rate limiting is een netwerkcomponent met een aantoonbare, actieve configuratie."},
+    {"barriere": "l7", "norm": "8.21", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "De beschermingsmaatregelen op de dienst zelf horen bij de beveiliging van netwerkdiensten."},
+    {"barriere": "l7", "norm": "8.6", "relatie": "levert-bewijs-voor", "sterkte": "raakvlak", "reden": "Rate limiting raakt capaciteitsbeheer, maar het bewijs gaat over afweren en niet over het plannen van capaciteit."},
+
+    {"barriere": "origin", "norm": "8.20", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Het bewijs laat zien dat de achterliggende server alleen via de beschermde route bereikbaar is."},
+    {"barriere": "origin", "norm": "8.22", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Het afsluiten van de origin is segmentatie op de plek waar het aanvalsoppervlak het grootst is."},
+
+    {"barriere": "upstream", "norm": "8.21", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Upstream-mitigatie en robuuste DNS zijn aantoonbare eigenschappen van de netwerkdiensten waarop de dienstverlening draait."},
+    {"barriere": "upstream", "norm": "8.14", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Redundante en beschermde DNS en connectiviteit zijn de redundantie die deze maatregel vraagt, voor de buitenrand."},
+
+    {"barriere": "ddosresponse", "norm": "5.26", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Een geoefende DDoS-response met provider en SOC toont aan dat er op dit scenario wordt gereageerd, inclusief de opschaling naar buiten."},
+    {"barriere": "ddosresponse", "norm": "5.29", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "De oefening laat zien of informatiebeveiliging tijdens een verstoring in de praktijk werkt."},
+    {"barriere": "ddosresponse", "norm": "5.22", "relatie": "levert-bewijs-voor", "sterkte": "raakvlak", "reden": "Er wordt met de provider geoefend, maar dat is geen beoordeling van zijn dienstverlening."},
+
+    {"barriere": "backup", "norm": "8.13", "relatie": "levert-bewijs-voor", "sterkte": "volledig", "reden": "Onveranderbare back-ups met gescheiden beheer, aantoonbaar in de configuratie, zijn precies wat deze maatregel vraagt in een tijd waarin de aanvaller eerst de back-up zoekt."},
+    {"barriere": "backup", "norm": "8.2", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Gescheiden beheer betekent dat een gecompromitteerd beheeraccount de back-up niet kan wissen; dat is een aantoonbare beperking van speciale rechten."},
+
+    {"barriere": "restore", "norm": "5.30", "relatie": "levert-bewijs-voor", "sterkte": "volledig", "reden": "Een hersteltest tegen de afgesproken RTO en RPO, met de uitkomst erbij, is het bewijs van ICT-gereedheid voor continuiteit."},
+    {"barriere": "restore", "norm": "8.13", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Een back-up is pas een back-up als er is teruggezet; de test levert dat bewijs."},
+    {"barriere": "restore", "norm": "5.29", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Het testverslag laat zien of de organisatie tijdens een verstoring haar informatie terugkrijgt."},
+
+    {"barriere": "crisis", "norm": "5.29", "relatie": "levert-bewijs-voor", "sterkte": "volledig", "reden": "Een geoefend crisisherstelplan, met het verslag en de verbeterpunten, is het bewijs dat informatiebeveiliging tijdens een verstoring is voorbereid."},
+    {"barriere": "crisis", "norm": "5.24", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "De oefening toetst de voorbereiding op het zwaarste incidentscenario."},
+    {"barriere": "crisis", "norm": "5.27", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "De verbeterpunten uit de oefening zijn het leren dat deze maatregel vraagt, alleen dan zonder echt incident."},
+
+    {"barriere": "critical", "norm": "5.30", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Herstelprioriteiten per proces zijn de basis onder ICT-gereedheid: zonder volgorde is er geen toetsbare hersteldoelstelling."},
+    {"barriere": "critical", "norm": "5.29", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Vastgestelde kritieke processen bepalen wat er tijdens een verstoring als eerste overeind moet blijven."},
+    {"barriere": "critical", "norm": "5.9", "relatie": "levert-bewijs-voor", "sterkte": "raakvlak", "reden": "Het raakt de inventarisatie, maar het gaat hier om processen en niet om de bedrijfsmiddelen die deze maatregel bedoelt."},
+
+    {"barriere": "dependencies", "norm": "5.9", "relatie": "levert-bewijs-voor", "sterkte": "volledig", "reden": "Een overzicht dat kritieke processen, systemen en leveranciers in samenhang toont, is de inventarisatie van bedrijfsmiddelen met het verband erbij."},
+    {"barriere": "dependencies", "norm": "5.21", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Zicht op de keten achter een dienst is de voorwaarde om de ICT-toeleveringsketen te kunnen beheersen."},
+    {"barriere": "dependencies", "norm": "5.19", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Het overzicht bepaalt welke leveranciersrelaties er in de informatiebeveiliging toe doen."},
+
+    {"barriere": "review", "norm": "5.22", "relatie": "levert-bewijs-voor", "sterkte": "volledig", "reden": "Een periodieke, risicogestuurde beoordeling van kritieke leveranciers met de uitkomsten erbij is precies het monitoren en beoordelen van leveranciersdiensten."},
+    {"barriere": "review", "norm": "5.19", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "De beoordeling toont aan dat informatiebeveiliging in de leveranciersrelatie een terugkerend onderwerp is."},
+    {"barriere": "review", "norm": "5.21", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Risicogestuurd beoordelen betekent dat de keten achter de leverancier meeweegt."},
+
+    {"barriere": "technicalvendor", "norm": "5.22", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Het toetsen van technische maatregelen is de inhoudelijke kant van het beoordelen van een leveranciersdienst, naast de papieren kant."},
+    {"barriere": "technicalvendor", "norm": "5.20", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Het bewijs laat zien of wat in de overeenkomst staat ook technisch is waargemaakt."},
+    {"barriere": "technicalvendor", "norm": "5.23", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Voor clouddiensten is dit de toets of de afgesproken beveiliging in de dienst zelf zit."},
+
+    {"barriere": "residual", "norm": "5.19", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Expliciete restrisico's per kritieke leverancier tonen aan dat de relatie op informatiebeveiliging wordt beheerst en niet alleen wordt ingekocht."},
+    {"barriere": "residual", "norm": "5.36", "relatie": "levert-bewijs-voor", "sterkte": "raakvlak", "reden": "Het raakt de naleving van beleid en normen, maar het bewijs gaat over afwijkingen bij leveranciers en niet over de eigen naleving."},
+
+    {"barriere": "owner", "norm": "5.2", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Een risico dat bij een benoemde risicohouder is neergelegd, toont aan dat verantwoordelijkheden voor informatiebeveiliging echt zijn toegewezen."},
+    {"barriere": "owner", "norm": "5.4", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Het bewijs laat zien dat het management zijn rol pakt op risico's die het zelf moet dragen."},
+
+    {"barriere": "treatment", "norm": "5.2", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Een vastgelegde acceptatie of maatregel met eigenaar en termijn is de plek waar verantwoordelijkheid zichtbaar wordt."},
+    {"barriere": "treatment", "norm": "5.4", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Het is de managementhandeling die de maatregel vraagt: besluiten en dat besluit vastleggen."},
+    {"barriere": "treatment", "norm": "5.36", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Een geregistreerde afwijking met eigenaar en termijn is hoe naleving van beleid en normen in de praktijk wordt bijgehouden."},
+
+    {"barriere": "soc", "norm": "5.25", "relatie": "levert-bewijs-voor", "sterkte": "volledig", "reden": "Afgesproken en getoetste triage-, reactie- en escalatietijden zijn het bewijs dat gebeurtenissen worden beoordeeld en dat er over wordt besloten."},
+    {"barriere": "soc", "norm": "8.16", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "Monitoring is pas een maatregel als een melding tot actie leidt; de opvolgtijden tonen dat aan."},
+    {"barriere": "soc", "norm": "5.24", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "De 24/7-inrichting met escalatiepad is een deel van de voorbereiding op incidenten."},
+    {"barriere": "soc", "norm": "5.26", "relatie": "levert-bewijs-voor", "sterkte": "gedeeltelijk", "reden": "De reactietijden bepalen hoe snel er na een melding daadwerkelijk wordt gehandeld."}
+  ],
+  "ongekoppeld": []
+}

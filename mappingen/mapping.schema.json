@@ -1,0 +1,78 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "mappingen/<kader>.json",
+  "description": "De verankering van de barrieres uit paden.json in een normenkader. Een regel zegt altijd hetzelfde: het bewijs achter deze barriere levert bewijs voor deze maatregel. Nooit dat je eraan voldoet.",
+  "type": "object",
+  "required": ["kader", "versie", "toelichting", "regels", "ongekoppeld"],
+  "additionalProperties": false,
+  "properties": {
+    "kader": {
+      "description": "Verwijst naar bronnen/<kader>.json.",
+      "type": "string",
+      "pattern": "^[a-z0-9-]+$"
+    },
+    "versie": {
+      "type": "string",
+      "pattern": "^[0-9]{4}-[0-9]{2}$"
+    },
+    "toelichting": {
+      "type": "string",
+      "minLength": 20
+    },
+    "regels": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["barriere", "norm", "relatie", "sterkte", "reden"],
+        "additionalProperties": false,
+        "properties": {
+          "barriere": {
+            "description": "Een vraag_id uit paden.json: de barriere waar een of meer chokepoints op staan.",
+            "type": "string",
+            "pattern": "^[a-z0-9]+$"
+          },
+          "norm": {
+            "description": "Het id van een maatregel in bronnen/<kader>.json.",
+            "type": "string",
+            "minLength": 2
+          },
+          "relatie": {
+            "description": "Er is er maar een. Een barriere levert bewijs; hij dekt niets af en voldoet nergens aan.",
+            "const": "levert-bewijs-voor"
+          },
+          "sterkte": {
+            "description": "volledig: wie deze barriere aantoonbaar heeft staan, heeft het toetsbare deel van deze maatregel aangetoond. gedeeltelijk: het bewijs toont een deel aan, de maatregel eist meer. raakvlak: het raakt elkaar, maar het bewijs toont de maatregel niet aan; noem het in het gesprek en vink het niet af.",
+            "enum": ["volledig", "gedeeltelijk", "raakvlak"]
+          },
+          "reden": {
+            "description": "Een zin: welk bewijs uit deze barriere zegt wat over deze maatregel. Dit is wat een reviewer leest en weerspreekt.",
+            "type": "string",
+            "minLength": 25,
+            "maxLength": 400
+          }
+        }
+      }
+    },
+    "ongekoppeld": {
+      "description": "Barrieres die in dit kader met opzet geen regel hebben. Stilte mag nooit een vergissing kunnen zijn: elke barriere staat of in regels, of hier.",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["barriere", "reden"],
+        "additionalProperties": false,
+        "properties": {
+          "barriere": {
+            "type": "string",
+            "pattern": "^[a-z0-9]+$"
+          },
+          "reden": {
+            "type": "string",
+            "minLength": 25,
+            "maxLength": 400
+          }
+        }
+      }
+    }
+  }
+}
