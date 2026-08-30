@@ -219,3 +219,35 @@ details.uitleg-blok summary { cursor: pointer; font-weight: 700; }
 @media (prefers-reduced-motion: reduce) {
   .bedien { position: static; }
 }
+
+/* Een openstaande schrijfopdracht. Bewust anders dan een gewoon blok: dit is geen inhoud maar een
+   uitnodiging, en dat moet je zien voordat je leest. De streepjeslijn zegt "hier hoort iets te
+   staan"; de oproep onderaan zegt wat je eraan kunt doen. */
+.blok.gevraagd { border-style: dashed; border-color: #e0a800; background: #fffdf7; }
+.blok.gevraagd .soort { color: #b45309; }
+.blok.gevraagd .blokkop h3 { color: #8a5a08; }
+
+.oproep {
+  margin: .9rem 0 .2rem;
+  padding-top: .7rem;
+  border-top: 1px solid #f0e2bd;
+  font-size: .92rem;
+  color: var(--zacht);
+}
+a.knop {
+  display: inline-block;
+  margin-left: .3rem;
+  padding: .35rem .8rem;
+  border-radius: 7px;
+  background: var(--accent);
+  color: var(--wit);
+  font-size: .88rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+a.knop:hover { background: #17385a; }
+
+@media print {
+  /* In print heeft een knop geen functie; de tekst eromheen wel. */
+  a.knop { background: none; color: var(--accent); padding: 0; font-weight: 700; }
+}

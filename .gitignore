@@ -6,3 +6,6 @@ __pycache__/
 .env
 .DS_Store
 .pytest_cache/
+
+# Wordt in CI uitgecheckt voor de kennisbank-verwijzingen; lokaal staat de repo ernaast.
+_kennisbank/

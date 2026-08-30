@@ -41,6 +41,10 @@ BELOFTE = (
     "erbij legt, heeft materiaal voor een gesprek met de auditor. Het oordeel blijft van de auditor."
 )
 
+# Waar een lezer terechtkomt als hij een ontbrekende handleiding wil schrijven. Vooringevuld, zodat
+# bijdragen geen leeg formulier is maar een uitnodiging met de vraag er al in.
+ISSUE_BASIS = "https://github.com/security-commons-nl/kennisbank/issues/new"
+
 WITTE_VLEKKEN_TEKST = {
     "bio2": (
         "Deze maatregelen van BIO 2.0 worden door geen enkele barriere uit de zelfcheck geraakt. "
@@ -134,6 +138,33 @@ def bouw_kader(kader: str, barrieres: dict) -> dict:
     }
 
 
+def bouw_handelingsperspectief(barrieres: dict) -> dict:
+    """Wat er per barriere aan handleiding is, en wat er nog geschreven moet worden.
+
+    Dit hangt niet aan een kader: hoe je een barriere aanpakt is hetzelfde, of je nu op BIO 2.0 of op
+    de AVG wordt bevraagd. Het staat daarom naast de kaders in plaats van erin.
+    """
+    data = helper.handelingsperspectief()
+    per_barriere = {}
+    for hl in data["handleidingen"]:
+        per_barriere[hl["barriere"]] = hl
+    return {
+        "toelichting": data["toelichting"],
+        "kennisbank": data["bron"]["kennisbank"],
+        "handleidingen": per_barriere,
+        "gevraagd": {g["barriere"]: g for g in data["gevraagd"]},
+        "opdrachten": [
+            dict(o, barrieres=[
+                dict(b, bewijs=barrieres[b["id"]]["bewijs"] if b["id"] in barrieres else "")
+                for b in o["barrieres"]
+            ])
+            for o in helper.schrijfopdrachten()
+        ],
+        "dekking": helper.dekking_handelingsperspectief(),
+        "issue_basis": ISSUE_BASIS,
+    }
+
+
 def verzamel() -> tuple[dict, dict]:
     barrieres = helper.barrieres()
     kaders = {kader: bouw_kader(kader, barrieres) for kader in helper.kaders()}
@@ -141,8 +172,28 @@ def verzamel() -> tuple[dict, dict]:
         "versie": max(helper.mapping(k)["versie"] for k in helper.kaders()),
         "inleiding": INLEIDING,
         "belofte": BELOFTE,
+        "handelingsperspectief": bouw_handelingsperspectief(barrieres),
     }
     return bron, kaders
+
+
+def controleer_js(pad: pathlib.Path) -> None:
+    """Syntaxcheck op het script voordat het de pagina in gaat.
+
+    Een syntaxfout maakt de hele app leeg: geen foutmelding op het scherm, alleen een lege pagina.
+    De browsertests vangen dat wel, maar pas na dertig seconden wachten op een selector die nooit
+    komt. Hier valt het meteen om, met de regel erbij. Ontbreekt node, dan slaan we het over; CI
+    heeft node en de browsertests vangen de rest.
+    """
+    import shutil
+    import subprocess
+
+    node = shutil.which("node")
+    if not node:
+        return
+    uit = subprocess.run([node, "--check", str(pad)], capture_output=True, text=True, timeout=30)
+    if uit.returncode != 0:
+        raise SystemExit(f"{pad.name} bevat een syntaxfout:\n{uit.stderr.strip()}")
 
 
 def bouw(doel: pathlib.Path) -> pathlib.Path:
@@ -150,6 +201,7 @@ def bouw(doel: pathlib.Path) -> pathlib.Path:
 
     css = (BRON / "app.css").read_text(encoding="utf-8").strip()
     js = (BRON / "app.js").read_text(encoding="utf-8").strip()
+    controleer_js(BRON / "app.js")
     sjabloon = (BRON / "index.html").read_text(encoding="utf-8")
 
     def als_json(waarde: object) -> str:

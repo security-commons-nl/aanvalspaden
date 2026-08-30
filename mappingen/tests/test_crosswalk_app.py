@@ -258,3 +258,59 @@ def test_de_themakop_is_groter_dan_de_blokken_eronder(pagina):
     assert "uppercase" not in pagina.locator(".themakop").first.evaluate(
         "e => getComputedStyle(e).textTransform"
     ), "hoofdletters maken lange themanamen als 'GOVERN (GV) - Organizational Context' onleesbaar"
+
+
+def test_de_pagina_laadt_zonder_javascriptfouten(pagina):
+    """Vangt een gebroken script op voordat een andere test er omslachtig op vastloopt.
+
+    Een syntaxfout maakt de hele app leeg; dan faalt elke test met een timeout op een selector, en
+    dat leest als tien problemen in plaats van een.
+    """
+    assert pagina.locator("h1").is_visible()
+    assert pagina.locator(".bedien button").count() >= 4
+
+
+def test_de_vierde_weergave_toont_wat_er_ligt_en_wat_ontbreekt(pagina):
+    pagina.get_by_role("button", name="Hoe pak ik het aan").click()
+    tekst = pagina.locator("main").inner_text()
+
+    assert "Hier ligt een handleiding" in tekst
+    assert "Hier is nog niets geschreven" in tekst
+    assert "Passkeys invoeren" in tekst, "de bestaande handleiding hoort erbij te staan"
+
+    telling = helper.dekking_handelingsperspectief()
+    groot = pagina.locator(".telling .groot").all_inner_texts()
+    assert str(telling["met_handleiding"]) in groot
+    assert str(telling["gevraagd"]) in groot
+    assert str(telling["schrijfopdrachten"]) in groot
+
+
+def test_elke_openstaande_opdracht_nodigt_uit_met_een_werkende_link(pagina):
+    """De uitnodiging is het punt van deze weergave, dus die moet er staan en ergens heen gaan."""
+    pagina.get_by_role("button", name="Hoe pak ik het aan").click()
+    opdrachten = pagina.locator(".blok.gevraagd")
+    assert opdrachten.count() == len(helper.schrijfopdrachten())
+
+    knoppen = pagina.locator(".blok.gevraagd a.knop")
+    assert knoppen.count() == opdrachten.count(), "niet elke opdracht heeft een 'schrijf mee'-knop"
+
+    eerste = knoppen.first.get_attribute("href")
+    assert eerste.startswith("https://github.com/security-commons-nl/kennisbank/issues/new")
+    assert "title=" in eerste and "body=" in eerste, "de issue is niet vooringevuld"
+    assert "Handleiding+gevraagd" in eerste or "Handleiding%20gevraagd" in eerste
+
+
+def test_de_backlog_staat_op_volgorde_van_gewicht(pagina):
+    """Wat bij de meeste aanvalspaden meetelt, hoort bovenaan te staan."""
+    pagina.get_by_role("button", name="Hoe pak ik het aan").click()
+    koppen = pagina.locator(".blok.gevraagd h3").all_inner_texts()
+    verwacht = [o["cluster"].replace("-", " ") for o in helper.schrijfopdrachten()]
+    assert koppen == verwacht, "de volgorde op het scherm wijkt af van de berekende backlog"
+
+
+def test_zoeken_werkt_ook_in_de_vierde_weergave(pagina):
+    pagina.get_by_role("button", name="Hoe pak ik het aan").click()
+    pagina.locator('input[type="search"]').fill("segmentatie")
+    pagina.wait_for_timeout(80)
+    assert pagina.locator(".blok").count() >= 1
+    assert "segmentatie" in pagina.locator("main").inner_text().lower()

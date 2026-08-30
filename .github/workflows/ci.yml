@@ -49,10 +49,20 @@ jobs:
   # De crosswalk: de mapping van barrieres naar normenkaders, en de pagina eromheen. De
   # browsertests vergelijken wat op het scherm staat met tools/mappingen.py, dus hier valt het door
   # de mand als de pagina en de mapping uit elkaar lopen.
+  #
+  # De kennisbank wordt erbij uitgecheckt, want het handelingsperspectief verwijst naar items en
+  # paragrafen daarin. Zonder die checkout slaat die test over en zou een hernoemde kop stil een
+  # dode verwijzing opleveren. Hij gaat naar _kennisbank en niet naar ../kennisbank, want een
+  # checkout buiten de workspace wordt geweigerd.
   mappingen:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
+
+      - uses: actions/checkout@v6
+        with:
+          repository: security-commons-nl/kennisbank
+          path: _kennisbank
 
       - uses: actions/setup-python@v6
         with:

@@ -31,8 +31,10 @@
   var WEERGAVEN = [
     ["pad", "Vanuit het aanvalspad"],
     ["norm", "Vanuit de maatregel"],
-    ["wit", "Witte vlekken"]
+    ["wit", "Witte vlekken"],
+    ["hoe", "Hoe pak ik het aan"]
   ];
+  var HP = bron.handelingsperspectief;
 
   var stand = {
     kader: Object.keys(kaders)[0],
@@ -319,6 +321,134 @@
     return wrap;
   }
 
+  /* ---------- weergave: hoe pak ik het aan ---------- */
+
+  var NL = String.fromCharCode(10);
+
+  function issueLink(opdracht) {
+    var titels = opdracht.barrieres.map(function (b) { return b.titel; });
+    var regels = ["Deze handleiding ontbreekt nog in de kennisbank.", ""];
+
+    regels.push("**Barrieres die dit artikel zou dekken**");
+    opdracht.barrieres.forEach(function (b) {
+      regels.push("- " + b.titel + " (" + b.id + "): " + b.zou_moeten_dekken);
+    });
+
+    var metBewijs = opdracht.barrieres.filter(function (b) { return b.bewijs; });
+    if (metBewijs.length) {
+      regels.push("", "**Bewijs dat de zelfcheck bij deze barrieres vraagt**");
+      metBewijs.forEach(function (b) { regels.push("- " + b.id + ": " + b.bewijs); });
+    }
+
+    regels.push("", "Gevonden via de normverankering:",
+      "https://security-commons-nl.github.io/aanvalspaden/normen/");
+
+    return HP.issue_basis
+      + "?title=" + encodeURIComponent("Handleiding gevraagd: " + titels[0])
+      + "&body=" + encodeURIComponent(regels.join(NL));
+  }
+
+  function toonHoe() {
+    var wrap = document.createDocumentFragment();
+
+    var intro = el("section", "kaart");
+    intro.appendChild(el("h2", null, "Hoe pak ik het aan"));
+    intro.appendChild(el("p", "lead", HP.toelichting));
+
+    var d = HP.dekking;
+    var telling = el("div", "telling");
+    [
+      [d.met_handleiding, "barrieres met een handleiding"],
+      [d.gevraagd, "barrieres zonder handleiding"],
+      [d.schrijfopdrachten, "artikelen om te schrijven"],
+      [d.barrieres, "barrieres in totaal"]
+    ].forEach(function (paar) {
+      var vak = el("div");
+      vak.appendChild(el("div", "groot", paar[0]));
+      vak.appendChild(el("div", "wat", paar[1]));
+      telling.appendChild(vak);
+    });
+    intro.appendChild(telling);
+    wrap.appendChild(intro);
+
+    /* Wat er wel is. */
+    var gevondenA = 0;
+    var kopA = el("h3", "themakop", "Hier ligt een handleiding");
+    var lijstA = document.createDocumentFragment();
+    Object.keys(HP.handleidingen).forEach(function (id) {
+      var hl = HP.handleidingen[id];
+      var b = barriereVan(id);
+      var zoekbaar = id + " " + (b ? b.titel : "") + " " + hl.titel + " " + hl.paragraaf + " " + hl.reden;
+      if (!past(zoekbaar)) { return; }
+      gevondenA++;
+
+      var blok = el("section", "blok");
+      blok.appendChild(blokKop("Barriere", null, b ? b.titel : id,
+        sterkteVlag(hl.dekking === "volledig" ? "volledig" : "gedeeltelijk", hl.dekking)));
+      var p = el("p", "thema");
+      p.appendChild(document.createTextNode(hl.titel + " · " + hl.paragraaf));
+      blok.appendChild(p);
+      blok.appendChild(el("p", "reden", hl.reden));
+
+      var link = document.createElement("a");
+      link.href = HP.kennisbank + hl.item + "/";
+      link.rel = "noopener";
+      link.textContent = "Lees " + hl.titel;
+      var wrapLink = el("p", "bewijs");
+      wrapLink.appendChild(link);
+      blok.appendChild(wrapLink);
+      lijstA.appendChild(blok);
+    });
+    if (gevondenA) { wrap.appendChild(kopA); wrap.appendChild(lijstA); }
+
+    /* Wat er nog niet is: de uitnodiging. */
+    var gevondenB = 0;
+    var kopB = el("h3", "themakop", "Hier is nog niets geschreven");
+    var lijstB = document.createDocumentFragment();
+    HP.opdrachten.forEach(function (o) {
+      var zoekbaar = o.cluster + " " + o.barrieres.map(function (b) {
+        return b.id + " " + b.titel + " " + b.zou_moeten_dekken;
+      }).join(" ");
+      if (!past(zoekbaar)) { return; }
+      gevondenB++;
+
+      var blok = el("section", "blok gevraagd");
+      blok.appendChild(blokKop(
+        "Te schrijven artikel", null, o.cluster.replace(/-/g, " "),
+        sterkteVlag("geen", o.barrieres.length + (o.barrieres.length === 1 ? " barriere" : " barrieres"))
+      ));
+
+      var lijst = el("ul", "regels");
+      o.barrieres.forEach(function (b) {
+        var li = el("li");
+        var kop = el("div", "regel-kop");
+        kop.appendChild(el("span", "titel", b.titel));
+        kop.appendChild(el("span", "nummer", b.id));
+        li.appendChild(kop);
+        li.appendChild(el("p", "reden", b.zou_moeten_dekken));
+        lijst.appendChild(li);
+      });
+      blok.appendChild(lijst);
+
+      var oproep = el("p", "oproep");
+      oproep.appendChild(document.createTextNode("Weet jij hoe dit moet? "));
+      var knop = document.createElement("a");
+      knop.className = "knop";
+      knop.href = issueLink(o);
+      knop.rel = "noopener";
+      knop.textContent = "Schrijf mee";
+      oproep.appendChild(knop);
+      blok.appendChild(oproep);
+      lijstB.appendChild(blok);
+    });
+    if (gevondenB) { wrap.appendChild(kopB); wrap.appendChild(lijstB); }
+
+    if (!gevondenA && !gevondenB) {
+      wrap.appendChild(el("p", "geenresultaat", "Niets gevonden voor deze zoekterm."));
+    }
+    return wrap;
+  }
+
   /* ---------- de vaste kop ---------- */
 
   function bouwKop() {
@@ -430,6 +560,7 @@
     lijstVak.textContent = "";
     if (stand.weergave === "pad") { lijstVak.appendChild(toonPaden()); }
     else if (stand.weergave === "norm") { lijstVak.appendChild(toonNormen()); }
+    else if (stand.weergave === "hoe") { lijstVak.appendChild(toonHoe()); }
     else { lijstVak.appendChild(toonWitteVlekken()); }
   }
 
