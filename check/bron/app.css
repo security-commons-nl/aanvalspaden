@@ -118,6 +118,12 @@ progress.balk::-moz-progress-bar { background: var(--accent); border-radius: 3px
 .actie { border-top: 1px solid var(--lijn); padding-top: 1rem; margin-top: 1rem; position: relative; }
 .actie .nummer { font-size: 2rem; font-weight: 700; color: var(--lijn); line-height: 1; }
 .verifieer { color: var(--reactive); font-size: .9rem; }
+/* De brug van de uitslag naar de kennisbank: wat je moet doen staat hierboven, hoe je het doet hier. */
+.handleidingen { background: var(--vlak); border-left: 3px solid var(--accent); padding: .6rem .9rem; margin-top: .8rem; border-radius: 0 3px 3px 0; }
+.handleidingen .label { margin: 0 0 .3rem; }
+.handleidingen ul { margin: 0; padding-left: 1.1rem; font-size: .92rem; }
+.handleidingen li { margin: .15rem 0; }
+.handleidingen .rol { color: var(--zacht); }
 .clusterkop { border-bottom: 1px solid var(--lijn); padding-bottom: .3rem; }
 
 .statussen { display: grid; grid-template-columns: max-content 1fr; gap: .4rem 1rem; align-items: baseline; }

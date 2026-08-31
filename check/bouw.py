@@ -27,8 +27,28 @@ def sha256_csp(inhoud: str) -> str:
     return "sha256-" + base64.b64encode(hashlib.sha256(inhoud.encode("utf-8")).digest()).decode()
 
 
+def handelingsperspectief() -> dict[str, list[dict]]:
+    """Per barriere de handleidingen uit de kennisbank, klein gehouden voor in de pagina.
+
+    De uitslag noemt drie acties en zegt welk bewijs erbij hoort, maar niet hoe je het doet. Die
+    handleidingen bestaan wel; ze stonden alleen een klik of drie verderop. Alleen titel, rol en url
+    gaan mee: de rest van de export is hier niet nodig en maakt het bestand groter dan de belofte
+    "werkt offline" verdient.
+    """
+    bestand = REPO / "mappingen" / "handelingsperspectief.json"
+    if not bestand.is_file():
+        return {}
+    export = json.loads(bestand.read_text(encoding="utf-8"))
+    per_barriere: dict[str, list[dict]] = {}
+    for hl in export["handleidingen"]:
+        per_barriere.setdefault(hl["barriere"], []).append(
+            {"titel": hl["titel"], "rol": hl["rol"], "url": hl["url"]})
+    return per_barriere
+
+
 def bouw(doel: pathlib.Path) -> pathlib.Path:
     data = json.loads((REPO / "paden.json").read_text(encoding="utf-8"))
+    data["handelingsperspectief"] = handelingsperspectief()
     css = (BRON / "app.css").read_text(encoding="utf-8").strip()
     js = (BRON / "app.js").read_text(encoding="utf-8").strip()
     sjabloon = (BRON / "index.html").read_text(encoding="utf-8")

@@ -334,6 +334,31 @@
     return kaart;
   }
 
+  /* De uitslag zegt wat je moet doen en welk bewijs erbij hoort, maar niet hoe. Dat staat in de
+     kennisbank, gekoppeld aan dezelfde barriere. Zonder deze links moet de lezer zelf zoeken, en dan
+     is de kans groot dat hij het niet doet.
+
+     Meer dan een handleiding mag: bij monitoring is de keuze tussen zelf doen, uitbesteden of een
+     MDR-dienst juist het advies. De rol zegt waar je begint (fundering) en wat ernaast kan. */
+  var ROL_VOLGORDE = ["fundering", "alternatief", "verdieping"];
+
+  function handleidingenBlok(barriere) {
+    var alle = (BRON.handelingsperspectief || {})[barriere];
+    if (!alle || !alle.length) { return null; }
+    var lijst = alle.slice().sort(function (a, b) {
+      return ROL_VOLGORDE.indexOf(a.rol) - ROL_VOLGORDE.indexOf(b.rol);
+    });
+    var items = lijst.map(function (h) {
+      return el("li", {}, [
+        el("a", { href: h.url, rel: "noopener", target: "_blank", tekst: h.titel }),
+        el("span", { class: "rol", tekst: " " + h.rol })
+      ]);
+    });
+    return el("div", { class: "handleidingen" }, [
+      el("p", { class: "label", tekst: lijst.length === 1 ? "ZO PAK JE HET AAN" : "ZO PAK JE HET AAN · KIES EEN ROUTE" })
+    ].concat([el("ul", {}, items)]));
+  }
+
   function resultaatScherm() {
     var uitslag = beoordeel();
     var top = acties(uitslag);
@@ -366,7 +391,8 @@
         el("p", { class: "raakt", tekst: "Helpt bij " + a.helpt.length +
           (a.helpt.length === 1 ? " aanvalspad" : " aanvalspaden") + ": " + a.helpt.join(", ") }),
         a.vraag.bewijs ? el("p", { class: "bewijs", tekst: "Bewijs: " + a.vraag.bewijs }) : null,
-        a.verifieer ? el("p", { class: "verifieer", tekst: "Je antwoord was onbekend: zoek dit eerst uit." }) : null
+        a.verifieer ? el("p", { class: "verifieer", tekst: "Je antwoord was onbekend: zoek dit eerst uit." }) : null,
+        handleidingenBlok(a.vraag_id)
       ]));
     });
     wrap.appendChild(sectie2);
