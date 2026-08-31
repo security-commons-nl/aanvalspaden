@@ -5,7 +5,7 @@
     "kennisbank": "https://security-commons-nl.github.io/kennisbank/",
     "repo": "security-commons-nl/kennisbank",
     "bestand": "handelingsperspectief.json",
-    "sha256": "1222de075f9dcdd44ceaa29be4c0f4311af3a2faa9410913810080ac90611fdf",
+    "sha256": "3808ee6837cb0036822d1f4ed489db0c78bd1f00b153b5b0b01278863e7435a3",
     "let_op": "De kennisbank is de bron. Klopt deze kopie niet meer, dan draai je dit script opnieuw; hem met de hand bijwerken laat de sha256 achter en verbergt het verschil."
   },
   "handleidingen": [
@@ -87,6 +87,13 @@
       "url": "https://security-commons-nl.github.io/kennisbank/security/edr-inrichten/"
     },
     {
+      "barriere": "edr",
+      "item": "security/killchain-naast-je-controls",
+      "titel": "De killchain naast je controls leggen",
+      "rol": "verdieping",
+      "url": "https://security-commons-nl.github.io/kennisbank/security/killchain-naast-je-controls/"
+    },
+    {
       "barriere": "execution",
       "item": "security/werkplekanalyse-e5",
       "titel": "Werkplekanalyse op het Microsoft-platform",
@@ -99,6 +106,13 @@
       "titel": "Application- en scriptcontrol",
       "rol": "verdieping",
       "url": "https://security-commons-nl.github.io/kennisbank/security/application-control/"
+    },
+    {
+      "barriere": "execution",
+      "item": "security/killchain-naast-je-controls",
+      "titel": "De killchain naast je controls leggen",
+      "rol": "verdieping",
+      "url": "https://security-commons-nl.github.io/kennisbank/security/killchain-naast-je-controls/"
     },
     {
       "barriere": "exploitresponse",
@@ -260,6 +274,13 @@
       "titel": "Microsegmentatie",
       "rol": "verdieping",
       "url": "https://security-commons-nl.github.io/kennisbank/security/microsegmentatie/"
+    },
+    {
+      "barriere": "segment",
+      "item": "security/netwerkanalyse-uit-data",
+      "titel": "Netwerk en firewall analyseren uit data",
+      "rol": "verdieping",
+      "url": "https://security-commons-nl.github.io/kennisbank/security/netwerkanalyse-uit-data/"
     },
     {
       "barriere": "session",
