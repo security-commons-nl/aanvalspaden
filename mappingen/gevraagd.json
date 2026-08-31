@@ -28,11 +28,6 @@
       "zou_moeten_dekken": "Hoe je afdwingt dat de origin alleen via de beschermde route bereikbaar is, en hoe je controleert dat er geen omweg is blijven staan."
     },
     {
-      "barriere": "critical",
-      "cluster": "herstellen-als-het-misgaat",
-      "zou_moeten_dekken": "Hoe je kritieke processen en herstelprioriteiten vaststelt met de lijn, en hoe je die keuze houdbaar houdt als de organisatie verandert."
-    },
-    {
       "barriere": "ddosresponse",
       "cluster": "opvolging-en-detectie",
       "zou_moeten_dekken": "Hoe je een DDoS-response oefent met provider en SOC, en welke afspraken je vooraf maakt over opschaling en communicatie."

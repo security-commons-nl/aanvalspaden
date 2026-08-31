@@ -5,7 +5,7 @@
     "kennisbank": "https://security-commons-nl.github.io/kennisbank/",
     "repo": "security-commons-nl/kennisbank",
     "bestand": "handelingsperspectief.json",
-    "sha256": "3808ee6837cb0036822d1f4ed489db0c78bd1f00b153b5b0b01278863e7435a3",
+    "sha256": "f1763d1f2d133f5821874c72a4f9b3a3b88e8c701fb3361bee916800d564c74b",
     "let_op": "De kennisbank is de bron. Klopt deze kopie niet meer, dan draai je dit script opnieuw; hem met de hand bijwerken laat de sha256 achter en verbergt het verschil."
   },
   "handleidingen": [
@@ -67,10 +67,24 @@
     },
     {
       "barriere": "crisis",
+      "item": "bcm/calamiteitenteam-digitaal-opzetten",
+      "titel": "Een digitaal calamiteitenteam opzetten",
+      "rol": "alternatief",
+      "url": "https://security-commons-nl.github.io/kennisbank/bcm/calamiteitenteam-digitaal-opzetten/"
+    },
+    {
+      "barriere": "crisis",
       "item": "security/crisiscommunicatie",
       "titel": "Cyber-crisiscommunicatie",
       "rol": "verdieping",
       "url": "https://security-commons-nl.github.io/kennisbank/security/crisiscommunicatie/"
+    },
+    {
+      "barriere": "critical",
+      "item": "bcm/kritieke-processen-vaststellen",
+      "titel": "Kritieke processen en herstelprioriteiten vaststellen",
+      "rol": "fundering",
+      "url": "https://security-commons-nl.github.io/kennisbank/bcm/kritieke-processen-vaststellen/"
     },
     {
       "barriere": "dependencies",
@@ -383,7 +397,6 @@
   ],
   "zonder_handleiding": [
     "browser",
-    "critical",
     "ddosresponse",
     "devicecode",
     "dmarc",
