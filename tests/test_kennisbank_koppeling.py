@@ -1,6 +1,6 @@
 """AP09 is op twee plekken uitgewerkt. Als de bron wijzigt, moet de andere plek mee.
 
-Het kennisbankitem "Meten voordat je ingrijpt" bevat een killchain-tabel voor ClickFix met alle
+Het kennisbankitem "De killchain naast je controls leggen" bevat een killchain-tabel voor ClickFix met alle
 MITRE-fasen. Dat is een andere snit dan AP09 hier, dat de barrieres toetst die de zelfcheck stelt, maar ze
 gaan over dezelfde aanval. Die tabel wordt met de hand onderhouden en kan dus stil achterlopen.
 
@@ -24,7 +24,7 @@ AP09_VASTGELEGD = [
     "Verwijder lokale administratorrechten",
     "Borg EDR, tamper protection en snelle endpointisolatie",
 ]
-KENNISBANKITEM = "kennisbank/security/meten-voordat-je-ingrijpt/"
+KENNISBANKITEM = "kennisbank/security/killchain-naast-je-controls/"
 
 
 def test_ap09_is_onveranderd_of_het_kennisbankitem_is_bijgewerkt():
