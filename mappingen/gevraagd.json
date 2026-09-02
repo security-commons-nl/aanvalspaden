@@ -1,47 +1,37 @@
 {
-  "versie": "2026-08",
-  "toelichting": "De barrieres waar nog geen handleiding bij staat, met wat die zou moeten dekken. Dit bestand wordt met de hand onderhouden: het is de redactieagenda, niet een afgeleide. Zodra de kennisbank een handleiding voor een barriere heeft, hoort de regel hier weg; tools/mappingen.py bewaakt dat de twee elkaar niet overlappen.",
-  "gevraagd": [
-    {
-      "barriere": "browser",
-      "cluster": "de-werkplek-dichtzetten",
-      "zou_moeten_dekken": "Hoe je een browserbaseline uitrolt met een extensiebeleid en beperkingen op gegevensdragers, zonder het werk van redacteuren en ontwikkelaars te breken, en hoe je aantoont dat de baseline op alle werkplekken staat."
-    },
-    {
-      "barriere": "devicecode",
-      "cluster": "ingangen-naast-de-sterke-inlog",
-      "zou_moeten_dekken": "Hoe je Device Code Flow blokkeert zonder de beheerde uitzonderingen (kiosk, gedeelde apparaten) te breken, en hoe je aantoont dat de uitzonderingen beperkt blijven."
-    },
-    {
-      "barriere": "dmarc",
-      "cluster": "mail-als-kanaal",
-      "zou_moeten_dekken": "Hoe je SPF, DKIM en DMARC naar handhaving brengt zonder legitieme post te blokkeren, inclusief het traject langs alle verzendende partijen."
-    },
-    {
-      "barriere": "elevation",
-      "cluster": "beheerrechten-scheiden",
-      "zou_moeten_dekken": "Hoe je herauthenticatie afdwingt op het moment van verhogen, en hoe je voorkomt dat beheerders het omzeilen."
-    },
-    {
-      "barriere": "origin",
-      "cluster": "de-buitenrand-afschermen",
-      "zou_moeten_dekken": "Hoe je afdwingt dat de origin alleen via de beschermde route bereikbaar is, en hoe je controleert dat er geen omweg is blijven staan."
-    },
-    {
-      "barriere": "ddosresponse",
-      "cluster": "opvolging-en-detectie",
-      "zou_moeten_dekken": "Hoe je een DDoS-response oefent met provider en SOC, en welke afspraken je vooraf maakt over opschaling en communicatie."
-    },
-    {
-      "barriere": "owner",
-      "cluster": "een-risico-beleggen",
-      "zou_moeten_dekken": "Hoe je een risico daadwerkelijk bij een risicohouder neerlegt: wie is het, hoe voer je dat gesprek, en wat leg je vast."
-    },
-    {
-      "barriere": "treatment",
-      "cluster": "een-risico-beleggen",
-      "zou_moeten_dekken": "Hoe je risicoacceptatie of een maatregel vastlegt met eigenaar en termijn, en hoe je voorkomt dat de lijst een archief wordt."
-    }
-  ],
-  "geen_handleiding_nodig": []
+ "versie": "2026-08",
+ "toelichting": "De barrieres waar nog geen handleiding bij staat, met wat die zou moeten dekken. Dit bestand wordt met de hand onderhouden: het is de redactieagenda, niet een afgeleide. Zodra de kennisbank een handleiding voor een barriere heeft, hoort de regel hier weg; tools/mappingen.py bewaakt dat de twee elkaar niet overlappen.",
+ "gevraagd": [
+  {
+   "barriere": "browser",
+   "cluster": "de-werkplek-dichtzetten",
+   "zou_moeten_dekken": "Hoe je een browserbaseline uitrolt met een extensiebeleid en beperkingen op gegevensdragers, zonder het werk van redacteuren en ontwikkelaars te breken, en hoe je aantoont dat de baseline op alle werkplekken staat."
+  },
+  {
+   "barriere": "devicecode",
+   "cluster": "ingangen-naast-de-sterke-inlog",
+   "zou_moeten_dekken": "Hoe je Device Code Flow blokkeert zonder de beheerde uitzonderingen (kiosk, gedeelde apparaten) te breken, en hoe je aantoont dat de uitzonderingen beperkt blijven."
+  },
+  {
+   "barriere": "dmarc",
+   "cluster": "mail-als-kanaal",
+   "zou_moeten_dekken": "Hoe je SPF, DKIM en DMARC naar handhaving brengt zonder legitieme post te blokkeren, inclusief het traject langs alle verzendende partijen."
+  },
+  {
+   "barriere": "elevation",
+   "cluster": "beheerrechten-scheiden",
+   "zou_moeten_dekken": "Hoe je herauthenticatie afdwingt op het moment van verhogen, en hoe je voorkomt dat beheerders het omzeilen."
+  },
+  {
+   "barriere": "origin",
+   "cluster": "de-buitenrand-afschermen",
+   "zou_moeten_dekken": "Hoe je afdwingt dat de origin alleen via de beschermde route bereikbaar is, en hoe je controleert dat er geen omweg is blijven staan."
+  },
+  {
+   "barriere": "ddosresponse",
+   "cluster": "opvolging-en-detectie",
+   "zou_moeten_dekken": "Hoe je een DDoS-response oefent met provider en SOC, en welke afspraken je vooraf maakt over opschaling en communicatie."
+  }
+ ],
+ "geen_handleiding_nodig": []
 }

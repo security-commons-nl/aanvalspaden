@@ -5,7 +5,7 @@
     "kennisbank": "https://security-commons-nl.github.io/kennisbank/",
     "repo": "security-commons-nl/kennisbank",
     "bestand": "handelingsperspectief.json",
-    "sha256": "f1763d1f2d133f5821874c72a4f9b3a3b88e8c701fb3361bee916800d564c74b",
+    "sha256": "f35779e77a3e9bed581fc2ea5694e03c6eeb19628a6d3bef894e54272f264159",
     "let_op": "De kennisbank is de bron. Klopt deze kopie niet meer, dan draai je dit script opnieuw; hem met de hand bijwerken laat de sha256 achter en verbergt het verschil."
   },
   "handleidingen": [
@@ -227,6 +227,13 @@
       "url": "https://security-commons-nl.github.io/kennisbank/security/tiered-administration/"
     },
     {
+      "barriere": "owner",
+      "item": "security/risicoanalyse-aanvalspaden",
+      "titel": "Risicoanalyse langs aanvalspaden",
+      "rol": "fundering",
+      "url": "https://security-commons-nl.github.io/kennisbank/security/risicoanalyse-aanvalspaden/"
+    },
+    {
       "barriere": "patch",
       "item": "security/patchen-met-dekking",
       "titel": "Werkplekken beheerd, gehard en gepatcht",
@@ -360,6 +367,13 @@
       "url": "https://security-commons-nl.github.io/kennisbank/security/pentest-en-exit-bij-leveranciers/"
     },
     {
+      "barriere": "treatment",
+      "item": "security/risicoanalyse-aanvalspaden",
+      "titel": "Risicoanalyse langs aanvalspaden",
+      "rol": "fundering",
+      "url": "https://security-commons-nl.github.io/kennisbank/security/risicoanalyse-aanvalspaden/"
+    },
+    {
       "barriere": "unmanaged",
       "item": "security/patchen-met-dekking",
       "titel": "Werkplekken beheerd, gehard en gepatcht",
@@ -401,8 +415,6 @@
     "devicecode",
     "dmarc",
     "elevation",
-    "origin",
-    "owner",
-    "treatment"
+    "origin"
   ]
 }
