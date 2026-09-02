@@ -6,7 +6,7 @@
     "naam": "Centrum Informatiebeveiliging en Privacybescherming (CIP)",
     "versie": "BIO2 v1.3 definitief - 9 januari 2026",
     "herkomst": "security-commons-nl/normen, bio2.json (kopie in bronnen/bio2-overheidsmaatregelen.json)",
-    "vingerafdruk_normen": "143d785a8931d19f57f59417a7d1eca27ffe205b052e50c196f630c5887456f0",
+    "vingerafdruk_normen": "1c0b27a8841e2854e7c52aa2d772ef665a6f7221da456c653029d50877ca0260",
     "commit": "0d2de8b9c460f9fa9e17521006196d7f337e7a4a",
     "let_op": "Gegenereerd met mappingen/bronnen/genereer_bio2.py uit de kopie van normen. Wijzig de dataset in normen, niet dit bestand."
   },

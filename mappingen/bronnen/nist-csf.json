@@ -11,7 +11,7 @@
   "let_op": "Publiek domein. Ingetrokken subcategorieen uit CSF 1.1 staan wel in de export en zijn hier overgeslagen. Gegenereerd met mappingen/bronnen/genereer_nist.py.",
   "opgehaald": "2026-08-30",
   "licentie": "Publiek domein (werk van de Amerikaanse federale overheid); de Engelse formuleringen zijn die van NIST",
-  "commit": "ce378895058ca7b729e075f0f542d1b403c1b27f"
+  "commit": "9c30ba57c1ba5f39d4a6ff596e4a288c0c1e5d67"
  },
  "maatregelen": [
   {
