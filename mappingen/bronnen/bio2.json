@@ -5,9 +5,10 @@
   "bron": {
     "naam": "Centrum Informatiebeveiliging en Privacybescherming (CIP)",
     "versie": "BIO2 v1.3 definitief - 9 januari 2026",
-    "herkomst": "security-commons-nl/cisochat, data/bio2.json",
+    "herkomst": "security-commons-nl/normen, bio2.json (kopie in bronnen/bio2-overheidsmaatregelen.json)",
+    "vingerafdruk_normen": "371f6d452db3ace5791e54ee9d682488b1594af52dda5d8e50dc02d64b550ec5",
     "commit": "0d2de8b9c460f9fa9e17521006196d7f337e7a4a",
-    "let_op": "Gegenereerd met mappingen/bronnen/genereer_bio2.py. Wijzig de dataset in cisochat, niet dit bestand."
+    "let_op": "Gegenereerd met mappingen/bronnen/genereer_bio2.py uit de kopie van normen. Wijzig de dataset in normen, niet dit bestand."
   },
   "tweede_etiket": {
     "kader": "ISO 27001:2022",

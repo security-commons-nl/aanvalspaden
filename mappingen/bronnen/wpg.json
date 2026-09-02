@@ -1,51 +1,271 @@
 {
-  "kader": "wpg",
-  "titel": "Wpg-toetsingskader voor boa-organisaties",
-  "toelichting": "De 31 beheersingsmaatregelen uit de NOREA Handreiking Privacy audit Wpg voor boa's, plus de vijf technische en organisatorische maatregelen uit bijlage 4 van die handreiking. De titels en omschrijvingen hier zijn eigen samenvattingen; het toetsingskader zelf staat in de handreiking. Bijlage 4 zegt zelf dat de BIO daarnaast in acht moet worden genomen door overheidsorganisaties, en dat het normenkader ook voor leveranciers geldt.",
-  "bron": {
-    "naam": "NOREA, beroepsorganisatie van IT-auditors",
-    "versie": "Handreiking Privacy audit Wpg voor boa's, versie 2024 1.0 definitief",
-    "peildatum": "2024-09-03",
-    "url": "https://www.norea.nl/organisatie/werkgroepen/wpg-werkgroep",
-    "let_op": "Geldig vanaf 3 september 2024 en in de plaats van alle eerdere versies. De handreiking mag worden gebruikt en verspreid met bronvermelding; de teksten van de beheersingsmaatregelen staan hier niet, alleen eigen samenvattingen."
+ "kader": "wpg",
+ "titel": "Wpg-toetsingskader voor boa-organisaties",
+ "versie": "Handreiking Privacy audit Wpg voor boa's, versie 2024 1.0 definitief",
+ "toelichting": "De 31 beheersingsmaatregelen uit de NOREA Handreiking Privacy audit Wpg voor boa's, plus de vijf technische en organisatorische maatregelen uit bijlage 4 van die handreiking. De titels en omschrijvingen hier zijn eigen samenvattingen; het toetsingskader zelf staat in de handreiking. Bijlage 4 zegt zelf dat de BIO daarnaast in acht moet worden genomen door overheidsorganisaties, en dat het normenkader ook voor leveranciers geldt.",
+ "bron": {
+  "naam": "NOREA, beroepsorganisatie van IT-auditors",
+  "versie": "Handreiking Privacy audit Wpg voor boa's, versie 2024 1.0 definitief",
+  "url": "https://www.norea.nl/organisatie/werkgroepen/wpg-werkgroep",
+  "let_op": "Geldig vanaf 3 september 2024 en in de plaats van alle eerdere versies. De handreiking mag worden gebruikt en verspreid met bronvermelding; de teksten van de beheersingsmaatregelen staan hier niet, alleen eigen samenvattingen.",
+  "opgehaald": "2024-09-03",
+  "licentie": "Eigen samenvattingen onder EUPL-1.2; het toetsingskader zelf staat in de NOREA Handreiking Privacy audit Wpg en is van NOREA",
+  "herkomst": "eenmalig overgenomen uit security-commons-nl/aanvalspaden, mappingen/bronnen/wpg.json",
+  "commit": "e31933e7d1809a2058cddff99f94633d4c1d1d47"
+ },
+ "maatregelen": [
+  {
+   "id": "W01",
+   "titel": "Reikwijdte",
+   "artikel": "Wpg art. 2 lid 1 en 2",
+   "thema": "Reikwijdte en grondslag",
+   "kern": "De organisatie weet welke bestanden met politiegegevens zij verwerkt en waar die staan."
   },
-  "maatregelen": [
-    {"id": "W01", "titel": "Reikwijdte", "artikel": "Wpg art. 2 lid 1 en 2", "thema": "Reikwijdte en grondslag", "kern": "De organisatie weet welke bestanden met politiegegevens zij verwerkt en waar die staan."},
-    {"id": "W02", "titel": "Doelbinding", "artikel": "Wpg art. 3 lid 1, 3 en 4, art. 8 lid 1, art. 9 lid 1", "thema": "Reikwijdte en grondslag", "kern": "Politiegegevens worden alleen verwerkt voor het doel waarvoor ze zijn verkregen."},
-    {"id": "W03", "titel": "Noodzakelijkheid, rechtmatigheid en herkomst", "artikel": "Wpg art. 3 lid 2 en 5", "thema": "Reikwijdte en grondslag", "kern": "De gegevens zijn toereikend, ter zake dienend en beperkt tot wat noodzakelijk is, met de herkomst erbij."},
-    {"id": "W04", "titel": "Juistheid en volledigheid", "artikel": "Wpg art. 4 lid 1", "thema": "Kwaliteit van gegevens", "kern": "Er zijn controles op de kwaliteit van de politiegegevens."},
-    {"id": "W05", "titel": "Onderscheid feiten en persoonlijk oordeel", "artikel": "Wpg art. 4 lid 3", "thema": "Kwaliteit van gegevens", "kern": "Gegevens op basis van feiten zijn te onderscheiden van een persoonlijk oordeel."},
-    {"id": "W06", "titel": "Gegevensbescherming door beveiliging en ontwerp", "artikel": "Wpg art. 4a lid 1 t/m 5", "thema": "Beveiliging en ontwerp", "kern": "Er zijn passende technische en organisatorische maatregelen voor de beveiliging van politiegegevens, aantoonbaar en bij het ontwerp meegenomen. Bijlage 4 van de handreiking noemt de minimale set die hierbij wordt getest."},
-    {"id": "W07", "titel": "Gegevensbescherming door standaardinstellingen", "artikel": "Wpg art. 4b lid 1a en 1b", "thema": "Beveiliging en ontwerp", "kern": "Standaardinstellingen beperken de verwerking tot wat nodig is."},
-    {"id": "W08", "titel": "Gegevensbeschermingseffectbeoordeling (DPIA)", "artikel": "Wpg art. 4c", "thema": "Verantwoording en toezicht", "kern": "Bij waarschijnlijk hoog risico wordt vooraf een DPIA uitgevoerd."},
-    {"id": "W09", "titel": "Bijzondere categorieen van politiegegevens", "artikel": "Wpg art. 5", "thema": "Reikwijdte en grondslag", "kern": "Verwerking van bijzondere categorieen gebeurt alleen onder de wettelijke voorwaarden."},
-    {"id": "W10", "titel": "Autorisaties en toegang tot politiegegevens", "artikel": "Wpg art. 6 lid 1 t/m 6", "thema": "Autorisatie en toegang", "kern": "Toegang tot politiegegevens is geautoriseerd, beperkt tot wie het nodig heeft, en periodiek beoordeeld."},
-    {"id": "W11", "titel": "Autorisaties: aanwijzen functionarissen", "artikel": "Wpg art. 6 lid 7", "thema": "Autorisatie en toegang", "kern": "Er is een actuele lijst van de functionarissen die door de verwerkingsverantwoordelijke zijn aangewezen."},
-    {"id": "W12", "titel": "Onderscheid tussen categorieen betrokkenen", "artikel": "Wpg art. 6b", "thema": "Kwaliteit van gegevens", "kern": "Er wordt onderscheid gemaakt tussen de verschillende categorieen van betrokkenen."},
-    {"id": "W13", "titel": "Verwerker en verwerkersovereenkomst", "artikel": "Wpg art. 6c", "thema": "Verwerkers en leveranciers", "kern": "Met elke verwerker is vastgelegd wat hij mag, en de verwerker toont aan dat hij zich eraan houdt. Bijlage 4 geldt ook voor leveranciers."},
-    {"id": "W14", "titel": "Geheimhoudingsplicht", "artikel": "Wpg art. 7", "thema": "Verantwoording en toezicht", "kern": "Wie politiegegevens krijgt, is aan geheimhouding gebonden."},
-    {"id": "W15", "titel": "Geautomatiseerde individuele besluitvorming", "artikel": "Wpg art. 7a", "thema": "Verwerking en verstrekking", "kern": "Besluiten uitsluitend op basis van geautomatiseerde verwerking zijn aan voorwaarden gebonden."},
-    {"id": "W16", "titel": "Uitvoering van de dagelijkse opsporingstaak", "artikel": "Wpg art. 8 lid 1 en 2", "thema": "Verwerking en verstrekking", "kern": "Gegevens uit de dagelijkse taak gaan na een jaar achter een schot."},
-    {"id": "W17", "titel": "Ter beschikking stellen binnen het Wpg-domein", "artikel": "Wpg art. 4 lid 1, art. 8 lid 4, art. 9 lid 3, art. 15 lid 1 en 2", "thema": "Verwerking en verstrekking", "kern": "Ter beschikking stellen binnen het domein gebeurt alleen waar de wet dat toestaat."},
-    {"id": "W18", "titel": "Geautomatiseerd vergelijken en in combinatie zoeken", "artikel": "Wpg art. 11 lid 1, 3, 4 en 5, art. 8 lid 3, Bpg art. 2:1 en 2:2 lid 1", "thema": "Verwerking en verstrekking", "kern": "Vergelijken en combineren van gegevensverzamelingen is aan voorwaarden en vastlegging gebonden."},
-    {"id": "W19", "titel": "Ondersteunende taken", "artikel": "Wpg art. 13", "thema": "Verwerking en verstrekking", "kern": "Verwerkingen voor ondersteunende taken zijn vooraf bepaald."},
-    {"id": "W20", "titel": "Bewaartermijnen, verwijderen en vernietigen", "artikel": "Wpg art. 4 lid 2, art. 8 lid 6, art. 9 lid 4, art. 14", "thema": "Bewaren en vernietigen", "kern": "Politiegegevens worden niet langer bewaard dan nodig en worden daarna verwijderd of vernietigd."},
-    {"id": "W21", "titel": "Verstrekking aan anderen dan politie en marechaussee", "artikel": "Wpg art. 16, 18, 19 en 21", "thema": "Verwerking en verstrekking", "kern": "Verstrekking buiten het politiedomein gebeurt alleen op een wettelijke grond."},
-    {"id": "W22", "titel": "Doorgiften aan derde landen", "artikel": "Wpg art. 17a", "thema": "Verwerking en verstrekking", "kern": "Doorgifte naar derde landen gebeurt alleen onder de wettelijke voorwaarden."},
-    {"id": "W23", "titel": "Structurele verstrekking aan samenwerkingsverbanden", "artikel": "Wpg art. 20", "thema": "Verwerking en verstrekking", "kern": "De organisatie heeft inzicht in de samenwerkingsverbanden waaraan zij structureel verstrekt."},
-    {"id": "W24", "titel": "Rechtstreekse verstrekking", "artikel": "Wpg art. 23", "thema": "Verwerking en verstrekking", "kern": "Rechtstreekse verstrekking vindt alleen plaats voor de toegestane doelen, en dat is geregeld en gecontroleerd."},
-    {"id": "W25", "titel": "Rechten van de betrokkene", "artikel": "Wpg art. 24a lid 1 t/m 4, art. 24b, 25 en 26", "thema": "Rechten van betrokkenen", "kern": "Informatie, inzage, rectificatie en verwijdering zijn geregeld en worden binnen de termijn afgehandeld."},
-    {"id": "W26", "titel": "Register van verwerkingen", "artikel": "Wpg art. 31d lid 1 en 2", "thema": "Verantwoording en toezicht", "kern": "Er is een register van verwerkingen met de wettelijk voorgeschreven gegevens."},
-    {"id": "W27", "titel": "Documentatie", "artikel": "Wpg art. 32 lid 1 t/m 4", "thema": "Verantwoording en toezicht", "kern": "De verwerkingen zijn volledig en actueel gedocumenteerd."},
-    {"id": "W28", "titel": "Logging", "artikel": "Wpg art. 32a", "thema": "Logging en incidenten", "kern": "Van de wettelijk genoemde verwerkingen wordt langs elektronische weg vastgelegd wie wat wanneer deed, en die vastlegging wordt gebruikt."},
-    {"id": "W29", "titel": "Audits", "artikel": "Wpg art. 33", "thema": "Verantwoording en toezicht", "kern": "Elke vier jaar een externe privacy audit, met de tussentijdse interne controles die de Regeling periodieke audit politiegegevens eist."},
-    {"id": "W30", "titel": "Melden van datalekken", "artikel": "Wpg art. 33a", "thema": "Logging en incidenten", "kern": "Privacy-incidenten worden gedetecteerd, behandeld en waar nodig gemeld."},
-    {"id": "W31", "titel": "Functionaris voor gegevensbescherming", "artikel": "Wpg art. 36", "thema": "Verantwoording en toezicht", "kern": "Er is een FG voor de Wpg, met de positie en de middelen om toezicht te houden."},
-
-    {"id": "B4-1", "titel": "Wijzigingenbeheer", "artikel": "Bijlage 4 bij de handreiking, bij maatregel 6, 7, 10, 13 en 24", "thema": "Technische maatregelen (bijlage 4)", "kern": "Wijzigingen in de ICT-voorzieningen worden tijdig, geautoriseerd en getest doorgevoerd."},
-    {"id": "B4-2", "titel": "Logische toegangsbeveiliging", "artikel": "Bijlage 4 bij de handreiking, bij maatregel 6, 7, 10, 13 en 24", "thema": "Technische maatregelen (bijlage 4)", "kern": "Identiteit en toegangsmiddelen leggen betrouwbaar vast wie iemand is, welke rechten hij heeft en of dat controleerbaar blijft."},
-    {"id": "B4-3", "titel": "Beheer van kwetsbaarheden (patchmanagement)", "artikel": "Bijlage 4 bij de handreiking, bij maatregel 6, 7, 10, 13 en 24", "thema": "Technische maatregelen (bijlage 4)", "kern": "Informatie over technische kwetsbaarheden wordt tijdig verkregen en de blootstelling wordt beoordeeld en beperkt."},
-    {"id": "B4-4", "titel": "Cryptografie", "artikel": "Bijlage 4 bij de handreiking, bij maatregel 6, 7, 10, 13 en 24", "thema": "Technische maatregelen (bijlage 4)", "kern": "Er is beleid voor het gebruik van cryptografie ter bescherming van politiegegevens, en dat wordt toegepast."},
-    {"id": "B4-5", "titel": "Vulnerability scans en penetratietesten", "artikel": "Bijlage 4 bij de handreiking, bij maatregel 6, 7, 10, 13 en 24", "thema": "Technische maatregelen (bijlage 4)", "kern": "Scans en penetratietesten worden procesmatig uitgevoerd op de infrastructuur waarin politiegegevens worden verwerkt."}
-  ]
+  {
+   "id": "W02",
+   "titel": "Doelbinding",
+   "artikel": "Wpg art. 3 lid 1, 3 en 4, art. 8 lid 1, art. 9 lid 1",
+   "thema": "Reikwijdte en grondslag",
+   "kern": "Politiegegevens worden alleen verwerkt voor het doel waarvoor ze zijn verkregen."
+  },
+  {
+   "id": "W03",
+   "titel": "Noodzakelijkheid, rechtmatigheid en herkomst",
+   "artikel": "Wpg art. 3 lid 2 en 5",
+   "thema": "Reikwijdte en grondslag",
+   "kern": "De gegevens zijn toereikend, ter zake dienend en beperkt tot wat noodzakelijk is, met de herkomst erbij."
+  },
+  {
+   "id": "W04",
+   "titel": "Juistheid en volledigheid",
+   "artikel": "Wpg art. 4 lid 1",
+   "thema": "Kwaliteit van gegevens",
+   "kern": "Er zijn controles op de kwaliteit van de politiegegevens."
+  },
+  {
+   "id": "W05",
+   "titel": "Onderscheid feiten en persoonlijk oordeel",
+   "artikel": "Wpg art. 4 lid 3",
+   "thema": "Kwaliteit van gegevens",
+   "kern": "Gegevens op basis van feiten zijn te onderscheiden van een persoonlijk oordeel."
+  },
+  {
+   "id": "W06",
+   "titel": "Gegevensbescherming door beveiliging en ontwerp",
+   "artikel": "Wpg art. 4a lid 1 t/m 5",
+   "thema": "Beveiliging en ontwerp",
+   "kern": "Er zijn passende technische en organisatorische maatregelen voor de beveiliging van politiegegevens, aantoonbaar en bij het ontwerp meegenomen. Bijlage 4 van de handreiking noemt de minimale set die hierbij wordt getest."
+  },
+  {
+   "id": "W07",
+   "titel": "Gegevensbescherming door standaardinstellingen",
+   "artikel": "Wpg art. 4b lid 1a en 1b",
+   "thema": "Beveiliging en ontwerp",
+   "kern": "Standaardinstellingen beperken de verwerking tot wat nodig is."
+  },
+  {
+   "id": "W08",
+   "titel": "Gegevensbeschermingseffectbeoordeling (DPIA)",
+   "artikel": "Wpg art. 4c",
+   "thema": "Verantwoording en toezicht",
+   "kern": "Bij waarschijnlijk hoog risico wordt vooraf een DPIA uitgevoerd."
+  },
+  {
+   "id": "W09",
+   "titel": "Bijzondere categorieen van politiegegevens",
+   "artikel": "Wpg art. 5",
+   "thema": "Reikwijdte en grondslag",
+   "kern": "Verwerking van bijzondere categorieen gebeurt alleen onder de wettelijke voorwaarden."
+  },
+  {
+   "id": "W10",
+   "titel": "Autorisaties en toegang tot politiegegevens",
+   "artikel": "Wpg art. 6 lid 1 t/m 6",
+   "thema": "Autorisatie en toegang",
+   "kern": "Toegang tot politiegegevens is geautoriseerd, beperkt tot wie het nodig heeft, en periodiek beoordeeld."
+  },
+  {
+   "id": "W11",
+   "titel": "Autorisaties: aanwijzen functionarissen",
+   "artikel": "Wpg art. 6 lid 7",
+   "thema": "Autorisatie en toegang",
+   "kern": "Er is een actuele lijst van de functionarissen die door de verwerkingsverantwoordelijke zijn aangewezen."
+  },
+  {
+   "id": "W12",
+   "titel": "Onderscheid tussen categorieen betrokkenen",
+   "artikel": "Wpg art. 6b",
+   "thema": "Kwaliteit van gegevens",
+   "kern": "Er wordt onderscheid gemaakt tussen de verschillende categorieen van betrokkenen."
+  },
+  {
+   "id": "W13",
+   "titel": "Verwerker en verwerkersovereenkomst",
+   "artikel": "Wpg art. 6c",
+   "thema": "Verwerkers en leveranciers",
+   "kern": "Met elke verwerker is vastgelegd wat hij mag, en de verwerker toont aan dat hij zich eraan houdt. Bijlage 4 geldt ook voor leveranciers."
+  },
+  {
+   "id": "W14",
+   "titel": "Geheimhoudingsplicht",
+   "artikel": "Wpg art. 7",
+   "thema": "Verantwoording en toezicht",
+   "kern": "Wie politiegegevens krijgt, is aan geheimhouding gebonden."
+  },
+  {
+   "id": "W15",
+   "titel": "Geautomatiseerde individuele besluitvorming",
+   "artikel": "Wpg art. 7a",
+   "thema": "Verwerking en verstrekking",
+   "kern": "Besluiten uitsluitend op basis van geautomatiseerde verwerking zijn aan voorwaarden gebonden."
+  },
+  {
+   "id": "W16",
+   "titel": "Uitvoering van de dagelijkse opsporingstaak",
+   "artikel": "Wpg art. 8 lid 1 en 2",
+   "thema": "Verwerking en verstrekking",
+   "kern": "Gegevens uit de dagelijkse taak gaan na een jaar achter een schot."
+  },
+  {
+   "id": "W17",
+   "titel": "Ter beschikking stellen binnen het Wpg-domein",
+   "artikel": "Wpg art. 4 lid 1, art. 8 lid 4, art. 9 lid 3, art. 15 lid 1 en 2",
+   "thema": "Verwerking en verstrekking",
+   "kern": "Ter beschikking stellen binnen het domein gebeurt alleen waar de wet dat toestaat."
+  },
+  {
+   "id": "W18",
+   "titel": "Geautomatiseerd vergelijken en in combinatie zoeken",
+   "artikel": "Wpg art. 11 lid 1, 3, 4 en 5, art. 8 lid 3, Bpg art. 2:1 en 2:2 lid 1",
+   "thema": "Verwerking en verstrekking",
+   "kern": "Vergelijken en combineren van gegevensverzamelingen is aan voorwaarden en vastlegging gebonden."
+  },
+  {
+   "id": "W19",
+   "titel": "Ondersteunende taken",
+   "artikel": "Wpg art. 13",
+   "thema": "Verwerking en verstrekking",
+   "kern": "Verwerkingen voor ondersteunende taken zijn vooraf bepaald."
+  },
+  {
+   "id": "W20",
+   "titel": "Bewaartermijnen, verwijderen en vernietigen",
+   "artikel": "Wpg art. 4 lid 2, art. 8 lid 6, art. 9 lid 4, art. 14",
+   "thema": "Bewaren en vernietigen",
+   "kern": "Politiegegevens worden niet langer bewaard dan nodig en worden daarna verwijderd of vernietigd."
+  },
+  {
+   "id": "W21",
+   "titel": "Verstrekking aan anderen dan politie en marechaussee",
+   "artikel": "Wpg art. 16, 18, 19 en 21",
+   "thema": "Verwerking en verstrekking",
+   "kern": "Verstrekking buiten het politiedomein gebeurt alleen op een wettelijke grond."
+  },
+  {
+   "id": "W22",
+   "titel": "Doorgiften aan derde landen",
+   "artikel": "Wpg art. 17a",
+   "thema": "Verwerking en verstrekking",
+   "kern": "Doorgifte naar derde landen gebeurt alleen onder de wettelijke voorwaarden."
+  },
+  {
+   "id": "W23",
+   "titel": "Structurele verstrekking aan samenwerkingsverbanden",
+   "artikel": "Wpg art. 20",
+   "thema": "Verwerking en verstrekking",
+   "kern": "De organisatie heeft inzicht in de samenwerkingsverbanden waaraan zij structureel verstrekt."
+  },
+  {
+   "id": "W24",
+   "titel": "Rechtstreekse verstrekking",
+   "artikel": "Wpg art. 23",
+   "thema": "Verwerking en verstrekking",
+   "kern": "Rechtstreekse verstrekking vindt alleen plaats voor de toegestane doelen, en dat is geregeld en gecontroleerd."
+  },
+  {
+   "id": "W25",
+   "titel": "Rechten van de betrokkene",
+   "artikel": "Wpg art. 24a lid 1 t/m 4, art. 24b, 25 en 26",
+   "thema": "Rechten van betrokkenen",
+   "kern": "Informatie, inzage, rectificatie en verwijdering zijn geregeld en worden binnen de termijn afgehandeld."
+  },
+  {
+   "id": "W26",
+   "titel": "Register van verwerkingen",
+   "artikel": "Wpg art. 31d lid 1 en 2",
+   "thema": "Verantwoording en toezicht",
+   "kern": "Er is een register van verwerkingen met de wettelijk voorgeschreven gegevens."
+  },
+  {
+   "id": "W27",
+   "titel": "Documentatie",
+   "artikel": "Wpg art. 32 lid 1 t/m 4",
+   "thema": "Verantwoording en toezicht",
+   "kern": "De verwerkingen zijn volledig en actueel gedocumenteerd."
+  },
+  {
+   "id": "W28",
+   "titel": "Logging",
+   "artikel": "Wpg art. 32a",
+   "thema": "Logging en incidenten",
+   "kern": "Van de wettelijk genoemde verwerkingen wordt langs elektronische weg vastgelegd wie wat wanneer deed, en die vastlegging wordt gebruikt."
+  },
+  {
+   "id": "W29",
+   "titel": "Audits",
+   "artikel": "Wpg art. 33",
+   "thema": "Verantwoording en toezicht",
+   "kern": "Elke vier jaar een externe privacy audit, met de tussentijdse interne controles die de Regeling periodieke audit politiegegevens eist."
+  },
+  {
+   "id": "W30",
+   "titel": "Melden van datalekken",
+   "artikel": "Wpg art. 33a",
+   "thema": "Logging en incidenten",
+   "kern": "Privacy-incidenten worden gedetecteerd, behandeld en waar nodig gemeld."
+  },
+  {
+   "id": "W31",
+   "titel": "Functionaris voor gegevensbescherming",
+   "artikel": "Wpg art. 36",
+   "thema": "Verantwoording en toezicht",
+   "kern": "Er is een FG voor de Wpg, met de positie en de middelen om toezicht te houden."
+  },
+  {
+   "id": "B4-1",
+   "titel": "Wijzigingenbeheer",
+   "artikel": "Bijlage 4 bij de handreiking, bij maatregel 6, 7, 10, 13 en 24",
+   "thema": "Technische maatregelen (bijlage 4)",
+   "kern": "Wijzigingen in de ICT-voorzieningen worden tijdig, geautoriseerd en getest doorgevoerd."
+  },
+  {
+   "id": "B4-2",
+   "titel": "Logische toegangsbeveiliging",
+   "artikel": "Bijlage 4 bij de handreiking, bij maatregel 6, 7, 10, 13 en 24",
+   "thema": "Technische maatregelen (bijlage 4)",
+   "kern": "Identiteit en toegangsmiddelen leggen betrouwbaar vast wie iemand is, welke rechten hij heeft en of dat controleerbaar blijft."
+  },
+  {
+   "id": "B4-3",
+   "titel": "Beheer van kwetsbaarheden (patchmanagement)",
+   "artikel": "Bijlage 4 bij de handreiking, bij maatregel 6, 7, 10, 13 en 24",
+   "thema": "Technische maatregelen (bijlage 4)",
+   "kern": "Informatie over technische kwetsbaarheden wordt tijdig verkregen en de blootstelling wordt beoordeeld en beperkt."
+  },
+  {
+   "id": "B4-4",
+   "titel": "Cryptografie",
+   "artikel": "Bijlage 4 bij de handreiking, bij maatregel 6, 7, 10, 13 en 24",
+   "thema": "Technische maatregelen (bijlage 4)",
+   "kern": "Er is beleid voor het gebruik van cryptografie ter bescherming van politiegegevens, en dat wordt toegepast."
+  },
+  {
+   "id": "B4-5",
+   "titel": "Vulnerability scans en penetratietesten",
+   "artikel": "Bijlage 4 bij de handreiking, bij maatregel 6, 7, 10, 13 en 24",
+   "thema": "Technische maatregelen (bijlage 4)",
+   "kern": "Scans en penetratietesten worden procesmatig uitgevoerd op de infrastructuur waarin politiegegevens worden verwerkt."
+  }
+ ],
+ "vingerafdruk": "e287c1fe041f42375e8af7c30461a48b647869ef4ec14fc24e5a4fe9af4241f9"
 }

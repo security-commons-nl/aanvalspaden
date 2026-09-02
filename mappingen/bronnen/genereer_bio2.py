@@ -1,6 +1,6 @@
-"""Maakt bronnen/bio2.json uit de gedeelde BIO2-dataset van cisochat.
+"""Maakt bronnen/bio2.json uit de BIO2-kopie van normen (bronnen/bio2-overheidsmaatregelen.json).
 
-De dataset van cisochat is de bron: 148 overheidsmaatregelen, genummerd volgens de structuur van
+De repo normen is de bron: 148 overheidsmaatregelen, genummerd volgens de structuur van
 ISO 27002:2022 (5.01.01 hoort bij ISO-maatregel 5.1). Hier groeperen we ze per ISO-maatregel, want dat
 is het niveau waarop de mapping wordt gelegd: een barriere levert bewijs voor een maatregel, niet voor
 een enkele overheidsmaatregel daarbinnen.
@@ -9,8 +9,8 @@ Wat wel wordt overgenomen: het nummer, de Nederlandse titel uit BIO2, de sub-ids
 niet: de tekst van de ISO-maatregel. Die is auteursrechtelijk beschermd en we hebben hem niet nodig;
 wie de tekst wil, gaat naar de bron.
 
-Aanroep (alleen nodig als de BIO2-dataset wijzigt):
-    python mappingen/bronnen/genereer_bio2.py [pad naar cisochat/data/bio2.json]
+Aanroep (na python tools/haal_normen.py):
+    python mappingen/bronnen/genereer_bio2.py [pad naar de kopie]
 """
 from __future__ import annotations
 
@@ -23,7 +23,7 @@ import sys
 HIER = pathlib.Path(__file__).resolve().parent
 UIT = HIER / "bio2.json"
 # mappingen/bronnen -> mappingen -> aanvalspaden -> de werkmap met alle repo's ernaast.
-STANDAARD_BRON = HIER.parents[2] / "cisochat" / "data" / "bio2.json"
+STANDAARD_BRON = HIER / "bio2-overheidsmaatregelen.json"
 
 
 def iso_nummer(sub_id: str) -> str:
@@ -53,12 +53,12 @@ def bouw(bron_pad: pathlib.Path) -> dict:
     bron = json.loads(bron_pad.read_text(encoding="utf-8"))
 
     maatregelen: dict[str, dict] = {}
-    for control in bron["controls"]:
+    for control in bron["maatregelen"]:
         nummer = iso_nummer(control["id"])
         maatregel = maatregelen.setdefault(nummer, {
             "id": nummer,
             "titel": schoon(control["titel"]),
-            "thema": schoon(control.get("iv_standaard") or "Overig"),
+            "thema": schoon(control.get("thema") or "Overig"),
             "overheidsmaatregelen": [],
         })
         maatregel["overheidsmaatregelen"].append(control["id"])
@@ -76,13 +76,14 @@ def bouw(bron_pad: pathlib.Path) -> dict:
             "in de bron; hier staan alleen nummer, titel en thema."
         ),
         "bron": {
-            "naam": bron.get("bron", "Centrum Informatiebeveiliging en Privacybescherming (CIP)"),
+            "naam": bron["bron"]["naam"],
             "versie": bron.get("versie", "BIO2 v1.3"),
-            "herkomst": "security-commons-nl/cisochat, data/bio2.json",
-            "commit": commit_van(bron_pad),
+            "herkomst": "security-commons-nl/normen, bio2.json (kopie in bronnen/bio2-overheidsmaatregelen.json)",
+            "vingerafdruk_normen": bron["vingerafdruk"],
+            "commit": bron["bron"].get("commit", "onbekend"),
             "let_op": (
-                "Gegenereerd met mappingen/bronnen/genereer_bio2.py. Wijzig de dataset in cisochat, "
-                "niet dit bestand."
+                "Gegenereerd met mappingen/bronnen/genereer_bio2.py uit de kopie van normen. Wijzig de dataset "
+                "in normen, niet dit bestand."
             ),
         },
         "tweede_etiket": {

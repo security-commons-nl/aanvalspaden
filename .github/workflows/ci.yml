@@ -70,6 +70,14 @@ jobs:
           repository: security-commons-nl/kennisbank
           path: _kennisbank
 
+      # De normbronnen (BIO 2.0, NIST CSF, Wpg, AVG) komen uit normen; de kopie in mappingen/bronnen
+      # draagt de vingerafdruk van daar, en loopt hij achter, dan legt de mapping verbanden op een
+      # oude versie van de norm.
+      - uses: actions/checkout@v6
+        with:
+          repository: security-commons-nl/normen
+          path: _normen
+
       - uses: actions/setup-python@v6
         with:
           python-version: "3.12"
@@ -79,6 +87,9 @@ jobs:
           python -m pip install --upgrade pip
           pip install pytest jsonschema playwright
           python -m playwright install --with-deps chromium
+
+      - name: De normbronnen lopen gelijk met normen
+        run: python tools/haal_normen.py --check
 
       # De kennisbank is de bron van de koppeling barriere -> handleiding. Loopt de kopie hier
       # achter, dan belooft de site een handleiding die er niet (meer) zo staat.

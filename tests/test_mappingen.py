@@ -189,7 +189,7 @@ def test_een_raakvlak_telt_nooit_als_dekking(kader):
 def test_bio2_verwijst_naar_de_gedeelde_dataset():
     """De BIO2-bron is een kopie. Een kopie zonder herkomst is een tweede waarheid."""
     bron = helper.bron("bio2")["bron"]
-    assert "cisochat" in bron["herkomst"], "de herkomst van de BIO2-kopie moet naar de bron wijzen"
+    assert "normen" in bron["herkomst"], "de herkomst van de BIO2-kopie moet naar de bron wijzen"
     assert re.fullmatch(r"[0-9a-f]{40}|onbekend", bron["commit"]), "commit is geen geldige hash"
 
 
