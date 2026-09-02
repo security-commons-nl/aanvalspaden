@@ -45,7 +45,7 @@ jobs:
         run: python -m pytest check/tests/ -v
 
       - name: De gebouwde check bewaren
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: zelfcheck
           path: check/dist/index.html
@@ -103,7 +103,7 @@ jobs:
         run: python -m pytest mappingen/tests/ tests/test_handelingsperspectief.py -v
 
       - name: De gebouwde crosswalk bewaren
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: crosswalk
           path: mappingen/dist/index.html
