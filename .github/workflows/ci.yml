@@ -26,7 +26,7 @@ jobs:
   check:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
 
       - uses: actions/setup-python@v6
         with:
@@ -63,9 +63,9 @@ jobs:
   mappingen:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
 
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
         with:
           repository: security-commons-nl/kennisbank
           path: _kennisbank
@@ -73,7 +73,7 @@ jobs:
       # De normbronnen (BIO 2.0, NIST CSF, Wpg, AVG) komen uit normen; de kopie in mappingen/bronnen
       # draagt de vingerafdruk van daar, en loopt hij achter, dan legt de mapping verbanden op een
       # oude versie van de norm.
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
         with:
           repository: security-commons-nl/normen
           path: _normen
