@@ -1,0 +1,9 @@
+# Regeleindes vastleggen. De testfixtures worden woordelijk gehasht: meting vergelijkt de sha256 die
+# Python berekent met die van de browser, en de browser leest het bestand zoals het op schijf staat.
+# Zou git ze op Windows als CRLF uitchecken, dan lopen die twee uiteen en faalt de suite zonder dat er
+# iets mis is. Daarom hier expliciet LF, ook voor het verzamelscript dat op Linux draait.
+* text=auto eol=lf
+meting/tests/fixtures/** text eol=lf
+meting/collect.sh text eol=lf
+*.png binary
+*.pdf binary
