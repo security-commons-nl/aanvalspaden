@@ -1,0 +1,4 @@
+peer,dst_subnet,leverancier
+leverancier-zaaksysteem,10.20.50.0/24,ZaakSoft
+leverancier-toegangscontrole,10.20.60.8/29,SecuDoor
+onderhoud-klimaat,10.20.61.0/28,KlimaatBeheer

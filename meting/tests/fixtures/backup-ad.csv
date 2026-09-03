@@ -1,0 +1,3 @@
+backup_system,prod_ad_trust,eigen_ad,mfa
+Backup-cluster,false,true,true
+Offsite-kopie,false,true,true

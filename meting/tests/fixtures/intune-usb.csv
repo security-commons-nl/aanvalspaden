@@ -1,0 +1,4 @@
+device,usb_blocked_default,policy
+WKS-001,true,Werkplekbeperking
+WKS-002,true,Werkplekbeperking
+WKS-003,true,Werkplekbeperking

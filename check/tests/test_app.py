@@ -80,6 +80,68 @@ def uitslag_in_browser(pagina, antwoorden: dict) -> dict:
 
 # ---------- de app zoals een gebruiker hem gebruikt ----------
 
+@pytest.fixture(scope="module")
+def meting_export(data) -> dict:
+    """Het echte exportbestand uit meting; zo bewijst deze test dat beide kanten op elkaar passen."""
+    conftest_pad = REPO / "meting" / "tests" / "conftest.py"
+    if not conftest_pad.exists():
+        pytest.skip("meting staat niet in deze repo")
+    import importlib.util
+    spec = importlib.util.spec_from_file_location("meting_conftest", conftest_pad)
+    mconf = importlib.util.module_from_spec(spec)
+    sys.modules["meting_conftest"] = mconf
+    spec.loader.exec_module(mconf)
+    regels = json.loads((REPO / "meting" / "regels.json").read_text(encoding="utf-8"))
+    dossier = mconf.doorloop_dossier(regels, data)
+    return mconf.reken_module.zelfcheck_export(regels, data, dossier, mconf.PEILDATUM)
+
+
+def laad_meting(pagina, tmp_path, inhoud: dict, naam: str = "uit-meting.json") -> None:
+    doel = tmp_path / naam
+    doel.write_text(json.dumps(inhoud, ensure_ascii=False), encoding="utf-8")
+    pagina.set_input_files("#bestand-meting", str(doel))
+    pagina.wait_for_selector("#meting-status")
+
+
+def test_antwoorden_uit_meting_laden(pagina, data, meting_export, tmp_path):
+    gemeten = {v: a for v, a in meting_export["antwoorden"].items() if a != "unknown"}
+    assert gemeten, "de doorloop hoort ten minste een vraag te beantwoorden"
+    eerste = sorted(gemeten)[0]
+
+    # Een eigen antwoord op de eerste vraag blijft staan; de rest wordt gevuld.
+    eigen = "no" if gemeten[eerste] == "yes" else "yes"
+    pagina.evaluate("a => window.zelfcheck.zet(a)", {eerste: eigen})
+    laad_meting(pagina, tmp_path, meting_export)
+
+    melding = pagina.text_content("#meting-status")
+    assert f"{len(gemeten) - 1} antwoorden overgenomen" in melding
+    assert "1 overgeslagen (al ingevuld)" in melding
+    bewaard = json.loads(pagina.evaluate("() => localStorage.getItem('aanvalspaden-zelfcheck-v1')"))
+    assert bewaard["antwoorden"][eerste] == eigen, "een eigen antwoord mag niet overschreven worden"
+    for vraag, antwoord in gemeten.items():
+        if vraag != eerste:
+            assert bewaard["antwoorden"][vraag] == antwoord, vraag
+    for vraag, antwoord in meting_export["antwoorden"].items():
+        if antwoord == "unknown":
+            assert vraag not in bewaard["antwoorden"], f"{vraag}: onbekend hoort niets te vullen"
+
+    # De herkomst staat als notitie bij de vraag, zodat zichtbaar is waar het antwoord vandaan komt.
+    tweede = sorted(v for v in gemeten if v != eerste)[0]
+    notitie = bewaard["notities"][tweede]
+    assert notitie.startswith("uit meting 2026-09-03")
+    for item in meting_export["herkomst"].get(tweede, {}).get("items", []):
+        assert item in notitie
+    pagina.evaluate("() => window.zelfcheck.ga('vragen', 0)")
+    zichtbaar = pagina.locator(".notitie").all_inner_texts()
+    assert any(t.startswith("uit meting") for t in zichtbaar)
+
+
+def test_laden_weigert_een_ander_bestand(pagina, tmp_path, meting_export):
+    laad_meting(pagina, tmp_path, {"formaat": "meting-dossier", "metingen": {}})
+    assert "geen exportbestand van de meting" in pagina.text_content("#meting-status")
+    assert pagina.evaluate("() => localStorage.getItem('aanvalspaden-zelfcheck-v1')") is None
+
+
 def test_startscherm_toont_de_check(pagina, data):
     assert "aanvalspaden" in pagina.title().lower()
     assert pagina.get_by_role("heading", name="Welke aanvalspaden staan bij jullie open?").is_visible()

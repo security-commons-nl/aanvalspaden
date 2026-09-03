@@ -1,0 +1,11 @@
+Maandrapportage informatiebeveiliging
+
+Datum: 2026-08-22
+
+Patchstatus: 98 procent van de werkplekken is binnen de termijn bijgewerkt; twee servers wachten op een
+onderhoudsvenster.
+
+MFA: 100 procent van de beheerders gebruikt een phishingbestendige methode.
+
+Incidenten: drie meldingen, waarvan een phishingpoging die door de gebruiker is gemeld. Geen incident
+met impact op de dienstverlening.

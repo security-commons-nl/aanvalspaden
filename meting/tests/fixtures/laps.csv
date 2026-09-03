@@ -1,0 +1,4 @@
+device_name,os,laps_configured,laps_last_rotation
+WKS-001,Windows 11,true,2026-08-28T08:12:00Z
+WKS-002,Windows 11,true,2026-08-29T09:00:00Z
+SRV-010,Windows Server 2022,false,

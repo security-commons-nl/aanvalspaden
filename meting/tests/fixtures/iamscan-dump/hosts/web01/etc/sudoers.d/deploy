@@ -1,0 +1,2 @@
+# CI-account mag de applicatie herstarten en artefacten uitpakken
+deploy ALL=(ALL) NOPASSWD: /bin/systemctl, /usr/bin/tar

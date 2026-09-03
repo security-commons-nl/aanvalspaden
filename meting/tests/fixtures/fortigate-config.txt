@@ -1,0 +1,38 @@
+config firewall policy
+    edit 1
+        set name "jump-naar-ilo"
+        set srcintf "jump"
+        set dstintf "ilo"
+        set srcaddr "jumphosts"
+        set dstaddr "ilo-net"
+        set service "HTTPS"
+        set action accept
+    next
+    edit 2
+        set name "mgmt-beheer"
+        set srcintf "mgmt"
+        set dstintf "tooling"
+        set srcaddr "mgmt-hosts"
+        set dstaddr "tooling-net"
+        set service "SSH"
+        set action accept
+    next
+    edit 3
+        set name "gast-naar-internet"
+        set srcintf "guest"
+        set dstintf "wan"
+        set srcaddr "all"
+        set dstaddr "all"
+        set service "ALL"
+        set action accept
+    next
+    edit 4
+        set name "kantoor-naar-server"
+        set srcintf "user"
+        set dstintf "server"
+        set srcaddr "werkplekken"
+        set dstaddr "app-servers"
+        set service "HTTPS"
+        set action accept
+    next
+end

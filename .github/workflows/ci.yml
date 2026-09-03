@@ -51,6 +51,40 @@ jobs:
           path: check/dist/index.html
           if-no-files-found: error
 
+  # De meting: de derde diepte. De regels staan als data in meting/regels.json; de tests vergelijken
+  # wat de pagina toont met meting/reken.py, en bewaken dat regels.json en paden.json op elkaar
+  # passen. Loopt de JavaScript uit de pas met de Python, dan valt het hier door de mand.
+  #
+  # De overname uit security-posture-tool en iamscan was eenmalig: die repo's worden hier niet
+  # uitgecheckt, en de tests die ze woordelijk vergelijken slaan zichzelf over als ze ontbreken.
+  meting:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Installeren
+        run: |
+          python -m pip install --upgrade pip
+          pip install pytest playwright
+          python -m playwright install --with-deps chromium
+
+      - name: Bouwen
+        run: python meting/bouw.py
+
+      - name: Tests
+        run: python -m pytest meting/tests -v
+
+      - name: De gebouwde meting bewaren
+        uses: actions/upload-artifact@v7
+        with:
+          name: meting
+          path: meting/dist/index.html
+          if-no-files-found: error
+
   # De crosswalk: de mapping van barrieres naar normenkaders, en de pagina eromheen. De
   # browsertests vergelijken wat op het scherm staat met tools/mappingen.py, dus hier valt het door
   # de mand als de pagina en de mapping uit elkaar lopen.

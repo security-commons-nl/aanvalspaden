@@ -37,6 +37,44 @@
     try { localStorage.removeItem(OPSLAG); } catch (e) {}
   }
 
+  /* ---------- antwoorden uit de meting ---------- */
+
+  /* De meting (aanvalspaden/meting) exporteert afgeleide antwoorden met bewijs erbij. Die vullen
+     alleen de gaten: een antwoord dat de mens zelf gaf blijft staan, want de check blijft van de mens. */
+
+  var metingMelding = null;
+
+  function neemMetingOver(tekst) {
+    var data = null;
+    try { data = JSON.parse(tekst); } catch (e) { data = null; }
+    if (!data || data.formaat !== "zelfcheck-antwoorden") {
+      metingMelding = { fout: true, tekst: "Dit is geen exportbestand van de meting. Verwacht een " +
+        "bestand met formaat zelfcheck-antwoorden." };
+      teken();
+      return;
+    }
+    var antwoorden = data.antwoorden || {};
+    var herkomst = data.herkomst || {};
+    var datum = data.gemaakt || "onbekende datum";
+    var over = 0, gehouden = 0, zonder = 0;
+    Object.keys(antwoorden).forEach(function (vid) {
+      if (!VRAGEN[vid]) return;
+      var waarde = antwoorden[vid];
+      if (!waarde || waarde === ONBEKEND) { zonder++; return; }
+      var nu = staat.antwoorden[vid];
+      if (nu && nu !== ONBEKEND) { gehouden++; return; }
+      staat.antwoorden[vid] = waarde;
+      var items = ((herkomst[vid] || {}).items || []).join(", ");
+      staat.notities[vid] = "uit meting " + datum + (items ? ": " + items : "");
+      over++;
+    });
+    bewaar();
+    metingMelding = { fout: false, tekst: over + (over === 1 ? " antwoord" : " antwoorden") +
+      " overgenomen, " + gehouden + " overgeslagen (al ingevuld), " + zonder +
+      " zonder meetbaar bewijs. Je eigen antwoorden zijn niet overschreven." };
+    teken();
+  }
+
   /* ---------- de vragen, afgeleid uit de bron ---------- */
 
   var VRAGEN = (function () {
@@ -230,8 +268,15 @@
       el("div", { class: "knoppen" }, [
         el("button", { class: "primair", tekst: voortgang.gedaan ? "Verder met je check" : "Start de check",
                        onclick: function () { ga("vragen", 0); } }),
+        el("button", { id: "knop-meting-laden", tekst: "Antwoorden uit meting laden",
+                       onclick: function () {
+                         var invoer = document.getElementById("bestand-meting");
+                         if (invoer) invoer.click();
+                       } }),
         el("a", { href: "#beoordeling", tekst: "Hoe werkt de beoordeling?" })
       ]),
+      metingMelding ? el("p", { id: "meting-status", role: "status",
+        class: "melding" + (metingMelding.fout ? " fout" : ""), tekst: metingMelding.tekst }) : null,
       voortgang.gedaan ? el("p", { class: "voortgang",
         tekst: voortgang.gedaan + " van de " + voortgang.totaal + " vragen beantwoord." }) : null,
       el("p", { class: "privacy", tekst: "Je antwoorden blijven in de opslag van deze browser. Er is geen " +
@@ -266,6 +311,9 @@
       rij.appendChild(knop);
     });
     groep.appendChild(rij);
+    if (staat.notities[v.id]) {
+      groep.appendChild(el("p", { class: "notitie", tekst: staat.notities[v.id] }));
+    }
     if (v.paden.length) {
       groep.appendChild(el("p", { class: "raakt", tekst: "Telt mee bij " + v.paden.length +
         (v.paden.length === 1 ? " aanvalspad" : " aanvalspaden") + ": " + v.paden.join(", ") }));
@@ -476,6 +524,19 @@
     acties: function () { return acties(beoordeel()); },
     ga: ga
   };
+
+  var metingInvoer = document.getElementById("bestand-meting");
+  if (metingInvoer) {
+    metingInvoer.addEventListener("change", function (gebeurtenis) {
+      var bestand = gebeurtenis.target.files[0];
+      gebeurtenis.target.value = "";
+      if (!bestand) return;
+      bestand.text().then(neemMetingOver).catch(function () {
+        metingMelding = { fout: true, tekst: "Dit bestand is niet te lezen." };
+        teken();
+      });
+    });
+  }
 
   laad();
   teken();

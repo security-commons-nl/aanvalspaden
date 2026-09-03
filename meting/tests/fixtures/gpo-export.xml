@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GPOS>
+  <GPO><Name>Tier-0 beperking</Name>
+    <Computer><ExtensionData><Extension>
+      <Policy><Name>LogonWorkstations</Name><State>Enabled</State><Value>PAW-01,PAW-02</Value></Policy>
+    </Extension></ExtensionData></Computer>
+  </GPO>
+</GPOS>

@@ -1,0 +1,4 @@
+upn,display_name,mfa_registered,methods
+beheer1@voorbeeld.nl,Beheerder een,true,fido2;authenticator
+beheer2@voorbeeld.nl,Beheerder twee,true,fido2
+beheer3@voorbeeld.nl,Beheerder drie,true,windowsHelloForBusiness

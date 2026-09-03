@@ -1,0 +1,4 @@
+device,type,last_patched_at
+vpn-concentrator,VPN,2026-09-02T16:00:00Z
+edge-firewall,Firewall,2026-09-01T20:00:00Z
+reverse-proxy,Proxy,2026-09-01T00:00:00Z

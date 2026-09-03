@@ -1,0 +1,9 @@
+Verslag hersteltest kroonjuwelen
+
+Datum: 2026-07-05
+
+Op bovenstaande datum is een restore uitgevoerd van de database achter Paspoortuitgifte, vanaf de
+immutable kopie. De afgesproken RTO van 4 uur is gehaald: de omgeving was na 3 uur en 10 minuten
+beschikbaar. De RPO van 1 uur is gehaald; het laatste herstelpunt was 40 minuten oud.
+
+Aandachtspunt: de restore van de bijlagenopslag duurde langer dan verwacht en is apart belegd.

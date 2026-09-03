@@ -1,0 +1,4 @@
+root:x:0:
+wheel:x:10:postgres
+sudo:x:27:alice
+postgres:x:120:

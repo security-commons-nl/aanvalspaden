@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<nmaprun scanner="nmap" start="1788048000" startstr="externe scan">
+  <host>
+    <address addr="93.184.216.34" addrtype="ipv4"/>
+    <ports>
+      <port protocol="tcp" portid="443"><state state="open"/></port>
+      <port protocol="tcp" portid="80"><state state="closed"/></port>
+    </ports>
+  </host>
+</nmaprun>

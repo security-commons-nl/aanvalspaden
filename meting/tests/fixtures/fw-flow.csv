@@ -1,0 +1,4 @@
+timestamp,src_ip,dst_ip,fqdn
+2026-09-03T11:00:00Z,10.20.42.11,93.184.216.34,www.voorbeeld.nl
+2026-09-03T10:00:00Z,10.20.42.12,93.184.216.35,api.voorbeeld.nl
+2026-09-03T09:00:00Z,10.20.44.5,93.184.216.36,updates.voorbeeld.nl

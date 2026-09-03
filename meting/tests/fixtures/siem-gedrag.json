@@ -1,0 +1,6 @@
+[
+  {"id": "B01", "name": "Ongebruikelijke aanmeldtijd", "type": "behavior"},
+  {"id": "B02", "name": "Massale bestandstoegang", "type": "behavior"},
+  {"id": "B03", "name": "Nieuwe beheerdersrol", "type": "behavior"},
+  {"id": "S01", "name": "Bekende hash", "type": "signature"}
+]

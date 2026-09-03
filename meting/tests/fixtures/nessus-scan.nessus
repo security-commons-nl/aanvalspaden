@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<NessusClientData_v2>
+  <Report name="Extern 2026-08-30">
+    <ReportHost name="93.184.216.34">
+      <HostProperties><tag name="HOST_START">2026-08-30T02:00:00Z</tag></HostProperties>
+      <ReportItem port="443" severity="2" pluginName="TLS-configuratie"/>
+      <ReportItem port="80" severity="1" pluginName="Informatieve melding"/>
+    </ReportHost>
+  </Report>
+</NessusClientData_v2>

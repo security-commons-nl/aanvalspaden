@@ -1,0 +1,9 @@
+Gap-analyse BIO 2.0
+
+Datum: 2026-05-06
+
+Deze analyse legt de maatregelen van de gemeente naast BIO 2 en benoemt per thema de gap. De grootste
+afwijking zit op logging en monitoring: de bewaartermijn is korter dan de norm vraagt.
+
+Aanbeveling: de retentie verhogen naar 90 dagen en de use-cases per kwartaal herijken. Remediatie is
+belegd bij Team ICT.

@@ -1,0 +1,4 @@
+category,action,logged,policy
+ai-tools,allow,true,Uitgaand verkeer
+sociale-media,allow,true,Uitgaand verkeer
+gokken,block,true,Uitgaand verkeer

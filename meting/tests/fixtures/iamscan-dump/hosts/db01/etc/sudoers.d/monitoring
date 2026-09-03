@@ -1,0 +1,1 @@
+svc_monitor ALL=(ALL) NOPASSWD: /usr/bin/find, /usr/bin/less

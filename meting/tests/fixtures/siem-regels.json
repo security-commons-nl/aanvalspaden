@@ -1,0 +1,13 @@
+[
+  {"id": "R01", "name": "Gemeenteregel 1", "tags": ["gemeente", "burgerzaken"]},
+  {"id": "R02", "name": "Gemeenteregel 2", "tags": ["gemeente", "burgerzaken"]},
+  {"id": "R03", "name": "Gemeenteregel 3", "tags": ["gemeente", "burgerzaken"]},
+  {"id": "R04", "name": "Gemeenteregel 4", "tags": ["gemeente", "burgerzaken"]},
+  {"id": "R05", "name": "Gemeenteregel 5", "tags": ["gemeente", "burgerzaken"]},
+  {"id": "R06", "name": "Gemeenteregel 6", "tags": ["gemeente", "burgerzaken"]},
+  {"id": "R07", "name": "Gemeenteregel 7", "tags": ["gemeente", "burgerzaken"]},
+  {"id": "R08", "name": "Gemeenteregel 8", "tags": ["gemeente", "burgerzaken"]},
+  {"id": "R09", "name": "Gemeenteregel 9", "tags": ["gemeente", "burgerzaken"]},
+  {"id": "R10", "name": "Gemeenteregel 10", "tags": ["gemeente", "burgerzaken"]},
+  {"id": "R99", "name": "Generieke regel", "tags": ["algemeen"]}
+]

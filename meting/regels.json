@@ -1,0 +1,1472 @@
+{
+ "versie": "2026-09",
+ "bron": {
+  "items": "security-posture-tool v0.1/checklist.py (ALL_ITEMS) en v0.1/paden_map.py op tag v0-applicatie",
+  "toetsregels": "security-posture-tool v0.1/connectors/*.py en v0.1/app.py op tag v0-applicatie, met de bronnen en drempels vastgelegd in meting/overname.py",
+  "iamscan": "iamscan/analysis.py en parsers.py op tag v0-applicatie, commit b5319c5ae86102b5bce2e4ecdd7630066a922711",
+  "paden": "paden.json in deze repo, versie 2026-08",
+  "gegenereerd_door": "meting/overname.py; wijzig regels.json alleen met een bewuste commit"
+ },
+ "verdicts": [
+  "pass",
+  "fail",
+  "stale",
+  "unparsed",
+  "geen_bewijs"
+ ],
+ "soorten": {
+  "A": "Configuratie of export: wat is ingesteld.",
+  "B": "Log: wat er gebeurt.",
+  "C": "Document: wat A en B niet raken. Je plakt de tekst; de toets kijkt naar trefwoorden en datum.",
+  "D": "Niet uit data te halen. Dat zegt het instrument hardop; zie de witte vlekken per pad."
+ },
+ "categorieen": [
+  {
+   "nummer": 1,
+   "titel": "Inventaris & kroonjuwelen"
+  },
+  {
+   "nummer": 2,
+   "titel": "Segmentatie"
+  },
+  {
+   "nummer": 3,
+   "titel": "Identity & toegang"
+  },
+  {
+   "nummer": 4,
+   "titel": "Monitoring & logging"
+  },
+  {
+   "nummer": 5,
+   "titel": "Patching & vulnerability"
+  },
+  {
+   "nummer": 6,
+   "titel": "Backup & recovery"
+  },
+  {
+   "nummer": 7,
+   "titel": "Werkplek-hardening"
+  },
+  {
+   "nummer": 8,
+   "titel": "AI-specifiek (feitelijk)"
+  },
+  {
+   "nummer": 9,
+   "titel": "Governance"
+  },
+  {
+   "nummer": 10,
+   "titel": "Linux-hosts (iamscan)"
+  }
+ ],
+ "bronnen": [
+  {
+   "id": "crown_jewels_csv",
+   "titel": "Kroonjuwelenlijst",
+   "formaat": "csv",
+   "kolommen": [
+    "name"
+   ],
+   "optioneel": [
+    "owner",
+    "vlan_or_subnet",
+    "backup_type",
+    "rto",
+    "rpo"
+   ],
+   "uitleg": "Een regel per kroonjuweel.",
+   "hoe": "Uit je eigen lijst, of uit de uitdraai van procescheck (hoofdstuk Kroonjuwelen)."
+  },
+  {
+   "id": "asset_inventory_csv",
+   "titel": "Asset-inventaris uit drie bronnen",
+   "formaat": "csv",
+   "kolommen": [
+    "source",
+    "ip"
+   ],
+   "optioneel": [
+    "hostname"
+   ],
+   "uitleg": "Een regel per waarneming, met in source een van ad, dhcp of fw_arp.",
+   "hoe": "Drie exports achter elkaar geplakt: AD-computers, DHCP-leases en de ARP-tabel van de firewall."
+  },
+  {
+   "id": "fw_config",
+   "titel": "Firewall running-config",
+   "formaat": "tekst",
+   "kolommen": [],
+   "optioneel": [],
+   "uitleg": "De configuratie zoals het apparaat hem uitschrijft. Herkent FortiGate, Cisco ASA/IOS en Palo Alto set-formaat; een ander formaat geeft unparsed.",
+   "hoe": "show running-config (Cisco), show full-configuration (FortiGate) of set-export (Palo Alto). De toets kijkt naar zonenamen met mgmt, oob, tooling, aaa, guest, jump, ilo, ipmi, user en server; heten je zones anders, dan is de uitkomst unparsed en niet pass."
+  },
+  {
+   "id": "vpn_inventory_csv",
+   "titel": "Vendor-VPN-peers",
+   "formaat": "csv",
+   "kolommen": [
+    "peer",
+    "dst_subnet"
+   ],
+   "optioneel": [
+    "leverancier"
+   ],
+   "uitleg": "Een regel per VPN-peer met het subnet dat hij mag bereiken.",
+   "hoe": "Uit de VPN-configuratie of het beheerportaal van de firewall."
+  },
+  {
+   "id": "entra_privileged_csv",
+   "titel": "Privileged accounts met MFA-registratie",
+   "formaat": "csv",
+   "kolommen": [
+    "upn",
+    "mfa_registered"
+   ],
+   "optioneel": [
+    "display_name",
+    "methods"
+   ],
+   "uitleg": "Een regel per account met een directoryrol.",
+   "hoe": "Entra-portaal, Rollen en beheerders, plus het rapport Authenticatiemethoden; of met Graph: /directoryRoles/{id}/members en /reports/authenticationMethods/userRegistrationDetails."
+  },
+  {
+   "id": "ad_tier0_csv",
+   "titel": "Tier-0-accounts en LogonWorkstations",
+   "formaat": "csv",
+   "kolommen": [
+    "account",
+    "logon_workstations_set"
+   ],
+   "optioneel": [
+    "logon_workstations"
+   ],
+   "uitleg": "Een regel per tier-0-account.",
+   "hoe": "PowerShell: Get-ADUser -Filter * -Properties LogonWorkstations, gefilterd op je tier-0-OU."
+  },
+  {
+   "id": "gpo_export_xml",
+   "titel": "GPO-export",
+   "formaat": "xml",
+   "kolommen": [],
+   "optioneel": [],
+   "uitleg": "Alternatief voor 3.2: de export moet LogonWorkstations bevatten.",
+   "hoe": "PowerShell: Get-GPOReport -All -ReportType XML."
+  },
+  {
+   "id": "ad_svc_accounts_csv",
+   "titel": "Serviceaccounts",
+   "formaat": "csv",
+   "kolommen": [
+    "sam",
+    "in_da",
+    "auth_type",
+    "pw_len"
+   ],
+   "optioneel": [
+    "ou"
+   ],
+   "uitleg": "Een regel per serviceaccount; auth_type is gmsa of iets anders, pw_len is de wachtwoordlengte.",
+   "hoe": "PowerShell over je serviceaccount-OU, aangevuld met het lidmaatschap van Domain Admins."
+  },
+  {
+   "id": "laps_csv",
+   "titel": "LAPS-dekking",
+   "formaat": "csv",
+   "kolommen": [
+    "device_name",
+    "laps_configured"
+   ],
+   "optioneel": [
+    "os",
+    "laps_last_rotation"
+   ],
+   "uitleg": "Een regel per apparaat.",
+   "hoe": "Intune-export of een AD-query op ms-Mcs-AdmPwdExpirationTime."
+  },
+  {
+   "id": "entra_users_csv",
+   "titel": "Accounts met laatste aanmelding",
+   "formaat": "csv",
+   "kolommen": [
+    "upn",
+    "enabled",
+    "last_signin"
+   ],
+   "optioneel": [
+    "display_name"
+   ],
+   "uitleg": "Een regel per account; een lege last_signin telt als nooit aangemeld.",
+   "hoe": "Entra-portaal, Gebruikers, export met de kolom Laatste aanmelding; of Graph /users?$select=userPrincipalName,accountEnabled,signInActivity."
+  },
+  {
+   "id": "siem_flow_csv",
+   "titel": "Flow-logs uit de SIEM",
+   "formaat": "csv",
+   "kolommen": [
+    "timestamp",
+    "src_vlan",
+    "dst_vlan"
+   ],
+   "optioneel": [
+    "src_ip",
+    "dst_ip"
+   ],
+   "uitleg": "Een steekproef van de flow-logs; timestamp in ISO-8601.",
+   "hoe": "Een query op je SIEM over de laatste 24 uur, geexporteerd als CSV."
+  },
+  {
+   "id": "sysmon_config_xml",
+   "titel": "Sysmon-configuratie",
+   "formaat": "xml",
+   "kolommen": [],
+   "optioneel": [],
+   "uitleg": "De actieve Sysmon-config.",
+   "hoe": "sysmon -c op een werkplek of domeincontroller."
+  },
+  {
+   "id": "entra_risky_csv",
+   "titel": "Riskante aanmeldingen",
+   "formaat": "csv",
+   "kolommen": [
+    "user",
+    "risk_level",
+    "datum"
+   ],
+   "optioneel": [
+    "risk_state",
+    "ip"
+   ],
+   "uitleg": "Een regel per aanmelding met een risiconiveau; risk_level none telt niet mee.",
+   "hoe": "Entra-portaal, Beveiliging, Riskante aanmeldingen, export; of Graph /auditLogs/signIns met filter riskLevelAggregated ne 'none'."
+  },
+  {
+   "id": "fw_flow_csv",
+   "titel": "Egress-flows met FQDN",
+   "formaat": "csv",
+   "kolommen": [
+    "fqdn"
+   ],
+   "optioneel": [
+    "timestamp",
+    "src_ip",
+    "dst_ip"
+   ],
+   "uitleg": "Een steekproef van uitgaand verkeer.",
+   "hoe": "Export uit de firewall of proxy over een representatief venster."
+  },
+  {
+   "id": "siem_rules_json",
+   "titel": "Detectieregels",
+   "formaat": "json",
+   "kolommen": [],
+   "optioneel": [],
+   "uitleg": "Een lijst met regels, of een object met een sleutel rules; elke regel heeft tags.",
+   "hoe": "Export van je SIEM-regels."
+  },
+  {
+   "id": "nessus_xml",
+   "titel": "Kwetsbaarhedenscan",
+   "formaat": "xml",
+   "kolommen": [],
+   "optioneel": [],
+   "uitleg": "Een .nessus-bestand; severity 4 is critical.",
+   "hoe": "Nessus of Qualys, export als XML."
+  },
+  {
+   "id": "edge_devices_csv",
+   "titel": "Edge- en VPN-apparaten",
+   "formaat": "csv",
+   "kolommen": [
+    "device",
+    "last_patched_at"
+   ],
+   "optioneel": [
+    "type",
+    "versie"
+   ],
+   "uitleg": "Een regel per apparaat aan de rand; last_patched_at in ISO-8601.",
+   "hoe": "Uit je patchbeheer of met de hand bijgehouden."
+  },
+  {
+   "id": "eol_inventory_csv",
+   "titel": "End-of-life-systemen",
+   "formaat": "csv",
+   "kolommen": [
+    "system",
+    "eol_date",
+    "migration_date"
+   ],
+   "optioneel": [
+    "eigenaar"
+   ],
+   "uitleg": "Een regel per systeem dat uit ondersteuning loopt.",
+   "hoe": "Uit je eigen lijst; migration_date is de datum waarop de migratie staat gepland."
+  },
+  {
+   "id": "nmap_xml",
+   "titel": "Externe poortscan",
+   "formaat": "xml",
+   "kolommen": [],
+   "optioneel": [],
+   "uitleg": "Een nmap-XML met het attribuut start op de wortel.",
+   "hoe": "nmap -oX van je externe adresruimte."
+  },
+  {
+   "id": "veeam_report_csv",
+   "titel": "Backuprapport",
+   "formaat": "csv",
+   "kolommen": [
+    "job_name",
+    "last_success",
+    "immutable",
+    "errors"
+   ],
+   "optioneel": [
+    "repository"
+   ],
+   "uitleg": "Een regel per backupjob.",
+   "hoe": "Export uit Veeam, Rubrik of je eigen backupsoftware."
+  },
+  {
+   "id": "backup_ad_audit_csv",
+   "titel": "Backup en het productie-AD",
+   "formaat": "csv",
+   "kolommen": [
+    "backup_system",
+    "prod_ad_trust"
+   ],
+   "optioneel": [
+    "eigen_ad",
+    "mfa"
+   ],
+   "uitleg": "Een regel per backupsysteem.",
+   "hoe": "Met de hand vastgesteld: vertrouwt dit systeem het productie-AD voor authenticatie?"
+  },
+  {
+   "id": "document",
+   "titel": "Rapport of verslag",
+   "formaat": "tekst",
+   "kolommen": [],
+   "optioneel": [],
+   "uitleg": "Plak de tekst van het rapport. De toets kijkt of de trefwoorden voorkomen en of er een datum in staat die vers genoeg is. Wat er inhoudelijk staat, beoordeel je zelf.",
+   "hoe": "Uit een PDF of Word: alles selecteren en plakken. De eerste datum in de vorm 2026-03-12 of 2026/03/12 telt als datum van het rapport."
+  },
+  {
+   "id": "wdac_policy_xml",
+   "titel": "WDAC- of AppLocker-policy",
+   "formaat": "xml",
+   "kolommen": [],
+   "optioneel": [],
+   "uitleg": "De actieve policy.",
+   "hoe": "De XML uit je WDAC-beheer, of Get-AppLockerPolicy -Effective -Xml."
+  },
+  {
+   "id": "asr_csv",
+   "titel": "ASR-regel voor Office-macro's",
+   "formaat": "csv",
+   "kolommen": [
+    "device_name",
+    "asr_office_macros_blocked"
+   ],
+   "optioneel": [
+    "os"
+   ],
+   "uitleg": "Een regel per apparaat.",
+   "hoe": "Intune-export van de ASR-regels."
+  },
+  {
+   "id": "local_admins_csv",
+   "titel": "Lokale administrators",
+   "formaat": "csv",
+   "kolommen": [
+    "device",
+    "user_count_in_admins"
+   ],
+   "optioneel": [
+    "members"
+   ],
+   "uitleg": "Een regel per apparaat met het aantal gewone gebruikers in de lokale Administrators.",
+   "hoe": "Intune of een script over je werkplekken."
+  },
+  {
+   "id": "intune_usb_csv",
+   "titel": "USB-beleid",
+   "formaat": "csv",
+   "kolommen": [
+    "device",
+    "usb_blocked_default"
+   ],
+   "optioneel": [
+    "policy"
+   ],
+   "uitleg": "Een regel per apparaat.",
+   "hoe": "Intune-export van het apparaatbeperkingsprofiel."
+  },
+  {
+   "id": "entra_admins_csv",
+   "titel": "Beheerders en hun authenticatiemethoden",
+   "formaat": "csv",
+   "kolommen": [
+    "upn",
+    "auth_methods"
+   ],
+   "optioneel": [
+    "role"
+   ],
+   "uitleg": "Een regel per beheerder; auth_methods is een lijst gescheiden door komma's of puntkomma's.",
+   "hoe": "Graph /users/{id}/authentication/methods per beheerder, of het rapport Authenticatiemethoden uit het Entra-portaal."
+  },
+  {
+   "id": "siem_behavior_rules_json",
+   "titel": "Gedragsdetectieregels",
+   "formaat": "json",
+   "kolommen": [],
+   "optioneel": [],
+   "uitleg": "Een lijst met regels; elke regel heeft een type.",
+   "hoe": "Export van je SIEM-regels, gefilterd of ongefilterd."
+  },
+  {
+   "id": "fw_category_csv",
+   "titel": "Categorieregels van de firewall",
+   "formaat": "csv",
+   "kolommen": [
+    "category",
+    "action",
+    "logged"
+   ],
+   "optioneel": [
+    "policy"
+   ],
+   "uitleg": "Een regel per categorie; de toets zoekt een categorie met 'ai' in de naam.",
+   "hoe": "Export van het URL- of applicatiefilter."
+  },
+  {
+   "id": "iamscan_dump",
+   "titel": "Linux-dump (iamscan)",
+   "formaat": "tar.gz of map",
+   "kolommen": [],
+   "optioneel": [],
+   "uitleg": "De tarball van collect.sh, of een uitgepakte map met een submap per host. Gelezen worden: etc/passwd, etc/group, etc/sudoers, etc/sudoers.d/*, etc/ssh/sshd_config en de authorized_keys per home-directory. Ontbrekende bestanden worden gemeld, niet verzwegen.",
+   "hoe": "Draai collect.sh als root op elke host (leest alleen, verstuurt niets) en kies de tarballs hier. Het script staat in de gearchiveerde repo iamscan en in meting/collect.sh."
+  }
+ ],
+ "items": [
+  {
+   "id": "1.1",
+   "categorie": 1,
+   "label": "Kroonjuwelenlijst (max 20, met eigenaar)",
+   "doel": "≥1 item, 100% heeft naam + eigenaar",
+   "bron": "crown_jewels_csv",
+   "soort": "A",
+   "pad": "AP18",
+   "chokepoint": "AP18-1",
+   "kill_chain": [],
+   "regel": {
+    "type": "dekking",
+    "parameters": {
+     "velden": [
+      "name",
+      "owner"
+     ],
+     "minimaal_een_rij": true
+    },
+    "uitleg": "Elke rij met een naam heeft ook een eigenaar, en er is minstens een rij (crown_jewels_csv.py)."
+   }
+  },
+  {
+   "id": "1.2",
+   "categorie": 1,
+   "label": "Per kroonjuweel: VLAN, backup-type, RTO/RPO",
+   "doel": "100% van juwelen heeft alle kolommen gevuld",
+   "bron": "crown_jewels_csv",
+   "soort": "A",
+   "pad": "AP18",
+   "chokepoint": "AP18-2",
+   "kill_chain": [],
+   "regel": {
+    "type": "dekking",
+    "parameters": {
+     "velden": [
+      "vlan_or_subnet",
+      "backup_type",
+      "rto",
+      "rpo"
+     ],
+     "minimaal_een_rij": true
+    },
+    "uitleg": "Elke rij met een naam heeft alle vier de detailkolommen gevuld (crown_jewels_csv.py)."
+   }
+  },
+  {
+   "id": "1.3",
+   "categorie": 1,
+   "label": "Asset-inventaris bijgewerkt (AD+DHCP+FW-dump)",
+   "doel": "Totale count binnen 5% van werkelijkheid",
+   "bron": "asset_inventory_csv",
+   "soort": "A",
+   "pad": "AP13",
+   "chokepoint": "AP13-1",
+   "kill_chain": [
+    "recon"
+   ],
+   "regel": {
+    "type": "spreiding",
+    "parameters": {
+     "bronnen": [
+      "ad",
+      "dhcp",
+      "fw_arp"
+     ],
+     "minimaal_pct_multi": 90,
+     "maximale_spreiding_pct": 20
+    },
+    "uitleg": "Minstens 90 procent van de unieke ip-adressen komt in twee of meer bronnen voor, elke bron heeft rijen, en de bronomvangen lopen hoogstens 20 procent uiteen (asset_inventory.py)."
+   }
+  },
+  {
+   "id": "2.1",
+   "categorie": 2,
+   "label": "iLO/IPMI/DRAC/BMC eigen VLAN, alleen via jump",
+   "doel": "Policy: JumpHosts→iLO expliciet, elders deny",
+   "bron": "fw_config",
+   "soort": "A",
+   "pad": "AP11",
+   "chokepoint": "AP11-3",
+   "kill_chain": [
+    "installation",
+    "c2",
+    "actions"
+   ],
+   "regel": {
+    "type": "firewall",
+    "parameters": {
+     "kenmerk": "jump_naar_ilo",
+     "verwacht": true
+    },
+    "uitleg": "Er bestaat een regel van een jump-zone naar een iLO- of IPMI-zone (fortigate_config.py, cisco_running_config.py, palo_config.py)."
+   }
+  },
+  {
+   "id": "2.2",
+   "categorie": 2,
+   "label": "RDP/WinRM naar kroonjuwelen alleen via jump",
+   "doel": "0 directe RDP user-VLAN→server-VLAN",
+   "bron": "fw_config",
+   "soort": "A",
+   "pad": "AP05",
+   "chokepoint": "AP05-2",
+   "kill_chain": [
+    "installation",
+    "actions"
+   ],
+   "regel": {
+    "type": "firewall",
+    "parameters": {
+     "kenmerk": "directe_rdp_user_naar_server",
+     "verwacht": false
+    },
+    "uitleg": "Geen accept-regel van een user-zone naar een server-zone met rdp of poort 3389."
+   }
+  },
+  {
+   "id": "2.3",
+   "categorie": 2,
+   "label": "Mgmt-zone gesplitst (OOB/jump/tooling/AAA), geen any-any",
+   "doel": "0 any-any in mgmt-regels",
+   "bron": "fw_config",
+   "soort": "A",
+   "pad": "AP11",
+   "chokepoint": "AP11-3",
+   "kill_chain": [
+    "installation",
+    "c2",
+    "actions"
+   ],
+   "regel": {
+    "type": "firewall",
+    "parameters": {
+     "kenmerk": "any_any_in_mgmt",
+     "verwacht": false
+    },
+    "uitleg": "Geen accept met bron en doel 'all' in een zone met mgmt, oob, tooling of aaa."
+   }
+  },
+  {
+   "id": "2.4",
+   "categorie": 2,
+   "label": "Gast-WiFi volledig gescheiden (geen route intern)",
+   "doel": "Traceroute gast→intern: drop",
+   "bron": "fw_config",
+   "soort": "A",
+   "pad": "AP11",
+   "chokepoint": "AP11-3",
+   "kill_chain": [
+    "delivery",
+    "installation"
+   ],
+   "regel": {
+    "type": "firewall",
+    "parameters": {
+     "kenmerk": "guest_naar_internal",
+     "verwacht": false
+    },
+    "uitleg": "Geen accept van een guest-zone naar een interne zone."
+   }
+  },
+  {
+   "id": "2.5",
+   "categorie": 2,
+   "label": "Vendor-VPN's expliciet src/dst scoped",
+   "doel": "Geen 0.0.0.0/0 per peer",
+   "bron": "vpn_inventory_csv",
+   "soort": "A",
+   "pad": "AP11",
+   "chokepoint": "AP11-3",
+   "kill_chain": [
+    "delivery",
+    "installation"
+   ],
+   "regel": {
+    "type": "dekking",
+    "parameters": {
+     "voorwaarde": "dst_subnet_niet_open",
+     "minimaal_een_rij": true
+    },
+    "uitleg": "Elke peer heeft een dst_subnet dat gevuld is en niet 0.0.0.0/0 (vpn_inventory_csv.py)."
+   }
+  },
+  {
+   "id": "3.1",
+   "categorie": 3,
+   "label": "MFA verplicht: admin + externe + kroonjuweel-toegang",
+   "doel": "100% CA-dekking",
+   "bron": "entra_privileged_csv",
+   "soort": "A",
+   "pad": "AP02",
+   "chokepoint": "AP02-1",
+   "kill_chain": [
+    "delivery",
+    "exploitation"
+   ],
+   "regel": {
+    "type": "dekking",
+    "parameters": {
+     "waar_veld": "mfa_registered",
+     "minimaal_een_rij": true
+    },
+    "uitleg": "Elk privileged account heeft MFA geregistreerd. In de applicatie kwam dit uit fetch_privileged_accounts en fetch_mfa_registrations (entra.py, item 3.1)."
+   }
+  },
+  {
+   "id": "3.2",
+   "categorie": 3,
+   "label": "Tier-0 isolatie / PAW / LogonWorkstations",
+   "doel": "LogonWorkstations gezet op 100% Tier-0",
+   "bron": "ad_tier0_csv",
+   "bron_alternatief": "gpo_export_xml",
+   "soort": "A",
+   "pad": "AP05",
+   "chokepoint": "AP05-1",
+   "kill_chain": [
+    "exploitation",
+    "installation",
+    "actions"
+   ],
+   "regel": {
+    "type": "dekking",
+    "parameters": {
+     "waar_veld": "logon_workstations_set",
+     "minimaal_een_rij": true
+    },
+    "uitleg": "Elk tier-0-account heeft LogonWorkstations gezet (ad_tier0_csv.py); via een GPO-export telt het kenmerk LogonWorkstations (gpo_export_xml.py)."
+   }
+  },
+  {
+   "id": "3.3",
+   "categorie": 3,
+   "label": "Service-accounts eigen OU / gMSA of ≥25 char",
+   "doel": "0 svc in DA; 100% gMSA of pwlen≥25",
+   "bron": "ad_svc_accounts_csv",
+   "soort": "A",
+   "pad": "AP05",
+   "chokepoint": "AP05-1",
+   "kill_chain": [
+    "exploitation",
+    "installation"
+   ],
+   "regel": {
+    "type": "dekking",
+    "parameters": {
+     "voorwaarde": "gmsa_of_lang_wachtwoord",
+     "minimale_lengte": 25,
+     "geen_in_da": true,
+     "minimaal_een_rij": true
+    },
+    "uitleg": "Elk serviceaccount staat buiten Domain Admins en gebruikt gMSA of een wachtwoord van minstens 25 tekens; nul accounts in DA (ad_svc_accounts_csv.py)."
+   }
+  },
+  {
+   "id": "3.4",
+   "categorie": 3,
+   "label": "LAPS op alle werkplekken + servers",
+   "doel": "100% heeft recente LAPS-timestamp",
+   "bron": "laps_csv",
+   "soort": "A",
+   "pad": "AP11",
+   "chokepoint": "AP11-3",
+   "kill_chain": [
+    "installation"
+   ],
+   "regel": {
+    "type": "dekking",
+    "parameters": {
+     "waar_veld": "laps_configured",
+     "minimaal_een_rij": true
+    },
+    "uitleg": "Elk apparaat heeft LAPS ingericht (laps_csv.py)."
+   }
+  },
+  {
+   "id": "3.5",
+   "categorie": 3,
+   "label": "Inactieve accounts >90 dagen auto-disabled",
+   "doel": "0 inactief én niet-disabled",
+   "bron": "entra_users_csv",
+   "soort": "A",
+   "pad": "AP02",
+   "chokepoint": "AP02-2",
+   "kill_chain": [
+    "delivery",
+    "exploitation"
+   ],
+   "regel": {
+    "type": "geen_rij",
+    "parameters": {
+     "voorwaarde": "actief_en_lang_niet_ingelogd",
+     "dagen": 90
+    },
+    "uitleg": "Geen enkel account is nog ingeschakeld terwijl het langer dan 90 dagen niet is gebruikt. In de applicatie was dit db.fetch_inactive_accounts(90) (entra.py, 3.5)."
+   }
+  },
+  {
+   "id": "4.1",
+   "categorie": 4,
+   "label": "FW flow-logs centraal, 90+ dagen retentie",
+   "doel": "Rows aanwezig in 24u venster",
+   "bron": "siem_flow_csv",
+   "soort": "B",
+   "pad": "AP12",
+   "chokepoint": "AP12-4",
+   "kill_chain": [
+    "c2",
+    "actions"
+   ],
+   "regel": {
+    "type": "drempel",
+    "parameters": {
+     "tellen": "rijen_in_venster",
+     "venster_uren": 24,
+     "minimaal": 1
+    },
+    "uitleg": "Minstens een flow-regel in de 24 uur voor de peildatum (siem_flow_csv.py)."
+   }
+  },
+  {
+   "id": "4.2",
+   "categorie": 4,
+   "label": "Windows Event IDs op DC + Sysmon (Hartong/SOS)",
+   "doel": "Herkenbare Sysmon-config-fingerprint",
+   "bron": "sysmon_config_xml",
+   "soort": "A",
+   "pad": "AP11",
+   "chokepoint": "AP11-4",
+   "kill_chain": [
+    "exploitation",
+    "installation",
+    "c2"
+   ],
+   "regel": {
+    "type": "aanwezig",
+    "parameters": {
+     "kenmerk": "bekende_vingerafdruk",
+     "minimaal_rulegroups": 5
+    },
+    "uitleg": "De config draagt een herkenbare vingerafdruk (SwiftOnSecurity, sysmon-modular of Hartong) en heeft minstens vijf RuleGroups; minder is een lege stub en dus fail, een onbekende config met genoeg groepen is unparsed (sysmon_config_xml.py)."
+   }
+  },
+  {
+   "id": "4.3",
+   "categorie": 4,
+   "label": "Entra + AD sign-in logs + risky sign-ins",
+   "doel": "Risky-count zichtbaar, 0 uitstaand",
+   "bron": "entra_risky_csv",
+   "soort": "B",
+   "pad": "AP01",
+   "chokepoint": "AP01-3",
+   "kill_chain": [
+    "delivery",
+    "exploitation"
+   ],
+   "regel": {
+    "type": "geen_rij",
+    "parameters": {
+     "voorwaarde": "risico_in_venster",
+     "venster_dagen": 7
+    },
+    "uitleg": "Geen sign-in met een risiconiveau anders dan none in de zeven dagen voor de peildatum (entra.py, item 4.3: fetch_risky_signins(window_days=7))."
+   }
+  },
+  {
+   "id": "4.4",
+   "categorie": 4,
+   "label": "Egress-logging met FQDN",
+   "doel": "FQDN-kolom gevuld in flow-sample",
+   "bron": "fw_flow_csv",
+   "soort": "B",
+   "pad": "AP10",
+   "chokepoint": "AP10-4",
+   "kill_chain": [
+    "c2",
+    "actions"
+   ],
+   "regel": {
+    "type": "drempel_pct",
+    "parameters": {
+     "veld": "fqdn",
+     "minimaal_pct": 95
+    },
+    "uitleg": "Minstens 95 procent van de flow-regels heeft een fqdn (fw_flow_csv.py)."
+   }
+  },
+  {
+   "id": "4.5",
+   "categorie": 4,
+   "label": "≥10 gemeente-specifieke use-case alerts",
+   "doel": "≥10 rules met tag 'gemeente'",
+   "bron": "siem_rules_json",
+   "soort": "A",
+   "pad": "AP12",
+   "chokepoint": "AP12-4",
+   "kill_chain": [
+    "exploitation",
+    "installation",
+    "c2",
+    "actions"
+   ],
+   "regel": {
+    "type": "drempel",
+    "parameters": {
+     "tellen": "regels_met_tag",
+     "tag": "gemeente",
+     "minimaal": 10
+    },
+    "uitleg": "Minstens tien detectieregels dragen een tag die 'gemeente' bevat (siem_rules_json.py)."
+   }
+  },
+  {
+   "id": "4.6",
+   "categorie": 4,
+   "label": "East-west traffic zichtbaar (inter-VLAN)",
+   "doel": "≥1 flow tussen 2 interne subnets",
+   "bron": "siem_flow_csv",
+   "soort": "B",
+   "pad": "AP11",
+   "chokepoint": "AP11-3",
+   "kill_chain": [
+    "installation",
+    "c2"
+   ],
+   "regel": {
+    "type": "drempel",
+    "parameters": {
+     "tellen": "east_west_flows",
+     "minimaal": 1,
+     "externe_zones": [
+      "wan",
+      "internet",
+      "external",
+      "",
+      "any"
+     ]
+    },
+    "uitleg": "Minstens een flow tussen twee verschillende interne vlans (siem_flow_csv.py)."
+   }
+  },
+  {
+   "id": "5.1",
+   "categorie": 5,
+   "label": "Internet-facing critical <7d / high <30d",
+   "doel": "0 crit ouder dan 7d",
+   "bron": "nessus_xml",
+   "soort": "A",
+   "pad": "AP12",
+   "chokepoint": "AP12-1",
+   "kill_chain": [
+    "delivery",
+    "exploitation"
+   ],
+   "regel": {
+    "type": "geen_bevinding",
+    "parameters": {
+     "severity": 4,
+     "stale_na_dagen": 14
+    },
+    "uitleg": "Nul bevindingen met severity 4; een scan ouder dan 14 dagen is stale (nessus_xml.py)."
+   }
+  },
+  {
+   "id": "5.2",
+   "categorie": 5,
+   "label": "VPN/edge/Exchange patch-SLA 48-72u",
+   "doel": "100% gepatched binnen 72u bij critical",
+   "bron": "edge_devices_csv",
+   "soort": "A",
+   "pad": "AP12",
+   "chokepoint": "AP12-1",
+   "kill_chain": [
+    "delivery",
+    "exploitation"
+   ],
+   "regel": {
+    "type": "dekking",
+    "parameters": {
+     "voorwaarde": "gepatcht_binnen",
+     "maximale_uren": 72,
+     "minimaal_een_rij": true
+    },
+    "uitleg": "Elk edge- of VPN-apparaat is binnen 72 uur voor de peildatum gepatcht (edge_devices_csv.py)."
+   }
+  },
+  {
+   "id": "5.3",
+   "categorie": 5,
+   "label": "EOL-lijst met migratie-datum",
+   "doel": "100% heeft migration_date",
+   "bron": "eol_inventory_csv",
+   "soort": "A",
+   "pad": "AP10",
+   "chokepoint": "AP10-3",
+   "kill_chain": [
+    "exploitation"
+   ],
+   "regel": {
+    "type": "dekking",
+    "parameters": {
+     "velden": [
+      "migration_date"
+     ],
+     "minimaal_een_rij": true
+    },
+    "uitleg": "Elk end-of-life-systeem heeft een migratiedatum (eol_inventory_csv.py)."
+   }
+  },
+  {
+   "id": "5.4",
+   "categorie": 5,
+   "label": "Wekelijkse externe scan, onbekende poort <72u",
+   "doel": "Scan <7d, 0 onbekende nieuwe poorten",
+   "bron": "nmap_xml",
+   "soort": "A",
+   "pad": "AP13",
+   "chokepoint": "AP13-1",
+   "kill_chain": [
+    "recon"
+   ],
+   "regel": {
+    "type": "datum",
+    "parameters": {
+     "maximale_dagen": 7,
+     "minimaal_een_host": true
+    },
+    "uitleg": "De scan is hoogstens zeven dagen oud en bevat hosts; ouder is stale (nmap_xml.py)."
+   }
+  },
+  {
+   "id": "6.1",
+   "categorie": 6,
+   "label": "3-2-1-1-0 immutable + 0 fouten",
+   "doel": "immutable=true, errors=0",
+   "bron": "veeam_report_csv",
+   "soort": "A",
+   "pad": "AP17",
+   "chokepoint": "AP17-9",
+   "kill_chain": [
+    "actions"
+   ],
+   "regel": {
+    "type": "dekking",
+    "parameters": {
+     "voorwaarde": "immutable_zonder_fouten",
+     "maximale_uren": 24,
+     "minimaal_een_rij": true
+    },
+    "uitleg": "Elke job is onveranderbaar, foutloos en binnen 24 uur voor de peildatum geslaagd (veeam_report.py)."
+   }
+  },
+  {
+   "id": "6.2",
+   "categorie": 6,
+   "label": "Backup in eigen security-domein (eigen AD+MFA)",
+   "doel": "prod_ad_trust=false",
+   "bron": "backup_ad_audit_csv",
+   "soort": "A",
+   "pad": "AP17",
+   "chokepoint": "AP17-9",
+   "kill_chain": [
+    "actions"
+   ],
+   "regel": {
+    "type": "dekking",
+    "parameters": {
+     "onwaar_veld": "prod_ad_trust",
+     "minimaal_een_rij": true
+    },
+    "uitleg": "Geen enkel backupsysteem vertrouwt het productie-AD (backup_ad_audit_csv.py)."
+   }
+  },
+  {
+   "id": "6.3",
+   "categorie": 6,
+   "label": "Jaarlijkse restore-test kroonjuweel",
+   "doel": "Rapport <12 mnd met RTO/RPO",
+   "bron": "document",
+   "soort": "C",
+   "pad": "AP17",
+   "chokepoint": "AP17-10",
+   "kill_chain": [
+    "actions"
+   ],
+   "regel": {
+    "type": "document",
+    "parameters": {
+     "trefwoorden": [
+      "restore",
+      "rto",
+      "rpo"
+     ],
+     "maximale_maanden": 12,
+     "parser": "shallow_restoretest_v1"
+    },
+    "uitleg": "Rapport met de trefwoorden en een datum binnen twaalf maanden (app.py, PDF-regels)."
+   }
+  },
+  {
+   "id": "7.1",
+   "categorie": 7,
+   "label": "App-allowlisting (WDAC/AppLocker)",
+   "doel": "EnforceMode actief",
+   "bron": "wdac_policy_xml",
+   "soort": "A",
+   "pad": "AP09",
+   "chokepoint": "AP09-1",
+   "kill_chain": [
+    "exploitation",
+    "installation"
+   ],
+   "regel": {
+    "type": "aanwezig",
+    "parameters": {
+     "kenmerk": "enforce_met_regels"
+    },
+    "uitleg": "WDAC staat in enforce (geen audit-optie) met minstens een regel, of AppLocker heeft EnforcementMode Enabled met minstens een regel (wdac_policy_xml.py)."
+   }
+  },
+  {
+   "id": "7.2",
+   "categorie": 7,
+   "label": "Office-macros uit voor internet-bestanden (ASR)",
+   "doel": "100% werkplekken",
+   "bron": "asr_csv",
+   "soort": "A",
+   "pad": "AP09",
+   "chokepoint": "AP09-1",
+   "kill_chain": [
+    "delivery",
+    "exploitation"
+   ],
+   "regel": {
+    "type": "dekking",
+    "parameters": {
+     "waar_veld": "asr_office_macros_blocked",
+     "minimaal_een_rij": true
+    },
+    "uitleg": "Op elk apparaat zijn Office-macro's uit internetbestanden geblokkeerd (asr_csv.py)."
+   }
+  },
+  {
+   "id": "7.3",
+   "categorie": 7,
+   "label": "Geen lokale admin voor users",
+   "doel": "0 users in lokale Administrators",
+   "bron": "local_admins_csv",
+   "soort": "A",
+   "pad": "AP09",
+   "chokepoint": "AP09-3",
+   "kill_chain": [
+    "exploitation",
+    "installation"
+   ],
+   "regel": {
+    "type": "dekking",
+    "parameters": {
+     "nul_veld": "user_count_in_admins",
+     "minimaal_een_rij": true
+    },
+    "uitleg": "Op elk apparaat staan nul gebruikers in de lokale Administrators (local_admins_csv.py)."
+   }
+  },
+  {
+   "id": "7.4",
+   "categorie": 7,
+   "label": "USB-policy default block/read-only",
+   "doel": "usb_blocked_default=true op alle devices",
+   "bron": "intune_usb_csv",
+   "soort": "A",
+   "pad": "AP09",
+   "chokepoint": "AP09-2",
+   "kill_chain": [
+    "delivery",
+    "installation"
+   ],
+   "regel": {
+    "type": "dekking",
+    "parameters": {
+     "waar_veld": "usb_blocked_default",
+     "minimaal_een_rij": true
+    },
+    "uitleg": "Op elk apparaat staat USB standaard geblokkeerd (intune_usb_csv.py)."
+   }
+  },
+  {
+   "id": "8.1",
+   "categorie": 8,
+   "label": "Phishing-resistant MFA voor admins (FIDO2/WHfB)",
+   "doel": "100% FIDO2/WHfB onder admins",
+   "bron": "entra_admins_csv",
+   "soort": "A",
+   "pad": "AP01",
+   "chokepoint": "AP01-1",
+   "kill_chain": [
+    "delivery",
+    "exploitation"
+   ],
+   "regel": {
+    "type": "dekking",
+    "parameters": {
+     "voorwaarde": "phishingbestendige_methode",
+     "minimaal_een_rij": true,
+     "methoden": [
+      "fido2",
+      "windowshelloforbusiness",
+      "x509certificate"
+     ]
+    },
+    "uitleg": "Elke beheerder heeft een phishingbestendige methode. In de applicatie was dat PHISHING_RESISTANT_TYPES uit entra.py: fido2, Windows Hello for Business en x509-certificaat (item 8.1)."
+   }
+  },
+  {
+   "id": "8.2",
+   "categorie": 8,
+   "label": "Behavior-detectie-alerts (≥3)",
+   "doel": "≥3 rules type=behavior",
+   "bron": "siem_behavior_rules_json",
+   "soort": "A",
+   "pad": "AP11",
+   "chokepoint": "AP11-4",
+   "kill_chain": [
+    "exploitation",
+    "installation",
+    "c2",
+    "actions"
+   ],
+   "regel": {
+    "type": "drempel",
+    "parameters": {
+     "tellen": "regels_met_type",
+     "waarde": "behavior",
+     "minimaal": 3
+    },
+    "uitleg": "Minstens drie detectieregels van het type behavior (siem_behavior_rules_json.py)."
+   }
+  },
+  {
+   "id": "8.3",
+   "categorie": 8,
+   "label": "Tabletop-oefening 2×/jaar",
+   "doel": "Verslag <6 mnd met scenario+respons",
+   "bron": "document",
+   "soort": "C",
+   "pad": "AP17",
+   "chokepoint": "AP17-11",
+   "kill_chain": [],
+   "regel": {
+    "type": "document",
+    "parameters": {
+     "trefwoorden": [
+      "scenario",
+      "respons",
+      "verbeter|lessons"
+     ],
+     "maximale_maanden": 6,
+     "parser": "shallow_tabletop_v1"
+    },
+    "uitleg": "Verslag met de trefwoorden en een datum binnen zes maanden (app.py, PDF-regels)."
+   }
+  },
+  {
+   "id": "8.4",
+   "categorie": 8,
+   "label": "AI-egress policy + logging",
+   "doel": "category ai-tools actief én gelogd",
+   "bron": "fw_category_csv",
+   "soort": "A",
+   "pad": null,
+   "chokepoint": null,
+   "kill_chain": [
+    "c2",
+    "actions"
+   ],
+   "regel": {
+    "type": "drempel",
+    "parameters": {
+     "tellen": "ai_categorie_gelogd",
+     "minimaal": 1
+    },
+    "uitleg": "Minstens een categorieregel met 'ai' in de naam staat aan en wordt gelogd (fw_category_csv.py)."
+   }
+  },
+  {
+   "id": "9.1",
+   "categorie": 9,
+   "label": "Maandelijkse KPI naar B&W",
+   "doel": "Rapport <1 mnd met patch+mfa+incidents",
+   "bron": "document",
+   "soort": "C",
+   "pad": null,
+   "chokepoint": null,
+   "kill_chain": [],
+   "regel": {
+    "type": "document",
+    "parameters": {
+     "trefwoorden": [
+      "patch",
+      "mfa",
+      "incident"
+     ],
+     "maximale_maanden": 1,
+     "parser": "shallow_kpi_v1"
+    },
+    "uitleg": "Rapport met de trefwoorden en een datum binnen een maand (app.py, PDF-regels)."
+   }
+  },
+  {
+   "id": "9.2",
+   "categorie": 9,
+   "label": "BIO 2.0 gap-analyse",
+   "doel": "Rapport <12 mnd met gap+aanbevelingen",
+   "bron": "document",
+   "soort": "C",
+   "pad": null,
+   "chokepoint": null,
+   "kill_chain": [],
+   "regel": {
+    "type": "document",
+    "parameters": {
+     "trefwoorden": [
+      "bio\\s*2",
+      "gap",
+      "remediat|aanbeveling"
+     ],
+     "maximale_maanden": 12,
+     "parser": "shallow_bio2_v1"
+    },
+    "uitleg": "Rapport met de trefwoorden en een datum binnen twaalf maanden (app.py, PDF-regels)."
+   }
+  },
+  {
+   "id": "9.3",
+   "categorie": 9,
+   "label": "Jaarlijkse externe pentest",
+   "doel": "Rapport <12 mnd met scope+findings+CVSS",
+   "bron": "document",
+   "soort": "C",
+   "pad": "AP12",
+   "chokepoint": "AP12-3",
+   "kill_chain": [],
+   "regel": {
+    "type": "document",
+    "parameters": {
+     "trefwoorden": [
+      "scope",
+      "finding|bevinding",
+      "cvss|severity|risico"
+     ],
+     "maximale_maanden": 12,
+     "parser": "shallow_pentest_v1"
+    },
+    "uitleg": "Rapport met de trefwoorden en een datum binnen twaalf maanden (app.py, PDF-regels)."
+   }
+  },
+  {
+   "id": "10.1",
+   "categorie": 10,
+   "label": "Geen tweede root en geen sudo ALL zonder wachtwoord",
+   "doel": "0 accounts met UID 0 naast root; 0 regels met ALL en NOPASSWD",
+   "bron": "iamscan_dump",
+   "soort": "A",
+   "pad": "AP05",
+   "chokepoint": "AP05-1",
+   "kill_chain": [],
+   "regel": {
+    "type": "iamscan",
+    "parameters": {
+     "checks": [
+      "uid0-naast-root",
+      "sudo-all-nopasswd"
+     ]
+    },
+    "uitleg": "Een tweede root en volledige rootrechten zonder wachtwoord zijn precies het tegendeel van privileged access dat gescheiden is van dagelijks gebruik."
+   }
+  },
+  {
+   "id": "10.2",
+   "categorie": 10,
+   "label": "Geen root via shell-escape in sudo",
+   "doel": "0 sudo-regels op commando's die als root een shell teruggeven",
+   "bron": "iamscan_dump",
+   "soort": "A",
+   "pad": "AP05",
+   "chokepoint": "AP05-1",
+   "kill_chain": [],
+   "regel": {
+    "type": "iamscan",
+    "parameters": {
+     "checks": [
+      "sudo-shell-escape"
+     ]
+    },
+    "uitleg": "Een regel die beperkt oogt maar via bijvoorbeeld vim of find volledige rootrechten geeft, is alsnog ongescheiden beheertoegang."
+   }
+  },
+  {
+   "id": "10.3",
+   "categorie": 10,
+   "label": "SSH zonder rootlogin en zonder wachtwoorden",
+   "doel": "PermitRootLogin no en PasswordAuthentication no op elke host",
+   "bron": "iamscan_dump",
+   "soort": "A",
+   "pad": "AP11",
+   "chokepoint": "AP11-3",
+   "kill_chain": [],
+   "regel": {
+    "type": "iamscan",
+    "parameters": {
+     "checks": [
+      "permitrootlogin",
+      "passwordauth"
+     ]
+    },
+    "uitleg": "Directe rootlogin en wachtwoorden op SSH zijn de twee makkelijkste routes voor laterale beweging tussen hosts."
+   }
+  },
+  {
+   "id": "10.4",
+   "categorie": 10,
+   "label": "Sleutels met eigenaar, niet gedeeld over accounts",
+   "doel": "0 sleutels die meerdere accounts openen",
+   "bron": "iamscan_dump",
+   "soort": "A",
+   "pad": "AP11",
+   "chokepoint": "AP11-3",
+   "kill_chain": [],
+   "regel": {
+    "type": "iamscan",
+    "parameters": {
+     "checks": [
+      "sleutel-meerdere-accounts"
+     ],
+     "waarschuwing": [
+      "sleutel-zonder-eigenaar",
+      "sleutel-breed-rootbereik"
+     ]
+    },
+    "uitleg": "Een sleutel die meerdere accounts opent, vermengt identiteiten en maakt laterale beweging triviaal. Een sleutel zonder comment en een sleutel met breed rootbereik zijn een waarschuwing, geen fail."
+   }
+  }
+ ],
+ "ongekoppeld": {
+  "8.4": "beleidsmaatregel op AI-gebruik, raakt geen enkel chokepoint direct",
+  "9.1": "verantwoording aan het bestuur, geen technische of procesbarriere in een pad",
+  "9.2": "normconformiteit, geen barriere in een aanvalspad"
+ },
+ "tijd": {
+  "nmap_max_dagen": 7,
+  "nessus_stale_dagen": 14,
+  "edge_max_uren": 72,
+  "veeam_max_uren": 24,
+  "siem_flow_venster_uren": 24,
+  "inactief_dagen": 90,
+  "risky_venster_dagen": 7,
+  "document_dagen_per_maand": 31
+ },
+ "iamscan": {
+  "shell_escape": [
+   "awk",
+   "bash",
+   "cp",
+   "dd",
+   "docker",
+   "ed",
+   "env",
+   "find",
+   "ftp",
+   "gawk",
+   "gdb",
+   "git",
+   "journalctl",
+   "less",
+   "make",
+   "man",
+   "more",
+   "mount",
+   "nano",
+   "nice",
+   "nmap",
+   "perl",
+   "pip",
+   "pip3",
+   "python",
+   "python2",
+   "python3",
+   "rsync",
+   "ruby",
+   "sed",
+   "sh",
+   "systemctl",
+   "tar",
+   "timeout",
+   "vi",
+   "view",
+   "vim",
+   "xargs",
+   "zip"
+  ],
+  "admin_groepen": [
+   "adm",
+   "admin",
+   "sudo",
+   "wheel"
+  ],
+  "uid_grens_systeem": 1000,
+  "bestanden": [
+   "etc/passwd",
+   "etc/group",
+   "etc/sudoers",
+   "etc/sudoers.d",
+   "etc/ssh/sshd_config"
+  ]
+ }
+}

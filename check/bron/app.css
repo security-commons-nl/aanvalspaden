@@ -59,6 +59,9 @@ h3 { font-size: 1.05rem; margin: 1.2rem 0 .4rem; }
 .telt-niet { font-size: .9rem; background: var(--vlak); border-left: 3px solid var(--lijn); padding: .5rem .75rem; }
 .kopje { font-weight: 700; margin-bottom: .2rem; }
 .omgekeerd { font-size: .9rem; color: var(--reactive); font-weight: 700; margin: .4rem 0 0; }
+.melding { font-size: .9rem; background: var(--vlak); border-left: 3px solid var(--limited); padding: .5rem .75rem; }
+.melding.fout { border-left-color: var(--open); color: var(--open); }
+.notitie { font-size: .85rem; color: var(--zacht); font-style: italic; margin: .5rem 0 0; }
 
 .knoppen { display: flex; flex-wrap: wrap; gap: .6rem; align-items: center; margin: 1rem 0 .4rem; }
 .knoppen.onder { margin-top: 1.6rem; }

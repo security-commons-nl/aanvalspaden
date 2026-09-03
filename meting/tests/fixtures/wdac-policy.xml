@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SiPolicy xmlns="urn:schemas-microsoft-com:sipolicy">
+  <Rules>
+    <Rule><Option>Enabled:Unsigned System Integrity Policy</Option></Rule>
+    <Rule><Option>Required:Enforce Store Applications</Option></Rule>
+  </Rules>
+  <FileRules>
+    <Allow ID="ID_ALLOW_A_1" FriendlyName="Windows" FileName="*"/>
+  </FileRules>
+</SiPolicy>

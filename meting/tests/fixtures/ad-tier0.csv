@@ -1,0 +1,4 @@
+account,logon_workstations_set,logon_workstations
+adm-burgerzaken,true,PAW-01;PAW-02
+adm-infra,true,PAW-01
+adm-backup,true,PAW-03

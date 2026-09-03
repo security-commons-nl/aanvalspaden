@@ -39,6 +39,11 @@ jobs:
           test -s site/normen/index.html
           cp site/normen/index.html site/normen/van-aanvalspad-naar-norm.html
           cp mappingen/bio2.json mappingen/wpg.json site/normen/
+          # De meting: dezelfde vorm, met de meetregels als download ernaast.
+          python meting/bouw.py site/meting
+          test -s site/meting/index.html
+          cp site/meting/index.html site/meting/meting-aanvalspaden.html
+          cp meting/regels.json site/meting/regels.json
 
       - uses: actions/upload-pages-artifact@v5
         with:

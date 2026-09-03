@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-__SCRIPT_HASH__'; style-src 'sha256-__STYLE_HASH__'; img-src data:; form-action 'none'; base-uri 'none'">
+<title>Meting · aanvalspaden</title>
+<link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiIgcm9sZT0iaW1nIiBhcmlhLWxhYmVsPSJTZWN1cml0eSBDb21tb25zIE5MIj4KICA8dGl0bGU+U2VjdXJpdHkgQ29tbW9ucyBOTDwvdGl0bGU+CiAgPHBhdGggZD0iTTE2IDIgNCA2LjV2MTAuMkM0IDI0IDkuMiAyOC42IDE2IDMwLjUgMjIuOCAyOC42IDI4IDI0IDI4IDE2LjdWNi41TDE2IDJ6IiBmaWxsPSIjMTU0MjczIi8+CiAgPHBhdGggZD0iTTE2IDIgNCA2LjV2My4yTDE2IDUuMmwxMiA0LjVWNi41TDE2IDJ6IiBmaWxsPSIjZTE3MDAwIi8+CiAgPGNpcmNsZSBjeD0iMTYiIGN5PSIxNSIgcj0iMy42IiBmaWxsPSIjZmZmIi8+CiAgPHBhdGggZD0iTTE0LjYgMTcuNGgyLjhsMS4xIDYuMmgtNWwxLjEtNi4yeiIgZmlsbD0iI2ZmZiIvPgo8L3N2Zz4K" type="image/svg+xml">
+<meta name="description" content="Wat zegt je eigen data? Lees exports en een Linux-dump in je browser, toets ze aan 41 meetregels en zie het bewijs per chokepoint van de aanvalspaden. Niets verlaat je apparaat.">
+<style>__CSS__</style>
+</head>
+<body>
+<header>
+  <div class="binnen">
+    <nav class="kruimel" aria-label="Kruimelpad"><a href="https://security-commons-nl.github.io/">Security Commons NL</a> &rsaquo; <a href="../">aanvalspaden</a> &rsaquo; <span>Meting</span></nav>
+    <div class="naam">Meting</div>
+    <div class="sub">Wat zegt mijn eigen data? &nbsp;|&nbsp; bewijs per chokepoint, in je eigen browser</div>
+  </div>
+</header>
+
+<div class="balk">
+  <div class="binnen">
+    <div class="knoppen">
+      <button type="button" id="knop-opslaan">Dossier opslaan</button>
+      <button type="button" id="knop-laden">Dossier laden</button>
+      <input type="file" id="bestand-laden" accept=".json,application/json" hidden>
+      <button type="button" id="knop-zelfcheck-export">Antwoorden voor de zelfcheck</button>
+      <button type="button" id="knop-afdrukken">Afdrukken</button>
+      <button type="button" id="knop-wissen">Wissen</button>
+      <a href="../">Zelfcheck</a>
+      <a href="../normen/">Normverankering</a>
+    </div>
+    <p id="dossier-status">Nog niets gemeten.</p>
+    <nav class="tabs" role="tablist" aria-label="Onderdelen">
+      <button type="button" role="tab" id="tab-items" data-scherm="scherm-items">1 &middot; Meetregels</button>
+      <button type="button" role="tab" id="tab-paden" data-scherm="scherm-paden">2 &middot; Aanvalspaden</button>
+      <button type="button" role="tab" id="tab-hosts" data-scherm="scherm-hosts">Linux-hosts</button>
+      <button type="button" role="tab" id="tab-dashboard" data-scherm="scherm-dashboard">Dashboard</button>
+      <button type="button" role="tab" id="tab-uitdraai" data-scherm="scherm-uitdraai">Uitdraai</button>
+    </nav>
+  </div>
+</div>
+
+<main class="binnen">
+  <noscript>
+    <section class="kaart">
+      <h1>Meting</h1>
+      <p>Deze pagina leest je exports in je eigen browser en heeft daarvoor JavaScript nodig. De
+      meetregels staan open in <code>regels.json</code> in de repository, dus je kunt ze ook zonder
+      deze pagina lezen.</p>
+    </section>
+  </noscript>
+
+  <section class="scherm" id="scherm-items">
+    <h1>Meetregels</h1>
+    <p class="leid">Eenenveertig regels op exports die je al hebt. Kies per bron een bestand; de pagina
+    leest het hier, toetst het, en onthoudt alleen de uitkomst. Je export zelf gaat nergens heen en
+    komt ook niet in je dossier.</p>
+
+    <div class="kaart">
+      <h2>Organisatie en peildatum</h2>
+      <div class="raster">
+        <label>Organisatie<input type="text" id="org-naam"></label>
+        <label>Peildatum<input type="date" id="org-peildatum"></label>
+      </div>
+      <p class="klein">Alle termijnen rekenen vanaf deze datum, niet vanaf vandaag. Zo geeft dezelfde
+      export over een maand nog steeds hetzelfde antwoord, en kun je een meting van vorig kwartaal
+      opnieuw beoordelen zonder dat alles vanzelf verouderd raakt.</p>
+    </div>
+
+    <div class="filters">
+      <label>Uitkomst<select id="filter-verdict">
+        <option value="">alle</option>
+        <option value="pass">voldoet</option>
+        <option value="fail">voldoet niet</option>
+        <option value="stale">te oud</option>
+        <option value="unparsed">niet te lezen</option>
+        <option value="geen_bewijs">nog geen bewijs</option>
+      </select></label>
+      <label>Bewijssoort<select id="filter-soort">
+        <option value="">alle</option>
+        <option value="A">A configuratie</option>
+        <option value="B">B log</option>
+        <option value="C">C document</option>
+      </select></label>
+      <span class="teller" id="teller-items"></span>
+    </div>
+
+    <div id="items-inhoud"></div>
+  </section>
+
+  <section class="scherm" id="scherm-paden" hidden>
+    <h1>Aanvalspaden</h1>
+    <p class="leid">Waar landt het bewijs? Per chokepoint van de achttien aanvalspaden staat hieronder
+    wat je meting erover zegt. Een chokepoint zonder meetregel is een witte vlek: daar kan geen export
+    iets over zeggen, en dat is even belangrijk om te weten.</p>
+    <p class="klein" id="paden-samenvatting"></p>
+    <p class="klein">Wil je weten wat dit betekent voor de status van een pad? Klik op
+    <em>Antwoorden voor de zelfcheck</em> hierboven en laad dat bestand in de
+    <a href="../">zelfcheck</a>. Daar wonen de statusregels; meting levert het bewijs.</p>
+    <div id="paden-inhoud"></div>
+  </section>
+
+  <section class="scherm" id="scherm-hosts" hidden>
+    <h1>Linux-hosts</h1>
+    <p class="leid">Wie kan waar root worden, en langs welke route? Deze analyse leest een dump van
+    <code>collect.sh</code>: alleen de bestanden die over toegang gaan, read-only, in je eigen browser.
+    Zij komt uit iamscan, dat hierin is opgegaan.</p>
+    <p class="klein" id="hosts-samenvatting">Nog geen dump geladen. Kies bij meetregel 10.1 een
+    tar.gz of een uitgepakte map.</p>
+    <div class="kaart" id="hosts-routes" hidden>
+      <h2>Routes naar root</h2>
+      <div class="rol" tabindex="0"><table class="regels" id="tabel-routes"></table></div>
+    </div>
+    <div class="kaart" id="hosts-bevindingen" hidden>
+      <h2>Bevindingen</h2>
+      <div class="rol" tabindex="0"><table class="regels" id="tabel-bevindingen"></table></div>
+    </div>
+    <div class="kaart" id="hosts-matrix" hidden>
+      <h2>Wie wordt waar root?</h2>
+      <p class="klein">Een principal die op meer hosts root wordt, is een pad op zichzelf: een
+      overgenomen account of sleutel loopt dan van host naar host.</p>
+      <div class="rol" tabindex="0" id="matrix-root"></div>
+    </div>
+  </section>
+
+  <section class="scherm" id="scherm-dashboard" hidden>
+    <h1>Dashboard</h1>
+    <p class="leid">Wat is gemeten, wat voldoet, en hoeveel van de aanvalspaden raakt je data
+    eigenlijk.</p>
+    <div id="dashboard-inhoud"></div>
+  </section>
+
+  <section class="scherm" id="scherm-uitdraai" hidden>
+    <h1>Uitdraai</h1>
+    <p class="leid nietprint">Alles op een rij, met per meting de bron, het bestand en de vingerafdruk.
+    Druk af met de knop hierboven of met Ctrl+P.</p>
+    <div id="uitdraai-inhoud"></div>
+  </section>
+</main>
+
+<footer>
+  <div class="binnen">
+    <p>Meting &middot; diepte 2 van <a href="../">aanvalspaden</a> &middot; <span id="versie"></span> &middot;
+    <a href="https://github.com/security-commons-nl/aanvalspaden" rel="noopener">bron en meetregels op GitHub</a> &middot;
+    licentie <a href="https://github.com/security-commons-nl/aanvalspaden/blob/main/LICENSE" rel="noopener">EUPL-1.2</a>.
+    Geen account, geen server, geen telemetrie: je exports worden in deze pagina gelezen en verlaten je
+    apparaat niet. Wat hier pass heet, betekent dat de export aan de regel voldoet, niet dat de
+    maatregel deugt. Offline gebruiken? Sla deze pagina op met Ctrl+S.</p>
+  </div>
+</footer>
+
+<script>__SCRIPT__</script>
+</body>
+</html>

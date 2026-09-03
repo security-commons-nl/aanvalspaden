@@ -2,12 +2,13 @@
 
 Een instrument in drie diepten: zelfcheck, risicoanalyse en meting, met een gedeelde bron voor de aanvalspaden.
 
-Status: prototype. De bron en de zelfcheck werken en zijn getest; de risicoanalyse in de app volgt.
+Status: prototype. De bron, de zelfcheck en de meting werken en zijn getest; de risicoanalyse in de app volgt.
 
-> **Status: prototype.** De gedeelde bron (`paden.json`) en de zelfcheck (diepte 0) staan er en worden
-> bewaakt door tests; de zelfcheck is [live](https://security-commons-nl.github.io/aanvalspaden/). De
-> risicoanalyse in de app (diepte 1) volgt; de meting (diepte 2) woont nog in de posture-tool. Zie
-> [BESLUITEN.md](BESLUITEN.md).
+> **Status: prototype.** De gedeelde bron (`paden.json`), de zelfcheck (diepte 0) en de meting (diepte 2)
+> staan er en worden bewaakt door tests. De zelfcheck is
+> [live](https://security-commons-nl.github.io/aanvalspaden/), de meting
+> [ook](https://security-commons-nl.github.io/aanvalspaden/meting/). De risicoanalyse in de app (diepte 1)
+> volgt. Zie [BESLUITEN.md](BESLUITEN.md).
 
 Eén instrument in drie diepten voor de CISO of ISO van een publieke organisatie. Wie na diepte 0 stopt,
 heeft iets bruikbaars.
@@ -16,7 +17,7 @@ heeft iets bruikbaars.
 |---|---|---|---|---|
 | 0. Zelfcheck | Achttien aanvalspaden, korte vragen | Eigen antwoorden | Een uur, alleen | Welke paden staan open, drie acties voor morgen |
 | 1. Risicoanalyse | Kroonjuwelen tegen de open paden | Antwoorden plus bewijs | Een dag, met de lijn | Risicolijst met maatregel, eigenaar, termijn |
-| 2. Meting | Dezelfde paden, uit echte data | Exports en connectors | Doorlopend, techniek | Bewijs per cel |
+| 2. Meting | Dezelfde paden, uit echte data | Exports en hostdumps | Doorlopend, techniek | [Bewijs per barriere](https://security-commons-nl.github.io/aanvalspaden/meting/) |
 | Handleiding | Hoe pak ik het aan? | Kennisbank, per barriere | Per maatregel | [De handleidingen](https://security-commons-nl.github.io/aanvalspaden/normen/), met de alternatieven ernaast |
 
 Dwars op die drie staat de **normverankering**: welke maatregel uit BIO 2.0, ISO 27001, NIST CSF 2.0,
@@ -75,8 +76,11 @@ antwoord uit de zelfcheck niet meer; een cel wordt pas groen met een artefact er
 configuratie, een testverslag). De rode cellen zijn je risicolijst, elk met een maatregel, een eigenaar en
 een termijn, of een bewuste acceptatie door de risico-eigenaar.
 
-**Daarna, doorlopend.** De meting haalt dezelfde chokepoints uit echte data (Entra, firewall, CSV) en
-levert het bewijs per cel. Zie onder.
+**Daarna, doorlopend.** De [meting](https://security-commons-nl.github.io/aanvalspaden/meting/) toetst
+dezelfde chokepoints aan echte data. Je laadt een export (Entra, Active Directory, firewall, nmap, backup)
+of een uitgepakte hostdump, en de pagina zegt per item of het voldoet, niet voldoet, te oud is of niet te
+lezen. Ook offline, ook zonder installatie: de bestanden verlaten je browser niet. De uitkomst gaat als
+antwoorden terug naar de zelfcheck, en vult daar alleen de vragen die nog open staan. Zie onder.
 
 **Wat je er eerlijk bij zegt tegen de directie:** de check is dreigingsgedreven en geen audit tegen een
 normenkader. Hij zegt waar een aanvaller ruimte heeft, niet of je compliant bent. Dat vult elkaar aan.
@@ -145,6 +149,7 @@ score.acties(paden.laad(), antwoorden, uit)   # de drie zwaarste acties
 | `paden.json` | De bron, hierboven beschreven |
 | `check/` | Diepte 0: de zelfcheck, een zelfstandig HTML-bestand uit de bron. [Live](https://security-commons-nl.github.io/aanvalspaden/) |
 | `methode/` | Leeswijzer bij diepte 1; de volledige methode staat in de kennisbank |
+| `meting/` | Diepte 2: bewijs per barriere uit exports en hostdumps, ook een zelfstandig HTML-bestand. [Live](https://security-commons-nl.github.io/aanvalspaden/meting/) |
 | `mappingen/` | De normverankering: per barriere welke maatregel er aantoonbaar mee wordt, plus de witte vlekken. [Live](https://security-commons-nl.github.io/aanvalspaden/normen/) |
 | `tools/` | Schema, helpers, de referentie-implementatie van de regels, en het script waarmee de bron uit de zelfcheck is gehaald |
 | `tests/` | Validatie van de bron en van de repo-structuur |
@@ -153,10 +158,12 @@ De zelfcheck haalt niets van buiten en stuurt niets weg, en dat is niet alleen b
 Content-Security-Policy is `default-src 'none'` met een hash op het script en de stylesheet, nagerekend
 door een test. Details in [`check/LEESMIJ.md`](check/LEESMIJ.md).
 
-Diepte 2 (de meting) woont voorlopig in
-[security-posture-tool](https://github.com/security-commons-nl/security-posture-tool). Daar draagt elk
-checklist-item een `pad` en een `chokepoint` uit deze bron, zodat een meting daar het bewijs is voor een cel
-hier. De repo houdt een kopie van `paden.json` met een hash die bewaakt dat hij niet achterloopt.
+Diepte 2 (de meting) staat in [`meting/`](meting/LEESMIJ.md), in dezelfde vorm: één HTML-bestand met
+`default-src 'none'` en zonder netwerk. De 41 items dragen elk een `pad` en een `chokepoint` uit deze bron,
+zodat een meting het bewijs is voor een barriere hier. Ze leest `paden.json` rechtstreeks, dus er is geen
+kopie die kan achterlopen. De items komen uit `security-posture-tool` en `iamscan`, die daarmee zijn
+opgegaan in deze repo; de herkomst en de bewuste afwijkingen staan in
+[`meting/VERANTWOORDING.md`](meting/VERANTWOORDING.md).
 
 ## Van aanvalspad naar norm
 De zelfcheck vraagt naar barrieres, niet naar normen. Wie hem heeft gedaan, krijgt van zijn auditor of

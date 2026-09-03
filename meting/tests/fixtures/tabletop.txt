@@ -1,0 +1,12 @@
+Verslag tabletop-oefening ransomware
+
+Datum: 2026-07-20
+
+Scenario: versleuteling van de bestandsservers op vrijdagavond, met uitval van het zaaksysteem op
+maandagochtend. Deelnemers: directie, ICT, communicatie en de CISO.
+
+Respons: de crisisorganisatie is binnen 45 minuten opgestart. De besluitvorming over uitwijk verliep
+traag omdat de mandaten niet op papier stonden.
+
+Verbeterpunten: mandaten vastleggen, de belboom actualiseren, en de lessons learned na twee weken
+opnieuw langslopen.

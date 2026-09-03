@@ -1,0 +1,4 @@
+upn,role,auth_methods
+beheer1@voorbeeld.nl,Global Administrator,fido2;microsoftAuthenticator
+beheer2@voorbeeld.nl,Security Administrator,fido2
+beheer3@voorbeeld.nl,Intune Administrator,windowsHelloForBusiness

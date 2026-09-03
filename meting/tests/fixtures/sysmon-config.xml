@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Sysmon schemaversion="4.90">
+  <!-- sysmonconfig-export.xml door SwiftOnSecurity, aangepast voor Gemeente Voorbeeld -->
+  <EventFiltering>
+    <RuleGroup name="proces aanmaken" groupRelation="or">
+      <ProcessCreate onmatch="exclude"><Image condition="is">C:\Windows\System32\svchost.exe</Image></ProcessCreate>
+    </RuleGroup>
+    <RuleGroup name="netwerkverbinding" groupRelation="or">
+      <NetworkConnect onmatch="include"><DestinationPort condition="is">4444</DestinationPort></NetworkConnect>
+    </RuleGroup>
+    <RuleGroup name="bestand aangemaakt" groupRelation="or">
+      <FileCreate onmatch="include"><TargetFilename condition="end with">.ps1</TargetFilename></FileCreate>
+    </RuleGroup>
+    <RuleGroup name="registerwijziging" groupRelation="or">
+      <RegistryEvent onmatch="include"><TargetObject condition="contains">CurrentVersion\Run</TargetObject></RegistryEvent>
+    </RuleGroup>
+    <RuleGroup name="stuurprogramma geladen" groupRelation="or">
+      <DriverLoad onmatch="exclude"><Signature condition="contains">Microsoft</Signature></DriverLoad>
+    </RuleGroup>
+    <RuleGroup name="proces beeindigd" groupRelation="or">
+      <ProcessTerminate onmatch="include"><Image condition="end with">powershell.exe</Image></ProcessTerminate>
+    </RuleGroup>
+  </EventFiltering>
+</Sysmon>
