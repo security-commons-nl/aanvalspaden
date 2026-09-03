@@ -62,9 +62,15 @@
    "titel": "Linux-hosts (iamscan)"
   }
  ],
+ "wie": {
+  "zelf": "Zelf te trekken: een portaalexport, een eigen lijst of een eigen rapport.",
+  "beheer": "Vraag aan beheer: werkplekbeheer, netwerk, de SIEM-partij of backup.",
+  "afspraak": "Aparte afspraak: hiervoor draait er iets op productiehosts."
+ },
  "bronnen": [
   {
    "id": "crown_jewels_csv",
+   "wie": "zelf",
    "titel": "Kroonjuwelenlijst",
    "formaat": "csv",
    "kolommen": [
@@ -82,6 +88,7 @@
   },
   {
    "id": "asset_inventory_csv",
+   "wie": "beheer",
    "titel": "Asset-inventaris uit drie bronnen",
    "formaat": "csv",
    "kolommen": [
@@ -96,6 +103,7 @@
   },
   {
    "id": "fw_config",
+   "wie": "beheer",
    "titel": "Firewall running-config",
    "formaat": "tekst",
    "kolommen": [],
@@ -105,6 +113,7 @@
   },
   {
    "id": "vpn_inventory_csv",
+   "wie": "beheer",
    "titel": "Vendor-VPN-peers",
    "formaat": "csv",
    "kolommen": [
@@ -119,6 +128,7 @@
   },
   {
    "id": "entra_privileged_csv",
+   "wie": "zelf",
    "titel": "Privileged accounts met MFA-registratie",
    "formaat": "csv",
    "kolommen": [
@@ -134,6 +144,7 @@
   },
   {
    "id": "ad_tier0_csv",
+   "wie": "beheer",
    "titel": "Tier-0-accounts en LogonWorkstations",
    "formaat": "csv",
    "kolommen": [
@@ -148,6 +159,7 @@
   },
   {
    "id": "gpo_export_xml",
+   "wie": "beheer",
    "titel": "GPO-export",
    "formaat": "xml",
    "kolommen": [],
@@ -157,6 +169,7 @@
   },
   {
    "id": "ad_svc_accounts_csv",
+   "wie": "beheer",
    "titel": "Serviceaccounts",
    "formaat": "csv",
    "kolommen": [
@@ -173,6 +186,7 @@
   },
   {
    "id": "laps_csv",
+   "wie": "beheer",
    "titel": "LAPS-dekking",
    "formaat": "csv",
    "kolommen": [
@@ -188,6 +202,7 @@
   },
   {
    "id": "entra_users_csv",
+   "wie": "zelf",
    "titel": "Accounts met laatste aanmelding",
    "formaat": "csv",
    "kolommen": [
@@ -203,6 +218,7 @@
   },
   {
    "id": "siem_flow_csv",
+   "wie": "beheer",
    "titel": "Flow-logs uit de SIEM",
    "formaat": "csv",
    "kolommen": [
@@ -219,6 +235,7 @@
   },
   {
    "id": "sysmon_config_xml",
+   "wie": "beheer",
    "titel": "Sysmon-configuratie",
    "formaat": "xml",
    "kolommen": [],
@@ -228,6 +245,7 @@
   },
   {
    "id": "entra_risky_csv",
+   "wie": "zelf",
    "titel": "Riskante aanmeldingen",
    "formaat": "csv",
    "kolommen": [
@@ -244,6 +262,7 @@
   },
   {
    "id": "fw_flow_csv",
+   "wie": "beheer",
    "titel": "Egress-flows met FQDN",
    "formaat": "csv",
    "kolommen": [
@@ -259,6 +278,7 @@
   },
   {
    "id": "siem_rules_json",
+   "wie": "beheer",
    "titel": "Detectieregels",
    "formaat": "json",
    "kolommen": [],
@@ -268,6 +288,7 @@
   },
   {
    "id": "nessus_xml",
+   "wie": "beheer",
    "titel": "Kwetsbaarhedenscan",
    "formaat": "xml",
    "kolommen": [],
@@ -277,6 +298,7 @@
   },
   {
    "id": "edge_devices_csv",
+   "wie": "zelf",
    "titel": "Edge- en VPN-apparaten",
    "formaat": "csv",
    "kolommen": [
@@ -292,6 +314,7 @@
   },
   {
    "id": "eol_inventory_csv",
+   "wie": "zelf",
    "titel": "End-of-life-systemen",
    "formaat": "csv",
    "kolommen": [
@@ -307,6 +330,7 @@
   },
   {
    "id": "nmap_xml",
+   "wie": "beheer",
    "titel": "Externe poortscan",
    "formaat": "xml",
    "kolommen": [],
@@ -316,6 +340,7 @@
   },
   {
    "id": "veeam_report_csv",
+   "wie": "beheer",
    "titel": "Backuprapport",
    "formaat": "csv",
    "kolommen": [
@@ -332,6 +357,7 @@
   },
   {
    "id": "backup_ad_audit_csv",
+   "wie": "zelf",
    "titel": "Backup en het productie-AD",
    "formaat": "csv",
    "kolommen": [
@@ -347,6 +373,7 @@
   },
   {
    "id": "document",
+   "wie": "zelf",
    "titel": "Rapport of verslag",
    "formaat": "tekst",
    "kolommen": [],
@@ -356,6 +383,7 @@
   },
   {
    "id": "wdac_policy_xml",
+   "wie": "beheer",
    "titel": "WDAC- of AppLocker-policy",
    "formaat": "xml",
    "kolommen": [],
@@ -365,6 +393,7 @@
   },
   {
    "id": "asr_csv",
+   "wie": "beheer",
    "titel": "ASR-regel voor Office-macro's",
    "formaat": "csv",
    "kolommen": [
@@ -379,6 +408,7 @@
   },
   {
    "id": "local_admins_csv",
+   "wie": "beheer",
    "titel": "Lokale administrators",
    "formaat": "csv",
    "kolommen": [
@@ -393,6 +423,7 @@
   },
   {
    "id": "intune_usb_csv",
+   "wie": "beheer",
    "titel": "USB-beleid",
    "formaat": "csv",
    "kolommen": [
@@ -407,6 +438,7 @@
   },
   {
    "id": "entra_admins_csv",
+   "wie": "zelf",
    "titel": "Beheerders en hun authenticatiemethoden",
    "formaat": "csv",
    "kolommen": [
@@ -421,6 +453,7 @@
   },
   {
    "id": "siem_behavior_rules_json",
+   "wie": "beheer",
    "titel": "Gedragsdetectieregels",
    "formaat": "json",
    "kolommen": [],
@@ -430,6 +463,7 @@
   },
   {
    "id": "fw_category_csv",
+   "wie": "beheer",
    "titel": "Categorieregels van de firewall",
    "formaat": "csv",
    "kolommen": [
@@ -445,6 +479,7 @@
   },
   {
    "id": "iamscan_dump",
+   "wie": "afspraak",
    "titel": "Linux-dump (iamscan)",
    "formaat": "tar.gz of map",
    "kolommen": [],

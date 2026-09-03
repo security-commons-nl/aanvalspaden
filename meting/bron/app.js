@@ -1982,6 +1982,13 @@
 
   // Scherm 1: de meetregels
 
+  var WIE_LABEL = { zelf: 'zelf te trekken', beheer: 'vraag aan beheer', afspraak: 'aparte afspraak' };
+
+  function wieVan(item) {
+    var bron = bronVan(item.bron === 'document' ? 'document' : item.bron);
+    return bron.wie || '';
+  }
+
   function kiezer(item) {
     var bronId = item.bron;
     var bron = bronVan(bronId);
@@ -1989,6 +1996,12 @@
     var kop = maak('p', null, { class: 'klein' });
     kop.appendChild(maak('strong', bron.titel));
     kop.appendChild(maak('span', ' (' + bron.formaat + ')'));
+    if (bron.wie) {
+      kop.appendChild(maak('span', ' '));
+      kop.appendChild(maak('span', WIE_LABEL[bron.wie] || bron.wie, {
+        class: 'vlag w-' + bron.wie, title: (REGELS.wie || {})[bron.wie] || ''
+      }));
+    }
     if (bron.kolommen && bron.kolommen.length) {
       kop.appendChild(maak('span', ' · verplichte kolommen: '));
       kop.appendChild(maak('code', bron.kolommen.join(', ')));
@@ -2024,6 +2037,16 @@
 
   function documentkiezer(item) {
     var blok = maak('div', null, { class: 'kiezer nietprint' });
+    var wie = bronVan('document').wie;
+    if (wie) {
+      var kop = maak('p', null, { class: 'klein' });
+      kop.appendChild(maak('strong', 'Rapport of verslag'));
+      kop.appendChild(maak('span', ' '));
+      kop.appendChild(maak('span', WIE_LABEL[wie] || wie, {
+        class: 'vlag w-' + wie, title: (REGELS.wie || {})[wie] || ''
+      }));
+      blok.appendChild(kop);
+    }
     var uitleg = maak('p', null, { class: 'klein' });
     uitleg.appendChild(maak('span', bronVan('document').uitleg + ' Gezocht wordt op: '));
     uitleg.appendChild(maak('code', item.regel.parameters.trefwoorden.join('  ·  ')));
@@ -2143,12 +2166,14 @@
     var doel = leegMaken(el('items-inhoud'));
     var filterVerdict = el('filter-verdict').value;
     var filterSoort = el('filter-soort').value;
+    var filterWie = el('filter-wie').value;
     var zichtbaar = 0;
 
     REGELS.categorieen.forEach(function (categorie) {
       var eigen = REGELS.items.filter(function (item) {
         if (item.categorie !== categorie.nummer) return false;
         if (filterSoort && item.soort !== filterSoort) return false;
+        if (filterWie && wieVan(item) !== filterWie) return false;
         if (filterVerdict && reken.verdict_van(dossier, item.id) !== filterVerdict) return false;
         return true;
       });
@@ -2390,11 +2415,12 @@
       ['Pad', 'Chokepoint', 'Wat het is', 'Meting', 'Afgeleid antwoord'], padrijen));
 
     doel.appendChild(uitdraaiTabel('4 Per meetregel',
-      ['Item', 'Label', 'Bron', 'Bestand', 'sha256', 'Artefact', 'Uitkomst', 'Samenvatting',
-        'Notitie'],
+      ['Item', 'Label', 'Bron', 'Wie levert het', 'Bestand', 'sha256', 'Artefact', 'Uitkomst',
+        'Samenvatting', 'Notitie'],
       REGELS.items.map(function (item) {
         var meting = dossier.metingen[item.id];
-        return rij([item.id, item.label, item.bron, meting ? meting.bestand : '',
+        return rij([item.id, item.label, item.bron, WIE_LABEL[wieVan(item)] || '',
+          meting ? meting.bestand : '',
           meting ? String(meting.sha256 || '').slice(0, 12) : '',
           meting && meting.artefact_datum ? String(meting.artefact_datum).slice(0, 10) : '',
           meting ? meting.verdict : 'geen_bewijs',
@@ -2525,6 +2551,7 @@
 
     el('filter-verdict').addEventListener('change', tekenItems);
     el('filter-soort').addEventListener('change', tekenItems);
+    el('filter-wie').addEventListener('change', tekenItems);
 
     var tabknoppen = document.querySelectorAll('.tabs button');
     for (var i = 0; i < tabknoppen.length; i++) {

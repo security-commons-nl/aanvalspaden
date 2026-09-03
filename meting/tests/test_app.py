@@ -342,3 +342,22 @@ def test_geen_netwerk(pagina, doorloop):
         pagina.click(f"#tab-{tab}")
     kies(pagina, "1.1", "crown-jewels.csv")
     assert verzoeken == [], verzoeken
+
+def test_filter_op_wie_levert_het(pagina, regels):
+    """Filteren op wie de export levert: eerst wat je zelf kunt trekken.
+
+    De telling is dezelfde als in test_regels.py, maar dan zoals hij op het scherm uitpakt; loopt de
+    pagina uit de pas met de regels, dan valt een van beide om.
+    """
+    per_bron = {b["id"]: b["wie"] for b in regels["bronnen"]}
+    for waarde, verwacht in (("zelf", 14), ("beheer", 23), ("afspraak", 4)):
+        pagina.select_option("#filter-wie", waarde)
+        pagina.wait_for_function(
+            "(n) => document.querySelectorAll('[data-item]').length === n", arg=verwacht)
+        getoond = pagina.eval_on_selector_all(
+            "[data-item]", "n => n.map(e => e.getAttribute('data-item'))")
+        for item_id in getoond:
+            item = [i for i in regels["items"] if i["id"] == item_id][0]
+            assert per_bron[item["bron"]] == waarde, item_id
+    pagina.select_option("#filter-wie", "")
+    pagina.wait_for_function("() => document.querySelectorAll('[data-item]').length === 41")

@@ -222,140 +222,149 @@ IAMSCAN_ITEMS: list[dict] = [
 CATEGORIE_10 = {"nummer": 10, "titel": "Linux-hosts (iamscan)"}
 
 # ── De bronnen: wat de gebruiker aanlevert ──────────────────────────────────
+
+# `wie` zegt wie de export kan leveren, en bepaalt daarmee de volgorde van een eerste ronde: begin met
+# wat je zelf kunt trekken, dan pas de vragen aan een ander. De waarden staan in WIE_UITLEG hieronder.
+WIE_UITLEG = {
+    "zelf": "Zelf te trekken: een portaalexport, een eigen lijst of een eigen rapport.",
+    "beheer": "Vraag aan beheer: werkplekbeheer, netwerk, de SIEM-partij of backup.",
+    "afspraak": "Aparte afspraak: hiervoor draait er iets op productiehosts.",
+}
+
 #
 # `kolommen` is wat de lezer eist (hoofdletterongevoelig; ontbreekt er een, dan is het verdict
 # unparsed). `optioneel` gaat mee in de samenvatting maar is niet verplicht. `uitleg` staat bij de
 # bron op de pagina; `hoe` zegt waar de export vandaan komt.
 
 BRONNEN: list[dict] = [
-    {"id": "crown_jewels_csv", "titel": "Kroonjuwelenlijst", "formaat": "csv",
+    {"id": "crown_jewels_csv", "wie": "zelf", "titel": "Kroonjuwelenlijst", "formaat": "csv",
      "kolommen": ["name"], "optioneel": ["owner", "vlan_or_subnet", "backup_type", "rto", "rpo"],
      "uitleg": "Een regel per kroonjuweel.",
      "hoe": "Uit je eigen lijst, of uit de uitdraai van procescheck (hoofdstuk Kroonjuwelen)."},
-    {"id": "asset_inventory_csv", "titel": "Asset-inventaris uit drie bronnen", "formaat": "csv",
+    {"id": "asset_inventory_csv", "wie": "beheer", "titel": "Asset-inventaris uit drie bronnen", "formaat": "csv",
      "kolommen": ["source", "ip"], "optioneel": ["hostname"],
      "uitleg": "Een regel per waarneming, met in source een van ad, dhcp of fw_arp.",
      "hoe": "Drie exports achter elkaar geplakt: AD-computers, DHCP-leases en de ARP-tabel van de firewall."},
-    {"id": "fw_config", "titel": "Firewall running-config", "formaat": "tekst",
+    {"id": "fw_config", "wie": "beheer", "titel": "Firewall running-config", "formaat": "tekst",
      "kolommen": [], "optioneel": [],
      "uitleg": "De configuratie zoals het apparaat hem uitschrijft. Herkent FortiGate, Cisco ASA/IOS en "
                "Palo Alto set-formaat; een ander formaat geeft unparsed.",
      "hoe": "show running-config (Cisco), show full-configuration (FortiGate) of set-export (Palo Alto). "
             "De toets kijkt naar zonenamen met mgmt, oob, tooling, aaa, guest, jump, ilo, ipmi, user en "
             "server; heten je zones anders, dan is de uitkomst unparsed en niet pass."},
-    {"id": "vpn_inventory_csv", "titel": "Vendor-VPN-peers", "formaat": "csv",
+    {"id": "vpn_inventory_csv", "wie": "beheer", "titel": "Vendor-VPN-peers", "formaat": "csv",
      "kolommen": ["peer", "dst_subnet"], "optioneel": ["leverancier"],
      "uitleg": "Een regel per VPN-peer met het subnet dat hij mag bereiken.",
      "hoe": "Uit de VPN-configuratie of het beheerportaal van de firewall."},
-    {"id": "entra_privileged_csv", "titel": "Privileged accounts met MFA-registratie", "formaat": "csv",
+    {"id": "entra_privileged_csv", "wie": "zelf", "titel": "Privileged accounts met MFA-registratie", "formaat": "csv",
      "kolommen": ["upn", "mfa_registered"], "optioneel": ["display_name", "methods"],
      "uitleg": "Een regel per account met een directoryrol.",
      "hoe": "Entra-portaal, Rollen en beheerders, plus het rapport Authenticatiemethoden; of met Graph: "
             "/directoryRoles/{id}/members en /reports/authenticationMethods/userRegistrationDetails."},
-    {"id": "ad_tier0_csv", "titel": "Tier-0-accounts en LogonWorkstations", "formaat": "csv",
+    {"id": "ad_tier0_csv", "wie": "beheer", "titel": "Tier-0-accounts en LogonWorkstations", "formaat": "csv",
      "kolommen": ["account", "logon_workstations_set"], "optioneel": ["logon_workstations"],
      "uitleg": "Een regel per tier-0-account.",
      "hoe": "PowerShell: Get-ADUser -Filter * -Properties LogonWorkstations, gefilterd op je tier-0-OU."},
-    {"id": "gpo_export_xml", "titel": "GPO-export", "formaat": "xml",
+    {"id": "gpo_export_xml", "wie": "beheer", "titel": "GPO-export", "formaat": "xml",
      "kolommen": [], "optioneel": [],
      "uitleg": "Alternatief voor 3.2: de export moet LogonWorkstations bevatten.",
      "hoe": "PowerShell: Get-GPOReport -All -ReportType XML."},
-    {"id": "ad_svc_accounts_csv", "titel": "Serviceaccounts", "formaat": "csv",
+    {"id": "ad_svc_accounts_csv", "wie": "beheer", "titel": "Serviceaccounts", "formaat": "csv",
      "kolommen": ["sam", "in_da", "auth_type", "pw_len"], "optioneel": ["ou"],
      "uitleg": "Een regel per serviceaccount; auth_type is gmsa of iets anders, pw_len is de "
                "wachtwoordlengte.",
      "hoe": "PowerShell over je serviceaccount-OU, aangevuld met het lidmaatschap van Domain Admins."},
-    {"id": "laps_csv", "titel": "LAPS-dekking", "formaat": "csv",
+    {"id": "laps_csv", "wie": "beheer", "titel": "LAPS-dekking", "formaat": "csv",
      "kolommen": ["device_name", "laps_configured"], "optioneel": ["os", "laps_last_rotation"],
      "uitleg": "Een regel per apparaat.",
      "hoe": "Intune-export of een AD-query op ms-Mcs-AdmPwdExpirationTime."},
-    {"id": "entra_users_csv", "titel": "Accounts met laatste aanmelding", "formaat": "csv",
+    {"id": "entra_users_csv", "wie": "zelf", "titel": "Accounts met laatste aanmelding", "formaat": "csv",
      "kolommen": ["upn", "enabled", "last_signin"], "optioneel": ["display_name"],
      "uitleg": "Een regel per account; een lege last_signin telt als nooit aangemeld.",
      "hoe": "Entra-portaal, Gebruikers, export met de kolom Laatste aanmelding; of Graph "
             "/users?$select=userPrincipalName,accountEnabled,signInActivity."},
-    {"id": "siem_flow_csv", "titel": "Flow-logs uit de SIEM", "formaat": "csv",
+    {"id": "siem_flow_csv", "wie": "beheer", "titel": "Flow-logs uit de SIEM", "formaat": "csv",
      "kolommen": ["timestamp", "src_vlan", "dst_vlan"], "optioneel": ["src_ip", "dst_ip"],
      "uitleg": "Een steekproef van de flow-logs; timestamp in ISO-8601.",
      "hoe": "Een query op je SIEM over de laatste 24 uur, geexporteerd als CSV."},
-    {"id": "sysmon_config_xml", "titel": "Sysmon-configuratie", "formaat": "xml",
+    {"id": "sysmon_config_xml", "wie": "beheer", "titel": "Sysmon-configuratie", "formaat": "xml",
      "kolommen": [], "optioneel": [],
      "uitleg": "De actieve Sysmon-config.",
      "hoe": "sysmon -c op een werkplek of domeincontroller."},
-    {"id": "entra_risky_csv", "titel": "Riskante aanmeldingen", "formaat": "csv",
+    {"id": "entra_risky_csv", "wie": "zelf", "titel": "Riskante aanmeldingen", "formaat": "csv",
      "kolommen": ["user", "risk_level", "datum"], "optioneel": ["risk_state", "ip"],
      "uitleg": "Een regel per aanmelding met een risiconiveau; risk_level none telt niet mee.",
      "hoe": "Entra-portaal, Beveiliging, Riskante aanmeldingen, export; of Graph /auditLogs/signIns met "
             "filter riskLevelAggregated ne 'none'."},
-    {"id": "fw_flow_csv", "titel": "Egress-flows met FQDN", "formaat": "csv",
+    {"id": "fw_flow_csv", "wie": "beheer", "titel": "Egress-flows met FQDN", "formaat": "csv",
      "kolommen": ["fqdn"], "optioneel": ["timestamp", "src_ip", "dst_ip"],
      "uitleg": "Een steekproef van uitgaand verkeer.",
      "hoe": "Export uit de firewall of proxy over een representatief venster."},
-    {"id": "siem_rules_json", "titel": "Detectieregels", "formaat": "json",
+    {"id": "siem_rules_json", "wie": "beheer", "titel": "Detectieregels", "formaat": "json",
      "kolommen": [], "optioneel": [],
      "uitleg": "Een lijst met regels, of een object met een sleutel rules; elke regel heeft tags.",
      "hoe": "Export van je SIEM-regels."},
-    {"id": "nessus_xml", "titel": "Kwetsbaarhedenscan", "formaat": "xml",
+    {"id": "nessus_xml", "wie": "beheer", "titel": "Kwetsbaarhedenscan", "formaat": "xml",
      "kolommen": [], "optioneel": [],
      "uitleg": "Een .nessus-bestand; severity 4 is critical.",
      "hoe": "Nessus of Qualys, export als XML."},
-    {"id": "edge_devices_csv", "titel": "Edge- en VPN-apparaten", "formaat": "csv",
+    {"id": "edge_devices_csv", "wie": "zelf", "titel": "Edge- en VPN-apparaten", "formaat": "csv",
      "kolommen": ["device", "last_patched_at"], "optioneel": ["type", "versie"],
      "uitleg": "Een regel per apparaat aan de rand; last_patched_at in ISO-8601.",
      "hoe": "Uit je patchbeheer of met de hand bijgehouden."},
-    {"id": "eol_inventory_csv", "titel": "End-of-life-systemen", "formaat": "csv",
+    {"id": "eol_inventory_csv", "wie": "zelf", "titel": "End-of-life-systemen", "formaat": "csv",
      "kolommen": ["system", "eol_date", "migration_date"], "optioneel": ["eigenaar"],
      "uitleg": "Een regel per systeem dat uit ondersteuning loopt.",
      "hoe": "Uit je eigen lijst; migration_date is de datum waarop de migratie staat gepland."},
-    {"id": "nmap_xml", "titel": "Externe poortscan", "formaat": "xml",
+    {"id": "nmap_xml", "wie": "beheer", "titel": "Externe poortscan", "formaat": "xml",
      "kolommen": [], "optioneel": [],
      "uitleg": "Een nmap-XML met het attribuut start op de wortel.",
      "hoe": "nmap -oX van je externe adresruimte."},
-    {"id": "veeam_report_csv", "titel": "Backuprapport", "formaat": "csv",
+    {"id": "veeam_report_csv", "wie": "beheer", "titel": "Backuprapport", "formaat": "csv",
      "kolommen": ["job_name", "last_success", "immutable", "errors"], "optioneel": ["repository"],
      "uitleg": "Een regel per backupjob.",
      "hoe": "Export uit Veeam, Rubrik of je eigen backupsoftware."},
-    {"id": "backup_ad_audit_csv", "titel": "Backup en het productie-AD", "formaat": "csv",
+    {"id": "backup_ad_audit_csv", "wie": "zelf", "titel": "Backup en het productie-AD", "formaat": "csv",
      "kolommen": ["backup_system", "prod_ad_trust"], "optioneel": ["eigen_ad", "mfa"],
      "uitleg": "Een regel per backupsysteem.",
      "hoe": "Met de hand vastgesteld: vertrouwt dit systeem het productie-AD voor authenticatie?"},
-    {"id": "document", "titel": "Rapport of verslag", "formaat": "tekst",
+    {"id": "document", "wie": "zelf", "titel": "Rapport of verslag", "formaat": "tekst",
      "kolommen": [], "optioneel": [],
      "uitleg": "Plak de tekst van het rapport. De toets kijkt of de trefwoorden voorkomen en of er een "
                "datum in staat die vers genoeg is. Wat er inhoudelijk staat, beoordeel je zelf.",
      "hoe": "Uit een PDF of Word: alles selecteren en plakken. De eerste datum in de vorm 2026-03-12 of "
             "2026/03/12 telt als datum van het rapport."},
-    {"id": "wdac_policy_xml", "titel": "WDAC- of AppLocker-policy", "formaat": "xml",
+    {"id": "wdac_policy_xml", "wie": "beheer", "titel": "WDAC- of AppLocker-policy", "formaat": "xml",
      "kolommen": [], "optioneel": [],
      "uitleg": "De actieve policy.",
      "hoe": "De XML uit je WDAC-beheer, of Get-AppLockerPolicy -Effective -Xml."},
-    {"id": "asr_csv", "titel": "ASR-regel voor Office-macro's", "formaat": "csv",
+    {"id": "asr_csv", "wie": "beheer", "titel": "ASR-regel voor Office-macro's", "formaat": "csv",
      "kolommen": ["device_name", "asr_office_macros_blocked"], "optioneel": ["os"],
      "uitleg": "Een regel per apparaat.",
      "hoe": "Intune-export van de ASR-regels."},
-    {"id": "local_admins_csv", "titel": "Lokale administrators", "formaat": "csv",
+    {"id": "local_admins_csv", "wie": "beheer", "titel": "Lokale administrators", "formaat": "csv",
      "kolommen": ["device", "user_count_in_admins"], "optioneel": ["members"],
      "uitleg": "Een regel per apparaat met het aantal gewone gebruikers in de lokale Administrators.",
      "hoe": "Intune of een script over je werkplekken."},
-    {"id": "intune_usb_csv", "titel": "USB-beleid", "formaat": "csv",
+    {"id": "intune_usb_csv", "wie": "beheer", "titel": "USB-beleid", "formaat": "csv",
      "kolommen": ["device", "usb_blocked_default"], "optioneel": ["policy"],
      "uitleg": "Een regel per apparaat.",
      "hoe": "Intune-export van het apparaatbeperkingsprofiel."},
-    {"id": "entra_admins_csv", "titel": "Beheerders en hun authenticatiemethoden", "formaat": "csv",
+    {"id": "entra_admins_csv", "wie": "zelf", "titel": "Beheerders en hun authenticatiemethoden", "formaat": "csv",
      "kolommen": ["upn", "auth_methods"], "optioneel": ["role"],
      "uitleg": "Een regel per beheerder; auth_methods is een lijst gescheiden door komma's of "
                "puntkomma's.",
      "hoe": "Graph /users/{id}/authentication/methods per beheerder, of het rapport "
             "Authenticatiemethoden uit het Entra-portaal."},
-    {"id": "siem_behavior_rules_json", "titel": "Gedragsdetectieregels", "formaat": "json",
+    {"id": "siem_behavior_rules_json", "wie": "beheer", "titel": "Gedragsdetectieregels", "formaat": "json",
      "kolommen": [], "optioneel": [],
      "uitleg": "Een lijst met regels; elke regel heeft een type.",
      "hoe": "Export van je SIEM-regels, gefilterd of ongefilterd."},
-    {"id": "fw_category_csv", "titel": "Categorieregels van de firewall", "formaat": "csv",
+    {"id": "fw_category_csv", "wie": "beheer", "titel": "Categorieregels van de firewall", "formaat": "csv",
      "kolommen": ["category", "action", "logged"], "optioneel": ["policy"],
      "uitleg": "Een regel per categorie; de toets zoekt een categorie met 'ai' in de naam.",
      "hoe": "Export van het URL- of applicatiefilter."},
-    {"id": "iamscan_dump", "titel": "Linux-dump (iamscan)", "formaat": "tar.gz of map",
+    {"id": "iamscan_dump", "wie": "afspraak", "titel": "Linux-dump (iamscan)", "formaat": "tar.gz of map",
      "kolommen": [], "optioneel": [],
      "uitleg": "De tarball van collect.sh, of een uitgepakte map met een submap per host. Gelezen "
                "worden: etc/passwd, etc/group, etc/sudoers, etc/sudoers.d/*, etc/ssh/sshd_config en de "
@@ -461,6 +470,10 @@ def bouw_regels() -> dict:
         })
     items.extend(IAMSCAN_ITEMS)
 
+    for bron in BRONNEN:
+        if bron.get("wie") not in WIE_UITLEG:
+            sys.exit(f"bron {bron['id']} heeft geen geldige wie: {sorted(WIE_UITLEG)}")
+
     gebruikt = {i["bron"] for i in items} | {i.get("bron_alternatief") for i in items} - {None}
     onbekend = gebruikt - {b["id"] for b in BRONNEN}
     if onbekend:
@@ -479,6 +492,7 @@ def bouw_regels() -> dict:
         "verdicts": VERDICTS,
         "soorten": SOORTEN,
         "categorieen": categorieen + [CATEGORIE_10],
+        "wie": WIE_UITLEG,
         "bronnen": BRONNEN,
         "items": items,
         "ongekoppeld": ongekoppeld,

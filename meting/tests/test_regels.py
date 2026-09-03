@@ -103,6 +103,28 @@ def test_iamscan_items(regels):
     assert "vim" in regels["iamscan"]["shell_escape"]
 
 
+def test_elke_bron_zegt_wie_hem_levert(regels):
+    """`wie` bepaalt de volgorde van een eerste ronde: eerst wat je zelf kunt, dan de vragen.
+
+    De verdeling is geen willekeur en hoort vast te liggen: veertien meetregels komen uit exports die
+    een CISO zelf trekt (Entra-portaal, eigen lijsten, eigen rapporten), drieentwintig vragen om
+    beheer, en de vier iamscan-regels vragen een aparte afspraak omdat er iets op productiehosts
+    draait.
+    """
+    assert set(regels["wie"]) == {"zelf", "beheer", "afspraak"}
+    for waarde, uitleg in regels["wie"].items():
+        assert uitleg.strip(), waarde
+    per_bron = {b["id"]: b["wie"] for b in regels["bronnen"]}
+    for bron in regels["bronnen"]:
+        assert bron["wie"] in regels["wie"], bron["id"]
+    telling = {"zelf": 0, "beheer": 0, "afspraak": 0}
+    for item in regels["items"]:
+        telling[per_bron[item["bron"]]] += 1
+    assert telling == {"zelf": 14, "beheer": 23, "afspraak": 4}, telling
+    assert per_bron["iamscan_dump"] == "afspraak"
+    assert per_bron["document"] == "zelf", "de vijf documenten heeft de CISO zelf"
+
+
 def test_vingerafdruk_is_stabiel(reken, regels):
     """Dezelfde inhoud geeft dezelfde vingerafdruk; een gewijzigde drempel niet."""
     eerste = reken.vingerafdruk(regels)

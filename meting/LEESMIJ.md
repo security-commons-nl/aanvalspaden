@@ -130,6 +130,17 @@ test falen.
 deze repo staan. De overname was eenmalig, dus de CI checkt die repo's niet uit; die repo's zijn
 gearchiveerd.
 
+## Wie levert de export?
+
+Elke bron draagt in `regels.json` een veld `wie`: `zelf` (een portaalexport, je eigen lijst of je eigen
+rapport), `beheer` (een vraag aan werkplekbeheer, netwerk, de SIEM-partij of backup) of `afspraak` (de
+Linux-dump, want daarvoor draait er iets op productiehosts). Op de pagina staat het als label bij de
+bron en als filter boven de meetregels.
+
+Dat bepaalt de volgorde van een eerste ronde: veertien van de 41 meetregels komen uit exports die je
+zelf trekt, drieentwintig vragen om beheer, en vier om een afspraak. Begin met de eerste groep; dan
+weet je binnen een uur of de kolomcontracten kloppen met wat jouw systemen werkelijk leveren.
+
 ## AI-hulp
 
 Levert je beheersysteem andere kolomnamen dan een contract vraagt, dan zet de AI-hulp die om:

@@ -142,3 +142,10 @@ def test_app_js_spiegelt_reken_py(app_js):
     assert len(namen) >= 60, "de referentie is onverwacht klein geworden"
     ontbreekt = [naam for naam in namen if "reken." + naam + " = " not in app_js]
     assert not ontbreekt, f"niet gespiegeld in app.js: {ontbreekt}"
+
+def test_wie_staat_op_de_pagina(html):
+    """Het label en de uitleg gaan mee, zodat de pagina zelf zegt wie de export kan leveren."""
+    for waarde in ("zelf te trekken", "vraag aan beheer", "aparte afspraak"):
+        assert waarde in html, waarde
+    assert 'id="filter-wie"' in html
+    assert "Zelf te trekken: een portaalexport" in html, "de uitleg uit regels.json ontbreekt"

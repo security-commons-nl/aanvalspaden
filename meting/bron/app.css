@@ -171,6 +171,9 @@ progress.balk::-moz-progress-bar { background: var(--accent); border-radius: 3px
 .e-midden { background: #fff1de; color: #8a5000; }
 .e-laag { background: #fdf6e0; color: #6b5b00; }
 .e-info { background: #eceff2; color: var(--zacht); }
+.w-zelf { background: #e4f1e4; color: #2e7d32; }
+.w-beheer { background: #eef1f5; color: var(--zacht); border: 1px solid var(--lijn); }
+.w-afspraak { background: #fff1de; color: #8a5000; }
 
 tr.witte-vlek td { background: #fffbe9; }
 tr.witte-vlek .titel { color: #8a5000; }
