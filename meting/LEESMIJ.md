@@ -8,7 +8,7 @@ daarmee bewijs hebben en welke niet.
 Eén zelfstandig HTML-bestand, net als de zelfcheck en de crosswalk. Geen server, geen account, geen
 telemetrie, geen enkele externe verwijzing. De bestanden die je laadt verlaten je browser niet.
 
-**Live zodra deze wijziging op main staat:** https://security-commons-nl.github.io/aanvalspaden/meting/
+**Live:** https://security-commons-nl.github.io/aanvalspaden/meting/
 
 ## Bouwen
 
@@ -127,8 +127,8 @@ De browsertests slaan zichzelf over als Playwright of Chromium ontbreekt; instal
 test falen.
 
 `test_regels.py` bevat tests die zichzelf overslaan als `security-posture-tool` en `iamscan` niet naast
-deze repo staan. De overname was eenmalig, dus de CI checkt die repo's niet uit; ze worden gearchiveerd
-zodra deze meting live staat.
+deze repo staan. De overname was eenmalig, dus de CI checkt die repo's niet uit; die repo's zijn
+gearchiveerd.
 
 ## Een bron of een item toevoegen
 

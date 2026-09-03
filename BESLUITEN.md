@@ -74,8 +74,8 @@ Append-only. Datum, besluit, één zin onderbouwing.
 - **2026-08-30 · `bouw.py` doet `node --check` op het script voor het de pagina in gaat.** Een
   syntaxfout maakte de hele app leeg zonder foutmelding; de browsertests vingen dat pas na dertig
   seconden wachten op een selector die nooit kwam. Nu valt de bouw meteen om, met de regel erbij.
-- **2026-09-03 · De meting woont hier als `meting/`; `security-posture-tool` en `iamscan` gaan het
-  archief in.** Het waren applicaties met een installatie en een eigen kopie van `paden.json`; de
+- **2026-09-03 · De meting woont hier als `meting/`; `security-posture-tool` en `iamscan` zijn
+  gearchiveerd.** Het waren applicaties met een installatie en een eigen kopie van `paden.json`; de
   commons publiceert instrumenten. De 41 items en hun toetsregels zijn overgenomen op de tag
   `v0-applicatie` en staan nu als data in `meting/regels.json`, met `paden.json` rechtstreeks ernaast.
 - **2026-09-03 · De meting rekent geen padstatus uit.** Ze levert per chokepoint een afgeleid antwoord en

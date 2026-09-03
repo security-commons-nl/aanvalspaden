@@ -13,7 +13,7 @@ De items en de toetsregels komen uit twee applicaties die hier zijn opgegaan:
 | `iamscan`, tag `v0-applicatie` | de analyse van een Linux-hostdump uit `analysis.py` en `parsers.py`: de vier items 10.1 tot en met 10.4 |
 
 `overname.py` heeft die overname gedaan en kan hem nalezen (`python meting/overname.py --check`). Beide
-repo's worden gearchiveerd zodra deze meting live staat. Het waren applicaties, en het statuut van deze
+repo's zijn daarna gearchiveerd. Het waren applicaties, en het statuut van deze
 commons zegt dat we
 instrumenten publiceren, geen applicaties: een instrument is één bestand dat je opent, niet een
 installatie die je moet draaien en onderhouden.
