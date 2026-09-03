@@ -211,7 +211,19 @@ tr.witte-vlek .titel { color: #8a5000; }
 button { font: inherit; font-size: .88rem; padding: .35rem .7rem; cursor: pointer; border: 1px solid var(--accent); background: var(--wit); color: var(--accent); border-radius: 3px; }
 button:hover { background: var(--vlak); }
 button:disabled { opacity: .45; cursor: not-allowed; }
-.knoppen a { font-size: .88rem; color: var(--accent); }
+/* Elk linkje in de balk krijgt de vorm van een knop: een kaal linkje tussen echte knoppen oogt
+   rommelig. Grijs voor navigatie naar een andere tool, want dat is geen actie op dit dossier. */
+.knoppen a {
+  font: inherit; font-size: .88rem; padding: .35rem .7rem; text-decoration: none;
+  border: 1px solid var(--lijn); background: var(--wit); color: var(--zacht); border-radius: 3px;
+}
+.knoppen a:hover { border-color: var(--accent); color: var(--accent); }
+/* De AI-hulp staat rechts, apart van de dossieracties, met een oranje rand: de kleur van een bewuste
+   keuze. Niet gevuld, want opt-in hoort niet de primaire actie te lijken. */
+.knoppen a#knop-ai {
+  margin-left: auto; color: #b26a00; border-color: #e1a54a; background: #fffaf2; font-weight: 600;
+}
+.knoppen a#knop-ai:hover { border-color: #b26a00; color: #b26a00; }
 
 #dossier-status { margin: .5rem 0 .4rem; font-size: .86rem; color: var(--zacht); }
 .leid { margin: 0 0 1rem; max-width: 62em; color: var(--zacht); }

@@ -149,3 +149,16 @@ def test_wie_staat_op_de_pagina(html):
         assert waarde in html, waarde
     assert 'id="filter-wie"' in html
     assert "Zelf te trekken: een portaalexport" in html, "de uitleg uit regels.json ontbreekt"
+
+def test_ai_knop_is_een_knop_en_staat_rechts(html):
+    """De AI-hulp is een knop met accentrand, als laatste in de balk (keuze Bas 03-09-2026).
+
+    Hij was een kaal linkje tussen echte knoppen. Nu heeft elk linkje in de balk de vorm van een knop,
+    staat de AI-hulp rechts los van de dossieracties, en draagt hij de oranje rand die in deze
+    huisstijl een bewuste keuze markeert. Niet gevuld: opt-in hoort niet de primaire actie te lijken.
+    """
+    balk = html.split('<div class="knoppen">', 1)[1].split("</div>", 1)[0]
+    assert 'id="knop-ai"' in balk
+    assert balk.rindex('id="knop-ai"') > balk.rindex('href="../normen/"'), "AI-hulp hoort achteraan"
+    assert ".knoppen a#knop-ai" in html and "margin-left: auto" in html
+    assert "#e1a54a" in html, "de accentrand ontbreekt"
