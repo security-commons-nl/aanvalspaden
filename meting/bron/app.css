@@ -252,6 +252,21 @@ table { border-collapse: collapse; width: 100%; }
 .bronblok h3 { margin: 0 0 .3rem; font-size: 1rem; color: var(--accent); }
 .item .bewijs ul { margin: .3rem 0 0; padding-left: 1.1rem; font-size: .82rem; color: var(--zacht); }
 .item summary { font-size: .84rem; cursor: pointer; color: var(--accent); }
+/* Het uitklapveld met de werkwijze: waar moet je zijn, wat klik je aan, welke query draai je. */
+.recept { margin: .5rem 0; border-left: 3px solid var(--lijn); padding: 0 0 0 .7rem; }
+.recept > summary { font-size: .84rem; font-weight: 600; cursor: pointer; color: var(--accent); }
+.recept[open] > summary { margin-bottom: .4rem; }
+.recept p { margin: .25rem 0; }
+.recept .stappen { margin: .3rem 0 .5rem; padding-left: 1.2rem; font-size: .84rem; color: var(--zacht); }
+.recept .stappen li { margin-bottom: .2rem; }
+.recept .query {
+  font-size: .8rem; background: var(--vlak); border: 1px solid var(--lijn); border-radius: 4px;
+  padding: .5rem .6rem; overflow-x: auto; white-space: pre; margin: .2rem 0 .5rem;
+}
+.recept .kolomkoppeling { font-size: .8rem; max-width: 34rem; margin: .2rem 0 .5rem; }
+.recept .let-op-regel { font-size: .84rem; background: #fffaf2; border-left: 3px solid #e1a54a;
+  padding: .4rem .6rem; margin: .4rem 0; }
+.recept .voetnoot { color: #8a9099; font-style: italic; }
 #dossier-status.let-op { color: #a4262c; font-weight: 600; }
 .kiezer { background: var(--vlak); border-radius: 4px; padding: .5rem .6rem; margin: .5rem 0; }
 .kiezer p { margin: .2rem 0; }

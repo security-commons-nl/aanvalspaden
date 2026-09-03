@@ -1989,6 +1989,76 @@
     return bron.wie || '';
   }
 
+  /* Het uitklapveld bij elke plek waar je data aanlevert: waar moet je zijn, wat klik je aan, welke
+     query kun je draaien, en hoe heten de kolommen daar tegenover het contract. Wat er niet is, komt er
+     ook niet als lege kop in te staan. */
+  function receptblok(bron) {
+    var recept = bron.recept;
+    var blok = maak('details', null, { class: 'recept' });
+    blok.appendChild(maak('summary', recept ? 'Waar vind ik dit, en hoe trek ik het?'
+      : 'Wat moet ik aanleveren?'));
+
+    if (bron.uitleg) blok.appendChild(maak('p', bron.uitleg, { class: 'klein' }));
+
+    if (recept && recept.waar) {
+      var waar = maak('p', null, { class: 'klein' });
+      waar.appendChild(maak('strong', 'Waar: '));
+      waar.appendChild(maak('span', recept.waar));
+      blok.appendChild(waar);
+    }
+
+    if (recept && (recept.stappen || []).length) {
+      var lijst = maak('ol', null, { class: 'stappen' });
+      recept.stappen.forEach(function (stap) { lijst.appendChild(maak('li', stap)); });
+      blok.appendChild(lijst);
+    }
+
+    if (recept && recept.query) {
+      var kop = maak('p', null, { class: 'klein' });
+      kop.appendChild(maak('strong', recept.query.taal + ': '));
+      blok.appendChild(kop);
+      var pre = maak('pre', recept.query.tekst, { class: 'query' });
+      blok.appendChild(pre);
+    }
+
+    if (bron.kolommen && bron.kolommen.length) {
+      var kolommen = maak('p', 'Het contract vraagt: ', { class: 'klein' });
+      kolommen.appendChild(maak('code', bron.kolommen.join(', ')));
+      if (bron.optioneel && bron.optioneel.length) {
+        kolommen.appendChild(maak('span', ' · en als je ze hebt: '));
+        kolommen.appendChild(maak('code', bron.optioneel.join(', ')));
+      }
+      blok.appendChild(kolommen);
+    }
+
+    if (recept && recept.kolommen) {
+      var tabel = maak('table', null, { class: 'regels kolomkoppeling' });
+      var kop2 = maak('thead');
+      kop2.appendChild(rij(['Kolom in de export', 'Hernoem naar'], 'th'));
+      tabel.appendChild(kop2);
+      var lijf = maak('tbody');
+      Object.keys(recept.kolommen).forEach(function (van) {
+        lijf.appendChild(rij([van, recept.kolommen[van]]));
+      });
+      tabel.appendChild(lijf);
+      blok.appendChild(tabel);
+    }
+
+    if (recept && recept.let_op) {
+      blok.appendChild(maak('p', recept.let_op, { class: 'let-op-regel' }));
+    }
+
+    if (!recept && bron.hoe) blok.appendChild(maak('p', bron.hoe, { class: 'klein' }));
+
+    var voet = maak('p', null, { class: 'klein voetnoot' });
+    voet.appendChild(maak('span', recept && recept.gecontroleerd
+      ? 'Menupaden nagelopen in ' + recept.gecontroleerd + '; portalen hernoemen hun schermen, dus '
+        + 'wijkt het af, dan is de stap meestal dezelfde onder een andere naam.'
+      : 'Voor deze bron staat er nog geen uitgeschreven recept; wat hierboven staat is wat we weten.'));
+    blok.appendChild(voet);
+    return blok;
+  }
+
   function kiezer(item) {
     var bronId = item.bron;
     var bron = bronVan(bronId);
@@ -2012,6 +2082,7 @@
     }
     blok.appendChild(kop);
     if (bron.hoe) blok.appendChild(maak('p', bron.hoe, { class: 'klein' }));
+    blok.appendChild(receptblok(bron));
 
     var invoer = maak('input', null, {
       type: 'file', 'data-bron': bronId, accept: ACCEPT[bron.formaat] || ''
@@ -2053,6 +2124,7 @@
     uitleg.appendChild(maak('span', ' · niet ouder dan ' + item.regel.parameters.maximale_maanden +
       ' maanden.'));
     blok.appendChild(uitleg);
+    blok.appendChild(receptblok(bronVan('document')));
     var vak = maak('textarea', documentTeksten[item.id] || '', {
       'data-document': item.id, rows: '4'
     });

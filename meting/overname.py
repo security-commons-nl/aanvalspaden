@@ -446,6 +446,189 @@ def paden_versie() -> str:
     return json.loads((REPO / "paden.json").read_text(encoding="utf-8"))["versie"]
 
 
+# ── Recepten: hoe je zo'n export in de praktijk maakt ───────────────────────
+#
+# Per bron: waar je moet zijn, welke stappen, optioneel een query, en hoe de kolommen van de export
+# heten tegenover het contract. `gecontroleerd` is de maand waarin het menupad is nagelopen; portalen
+# hernoemen hun schermen, dus dat hoort erbij te staan.
+#
+# Alleen ingevuld waar het klopt. Een bron zonder recept toont zijn korte `hoe`; een verzonnen menupad
+# is erger dan geen menupad.
+RECEPTEN: dict[str, dict] = {
+    "entra_users_csv": {
+        "waar": "Microsoft Entra admin center > Identiteit > Gebruikers > Alle gebruikers",
+        "stappen": [
+            "Zet via Kolommen de kolom Laatste aanmelding aan. Die verschijnt alleen met Entra ID P1 of hoger.",
+            "Kies Downloaden > gebruikers en wacht tot het CSV-bestand klaarstaat.",
+            "Hernoem de drie kolommen die de meting vraagt; de rest mag blijven staan.",
+        ],
+        "query": {"taal": "Microsoft Graph",
+                  "tekst": "GET /v1.0/users?$select=userPrincipalName,accountEnabled,signInActivity&$top=999"},
+        "kolommen": {"userPrincipalName": "upn", "accountEnabled": "enabled",
+                     "signInActivity.lastSignInDateTime": "last_signin"},
+        "let_op": "Een account dat nooit heeft ingelogd, heeft geen laatste aanmelding. Dat telt hier als "
+                  "inactief, en dat is de bedoeling: een ingeschakeld account dat nooit gebruikt is, is "
+                  "precies wat je zoekt. Via Graph vraagt signInActivity de rechten AuditLog.Read.All.",
+        "gecontroleerd": "2026-09",
+    },
+    "entra_privileged_csv": {
+        "waar": "Entra > Identiteit > Rollen en beheerders, plus Beveiliging > Verificatiemethoden > "
+                "Gebruikersregistratiedetails",
+        "stappen": [
+            "Open elke rol met beheerrechten (Globaal beheerder, Beveiligingsbeheerder, Exchange-, "
+            "Intune-, Toepassingsbeheerder) en exporteer de leden.",
+            "Exporteer Gebruikersregistratiedetails; daar staat per gebruiker of MFA geregistreerd is.",
+            "Combineer beide op UPN tot twee kolommen: upn en mfa_registered.",
+        ],
+        "query": {"taal": "Microsoft Graph",
+                  "tekst": "GET /v1.0/directoryRoles/{id}/members\n"
+                           "GET /beta/reports/authenticationMethods/userRegistrationDetails"},
+        "kolommen": {"userPrincipalName": "upn", "isMfaRegistered": "mfa_registered"},
+        "let_op": "Werk je met PIM, dan staan rollen die alleen 'in aanmerking komend' zijn niet bij de "
+                  "leden. Haal die apart op, anders mist je lijst juist de accounts die het gevoeligst zijn.",
+        "gecontroleerd": "2026-09",
+    },
+    "entra_admins_csv": {
+        "waar": "Entra > Beveiliging > Verificatiemethoden > Gebruikersregistratiedetails",
+        "stappen": [
+            "Filter op je beheerders (of exporteer alles en filter in de CSV).",
+            "Exporteer en zet de geregistreerde methoden per gebruiker in een kolom auth_methods, "
+            "gescheiden door een komma.",
+        ],
+        "query": {"taal": "Microsoft Graph",
+                  "tekst": "GET /v1.0/users/{id}/authentication/methods"},
+        "kolommen": {"userPrincipalName": "upn", "methodsRegistered": "auth_methods"},
+        "let_op": "De meting kijkt of er een phishingbestendige methode tussen staat: fido2, "
+                  "windowsHelloForBusiness of een certificaat. Een authenticator-app of sms telt hier "
+                  "niet mee; dat is geen vergissing maar de eis.",
+        "gecontroleerd": "2026-09",
+    },
+    "entra_risky_csv": {
+        "waar": "Entra > Beveiliging > Identity Protection > Riskante aanmeldingen",
+        "stappen": [
+            "Zet het filter op de laatste 7 dagen; dat is het venster waar de meting mee rekent.",
+            "Kies Downloaden > CSV.",
+        ],
+        "query": {"taal": "Microsoft Graph",
+                  "tekst": "GET /v1.0/auditLogs/signIns?$filter=riskLevelAggregated ne 'none'"},
+        "kolommen": {"userPrincipalName": "user", "riskLevelAggregated": "risk_level",
+                     "createdDateTime": "datum"},
+        "let_op": "Identity Protection vraagt Entra ID P2. Heb je dat niet, laat dit item dan leeg: "
+                  "'nog geen bewijs' is een eerlijker antwoord dan een lege lijst die als pass telt.",
+        "gecontroleerd": "2026-09",
+    },
+    "laps_csv": {
+        "waar": "Intune > Apparaten > Windows > Lokaal beheerderswachtwoord (LAPS), of Active Directory",
+        "stappen": [
+            "In Intune: open de lijst met apparaten en exporteer; per apparaat zie je of LAPS actief is.",
+            "In AD: draai de query hiernaast over je werkplek-OU.",
+            "Lever twee kolommen: device_name en laps_configured (true of false).",
+        ],
+        "query": {"taal": "PowerShell",
+                  "tekst": "Get-ADComputer -Filter * -SearchBase 'OU=Werkplekken,DC=voorbeeld,DC=nl' "
+                           "-Properties ms-LAPS-PasswordExpirationTime |"
+                           "\n  Select-Object Name, @{n='laps_configured';"
+                           "e={$null -ne $_.'ms-LAPS-PasswordExpirationTime'}} | Export-Csv laps.csv"},
+        "let_op": "Windows LAPS gebruikt ms-LAPS-PasswordExpirationTime; het oude Microsoft LAPS gebruikt "
+                  "ms-Mcs-AdmPwdExpirationTime. Draai je nog de oude, pas dan de attribuutnaam aan.",
+        "gecontroleerd": "2026-09",
+    },
+    "asr_csv": {
+        "waar": "Intune > Eindpuntbeveiliging > Kwetsbaarheid voor aanvallen verminderen",
+        "stappen": [
+            "Open het profiel waarin de ASR-regels staan en ga naar Apparaatstatus.",
+            "Exporteer; je krijgt per apparaat de status van het profiel.",
+            "Lever device_name en asr_office_macros_blocked (true of false).",
+        ],
+        "let_op": "De meting vraagt naar de ingestelde stand, niet naar het aantal blokkades. Een regel die "
+                  "op Audit staat, is niet geblokkeerd: die telt als false.",
+        "gecontroleerd": "2026-09",
+    },
+    "intune_usb_csv": {
+        "waar": "Intune > Apparaten > Configuratieprofielen",
+        "stappen": [
+            "Open het profiel met apparaatbeperkingen waarin verwisselbare opslag geregeld is.",
+            "Ga naar Apparaatstatus en exporteer.",
+            "Lever device en usb_blocked_default (true of false).",
+        ],
+        "let_op": "Het gaat om de standaardstand. Uitzonderingen per groep zijn prima, maar dan is de "
+                  "standaard nog steeds geblokkeerd; anders is het antwoord false.",
+        "gecontroleerd": "2026-09",
+    },
+    "local_admins_csv": {
+        "waar": "Intune > Apparaten > Scripts en herstel, of je eigen beheerscript",
+        "stappen": [
+            "Draai een script over je werkplekken dat de leden van de lokale groep Administrators telt, "
+            "de beheeraccounts niet meegerekend.",
+            "Lever device en user_count_in_admins (een getal).",
+        ],
+        "query": {"taal": "PowerShell",
+                  "tekst": "$leden = Get-LocalGroupMember -Group 'Administrators' |"
+                           "\n  Where-Object { $_.ObjectClass -eq 'User' -and $_.Name -notmatch "
+                           "'\\\\(adm-|svc-)' }"
+                           "\n[pscustomobject]@{ device = $env:COMPUTERNAME; "
+                           "user_count_in_admins = $leden.Count }"},
+        "let_op": "Advanced Hunting in Defender heeft hier geen tabel voor: het lidmaatschap van de lokale "
+                  "groep staat wel op de apparaatpagina, maar is niet te bevragen. Een script is de weg.",
+        "gecontroleerd": "2026-09",
+    },
+    "crown_jewels_csv": {
+        "waar": "Je eigen lijst, of de uitdraai van procescheck (hoofdstuk Kroonjuwelen)",
+        "stappen": [
+            "Neem hoogstens twintig regels: de systemen waarvan uitval of lek de organisatie echt raakt.",
+            "Vul per regel minstens name en owner; de eigenaar is een functie, geen persoonsnaam.",
+            "vlan_or_subnet, backup_type, rto en rpo tellen mee als je ze hebt.",
+        ],
+        "let_op": "Een eigenaar die 'ICT' heet, is geen eigenaar. De meting kijkt alleen of het veld gevuld "
+                  "is, maar een lijst zonder echte eigenaren helpt je in een crisis niet.",
+        "gecontroleerd": "2026-09",
+    },
+    "eol_inventory_csv": {
+        "waar": "Je eigen lijst, aangevuld uit de levenscyclusinformatie van je leveranciers",
+        "stappen": [
+            "Zet per systeem dat uit ondersteuning loopt: system, eol_date en migration_date.",
+            "migration_date is de datum waarop de migratie gepland staat; leeg betekent: nog niet gepland.",
+        ],
+        "let_op": "De meting toetst of er een migratiedatum staat, niet of die datum realistisch is. "
+                  "Een datum in het verleden is dus pass en tegelijk een probleem.",
+        "gecontroleerd": "2026-09",
+    },
+    "edge_devices_csv": {
+        "waar": "Je patchbeheer, of een lijst die je zelf bijhoudt",
+        "stappen": [
+            "Neem alles wat vanaf internet bereikbaar is: firewall, VPN-concentrator, reverse proxy, "
+            "mailgateway, en wat er verder aan de rand hangt.",
+            "Zet per apparaat device en last_patched_at (datum of tijdstip van de laatste update).",
+        ],
+        "let_op": "De drempel is 72 uur. Dat is streng, en met opzet: dit is de laag waar een lek binnen "
+                  "een dag wordt misbruikt.",
+        "gecontroleerd": "2026-09",
+    },
+    "backup_ad_audit_csv": {
+        "waar": "Vraag aan je backupbeheerder, en stel het samen vast",
+        "stappen": [
+            "Vraag per backupsysteem: authenticeert dit systeem tegen het productie-AD, of tegen een eigen "
+            "directory?",
+            "Zet backup_system en prod_ad_trust (true of false).",
+        ],
+        "let_op": "Dit is de vraag of je backup overleeft als je AD wordt overgenomen. Een 'weet ik niet' "
+                  "vul je niet als false in; laat het item dan leeg staan.",
+        "gecontroleerd": "2026-09",
+    },
+    "document": {
+        "waar": "Je eigen rapporten en verslagen",
+        "stappen": [
+            "Open het rapport, selecteer alles en plak het in het tekstvak bij het item.",
+            "Zorg dat de datum in de tekst staat in de vorm 2026-03-12 of 2026/03/12; de eerste datum in "
+            "de tekst telt als datum van het rapport.",
+        ],
+        "let_op": "De toets kijkt of de trefwoorden voorkomen en of het rapport vers genoeg is. Wat er "
+                  "inhoudelijk staat, beoordeel je zelf: 'voldoet' betekent hier aanwezig en actueel, niet goed.",
+        "gecontroleerd": "2026-09",
+    },
+}
+
+
 def bouw_regels() -> dict:
     items_bron, ongekoppeld, categorieen = posture_items()
     iam = iamscan_constanten()
@@ -470,9 +653,16 @@ def bouw_regels() -> dict:
         })
     items.extend(IAMSCAN_ITEMS)
 
+    bronnen: list[dict] = []
     for bron in BRONNEN:
         if bron.get("wie") not in WIE_UITLEG:
             sys.exit(f"bron {bron['id']} heeft geen geldige wie: {sorted(WIE_UITLEG)}")
+        recept = RECEPTEN.get(bron["id"])
+        bronnen.append({**bron, "recept": recept} if recept else dict(bron))
+
+    onbekend_recept = set(RECEPTEN) - {b["id"] for b in BRONNEN}
+    if onbekend_recept:
+        sys.exit(f"recept voor een onbekende bron: {sorted(onbekend_recept)}")
 
     gebruikt = {i["bron"] for i in items} | {i.get("bron_alternatief") for i in items} - {None}
     onbekend = gebruikt - {b["id"] for b in BRONNEN}
@@ -493,7 +683,7 @@ def bouw_regels() -> dict:
         "soorten": SOORTEN,
         "categorieen": categorieen + [CATEGORIE_10],
         "wie": WIE_UITLEG,
-        "bronnen": BRONNEN,
+        "bronnen": bronnen,
         "items": items,
         "ongekoppeld": ongekoppeld,
         "tijd": TIJD,

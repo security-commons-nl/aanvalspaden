@@ -125,6 +125,30 @@ def test_elke_bron_zegt_wie_hem_levert(regels):
     assert per_bron["document"] == "zelf", "de vijf documenten heeft de CISO zelf"
 
 
+def test_recepten(regels):
+    """Een recept zegt waar je moet zijn en wat je doet; half ingevuld helpt niemand.
+
+    Niet elke bron heeft er een: voor producten die we niet kunnen nalopen is een verzonnen menupad
+    erger dan geen menupad. Wat er staat, moet kloppen en compleet zijn.
+    """
+    met_recept = [b for b in regels["bronnen"] if b.get("recept")]
+    assert len(met_recept) >= 13, "de dertien bronnen van de eerste ronde horen een recept te hebben"
+    zelf = [b["id"] for b in regels["bronnen"] if b["wie"] == "zelf"]
+    for bron_id in zelf:
+        bron = [b for b in regels["bronnen"] if b["id"] == bron_id][0]
+        assert bron.get("recept"), f"{bron_id} trek je zelf, dus juist die hoort een recept te hebben"
+    for bron in met_recept:
+        recept = bron["recept"]
+        assert recept["waar"].strip(), bron["id"]
+        assert recept["stappen"], bron["id"]
+        assert all(s.strip() for s in recept["stappen"]), bron["id"]
+        assert recept["gecontroleerd"], f"{bron['id']}: zonder datum weet niemand hoe oud het menupad is"
+        if "query" in recept:
+            assert recept["query"]["taal"].strip() and recept["query"]["tekst"].strip(), bron["id"]
+        for van, naar in (recept.get("kolommen") or {}).items():
+            assert naar in bron["kolommen"] + bron["optioneel"], f"{bron['id']}: {van} wijst naar {naar}"
+
+
 def test_vingerafdruk_is_stabiel(reken, regels):
     """Dezelfde inhoud geeft dezelfde vingerafdruk; een gewijzigde drempel niet."""
     eerste = reken.vingerafdruk(regels)

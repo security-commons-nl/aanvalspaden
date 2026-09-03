@@ -141,6 +141,21 @@ Dat bepaalt de volgorde van een eerste ronde: veertien van de 41 meetregels kome
 zelf trekt, drieentwintig vragen om beheer, en vier om een afspraak. Begin met de eerste groep; dan
 weet je binnen een uur of de kolomcontracten kloppen met wat jouw systemen werkelijk leveren.
 
+## Waar vind ik dit, en hoe trek ik het?
+
+Bij elke plek waar je iets aanlevert zit een uitklapveld met de werkwijze: waar je in het portaal moet
+zijn, welke stappen je zet, welke query je kunt draaien en hoe de kolommen van de export zich verhouden
+tot het contract. Dertien bronnen hebben zo'n uitgeschreven recept, waaronder alle negen die je zelf
+trekt; de rest toont wat er wel is (de korte `hoe` en de kolommen).
+
+Die recepten staan als data in `regels.json`, onder `bronnen[].recept`, en komen uit `RECEPTEN` in
+`overname.py`. Dat betekent twee dingen: de pagina toont ze ook offline, en een AI-assistent die
+`regels.json` leest kan iemand er net zo goed doorheen praten. Elk recept draagt `gecontroleerd` met de
+maand waarin het menupad is nagelopen, want portalen hernoemen hun schermen.
+
+Een recept toevoegen doe je in `overname.py`, niet in de pagina. Vul het alleen in als je het kunt
+nalopen: een verzonnen menupad is erger dan geen menupad.
+
 ## AI-hulp
 
 Levert je beheersysteem andere kolomnamen dan een contract vraagt, dan zet de AI-hulp die om:

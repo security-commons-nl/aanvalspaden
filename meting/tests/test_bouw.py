@@ -162,3 +162,10 @@ def test_ai_knop_is_een_knop_en_staat_rechts(html):
     assert balk.rindex('id="knop-ai"') > balk.rindex('href="../normen/"'), "AI-hulp hoort achteraan"
     assert ".knoppen a#knop-ai" in html and "margin-left: auto" in html
     assert "#e1a54a" in html, "de accentrand ontbreekt"
+
+def test_recepten_staan_in_de_pagina(html):
+    """De werkwijze gaat mee in het bestand: ook offline moet je weten waar je moet zijn."""
+    for proef in ("Microsoft Entra admin center", "Waar vind ik dit, en hoe trek ik het?",
+                  "GET /v1.0/users?", "ms-LAPS-PasswordExpirationTime", "Hernoem naar"):
+        assert proef in html, proef
+    assert "details" in html and "recept" in html

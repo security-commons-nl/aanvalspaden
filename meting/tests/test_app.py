@@ -361,3 +361,33 @@ def test_filter_op_wie_levert_het(pagina, regels):
             assert per_bron[item["bron"]] == waarde, item_id
     pagina.select_option("#filter-wie", "")
     pagina.wait_for_function("() => document.querySelectorAll('[data-item]').length === 41")
+
+def test_uitklapveld_bij_elke_plek_waar_je_data_aanlevert(pagina, regels):
+    """Overal waar je iets aanlevert, zit een pijltje met waar je moet zijn en wat je doet.
+
+    Ook bij de bronnen zonder uitgeschreven recept: die tonen wat er wel is (de korte hoe en de
+    kolommen), zodat er nergens een leeg pijltje staat.
+    """
+    kiezers = pagina.locator(".kiezer").count()
+    velden = pagina.locator("details.recept").count()
+    assert kiezers == velden, "elke plek waar je data aanlevert hoort een uitklapveld te hebben"
+    assert velden >= 30
+
+    # text_content en niet inner_text: een dichtgeklapte details toont zijn inhoud niet, maar hij
+    # staat er wel, en juist die inhoud moet er zijn.
+    for kiezer in pagina.locator(".kiezer").all():
+        tekst = kiezer.locator("details.recept").text_content()
+        assert len(tekst.strip()) > 120, tekst[:80]
+
+
+def test_recept_van_entra_gebruikers(pagina):
+    """Het recept van een bron die je zelf trekt: locatie, stappen, query en de kolomkoppeling."""
+    blok = pagina.locator('[data-item="3.5"] details.recept')
+    blok.locator("summary").click()
+    tekst = blok.inner_text()
+    assert "Microsoft Entra admin center" in tekst
+    assert "Laatste aanmelding" in tekst
+    assert "GET /v1.0/users?" in tekst
+    assert "userPrincipalName" in tekst and "upn" in tekst
+    assert "AuditLog.Read.All" in tekst
+    assert "Menupaden nagelopen in 2026-09" in tekst
