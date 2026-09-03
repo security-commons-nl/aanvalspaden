@@ -25,6 +25,9 @@
       <button type="button" id="knop-laden">Dossier laden</button>
       <input type="file" id="bestand-laden" accept=".json,application/json" hidden>
       <button type="button" id="knop-zelfcheck-export">Antwoorden voor de zelfcheck</button>
+      <button type="button" id="knop-voorstel-laden">Voorstel laden</button>
+      <input type="file" id="bestand-voorstel" accept=".json,application/json" hidden>
+      <a href="ai/" id="knop-ai">AI-hulp</a>
       <button type="button" id="knop-afdrukken">Afdrukken</button>
       <button type="button" id="knop-wissen">Wissen</button>
       <a href="../">Zelfcheck</a>
@@ -50,6 +53,21 @@
       deze pagina lezen.</p>
     </section>
   </noscript>
+
+  <section class="kaart" id="voorstel-blok" hidden>
+    <h2>Voorstel van de AI-hulp</h2>
+    <p class="klein" id="voorstel-kop"></p>
+    <p class="klein">Dit is een omgezette tabel, nog geen meting. Kijk hem na: een rij met een citaat dat
+    niet in je invoer staat, is niet te vertrouwen. Pas als je overneemt, toetst de meting hem, met
+    dezelfde regels als bij een gewoon bestand.</p>
+    <div class="rol" tabindex="0"><table class="regels" id="tabel-voorstel"></table></div>
+    <p class="klein" id="voorstel-afgekeurd"></p>
+    <p class="klein" id="voorstel-onzeker"></p>
+    <div class="knoppen nietprint">
+      <button type="button" id="knop-voorstel-overnemen">Overnemen en toetsen</button>
+      <button type="button" id="knop-voorstel-sluiten">Sluiten</button>
+    </div>
+  </section>
 
   <section class="scherm" id="scherm-items">
     <h1>Meetregels</h1>

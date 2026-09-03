@@ -57,10 +57,19 @@ def test_csp_en_een_script(html):
 
 
 def test_de_pagina_kent_geen_netwerk(html, app_js):
+    """Geen enkele netwerkaanroep in de tool, ook niet via de kern die uit de AI-hulp meekomt.
+
+    Op de aanroepvorm toetsen en niet op het losse woord: kern.js legt in zijn eigen commentaar uit
+    dat hij geen fetch en geen XMLHttpRequest kent, en dat is precies de zin die een tekstvergelijking
+    ten onrechte rood maakt.
+    """
     script = html.split("<script>", 1)[1].split("</script>", 1)[0]
-    for verboden in ("fetch(", "XMLHttpRequest", "WebSocket", "EventSource"):
+    for verboden in ("fetch(", "new XMLHttpRequest", "new WebSocket", "new EventSource",
+                     "navigator.sendBeacon", "import("):
         assert verboden not in script, f"{verboden} hoort niet in meting te staan"
     assert "fetch(" not in app_js
+    # De kern gaat wel mee: zonder hem kan de tool het citaat bij een AI-voorstel niet controleren.
+    assert "kern.bronregel_klopt" in script
 
 
 def test_de_klok_zit_alleen_in_vandaag(app_js):

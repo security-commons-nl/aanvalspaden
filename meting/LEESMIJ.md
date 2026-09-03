@@ -130,6 +130,14 @@ test falen.
 deze repo staan. De overname was eenmalig, dus de CI checkt die repo's niet uit; die repo's zijn
 gearchiveerd.
 
+## AI-hulp
+
+Levert je beheersysteem andere kolomnamen dan een contract vraagt, dan zet de AI-hulp die om:
+[/meting/ai/](https://security-commons-nl.github.io/aanvalspaden/meting/ai/), met je eigen sleutel bij
+je eigen leverancier. Wat eruit komt is een voorstel; de meting toetst het pas na *Overnemen*, met
+dezelfde regels als een gewoon bestand, en noteert dan dat de invoer met AI is omgezet. De tool zelf
+praat met niemand: `default-src 'none'` en geen `fetch` in `app.js`. Zie `ai/LEESMIJ.md`.
+
 ## Een bron of een item toevoegen
 
 1. Een regel bij in `regels.json`: een record in `bronnen` (formaat, verplichte kolommen, uitleg, hoe je

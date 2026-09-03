@@ -44,6 +44,9 @@ jobs:
           test -s site/meting/index.html
           cp site/meting/index.html site/meting/meting-aanvalspaden.html
           cp meting/regels.json site/meting/regels.json
+          # De AI-hulp: opt-in, eigen pagina, eigen CSP. Wie hem niet opent, merkt er niets van.
+          python meting/ai/bouw.py site/meting/ai
+          test -s site/meting/ai/index.html
 
       - uses: actions/upload-pages-artifact@v5
         with:

@@ -2,6 +2,25 @@
 
 Append-only. Datum, besluit, één zin onderbouwing.
 
+- **2026-09-03 · De meting krijgt een opt-in AI-hulp, en die beoordeelt nooit.** Op een eigen pagina
+  (`/meting/ai/`) zet een taalmodel met de sleutel van de gebruiker een export om naar het kolomcontract
+  van een meetregel; toetsen doet de tool daarna zelf, met dezelfde `reken.toets` als bij een gekozen
+  bestand. Het invoerwerk is het probleem, niet het oordeel, en een model dat meebeslist maakt de
+  uitkomst onnavolgbaar.
+- **2026-09-03 · Een AI-omzetting draagt herkomst tot in de uitdraai.** Elke meting uit een voorstel
+  krijgt `herkomst_ai` met leverancier, model, datum en de sha256 van de invoer, en de uitdraai zegt
+  "omgezet met AI". Bewijs waar een taalmodel tussen zat, is zwakker bewijs; dat hoort een lezer te zien.
+- **2026-09-03 · Een rij zonder verifieerbaar citaat wordt niet gemeten.** De AI-pagina toetst per rij of
+  het citaat woordelijk in de invoer staat en legt dat oordeel vast in het voorstel; de tool toont zo'n
+  rij wel, telt hem apart en laat hem buiten de toets. Wat niet te herleiden is tot je eigen export, is
+  geen bewijs.
+- **2026-09-03 · Alleen tabelcontracten gaan door de AI-hulp.** Een XML-config, een JSON-regelset, een
+  geplakt rapport of een Linux-dump laat je niet herschrijven: dan toets je de tekst van het model in
+  plaats van je eigen export.
+- **2026-09-03 · `kern.js` is een byte-identieke kopie van die in procescheck.** `ai/haal_kern.py --check`
+  bewaakt dat in CI. Twee implementaties van de citaatcontrole zou betekenen dat de hallucinatiecheck per
+  tool verschilt.
+
 - **2026-08-28 · De keten heeft drie diepten met één bron.** Zelfcheck (antwoorden), risicoanalyse
   (kroonjuwelen en bewijs), meting (data), die alle drie `paden.json` lezen. Naast elkaar zetten zou
   betekenen dat dezelfde vragen op drie plekken uit elkaar lopen.

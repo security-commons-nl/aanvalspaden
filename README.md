@@ -82,6 +82,13 @@ of een uitgepakte hostdump, en de pagina zegt per item of het voldoet, niet vold
 lezen. Ook offline, ook zonder installatie: de bestanden verlaten je browser niet. De uitkomst gaat als
 antwoorden terug naar de zelfcheck, en vult daar alleen de vragen die nog open staan. Zie onder.
 
+Levert je beheersysteem andere kolomnamen dan een meetregel vraagt, dan zet de
+[AI-hulp](https://security-commons-nl.github.io/aanvalspaden/meting/ai/) die om, met je eigen sleutel bij
+je eigen leverancier. Wat eruit komt is een voorstel; de meting toetst het pas als jij dat zegt, met
+dezelfde regels als bij een gewoon bestand, en noteert dan dat de invoer met AI is omgezet. De tool zelf
+praat met niemand. Wat dat inhoudt staat op
+[AI-hulp met je eigen sleutel](https://security-commons-nl.github.io/ai-hulp/).
+
 **Wat je er eerlijk bij zegt tegen de directie:** de check is dreigingsgedreven en geen audit tegen een
 normenkader. Hij zegt waar een aanvaller ruimte heeft, niet of je compliant bent. Dat vult elkaar aan.
 
@@ -150,6 +157,7 @@ score.acties(paden.laad(), antwoorden, uit)   # de drie zwaarste acties
 | `check/` | Diepte 0: de zelfcheck, een zelfstandig HTML-bestand uit de bron. [Live](https://security-commons-nl.github.io/aanvalspaden/) |
 | `methode/` | Leeswijzer bij diepte 1; de volledige methode staat in de kennisbank |
 | `meting/` | Diepte 2: bewijs per barriere uit exports en hostdumps, ook een zelfstandig HTML-bestand. [Live](https://security-commons-nl.github.io/aanvalspaden/meting/) |
+| `meting/ai/` | Opt-in AI-hulp bij de meting: een export omzetten naar het kolomcontract van een meetregel, met je eigen sleutel. [Live](https://security-commons-nl.github.io/aanvalspaden/meting/ai/) |
 | `mappingen/` | De normverankering: per barriere welke maatregel er aantoonbaar mee wordt, plus de witte vlekken. [Live](https://security-commons-nl.github.io/aanvalspaden/normen/) |
 | `tools/` | Schema, helpers, de referentie-implementatie van de regels, en het script waarmee de bron uit de zelfcheck is gehaald |
 | `tests/` | Validatie van de bron en van de repo-structuur |

@@ -72,11 +72,21 @@ jobs:
           pip install pytest playwright
           python -m playwright install --with-deps chromium
 
-      - name: Bouwen
-        run: python meting/bouw.py
+      - name: De kern van de AI-hulp is gelijk aan die van procescheck
+        run: python meting/ai/haal_kern.py --check
 
+      - name: Bouwen
+        run: |
+          python meting/bouw.py
+          python meting/ai/bouw.py
+
+      # Twee suites, twee aanroepen: meting/tests en meting/ai/tests hebben elk een eigen conftest en
+      # botsen in een gezamenlijke run.
       - name: Tests
         run: python -m pytest meting/tests -v
+
+      - name: Tests van de AI-hulp
+        run: python -m pytest meting/ai/tests -v
 
       - name: De gebouwde meting bewaren
         uses: actions/upload-artifact@v7

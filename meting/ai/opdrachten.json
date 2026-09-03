@@ -1,0 +1,53 @@
+{
+  "versie": "2026-09",
+  "tool": "meting",
+  "voorstel_formaat": "meting-voorstel",
+  "toelichting": "De AI-hulp van de meting zet een export uit een beheersysteem om naar het kolomcontract dat een meetregel verwacht. Hij toetst niets: de omzetting gaat als voorstel terug naar de tool, en die toetst pas na jouw akkoord met dezelfde regels als anders. Wat je plakt gaat naar de leverancier die jij kiest, met jouw sleutel; je dossier en de meetregels gaan nooit mee.",
+  "leveranciers": [
+    {
+      "id": "mistral",
+      "naam": "Mistral",
+      "basis": "https://api.mistral.ai",
+      "model": "mistral-medium-latest",
+      "uitleg": "Frans, verwerking in de EU. Ons advies, geen dwang: elk endpoint dat de OpenAI-vorm spreekt werkt."
+    },
+    {
+      "id": "ollama",
+      "naam": "Ollama (lokaal)",
+      "basis": "http://localhost:11434",
+      "model": "",
+      "uitleg": "Een model op je eigen machine of in je eigen netwerk. Er verlaat dan niets je netwerk. Vul zelf de modelnaam in; een lokaal model levert vaker JSON die niet aan het schema voldoet."
+    },
+    {
+      "id": "anders",
+      "naam": "Andere leverancier",
+      "basis": "",
+      "model": "",
+      "uitleg": "Elk endpoint dat /v1/chat/completions in de OpenAI-vorm aanbiedt. Vul het basisadres en de modelnaam in."
+    }
+  ],
+  "vaste_regels": "Verzin niets: een kolom die niet in de invoer staat, laat je leeg (lege tekst, niet null). Neem waarden woordelijk over; reken niets om, behalve datums, die je naar JJJJ-MM-DD zet. Voeg geen rijen toe en laat geen rijen weg: elke rij uit de invoer die bij dit contract hoort, komt terug. Zet in bronregel een letterlijk citaat uit de invoer waar de rij vandaan komt, hoogstens twee zinnen; dat citaat moet woordelijk in de invoer voorkomen. Noteer in onzeker, in gewone taal, wat je niet zeker weet of hebt weggelaten. Beoordeel niets: geen uitkomsten, geen oordelen, geen aanvullingen uit eigen kennis. Antwoord uitsluitend met JSON volgens het schema, zonder tekst ervoor of erna en zonder markdown.",
+  "opdrachten": [
+    {
+      "id": "contract",
+      "titel": "Een export omzetten naar het contract van een meetregel",
+      "uitleg": "Kies de bron waarvoor je meet en plak of kies je export. Het model zet de kolommen om naar de namen die de meetregel verwacht, met de waarden woordelijk overgenomen. De tool toetst daarna zelf, met dezelfde regels als bij een gewone export.",
+      "invoer": ["tekst", "csv", "xlsx", "md"],
+      "doel": "contract",
+      "doelkeuze": "bron",
+      "doelkeuze_label": "Voor welke bron zet je om?",
+      "systeemprompt": "Je bent een assistent van een informatiebeveiliger bij een Nederlandse overheidsorganisatie. Je krijgt een tabel uit een beheersysteem (een CMDB-export, een uitdraai uit Active Directory of Entra, een lijst uit een beheertool). Zet die om naar het kolomcontract dat hieronder staat. Elke rij uit de invoer die bij dit contract hoort, wordt een rij in de uitkomst, met dezelfde volgorde. Een rij die er niet bij hoort (een licentie, een contract, een lege regel, een tussenkop) sla je over en noem je in onzeker. Waarden neem je woordelijk over; alleen datums zet je om naar JJJJ-MM-DD. Een kolom die je niet uit de invoer kunt vullen, laat je leeg.",
+      "voorbeeld": {
+        "bron": "crown_jewels_csv",
+        "invoer": "fixtures/voorbeeld-cmdb.csv",
+        "antwoord": "fixtures/antwoorden/contract-crown-jewels.json"
+      }
+    }
+  ],
+  "grenzen": {
+    "max_tekens_per_aanroep": 24000,
+    "max_aanroepen_per_opdracht": 12,
+    "timeout_seconden": 90,
+    "wachttijden_bij_429_seconden": [2, 4, 8]
+  }
+}

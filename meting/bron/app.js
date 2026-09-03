@@ -1855,6 +1855,131 @@
     });
   }
 
+  // Een voorstel van de AI-hulp: een omgezette tabel, nog geen meting.
+  //
+  // De AI-pagina schrijft nooit in het dossier. Hier legt de gebruiker het voorstel naast het contract,
+  // ziet per rij of het citaat in zijn eigen invoer voorkomt, en pas bij Overnemen wordt er getoetst.
+  // Dat toetsen gebeurt met exact dezelfde regels als bij een gekozen bestand; het enige verschil is
+  // dat de meting daarna herkomst_ai draagt, want omgezet bewijs is zwakker bewijs.
+
+  var voorstel = null;
+
+  function bronVanVoorstel(data) {
+    return REGELS.bronnen.filter(function (b) { return b.id === data.bron; })[0] || null;
+  }
+
+  function laadVoorstel(data) {
+    if (!data || data.formaat !== 'meting-voorstel') {
+      meld('Dit is geen voorstel van de AI-hulp van de meting.', true);
+      return;
+    }
+    if (data.tool !== 'meting') {
+      meld('Dit voorstel hoort bij een andere tool (' + data.tool + ').', true);
+      return;
+    }
+    if (!bronVanVoorstel(data)) {
+      meld('Dit voorstel gaat over een bron die deze versie niet kent (' + data.bron + ').', true);
+      return;
+    }
+    if (data.tool_vingerafdruk && data.tool_vingerafdruk !== BRON.vingerafdruk) {
+      meld('Let op: dit voorstel is gemaakt met een andere versie van de meetregels; loop de rijen na.',
+        true);
+    }
+    voorstel = data;
+    tekenVoorstel();
+    el('voorstel-blok').hidden = false;
+    naarScherm('scherm-items');
+    el('voorstel-blok').scrollIntoView({ block: 'start' });
+  }
+
+  /* De kolommen van het contract, in de volgorde van het contract; wat het model extra verzon, blijft
+     buiten de tabel en dus buiten de meting. */
+  function kolommenVan(bron) {
+    return bron.kolommen.concat(bron.optioneel);
+  }
+
+  /* De AI-pagina heeft het citaat al getoetst tegen de invoer; die invoer zit niet in het voorstel,
+     dus die toets is hier niet over te doen. Staat het oordeel er niet in (een ouder voorstel), dan
+     telt de rij mee: afwezigheid van het oordeel is geen afkeuring. */
+  function citaatKlopt(rij) {
+    return rij.bronregel_klopt !== false;
+  }
+
+  function bruikbareRijen() {
+    return (voorstel.items || []).filter(citaatKlopt);
+  }
+
+  function tekenVoorstel() {
+    var bron = bronVanVoorstel(voorstel);
+    var kolommen = kolommenVan(bron);
+    el('voorstel-kop').textContent = 'Naar ' + bron.titel + ' (' + bron.id + ') · ' +
+      (voorstel.items || []).length + ' rijen · ' + voorstel.leverancier + ' (' + voorstel.model +
+      ') · ' + voorstel.gemaakt + ' · invoer ' + ((voorstel.invoer || {}).naam || '') + ' (' +
+      String((voorstel.invoer || {}).sha256 || '').slice(0, 12) + ')';
+    var afgekeurd = 0;
+    tabel(el('tabel-voorstel'), kolommen.concat(['citaat uit de invoer']),
+      (voorstel.items || []).map(function (r, index) {
+        var klopt = citaatKlopt(r);
+        if (!klopt) afgekeurd += 1;
+        var cellen = kolommen.map(function (k) { return r[k] === undefined ? '' : r[k]; });
+        var tr = rij(cellen.concat([(klopt ? '' : 'niet in de invoer: ') + (r.bronregel || '')]));
+        tr.setAttribute('data-voorstel', String(index));
+        if (!klopt) tr.className = 'witte-vlek';
+        return tr;
+      }));
+    el('voorstel-afgekeurd').textContent = afgekeurd
+      ? afgekeurd + ' van de ' + (voorstel.items || []).length + ' rijen dragen een citaat dat niet ' +
+        'woordelijk in je invoer stond. Die gaan niet mee in de toets; het model heeft ze vermoedelijk ' +
+        'zelf aangevuld.'
+      : '';
+    var onzeker = (voorstel.onzeker || []).concat(voorstel.waarschuwingen || []);
+    el('voorstel-onzeker').textContent = onzeker.length
+      ? 'Het model meldde: ' + onzeker.join(' · ') : 'Het model meldde geen twijfels.';
+  }
+
+  /* De omgezette tabel terug naar csv, zodat hij door dezelfde toets gaat als een gekozen bestand.
+     Een waarde met een komma, een aanhalingsteken of een regeleinde wordt geciteerd. */
+  function naarCsv(kolommen, rijen) {
+    function cel(waarde) {
+      var tekst = waarde === undefined || waarde === null ? '' : String(waarde);
+      return /[",\n]/.test(tekst) ? '"' + tekst.replace(/"/g, '""') + '"' : tekst;
+    }
+    return [kolommen.join(',')].concat(rijen.map(function (r) {
+      return kolommen.map(function (k) { return cel(r[k]); }).join(',');
+    })).join('\n') + '\n';
+  }
+
+  function neemVoorstelOver() {
+    if (!voorstel || !magMeten()) return;
+    var bron = bronVanVoorstel(voorstel);
+    var rijen = bruikbareRijen();
+    if (!rijen.length) {
+      meld('Geen enkele rij uit dit voorstel is te herleiden tot je invoer; er valt niets te toetsen.',
+        true);
+      return;
+    }
+    var tekst = naarCsv(kolommenVan(bron), rijen);
+    reken.sha256_tekst(tekst).then(function (hash) {
+      var uit = reken.toets(bron.id, tekst, peildatum(), REGELS);
+      var naam = 'AI-voorstel: ' + ((voorstel.invoer || {}).naam || 'geplakte tekst');
+      schrijfMeting(bron.id, uit, naam, hash);
+      Object.keys(uit.verdicts).forEach(function (itemId) {
+        dossier.metingen[itemId].herkomst_ai = {
+          leverancier: voorstel.leverancier, model: voorstel.model, gemaakt: voorstel.gemaakt,
+          opdrachten_versie: voorstel.opdrachten_versie,
+          invoer_sha256: (voorstel.invoer || {}).sha256 || '', rijen: rijen.length,
+          rijen_zonder_citaat: (voorstel.items || []).length - rijen.length
+        };
+      });
+      bewaarLokaal();
+      voorstel = null;
+      el('voorstel-blok').hidden = true;
+      werkBij();
+      meld(Object.keys(uit.verdicts).length + ' meetregels getoetst op de omgezette tabel. In de ' +
+        'uitdraai staat dat de invoer met AI is omgezet.', false);
+    });
+  }
+
   // Scherm 1: de meetregels
 
   function kiezer(item) {
@@ -2274,7 +2399,10 @@
           meting && meting.artefact_datum ? String(meting.artefact_datum).slice(0, 10) : '',
           meting ? meting.verdict : 'geen_bewijs',
           meting ? samenvattingTekst(item.id, meting) : '',
-          meting ? meting.notitie || '' : '']);
+          meting && meting.herkomst_ai
+            ? 'omgezet met AI (' + meting.herkomst_ai.leverancier + ', ' + meting.herkomst_ai.model +
+              ', ' + meting.herkomst_ai.gemaakt + '); ' + (meting.notitie || '')
+            : (meting ? meting.notitie || '' : '')]);
       })));
 
     if (dossier.iamscan) {
@@ -2431,6 +2559,27 @@
       download('zelfcheck-antwoorden-uit-meting-' + vandaag() + '.json',
         JSON.stringify(uit, null, 1));
       meld(aantal + ' afgeleide antwoorden geëxporteerd; laad dit bestand in de zelfcheck.', false);
+    });
+    el('knop-voorstel-laden').addEventListener('click', function () { el('bestand-voorstel').click(); });
+    el('bestand-voorstel').addEventListener('change', function () {
+      var bestand = el('bestand-voorstel').files[0];
+      if (!bestand) return;
+      bestand.text().then(function (tekst) {
+        try {
+          var data = JSON.parse(tekst);
+          // De invoertekst zit niet in het voorstel (alleen de sha256); zonder die tekst kan de
+          // citaatcontrole hier niets zeggen. Dat is geen fout, wel iets om te melden.
+          laadVoorstel(data);
+        } catch (fout) {
+          meld('Dit bestand is geen leesbare JSON.', true);
+        }
+      });
+      el('bestand-voorstel').value = '';
+    });
+    el('knop-voorstel-overnemen').addEventListener('click', neemVoorstelOver);
+    el('knop-voorstel-sluiten').addEventListener('click', function () {
+      voorstel = null;
+      el('voorstel-blok').hidden = true;
     });
     el('knop-afdrukken').addEventListener('click', function () {
       naarScherm('scherm-uitdraai');

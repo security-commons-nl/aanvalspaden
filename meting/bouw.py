@@ -51,17 +51,22 @@ def bouw(doel: pathlib.Path) -> pathlib.Path:
 
     css = (BRON / "app.css").read_text(encoding="utf-8").strip()
     js = (BRON / "app.js").read_text(encoding="utf-8").strip()
+    # De kern van de AI-hulp gaat mee in de tool, voor de citaatcontrole bij een voorstel.
+    # Dat bestand kent geen netwerk; de aanroep van een leverancier zit alleen in
+    # ai/bron/ai.js, op de AI-pagina.
+    kern = (HIER / "ai" / "bron" / "kern.js").read_text(encoding="utf-8").strip()
     sjabloon = (BRON / "index.html").read_text(encoding="utf-8")
 
-    assert "fetch(" not in js, "meting praat met niemand; er hoort geen fetch in app.js te staan"
+    assert "fetch(" not in js and "fetch(" not in kern, (
+        "meting praat met niemand; er hoort geen fetch in app.js of kern.js te staan")
     # Een stuurteken in de bron wordt door de HTML-parser vervangen; de sha256 in het CSP klopt
     # dan niet meer met wat de browser ziet en de pagina wordt in zijn geheel geweigerd.
     for teken in (chr(0), chr(8), chr(27)):
-        assert teken not in js and teken not in css and teken not in sjabloon, (
+        assert teken not in js and teken not in kern and teken not in css and teken not in sjabloon, (
             f"stuurteken {ord(teken)} in de bron; de browser vervangt het en breekt het CSP")
 
     json_bron = json.dumps(data, ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/")
-    script = "window.__BRON__ = " + json_bron + ";\n" + js
+    script = "window.__BRON__ = " + json_bron + ";\n" + kern + "\n" + js
 
     html = (sjabloon
             .replace("__CSS__", css)

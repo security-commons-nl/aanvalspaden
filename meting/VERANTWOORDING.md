@@ -63,6 +63,23 @@ te lezen" in plaats van "voldoet niet" (een willekeurig bestand is geen bewijs v
 maatregel), en de vergelijkingstest in `meting/tests/test_reken.py` legt dit verschil vast, zodat het
 zichtbaar blijft.
 
+## De AI-hulp verandert niets aan het oordeel
+
+Sinds 03-09-2026 heeft de meting een opt-in AI-hulp op een eigen pagina. Die zet een export om naar het
+kolomcontract van een meetregel; hij toetst niets en beoordeelt niets. De omzetting komt terug als
+voorstel, de meting toetst dat met dezelfde `reken.toets` als een gekozen bestand, en de meting draagt
+daarna `herkomst_ai` met leverancier, model, datum en de sha256 van de oorspronkelijke invoer. In de
+uitdraai staat "omgezet met AI".
+
+Dat laatste is geen sier. Een tabel die door een taalmodel is omgezet, is zwakker bewijs dan een export
+die rechtstreeks uit het systeem komt: er zit een stap tussen die kan afwijken. Elke rij draagt daarom
+een letterlijk citaat uit je invoer, de pagina toetst dat citaat, en een rij die dat niet haalt gaat
+niet mee in de meting. Wat overblijft is nog steeds een omzetting, en dat hoort een lezer te zien.
+
+Wat de AI-hulp niet doet: de vijf documentitems (6.3, 8.3, 9.1, 9.2, 9.3) samenvatten. Die toetsen op
+trefwoorden en een datum in de eigen tekst van het rapport; laat je een model die tekst herschrijven,
+dan toets je de samenvatting van het model in plaats van het rapport.
+
 ## Wat de meting niet uitrekent
 
 De meting bepaalt geen status per aanvalspad. Ze leidt per chokepoint een antwoord af (ja, nee,

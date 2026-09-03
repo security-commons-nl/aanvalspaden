@@ -5,7 +5,7 @@
     "kennisbank": "https://security-commons-nl.github.io/kennisbank/",
     "repo": "security-commons-nl/kennisbank",
     "bestand": "handelingsperspectief.json",
-    "sha256": "f35779e77a3e9bed581fc2ea5694e03c6eeb19628a6d3bef894e54272f264159",
+    "sha256": "ad37ac1eb3a2b1cda573c1399dac15916586d2fc037abb8e36ac74c7622086f8",
     "let_op": "De kennisbank is de bron. Klopt deze kopie niet meer, dan draai je dit script opnieuw; hem met de hand bijwerken laat de sha256 achter en verbergt het verschil."
   },
   "handleidingen": [
@@ -50,6 +50,13 @@
       "titel": "Identiteit en e-mail meten voordat je afdwingt",
       "rol": "verdieping",
       "url": "https://security-commons-nl.github.io/kennisbank/security/identiteit-en-mail-meten/"
+    },
+    {
+      "barriere": "consent",
+      "item": "security/meten-voordat-je-ingrijpt",
+      "titel": "Meten voordat je ingrijpt",
+      "rol": "verdieping",
+      "url": "https://security-commons-nl.github.io/kennisbank/security/meten-voordat-je-ingrijpt/"
     },
     {
       "barriere": "consent",
@@ -108,6 +115,13 @@
       "url": "https://security-commons-nl.github.io/kennisbank/security/killchain-naast-je-controls/"
     },
     {
+      "barriere": "edr",
+      "item": "security/meten-voordat-je-ingrijpt",
+      "titel": "Meten voordat je ingrijpt",
+      "rol": "verdieping",
+      "url": "https://security-commons-nl.github.io/kennisbank/security/meten-voordat-je-ingrijpt/"
+    },
+    {
       "barriere": "execution",
       "item": "security/werkplekanalyse-e5",
       "titel": "Werkplekanalyse op het Microsoft-platform",
@@ -127,6 +141,13 @@
       "titel": "De killchain naast je controls leggen",
       "rol": "verdieping",
       "url": "https://security-commons-nl.github.io/kennisbank/security/killchain-naast-je-controls/"
+    },
+    {
+      "barriere": "execution",
+      "item": "security/meten-voordat-je-ingrijpt",
+      "titel": "Meten voordat je ingrijpt",
+      "rol": "verdieping",
+      "url": "https://security-commons-nl.github.io/kennisbank/security/meten-voordat-je-ingrijpt/"
     },
     {
       "barriere": "exploitresponse",
@@ -199,6 +220,13 @@
       "url": "https://security-commons-nl.github.io/kennisbank/security/mfa-handhaving/"
     },
     {
+      "barriere": "legacy",
+      "item": "security/meten-voordat-je-ingrijpt",
+      "titel": "Meten voordat je ingrijpt",
+      "rol": "verdieping",
+      "url": "https://security-commons-nl.github.io/kennisbank/security/meten-voordat-je-ingrijpt/"
+    },
+    {
       "barriere": "localadmin",
       "item": "security/patchen-met-dekking",
       "titel": "Werkplekken beheerd, gehard en gepatcht",
@@ -211,6 +239,13 @@
       "titel": "Identiteit en e-mail meten voordat je afdwingt",
       "rol": "verdieping",
       "url": "https://security-commons-nl.github.io/kennisbank/security/identiteit-en-mail-meten/"
+    },
+    {
+      "barriere": "mail",
+      "item": "security/meten-voordat-je-ingrijpt",
+      "titel": "Meten voordat je ingrijpt",
+      "rol": "verdieping",
+      "url": "https://security-commons-nl.github.io/kennisbank/security/meten-voordat-je-ingrijpt/"
     },
     {
       "barriere": "mailresponse",
@@ -291,6 +326,13 @@
     },
     {
       "barriere": "segment",
+      "item": "security/meten-voordat-je-ingrijpt",
+      "titel": "Meten voordat je ingrijpt",
+      "rol": "verdieping",
+      "url": "https://security-commons-nl.github.io/kennisbank/security/meten-voordat-je-ingrijpt/"
+    },
+    {
+      "barriere": "segment",
       "item": "security/microsegmentatie",
       "titel": "Microsegmentatie",
       "rol": "verdieping",
@@ -316,6 +358,13 @@
       "titel": "Identiteit en e-mail meten voordat je afdwingt",
       "rol": "verdieping",
       "url": "https://security-commons-nl.github.io/kennisbank/security/identiteit-en-mail-meten/"
+    },
+    {
+      "barriere": "session",
+      "item": "security/meten-voordat-je-ingrijpt",
+      "titel": "Meten voordat je ingrijpt",
+      "rol": "verdieping",
+      "url": "https://security-commons-nl.github.io/kennisbank/security/meten-voordat-je-ingrijpt/"
     },
     {
       "barriere": "soc",

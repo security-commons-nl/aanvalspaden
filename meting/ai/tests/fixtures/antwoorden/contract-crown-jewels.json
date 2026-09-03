@@ -1,0 +1,35 @@
+{
+  "_herkomst": "Met de hand geschreven, niet opgenomen bij een leverancier. Het antwoord van een model op voorbeeld-cmdb.md met het contract crown_jewels_csv, in de vorm die het schema eist. De tests toetsen wat deterministisch is: schemacontrole, citaatcontrole, samenvoegen, de omzetting naar csv en de meting die daarop volgt. Wil je een echt antwoord vastleggen, draai dan neem_op.py met je eigen sleutel; die schrijft dit bestand opnieuw en dan verdwijnt deze regel.",
+  "items": [
+    {
+      "name": "Paspoortuitgifte",
+      "owner": "Teamleider Burgerzaken",
+      "vlan_or_subnet": "VLAN 42 / 10.20.42.0/24",
+      "backup_type": "immutable + offsite",
+      "rto": "4 uur",
+      "rpo": "1 uur",
+      "bronregel": "| Paspoortuitgifte | Teamleider Burgerzaken | VLAN 42 / 10.20.42.0/24 | immutable + offsite | 4 uur | 1 uur |"
+    },
+    {
+      "name": "Uitkeringsadministratie",
+      "owner": "Afdelingshoofd Werk en Inkomen",
+      "vlan_or_subnet": "VLAN 44 / 10.20.44.0/24",
+      "backup_type": "immutable + offsite",
+      "rto": "8 uur",
+      "rpo": "4 uur",
+      "bronregel": "| Uitkeringsadministratie | Afdelingshoofd Werk en Inkomen | VLAN 44 / 10.20.44.0/24 | immutable + offsite | 8 uur | 4 uur |"
+    },
+    {
+      "name": "Financieel systeem",
+      "owner": "Concerncontroller",
+      "vlan_or_subnet": "VLAN 46 / 10.20.46.0/24",
+      "backup_type": "snapshot + tape",
+      "rto": "24 uur",
+      "rpo": "12 uur",
+      "bronregel": "| Financieel systeem | Concerncontroller | VLAN 46 / 10.20.46.0/24 | snapshot + tape | 24 uur | 12 uur |"
+    }
+  ],
+  "onzeker": [
+    "De regel over de Office 365-licentie is geen applicatie in de zin van dit contract en is overgeslagen."
+  ]
+}
