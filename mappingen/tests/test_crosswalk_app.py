@@ -298,6 +298,9 @@ def test_elke_openstaande_opdracht_nodigt_uit_met_een_werkende_link(pagina):
     assert eerste.startswith("https://github.com/security-commons-nl/kennisbank/issues/new")
     assert "title=" in eerste and "body=" in eerste, "de issue is niet vooringevuld"
     assert "Handleiding+gevraagd" in eerste or "Handleiding%20gevraagd" in eerste
+    # Met label, anders landt het issue op /backlog/ onder "zonder label" in plaats van bij de
+    # andere stukken die de kennisbank mist (besluit 07-09-2026: drie labels).
+    assert "labels=schrijfopdracht" in eerste
 
 
 def test_de_backlog_staat_op_volgorde_van_gewicht(pagina):

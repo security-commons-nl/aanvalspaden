@@ -361,8 +361,11 @@
     regels.push("", "Gevonden via de normverankering:",
       "https://security-commons-nl.github.io/aanvalspaden/normen/");
 
+    // Met het label schrijfopdracht, anders landt het issue op de backlog onder "zonder label"
+    // in plaats van bij de andere stukken die de kennisbank nog mist.
     return HP.issue_basis
       + "?title=" + encodeURIComponent("Handleiding gevraagd: " + titels[0])
+      + "&labels=schrijfopdracht"
       + "&body=" + encodeURIComponent(regels.join(NL));
   }
 
