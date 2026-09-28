@@ -24,3 +24,10 @@ krijgt hier een regel, zodat een uitslag van later nog te plaatsen is tegen de b
   14 van de 44 barrieres hebben er een; de overige 30 staan als openstaande schrijfopdracht met wat
   het artikel zou moeten dekken, gegroepeerd tot 11 clusters. Vierde weergave op de pagina, met per
   gat een knop naar een vooringevulde issue. `bouw.py` doet nu ook `node --check` op het script.
+
+## 2026-09
+
+- `mappingen/`: de pagina "Van aanvalspad naar norm" (de normverankering) wijst in de kop naar de normwijzer
+  in `normen`, die per maatregel laat zien wat je eraan kunt doen. De normwijzer wijst terug. Op de
+  voorpagina van de commons staat sinds 28-09-2026 alleen de normwijzer; deze pagina blijft de weergave
+  per barriere. `paden.json` is niet gewijzigd.

@@ -97,3 +97,8 @@ def test_de_pagina_belooft_geen_compliance(html):
 def test_pagina_is_niet_onredelijk_groot(html):
     kb = len(html.encode("utf-8")) / 1024
     assert kb < 600, f"de pagina is {kb:.0f} kB; dat is te zwaar voor een offline bestand"
+
+
+def test_de_kop_wijst_naar_de_normwijzer(html):
+    """Per barriere staat hier de norm; wat je eraan kunt doen staat per maatregel in de normwijzer."""
+    assert 'href="https://security-commons-nl.github.io/normen/normwijzer.html"' in html
