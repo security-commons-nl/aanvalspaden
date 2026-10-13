@@ -6,9 +6,9 @@ en die lezen een kopie in `mappingen/bronnen/`. Een kopie zonder bewaking wordt 
 tweede waarheid; daarom staat in elke kopie de vingerafdruk van `normen` en meldt `--check` of hij nog
 klopt.
 
-Voor BIO 2.0 zijn er twee bestanden: `bio2-overheidsmaatregelen.json` is de kopie van `normen` (148
-overheidsmaatregelen), en `bio2.json` is daaruit gegenereerd door `mappingen/bronnen/genereer_bio2.py`:
-de 89 maatregelen op ISO-niveau waar de mapping op ligt. Dit script haalt de kopie; de generator draait
+Voor BIO 2.0 zijn er twee bestanden: `bio2-overheidsmaatregelen.json` is de kopie van `normen` (157
+nummers uit versie 1.3), en `bio2.json` is daaruit gegenereerd door `mappingen/bronnen/genereer_bio2.py`:
+de 93 maatregelen op ISO-niveau waar de mapping op ligt. Dit script haalt de kopie; de generator draait
 daarna.
 
 Gebruik:

@@ -187,7 +187,7 @@ tegenspreken zonder JSON te lezen. Een raakvlak telt niet als dekking.
 
 | Kader | Wat erin zit | Wat de zelfcheck raakt |
 |---|---|---|
-| BIO 2.0 en ISO 27001:2022 | 89 maatregelen. BIO 2.0 volgt de ISO 27002-nummering, dus dit is een mapping en niet twee | 44 met bewijs, 45 witte vlekken |
+| BIO 2.0 en ISO 27001:2022 | 93 maatregelen. BIO 2.0 volgt de ISO 27002-nummering, dus dit is een mapping en niet twee | 48 met bewijs, 45 witte vlekken |
 | NIST CSF 2.0 | 106 subcategorieen in zes functies. Publiek domein, dus de uitkomsten staan er letterlijk | 41 met bewijs, 65 witte vlekken |
 | Wpg-toetsingskader voor boa's | 31 beheersingsmaatregelen plus de vijf technische uit bijlage 4 van de NOREA-handreiking | 8 met bewijs, 28 witte vlekken |
 | AVG | 32 artikelen die in een AVG-toets als toetspunt gelden, van de beginselen tot de doorgifte | 6 met bewijs, 26 witte vlekken |

@@ -6,8 +6,8 @@
     "naam": "Centrum Informatiebeveiliging en Privacybescherming (CIP)",
     "versie": "BIO2 v1.3 definitief - 9 januari 2026",
     "herkomst": "security-commons-nl/normen, bio2.json (kopie in bronnen/bio2-overheidsmaatregelen.json)",
-    "vingerafdruk_normen": "1c0b27a8841e2854e7c52aa2d772ef665a6f7221da456c653029d50877ca0260",
-    "commit": "0d2de8b9c460f9fa9e17521006196d7f337e7a4a",
+    "vingerafdruk_normen": "0c6598e63db21a7c9388c6ab56c05e755c1d38c67b4412dbbac78e1746d88a08",
+    "commit": "onbekend",
     "let_op": "Gegenereerd met mappingen/bronnen/genereer_bio2.py uit de kopie van normen. Wijzig de dataset in normen, niet dit bestand."
   },
   "tweede_etiket": {
@@ -46,9 +46,7 @@
       "titel": "Managementverantwoordelijkheden",
       "thema": "Screening, bewustzijn & opleiding",
       "overheidsmaatregelen": [
-        "5.04.01",
-        "5.04.02",
-        "5.04.03"
+        "5.04.01"
       ]
     },
     {
@@ -96,7 +94,9 @@
       "titel": "Aanvaardbaar gebruik van informatie en andere gerelateerde bedrijfsmiddelen",
       "thema": "Bedrijfsmiddelenbeheer",
       "overheidsmaatregelen": [
-        "5.10.01"
+        "5.10.01",
+        "5.10.02",
+        "5.10.03"
       ]
     },
     {
@@ -186,7 +186,10 @@
       "overheidsmaatregelen": [
         "5.20.01",
         "5.20.02",
-        "5.20.03"
+        "5.20.03",
+        "5.20.04",
+        "5.20.05",
+        "5.20.06"
       ]
     },
     {
@@ -196,7 +199,8 @@
       "overheidsmaatregelen": [
         "5.21.02",
         "5.21.03",
-        "5.21.04"
+        "5.21.04",
+        "5.21.05"
       ]
     },
     {
@@ -226,7 +230,6 @@
         "5.24.03",
         "5.24.04",
         "5.24.05",
-        "5.24.06",
         "5.24.07",
         "5.24.08"
       ]
@@ -236,7 +239,7 @@
       "titel": "Beoordelen van en besluiten over informatiebeveiligingsgebeurtenissen",
       "thema": "Security Incident Management",
       "overheidsmaatregelen": [
-        "5.25.01"
+        "5.25.02"
       ]
     },
     {
@@ -244,7 +247,7 @@
       "titel": "Reageren op informatiebeveiligings-incidenten",
       "thema": "Security Incident Management",
       "overheidsmaatregelen": [
-        "5.26.01"
+        "5.26.02"
       ]
     },
     {
@@ -330,6 +333,22 @@
       ]
     },
     {
+      "id": "5.37",
+      "titel": "Gedocumenteerde bedieningsprocedures",
+      "thema": "Wijzigingsbeheer",
+      "overheidsmaatregelen": [
+        "5.37.01"
+      ]
+    },
+    {
+      "id": "6.1",
+      "titel": "Screening",
+      "thema": "Screening, bewustzijn & opleiding",
+      "overheidsmaatregelen": [
+        "6.01.01"
+      ]
+    },
+    {
       "id": "6.2",
       "titel": "Arbeidsovereenkomst",
       "thema": "Screening, bewustzijn & opleiding",
@@ -344,7 +363,8 @@
       "overheidsmaatregelen": [
         "6.03.01",
         "6.03.02",
-        "6.03.03"
+        "6.03.03",
+        "6.03.04"
       ]
     },
     {
@@ -392,7 +412,6 @@
       "titel": "Fysieke beveiligingszones",
       "thema": "Fysieke toegang & beveiliging",
       "overheidsmaatregelen": [
-        "7.01.01",
         "7.01.02"
       ]
     },
@@ -402,6 +421,22 @@
       "thema": "Fysieke toegang & beveiliging",
       "overheidsmaatregelen": [
         "7.02.01"
+      ]
+    },
+    {
+      "id": "7.3",
+      "titel": "Beveiligen van kantoren, ruimten en faciliteiten",
+      "thema": "Fysieke toegang & beveiliging",
+      "overheidsmaatregelen": [
+        "7.03.01"
+      ]
+    },
+    {
+      "id": "7.4",
+      "titel": "Monitoren van de fysieke beveiliging",
+      "thema": "Fysieke toegang & beveiliging",
+      "overheidsmaatregelen": [
+        "7.04.01"
       ]
     },
     {
@@ -556,8 +591,7 @@
         "8.08.02",
         "8.08.03",
         "8.08.04",
-        "8.08.05",
-        "8.08.06"
+        "8.08.05"
       ]
     },
     {
@@ -701,7 +735,10 @@
       "titel": "Gebruik van cryptografie",
       "thema": "Cryptografie",
       "overheidsmaatregelen": [
-        "8.24.01"
+        "8.24.01",
+        "8.24.02",
+        "8.24.04",
+        "8.24.05"
       ]
     },
     {
