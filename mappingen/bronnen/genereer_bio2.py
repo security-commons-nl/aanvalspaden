@@ -1,6 +1,6 @@
 """Maakt bronnen/bio2.json uit de BIO2-kopie van normen (bronnen/bio2-overheidsmaatregelen.json).
 
-De repo normen is de bron: 148 overheidsmaatregelen, genummerd volgens de structuur van
+De repo normen is de bron: 157 nummers uit BIO 2.0 versie 1.3 (117 overheidsmaatregelen), genummerd volgens de structuur van
 ISO 27002:2022 (5.01.01 hoort bij ISO-maatregel 5.1). Hier groeperen we ze per ISO-maatregel, want dat
 is het niveau waarop de mapping wordt gelegd: een barriere levert bewijs voor een maatregel, niet voor
 een enkele overheidsmaatregel daarbinnen.
