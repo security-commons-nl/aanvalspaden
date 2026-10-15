@@ -98,7 +98,11 @@ def verbind(blad, sleutel="test-sleutel"):
 def kies(blad, bron="crown_jewels_csv", tekst=None):
     blad.select_option("#opdracht-keuze", "contract")
     blad.select_option("#bron-keuze", bron)
-    blad.fill("#invoer-tekst", tekst if tekst is not None else "")
+    # fill typt de tekst; een lange invoer duurt dan op een trage runner langer dan de time-out (zo faalde
+    # procescheck op main). Waarde zetten plus het input-event is voor de pagina hetzelfde.
+    blad.eval_on_selector("#invoer-tekst",
+                          "(e, t) => { e.value = t; e.dispatchEvent(new Event('input', {bubbles: true})); }",
+                          tekst if tekst is not None else "")
     blad.check("#toestemming")
 
 
