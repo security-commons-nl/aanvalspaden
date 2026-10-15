@@ -24,7 +24,7 @@ body {
 
 .binnen { max-width: 1180px; margin: 0 auto; padding: 0 1rem; }
 
-header { background: var(--blauw); color: #fff; padding: .8rem 0 1rem; }
+header { background: #0d2b4d; color: #fff; padding: .8rem 0 1rem; }
 header .kruimel { font-size: .82rem; opacity: .85; }
 header .kruimel a { color: #fff; }
 header .naam { font-size: 1.5rem; font-weight: 700; margin-top: .2rem; }
