@@ -7,7 +7,7 @@
   --lijn: #d7dee7;
   --vlak: #f5f8fb;
   --wit: #ffffff;
-  --accent: #1f4e79;
+  --accent: #154273;
   --open: #b3261e;
   --reactive: #b26a00;
   --unknown: #5a6675;
@@ -144,3 +144,7 @@ progress.balk::-moz-progress-bar { background: var(--accent); border-radius: 3px
   .kaart { break-inside: avoid; border: 0; padding: 0; }
   @page { size: A4; margin: 1.5cm; }
 }
+
+/* Huisstijl van de voorpagina op het scherm: letter, kleurtokens en de donkere balk met het kruimelpad.
+   Kopie van INSTRUMENT_CSS uit kennisbank/tools/huisstijl.py; wijzig daar en kopieer opnieuw. */
+@media screen{:root{--inkt:#14202b;--blauw:#154273;--blauw-donker:#0d2b4d;--oranje:#e17000;--vlak:#f4f6f9;--lijn:#dde3ea;--grijs:#4b5563;--sans:system-ui,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif}body,button,input,select,textarea{font-family:var(--sans)}html body .kruimel{background:var(--blauw-donker);color:#c9d6e4;margin:0 0 2.8rem;padding-top:1.05rem;padding-bottom:1.05rem;padding-left:max(var(--kruimel-rand,0px),calc((100% - var(--kruimel-breedte,100%))/2));padding-right:max(var(--kruimel-rand,0px),calc((100% - var(--kruimel-breedte,100%))/2));box-shadow:0 0 0 100vmax var(--blauw-donker);clip-path:inset(-100vmax -100vmax 0 -100vmax);font:14px/1.5 var(--sans)}html body .kruimel a{color:#fff}html body .kruimel span{color:#c9d6e4}}
