@@ -31,3 +31,10 @@ krijgt hier een regel, zodat een uitslag van later nog te plaatsen is tegen de b
   in `normen`, die per maatregel laat zien wat je eraan kunt doen. De normwijzer wijst terug. Op de
   voorpagina van de commons staat sinds 28-09-2026 alleen de normwijzer; deze pagina blijft de weergave
   per barriere. `paden.json` is niet gewijzigd.
+
+## 2026-10
+
+- `mappingen/handelingsperspectief.json`: vier BCM-stukken uit de kennisbank erbij (kennisbank#90): uitwijk regelen
+  (restore, dependencies), het BIA- en risicoanalysesjabloon (critical) en het bedrijfscontinuïteitsplan (crisis), alle
+  als verdieping. De GRC-ronde staat bij owner en treatment nu als verdieping (kennisbank#91); de risicoanalyse langs
+  aanvalspaden is daar de enige fundering. 70 koppelingen. `paden.json` zelf is niet gewijzigd.
