@@ -65,3 +65,11 @@ Elke fout in de browserconsole laat de test falen. Zo kwamen de twee bugs boven 
 Diepte 1 (kroonjuwelen tegen de open paden, bewijs per cel, risicolijst met eigenaar) komt hierbovenop, als
 knop na de uitslag en niet als volgend scherm. De methode staat al beschreven in de kennisbank; zie
 `methode/README.md`.
+
+## De lat (redactiestatuut C5, 29-10-2026)
+
+De voet van de zelfcheck toont de versie van de app (`VERSIE_APP` in `bron/app.js`, bijwerken bij elke wijziging
+van app, stijl of pagina), de versie van de bron (`paden.json`), de status en een link naar de tests in CI.
+De referentie-implementatie van de beoordeling is `tools/score.py`; `tests/test_score.py` en
+`check/tests/test_app.py` houden app en referentie gelijk. Export en import van de antwoorden zaten er al
+(`bewaar`, `laad`, en het inlezen van een export uit de meting).

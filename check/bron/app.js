@@ -3,6 +3,10 @@
 
    De beoordeling is een letterlijke tegenhanger van tools/score.py. Een test vergelijkt beide op
    dezelfde antwoorden, en op een echte doorloop van de zelfcheck waar de bron uit komt. */
+
+/* Versie van de app (statuut C5, 29-10-2026): bijwerken bij elke wijziging van app.js, app.css of index.html.
+   De versie van de bron (paden.json) staat er los naast in de voet. */
+var VERSIE_APP = "2026-10-29";
 (function () {
   "use strict";
 
@@ -513,6 +517,7 @@
     else if (staat.scherm === "vragen") { app.appendChild(vragenScherm()); }
     else { app.appendChild(resultaatScherm()); app.appendChild(beoordelingUitleg()); }
     document.getElementById("versie").textContent = "bron " + BRON.versie;
+    document.getElementById("versie-app").textContent = VERSIE_APP;
   }
 
   /* Haakje voor de tests: dezelfde beoordeling, zonder door de schermen te klikken. */
