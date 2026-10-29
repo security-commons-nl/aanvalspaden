@@ -120,3 +120,14 @@ def test_kruimelpad_wijst_terug_naar_de_hoofdpagina(html):
     assert 'class="kruimel"' in html
     assert 'href="https://security-commons-nl.github.io/"' in html
     assert "Security Commons NL" in html
+
+
+def test_de_lat_staat_in_de_voet(html):
+    """Statuut C5: versie van de app, status en de tests zichtbaar op de pagina, naast de versie van de bron."""
+    bron_js = (CHECK / "bron" / "app.js").read_text(encoding="utf-8")
+    m = re.search(r'var VERSIE_APP = "(\d{4}-\d{2}-\d{2})"', bron_js)
+    assert m, "VERSIE_APP ontbreekt in app.js"
+    assert m.group(1) in html
+    assert 'id="versie-app"' in html
+    assert "status: prototype" in html
+    assert "actions/workflows/ci.yml" in html and "tests in CI" in html
