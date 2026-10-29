@@ -5,7 +5,7 @@
     "kennisbank": "https://security-commons-nl.github.io/kennisbank/",
     "repo": "security-commons-nl/kennisbank",
     "bestand": "handelingsperspectief.json",
-    "sha256": "6e83b478b5fbd1d3eedabf009c1676e8952e337761cba5540ccf9cd5d274b7c8",
+    "sha256": "e7dee33a8c04628d9c771cfedffb27976363a9896e8d43cc48c4b683bc69c8bd",
     "let_op": "De kennisbank is de bron. Klopt deze kopie niet meer, dan draai je dit script opnieuw; hem met de hand bijwerken laat de sha256 achter en verbergt het verschil."
   },
   "handleidingen": [
@@ -108,11 +108,25 @@
       "url": "https://security-commons-nl.github.io/kennisbank/bcm/bia-en-risicoanalyse-sjabloon/"
     },
     {
+      "barriere": "critical",
+      "item": "bcm/risicosessie-per-proces",
+      "titel": "Een risicosessie per kritiek proces, met de proceseigenaar aan tafel",
+      "rol": "verdieping",
+      "url": "https://security-commons-nl.github.io/kennisbank/bcm/risicosessie-per-proces/"
+    },
+    {
       "barriere": "dependencies",
       "item": "security/ketenafhankelijkheden",
       "titel": "Ketenafhankelijkheden in beeld",
       "rol": "fundering",
       "url": "https://security-commons-nl.github.io/kennisbank/security/ketenafhankelijkheden/"
+    },
+    {
+      "barriere": "dependencies",
+      "item": "bcm/risicosessie-per-proces",
+      "titel": "Een risicosessie per kritiek proces, met de proceseigenaar aan tafel",
+      "rol": "verdieping",
+      "url": "https://security-commons-nl.github.io/kennisbank/bcm/risicosessie-per-proces/"
     },
     {
       "barriere": "dependencies",
@@ -143,6 +157,13 @@
       "url": "https://security-commons-nl.github.io/kennisbank/security/meten-voordat-je-ingrijpt/"
     },
     {
+      "barriere": "edr",
+      "item": "governance/hulpmiddelen-toegang-apparatuur-en-leveranciers",
+      "titel": "Zes hulpmiddelen voor apparatuur, toegang en leveranciers",
+      "rol": "verdieping",
+      "url": "https://security-commons-nl.github.io/kennisbank/governance/hulpmiddelen-toegang-apparatuur-en-leveranciers/"
+    },
+    {
       "barriere": "execution",
       "item": "security/werkplekanalyse-e5",
       "titel": "Werkplekanalyse op het Microsoft-platform",
@@ -165,6 +186,13 @@
     },
     {
       "barriere": "execution",
+      "item": "security/ingrijpen-met-checklist",
+      "titel": "Ingrijpen met een checklist, voordat je de knop omzet",
+      "rol": "verdieping",
+      "url": "https://security-commons-nl.github.io/kennisbank/security/ingrijpen-met-checklist/"
+    },
+    {
+      "barriere": "execution",
       "item": "security/meten-voordat-je-ingrijpt",
       "titel": "Meten voordat je ingrijpt",
       "rol": "verdieping",
@@ -176,6 +204,13 @@
       "titel": "Incidentprocedures die je hebt geoefend",
       "rol": "fundering",
       "url": "https://security-commons-nl.github.io/kennisbank/security/incident-response-procedures/"
+    },
+    {
+      "barriere": "exploitresponse",
+      "item": "security/procedures-informatiebeveiliging",
+      "titel": "Acht procedures voor informatiebeveiliging, van incident tot beleidsafwijking",
+      "rol": "alternatief",
+      "url": "https://security-commons-nl.github.io/kennisbank/security/procedures-informatiebeveiliging/"
     },
     {
       "barriere": "fallback",
@@ -353,6 +388,13 @@
       "url": "https://security-commons-nl.github.io/kennisbank/security/leveranciersbeoordeling/"
     },
     {
+      "barriere": "review",
+      "item": "security/procedures-informatiebeveiliging",
+      "titel": "Acht procedures voor informatiebeveiliging, van incident tot beleidsafwijking",
+      "rol": "alternatief",
+      "url": "https://security-commons-nl.github.io/kennisbank/security/procedures-informatiebeveiliging/"
+    },
+    {
       "barriere": "segment",
       "item": "security/netwerksegmentatie",
       "titel": "Netwerksegmentatie",
@@ -451,11 +493,25 @@
       "url": "https://security-commons-nl.github.io/kennisbank/security/pentest-en-exit-bij-leveranciers/"
     },
     {
+      "barriere": "technicalvendor",
+      "item": "governance/hulpmiddelen-toegang-apparatuur-en-leveranciers",
+      "titel": "Zes hulpmiddelen voor apparatuur, toegang en leveranciers",
+      "rol": "verdieping",
+      "url": "https://security-commons-nl.github.io/kennisbank/governance/hulpmiddelen-toegang-apparatuur-en-leveranciers/"
+    },
+    {
       "barriere": "treatment",
       "item": "security/risicoanalyse-aanvalspaden",
       "titel": "Risicoanalyse langs aanvalspaden",
       "rol": "fundering",
       "url": "https://security-commons-nl.github.io/kennisbank/security/risicoanalyse-aanvalspaden/"
+    },
+    {
+      "barriere": "treatment",
+      "item": "security/procedures-informatiebeveiliging",
+      "titel": "Acht procedures voor informatiebeveiliging, van incident tot beleidsafwijking",
+      "rol": "alternatief",
+      "url": "https://security-commons-nl.github.io/kennisbank/security/procedures-informatiebeveiliging/"
     },
     {
       "barriere": "treatment",
@@ -484,6 +540,13 @@
       "titel": "Kwetsbaarheden scannen en opvolgen",
       "rol": "fundering",
       "url": "https://security-commons-nl.github.io/kennisbank/security/kwetsbaarheden-scannen/"
+    },
+    {
+      "barriere": "vuln",
+      "item": "security/procedures-informatiebeveiliging",
+      "titel": "Acht procedures voor informatiebeveiliging, van incident tot beleidsafwijking",
+      "rol": "alternatief",
+      "url": "https://security-commons-nl.github.io/kennisbank/security/procedures-informatiebeveiliging/"
     },
     {
       "barriere": "vuln",
