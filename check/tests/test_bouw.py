@@ -129,5 +129,5 @@ def test_de_lat_staat_in_de_voet(html):
     assert m, "VERSIE_APP ontbreekt in app.js"
     assert m.group(1) in html
     assert 'id="versie-app"' in html
-    assert "status: prototype" in html
+    assert "status: in gebruik" in html
     assert "actions/workflows/ci.yml" in html and "tests in CI" in html

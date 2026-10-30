@@ -2,6 +2,10 @@
 
 Append-only. Datum, besluit, één zin onderbouwing.
 
+- **2026-10-30 · Aanvalspaden heet in gebruik.** De zelfcheck en de meting halen de lat van het
+  redactiestatuut (C5): rekenen in de browser, een referentie met tests (`tools/score.py`, `meting/reken.py`),
+  CI, versie en status op de pagina, export en import, schoon op 375 px. Beide staan in leesroutes op de
+  voorpagina; een prototype in een route spreekt het statuut tegen. De risicoanalyse in de app (diepte 1) volgt nog.
 - **2026-09-03 · De meting krijgt een opt-in AI-hulp, en die beoordeelt nooit.** Op een eigen pagina
   (`/meting/ai/`) zet een taalmodel met de sleutel van de gebruiker een export om naar het kolomcontract
   van een meetregel; toetsen doet de tool daarna zelf, met dezelfde `reken.toets` als bij een gekozen

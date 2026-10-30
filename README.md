@@ -2,10 +2,10 @@
 
 Een instrument in drie diepten: zelfcheck, risicoanalyse en meting, met een gedeelde bron voor de aanvalspaden.
 
-Status: prototype. De bron, de zelfcheck en de meting werken en zijn getest; de risicoanalyse in de app volgt.
+Status: in gebruik. De bron, de zelfcheck en de meting werken, zijn getest en halen de lat van het redactiestatuut (C5); de risicoanalyse in de app volgt.
 
-> **Status: prototype.** De gedeelde bron (`paden.json`), de zelfcheck (diepte 0) en de meting (diepte 2)
-> staan er en worden bewaakt door tests. De zelfcheck is
+> **Status: in gebruik** (sinds 30-10-2026). De gedeelde bron (`paden.json`), de zelfcheck (diepte 0) en de meting
+> (diepte 2) staan er, worden bewaakt door tests en halen de lat van het redactiestatuut (C5). De zelfcheck is
 > [live](https://security-commons-nl.github.io/aanvalspaden/), de meting
 > [ook](https://security-commons-nl.github.io/aanvalspaden/meting/). De risicoanalyse in de app (diepte 1)
 > volgt. Zie [BESLUITEN.md](BESLUITEN.md).
